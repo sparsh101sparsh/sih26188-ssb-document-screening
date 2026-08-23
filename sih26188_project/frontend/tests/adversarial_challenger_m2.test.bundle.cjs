@@ -28577,24 +28577,24 @@ var Header = ({
       clearInterval(interval);
     };
   }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("header", { className: "bg-surface border-b border-line sticky top-0 z-40 px-4 py-2.5 shadow-card", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-3", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("header", { className: "bg-surface border-b border-line sticky top-0 z-40 px-4 py-3 shadow-card", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-3", children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center space-x-3.5", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "relative flex-shrink-0", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/ssb_logo.png", alt: "Sashastra Seema Bal", className: "w-10 h-10 object-contain drop-shadow" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/ssb_logo.png", alt: "Sashastra Seema Bal", className: "w-10 h-10 object-contain drop-shadow-sm" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `relative inline-flex rounded-full h-2.5 w-2.5 ${backendOnline ? "bg-green" : "bg-red"}` }) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "flex items-center space-x-2", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] uppercase font-mono font-bold tracking-widest text-ink-3", children: "Government of India \xB7 Ministry of Home Affairs" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "flex items-center space-x-2", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10.5px] uppercase font-semibold tracking-wider text-ink-3", children: "Government of India \xB7 Ministry of Home Affairs" }) }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center space-x-2", children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { className: "text-base font-bold text-ink tracking-tight", children: "Sashastra Seema Bal (SSB)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-xs font-mono text-ink-3 hidden sm:inline", children: "\xB7 AI Document Screening (SIH26188)" })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-xs text-ink-3 font-medium hidden sm:inline", children: "\xB7 Document Screening Station" })
         ] })
       ] })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center flex-wrap gap-2.5 text-xs", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center bg-inset border border-line rounded-control px-2.5 py-1 text-ink shadow-btn", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center bg-inset border border-line rounded-control px-3 py-1.5 text-ink shadow-btn", children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { className: "w-3.5 h-3.5 text-accent mr-1.5 flex-shrink-0" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-ink-3 mr-1 text-[11px]", children: "Post:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-ink-3 mr-1 text-[11px] font-medium", children: "Post:" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "select",
           {
@@ -28604,9 +28604,7 @@ var Header = ({
               if (found) onSelectCheckpoint(found);
             },
             className: "bg-transparent text-ink font-semibold text-xs focus:outline-none cursor-pointer",
-            children: CHECKPOINTS.map((cp) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("option", { value: cp.id, className: "bg-surface text-ink", children: [
-              cp.id.slice(4),
-              " \xB7 ",
+            children: CHECKPOINTS.map((cp) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("option", { value: cp.id, className: "bg-white text-ink", children: [
               cp.name,
               " (",
               cp.border,
@@ -28615,7 +28613,7 @@ var Header = ({
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center bg-inset border border-line rounded-control px-2.5 py-1 space-x-2 text-[11px] font-mono shadow-btn", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center bg-inset border border-line rounded-control px-3 py-1.5 space-x-2 text-[11.5px] font-medium shadow-btn", children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Smartphone, { className: "w-3.5 h-3.5 text-accent shrink-0" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "span",
@@ -28627,11 +28625,11 @@ var Header = ({
           "span",
           {
             className: `font-semibold ${!backendOnline ? "text-red" : activeDeviceCount > 0 ? "text-green" : "text-orange"}`,
-            children: !backendOnline ? "OFFLINE SIM" : activeDeviceCount === 0 ? "0 FIELD UNITS (OFFLINE)" : `${activeDeviceCount} ${activeDeviceCount === 1 ? "FIELD UNIT" : "FIELD UNITS"} (${deviceLatencyMs ?? backendLatencyMs ?? 0}ms)`
+            children: !backendOnline ? "Offline Simulator" : activeDeviceCount === 0 ? "Waiting for Phone Unit" : `${activeDeviceCount} Phone Camera Connected (${deviceLatencyMs ?? backendLatencyMs ?? 0}ms)`
           }
         ),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-line-strong", children: "|" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-ink-2 font-medium", children: "AIR-GAPPED" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-ink-2", children: "Air-Gapped" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "button",
           {
@@ -28650,9 +28648,9 @@ var Header = ({
           {
             type: "button",
             onClick: onOpenAuditModal,
-            className: "flex items-center space-x-1 bg-accent-tint hover:bg-accent-tint/80 text-accent font-semibold px-2.5 py-1 rounded-control border border-accent/40 transition-colors text-[11px] shadow-btn",
+            className: "flex items-center space-x-1.5 bg-accent text-white font-semibold px-3 py-1.5 rounded-control transition-all text-xs shadow-btn hover:bg-accent-hover",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Shield, { className: "w-3 h-3" }),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Shield, { className: "w-3.5 h-3.5" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Audit Certificate" })
             ]
           }
@@ -28662,20 +28660,13 @@ var Header = ({
           {
             type: "button",
             onClick: onOpenJsonModal,
-            className: "flex items-center space-x-1 bg-inset hover:bg-hover text-ink-2 font-mono px-2.5 py-1 rounded-control border border-line transition-colors text-[11px] shadow-btn",
+            className: "flex items-center space-x-1 bg-inset hover:bg-hover text-ink-2 font-mono px-2.5 py-1.5 rounded-control border border-line transition-colors text-xs shadow-btn",
             children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Database, { className: "w-3 h-3" }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "JSON" })
             ]
           }
         )
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "hidden xl:flex items-center text-ink-3 text-[11px] font-mono bg-inset px-2.5 py-1 rounded-control border border-line shadow-btn", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { className: "w-3 h-3 mr-1 text-ink-3" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-          currentTime.split(" ").slice(4, 5).join(""),
-          " UTC"
-        ] })
       ] })
     ] })
   ] }) });
@@ -28891,11 +28882,11 @@ var RiskScoreCard = ({ assessment }) => {
             showFormula && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "text-[10px] text-ink-2 bg-surface p-1.5 rounded-control mb-2 border border-line font-mono", children: "\u039B_post = \u039B\u2080 + \u03A3 \u0394\u039B\u1D62 \xB7 Score = 100 / (1 + exp(\u2212L_post))" }),
             score_breakdown ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "space-y-1 font-mono text-[11px]", children: [
               [
-                ["Prior Log-Odds (L0)", score_breakdown.base_prior_log_odds],
-                ["Tamper Penalty", score_breakdown.tamper_log_odds_delta],
-                ["Biometric Penalty", score_breakdown.face_log_odds_delta],
-                ["Cross-Val Penalty", score_breakdown.cross_val_log_odds_delta],
-                ["Stamp Penalty", score_breakdown.stamp_log_odds_delta]
+                ["Base Checkpoint Baseline", score_breakdown.base_prior_log_odds],
+                ["Ink / Substrate Tamper Impact", score_breakdown.tamper_log_odds_delta],
+                ["Face Match / Liveness Impact", score_breakdown.face_log_odds_delta],
+                ["Cross-Verification Mismatch", score_breakdown.cross_val_log_odds_delta],
+                ["Border Stamp Irregularity", score_breakdown.stamp_log_odds_delta]
               ].map(([label, val]) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex justify-between text-ink-2", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
                   label,
@@ -28907,13 +28898,13 @@ var RiskScoreCard = ({ assessment }) => {
                 ] })
               ] }, label)),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "border-t border-line pt-1 flex justify-between font-bold text-ink", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Posterior:" }),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Calibrated Threat Risk:" }),
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "text-accent", children: [
-                  (score_breakdown.raw_posterior_probability * 100).toFixed(2),
+                  (score_breakdown.raw_posterior_probability * 100).toFixed(1),
                   "%"
                 ] })
               ] })
-            ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "text-[11px] text-ink-3 font-mono", children: "No decomposition available." })
+            ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "text-[11px] text-ink-3 font-mono", children: "Standard linear assessment." })
           ] })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "bg-inset p-2 rounded-card border border-line flex items-center justify-between text-xs", children: [
@@ -30319,11 +30310,13 @@ var ApprovalCard = ({
     );
   }
   if (submitted) {
+    const confirmationLabel = selectedAction === "AUTO_CLEAR" ? "Traveler Cleared \u2022 Entry Permit Authorized" : selectedAction === "SECONDARY_INSPECTION" ? "Secondary Inspection Order Issued \u2022 Subject Directed to Counter 2" : "Interdiction Order Dispatched \u2022 Detention Protocol Active";
     return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card p-3.5 flex items-center justify-between shadow-card animate-pop-in", children: [
       /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
         /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "flex size-6 items-center justify-center rounded-full bg-green text-surface font-bold", children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Check, { className: "w-3.5 h-3.5" }) }),
         /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("span", { className: "text-xs font-semibold text-ink font-mono", children: [
-          "Interdiction Order Dispatched \u2022 Decision Logged to Tamper-Proof Audit (",
+          confirmationLabel,
+          " \u2022 Logged to Audit (",
           officerBadgeId,
           ")"
         ] })

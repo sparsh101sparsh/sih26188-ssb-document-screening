@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, RefreshCw, Clock, MapPin, Database, Smartphone } from 'lucide-react';
+import { Shield, RefreshCw, MapPin, Database, Smartphone } from 'lucide-react';
 import { CHECKPOINTS, CheckpointInfo } from '../types/api';
 
 interface HeaderProps {
@@ -69,12 +69,12 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   return (
-    <header className="bg-surface border-b border-line sticky top-0 z-40 px-4 py-2.5 shadow-card">
+    <header className="bg-surface border-b border-line sticky top-0 z-40 px-4 py-3 shadow-card">
       <div className="max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-3">
         {/* Left: Official SSB Branding */}
         <div className="flex items-center space-x-3.5">
           <div className="relative flex-shrink-0">
-            <img src="/ssb_logo.png" alt="Sashastra Seema Bal" className="w-10 h-10 object-contain drop-shadow" />
+            <img src="/ssb_logo.png" alt="Sashastra Seema Bal" className="w-10 h-10 object-contain drop-shadow-sm" />
             <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
               <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${backendOnline ? 'bg-green' : 'bg-red'}`} />
             </span>
@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-ink-3">
+              <span className="text-[10.5px] uppercase font-semibold tracking-wider text-ink-3">
                 Government of India · Ministry of Home Affairs
               </span>
             </div>
@@ -90,19 +90,19 @@ export const Header: React.FC<HeaderProps> = ({
               <h1 className="text-base font-bold text-ink tracking-tight">
                 Sashastra Seema Bal (SSB)
               </h1>
-              <span className="text-xs font-mono text-ink-3 hidden sm:inline">
-                · AI Document Screening (SIH26188)
+              <span className="text-xs text-ink-3 font-medium hidden sm:inline">
+                · Document Screening Station
               </span>
             </div>
           </div>
         </div>
 
-        {/* Center / Right: Checkpoint & Consolidated Single Authoritative Status Capsule */}
+        {/* Center / Right: Checkpoint & Consolidated Status Capsule */}
         <div className="flex items-center flex-wrap gap-2.5 text-xs">
           {/* Checkpoint selector */}
-          <div className="flex items-center bg-inset border border-line rounded-control px-2.5 py-1 text-ink shadow-btn">
+          <div className="flex items-center bg-inset border border-line rounded-control px-3 py-1.5 text-ink shadow-btn">
             <MapPin className="w-3.5 h-3.5 text-accent mr-1.5 flex-shrink-0" />
-            <span className="text-ink-3 mr-1 text-[11px]">Post:</span>
+            <span className="text-ink-3 mr-1 text-[11px] font-medium">Post:</span>
             <select
               value={selectedCheckpoint.id}
               onChange={(e) => {
@@ -112,15 +112,15 @@ export const Header: React.FC<HeaderProps> = ({
               className="bg-transparent text-ink font-semibold text-xs focus:outline-none cursor-pointer"
             >
               {CHECKPOINTS.map((cp) => (
-                <option key={cp.id} value={cp.id} className="bg-surface text-ink">
-                  {cp.id.slice(4)} · {cp.name} ({cp.border})
+                <option key={cp.id} value={cp.id} className="bg-white text-ink">
+                  {cp.name} ({cp.border})
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Consolidated Authoritative Status Capsule */}
-          <div className="flex items-center bg-inset border border-line rounded-control px-2.5 py-1 space-x-2 text-[11px] font-mono shadow-btn">
+          {/* Consolidated Status Capsule */}
+          <div className="flex items-center bg-inset border border-line rounded-control px-3 py-1.5 space-x-2 text-[11.5px] font-medium shadow-btn">
             <Smartphone className="w-3.5 h-3.5 text-accent shrink-0" />
             <span
               className={`w-2 h-2 rounded-full shrink-0 ${
@@ -141,13 +141,13 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               {!backendOnline
-                ? 'OFFLINE SIM'
+                ? 'Offline Simulator'
                 : activeDeviceCount === 0
-                ? '0 FIELD UNITS (OFFLINE)'
-                : `${activeDeviceCount} ${activeDeviceCount === 1 ? 'FIELD UNIT' : 'FIELD UNITS'} (${deviceLatencyMs ?? backendLatencyMs ?? 0}ms)`}
+                ? 'Waiting for Phone Unit'
+                : `${activeDeviceCount} Phone Camera Connected (${deviceLatencyMs ?? backendLatencyMs ?? 0}ms)`}
             </span>
             <span className="text-line-strong">|</span>
-            <span className="text-ink-2 font-medium">AIR-GAPPED</span>
+            <span className="text-ink-2">Air-Gapped</span>
             <button
               type="button"
               onClick={onRefreshHealth}
@@ -165,28 +165,22 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={onOpenAuditModal}
-                className="flex items-center space-x-1 bg-accent-tint hover:bg-accent-tint/80 text-accent font-semibold px-2.5 py-1 rounded-control border border-accent/40 transition-colors text-[11px] shadow-btn"
+                className="flex items-center space-x-1.5 bg-accent text-white font-semibold px-3 py-1.5 rounded-control transition-all text-xs shadow-btn hover:bg-accent-hover"
               >
-                <Shield className="w-3 h-3" />
+                <Shield className="w-3.5 h-3.5" />
                 <span>Audit Certificate</span>
               </button>
 
               <button
                 type="button"
                 onClick={onOpenJsonModal}
-                className="flex items-center space-x-1 bg-inset hover:bg-hover text-ink-2 font-mono px-2.5 py-1 rounded-control border border-line transition-colors text-[11px] shadow-btn"
+                className="flex items-center space-x-1 bg-inset hover:bg-hover text-ink-2 font-mono px-2.5 py-1.5 rounded-control border border-line transition-colors text-xs shadow-btn"
               >
                 <Database className="w-3 h-3" />
                 <span>JSON</span>
               </button>
             </>
           )}
-
-          {/* UTC Clock */}
-          <div className="hidden xl:flex items-center text-ink-3 text-[11px] font-mono bg-inset px-2.5 py-1 rounded-control border border-line shadow-btn">
-            <Clock className="w-3 h-3 mr-1 text-ink-3" />
-            <span>{currentTime.split(' ').slice(4, 5).join('')} UTC</span>
-          </div>
         </div>
       </div>
     </header>

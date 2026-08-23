@@ -18,7 +18,7 @@ from typing import Dict
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routers import biometrics, forensics, ocr, scan
+from app.api.routers import biometrics, companion, forensics, ocr, scan
 from app.core.backend_selector import get_hardware_status, get_optimal_execution_providers
 from app.core.config import settings
 from app.core.device_tracker import device_tracker
@@ -147,6 +147,7 @@ app.include_router(ocr.router)
 app.include_router(biometrics.router)
 app.include_router(forensics.router)
 app.include_router(scan.router)
+app.include_router(companion.router)
 
 # Mount backward-compatible alias route for Android client
 app.add_api_route(

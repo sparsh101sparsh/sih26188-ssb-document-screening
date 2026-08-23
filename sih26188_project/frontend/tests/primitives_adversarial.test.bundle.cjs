@@ -28584,11 +28584,13 @@ var ApprovalCard = ({
     );
   }
   if (submitted) {
+    const confirmationLabel = selectedAction === "AUTO_CLEAR" ? "Traveler Cleared \u2022 Entry Permit Authorized" : selectedAction === "SECONDARY_INSPECTION" ? "Secondary Inspection Order Issued \u2022 Subject Directed to Counter 2" : "Interdiction Order Dispatched \u2022 Detention Protocol Active";
     return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card p-3.5 flex items-center justify-between shadow-card animate-pop-in", children: [
       /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
         /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "flex size-6 items-center justify-center rounded-full bg-green text-surface font-bold", children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Check, { className: "w-3.5 h-3.5" }) }),
         /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-xs font-semibold text-ink font-mono", children: [
-          "Interdiction Order Dispatched \u2022 Decision Logged to Tamper-Proof Audit (",
+          confirmationLabel,
+          " \u2022 Logged to Audit (",
           officerBadgeId,
           ")"
         ] })

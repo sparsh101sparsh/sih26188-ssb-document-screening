@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header';
 import { IngestionPanel } from './components/IngestionPanel';
 import { ResultsPanel } from './components/ResultsPanel';
@@ -20,7 +20,22 @@ import {
   CheckCircle2,
   AlertTriangle,
   ShieldAlert,
+  Smartphone,
+  Sparkles,
 } from 'lucide-react';
+
+function dataURLtoFile(dataurl: string, filename: string): File {
+  const arr = dataurl.split(',');
+  const mimeMatch = arr[0].match(/:(.*?);/);
+  const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+}
 
 export function App() {
   const [selectedCheckpoint, setSelectedCheckpoint] = useState<CheckpointInfo>(CHECKPOINTS[0]);
@@ -41,6 +56,10 @@ export function App() {
 
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [isJsonModalOpen, setIsJsonModalOpen] = useState(false);
+
+  // Companion Live Sync State
+  const [companionNotification, setCompanionNotification] = useState<string | null>(null);
+  const [lastSequenceId, setLastSequenceId] = useState<number>(0);
 
   const {
     online: backendOnline,
@@ -103,66 +122,57 @@ export function App() {
     setOfficerDecision(decision);
   };
 
-  const handleScan = async () => {
-    if (!documentPreviewUrl && !documentFile) {
-      alert('Select or drop a document image before scanning.');
-      return;
-    }
+  const executeScreening = useCallback(
+    async (docFile: File | null, docUrl: string | null, faceFile: File | null) => {
+      if (!docUrl && !docFile) return;
 
-    setIsScanning(true);
-    setErrorMessage(null);
-    setOfficerDecision(null);
-    const startTime = performance.now();
+      setIsScanning(true);
+      setErrorMessage(null);
+      setOfficerDecision(null);
+      const startTime = performance.now();
 
-    try {
-      if (backendOnline && documentFile) {
-        const response = await inspectDocument(
-          documentFile,
-          livePhotoFile,
-          selectedCheckpoint.id,
-          transitDate
-        );
-        setScanResult(response);
-        if (response.assessment.heatmap_base64) {
-          setHeatmapImageUrl(`data:image/png;base64,${response.assessment.heatmap_base64}`);
-        }
-      } else {
-        // ~550ms delay simulates 5-pillar neural inference pipeline latency
-        await new Promise((res) => setTimeout(res, 550));
-
-        if (scanResult) {
-          const latency = Math.round(performance.now() - startTime);
-          setScanResult({
-            ...scanResult,
-            assessment: { ...scanResult.assessment, processing_time_ms: latency },
-          });
+      try {
+        if (backendOnline && docFile) {
+          const response = await inspectDocument(
+            docFile,
+            faceFile,
+            selectedCheckpoint.id,
+            transitDate
+          );
+          setScanResult(response);
+          if (response.assessment.heatmap_base64) {
+            setHeatmapImageUrl(`data:image/png;base64,${response.assessment.heatmap_base64}`);
+          }
         } else {
+          await new Promise((res) => setTimeout(res, 500));
+          const latency = Math.round(performance.now() - startTime);
           const makeHash = () =>
             `SHA256:${Array.from({ length: 64 }, () =>
               Math.floor(Math.random() * 16).toString(16)
             ).join('')}`;
-          const latency = Math.round(performance.now() - startTime);
 
           setScanResult({
             session_id: `SSB-INSP-${Date.now().toString().slice(-6)}`,
             status: 'completed',
             assessment: {
-              risk_score: 2.5,
+              risk_score: 3.0,
               risk_level: 'GREEN',
               auto_clear: true,
               tripwire_triggered: false,
               tripwire_codes: [],
               reasons: [
                 'Document substrate and text structure verified authentic.',
-                'Zero pixel splicing detected across forensic tamper passes.',
-                'Live face matches document photograph within confidence bounds.',
+                'Zero pixel tampering or photo splicing detected.',
+                faceFile
+                  ? 'Live traveler facial match verified against document photograph.'
+                  : 'Document photograph extracted and visual integrity confirmed.',
               ],
               cross_validation_violations: [],
               model_versions: {
                 pp_ocr: 'PP-OCRv4-Multilingual',
                 mrz_engine: 'ICAO-9303-v2.1',
-                face_embedder: 'AdaFace-ResNet100-ONNX',
-                tamper_detector: 'DocTamper-ResNet50-DTD',
+                face_embedder: 'AdaFace-ResNet100',
+                tamper_detector: 'DocTamper-ResNet50',
               },
               processing_time_ms: latency,
               audit_hash: makeHash(),
@@ -174,7 +184,7 @@ export function App() {
                 status: 'success',
                 script_detected: 'latin',
                 fields: {
-                  full_name: 'SCREENED TRAVELER',
+                  full_name: 'VERIFIED TRAVELER',
                   document_type: 'PASSPORT',
                   issuing_country: 'IND',
                   document_number: 'Z9018241',
@@ -194,24 +204,24 @@ export function App() {
                 mrz_type: 'TD3',
                 valid: true,
                 raw_lines: [
-                  'P<INDTRAVELER<<SCREENED<<<<<<<<<<<<<<<<<<<<<',
+                  'P<INDTRAVELER<<VERIFIED<<<<<<<<<<<<<<<<<<<<<',
                   'Z9018241<1IND9001011M3001011<<<<<<<<<<<<<<4',
                 ],
                 document_type: 'P',
                 country_code: 'IND',
                 surname: 'TRAVELER',
-                given_names: 'SCREENED',
+                given_names: 'VERIFIED',
                 document_number: 'Z9018241',
                 doc_number_checksum_valid: true,
                 dob_checksum_valid: true,
                 expiry_checksum_valid: true,
                 composite_checksum_valid: true,
                 checksum_failures: [],
-                parsed_fields: { surname: 'TRAVELER', given_names: 'SCREENED', dob: '900101' },
+                parsed_fields: { surname: 'TRAVELER', given_names: 'VERIFIED', dob: '900101' },
                 processing_time_ms: 12.0,
               },
               biometrics: {
-                similarity: 0.84,
+                similarity: 0.86,
                 match: true,
                 threshold: 0.35,
                 embedding_model_used: 'AdaFace-ResNet100',
@@ -223,7 +233,7 @@ export function App() {
                 tamper_score: 0.025,
                 is_tampered: false,
                 photo_region_tampered: false,
-                reasons: ['Substrate within nominal deadband (0.025 < 0.180).'],
+                reasons: ['Substrate within nominal range (0.025 < 0.180).'],
                 detected_anomalies: [],
                 tampered_regions: [],
                 doctamper_score: 0.02,
@@ -243,52 +253,94 @@ export function App() {
                   { rule_id: 'CV-01', rule_description: 'MRZ DOB vs Visual OCR DOB', passed: true, telemetry_message: 'Exact match' },
                   { rule_id: 'CV-02', rule_description: 'MRZ Doc No vs Visual Doc No', passed: true, telemetry_message: 'Exact match' },
                   { rule_id: 'CV-03', rule_description: 'MRZ Name vs Visual Full Name', passed: true, telemetry_message: 'Exact match' },
-                  { rule_id: 'CV-04', rule_description: 'Biometric Apparent Age vs DOB', passed: true, telemetry_message: 'Age consistent' },
+                  { rule_id: 'CV-04', rule_description: 'Biometric Match vs Passport Photo', passed: true, telemetry_message: 'Match Confirmed' },
                   { rule_id: 'CV-05', rule_description: 'Photo Splicing Density', passed: true, telemetry_message: 'Portrait intact' },
-                  { rule_id: 'CV-06', rule_description: 'Text Tamper Probability', passed: true, telemetry_message: 'Clean' },
+                  { rule_id: 'CV-06', rule_description: 'Text Tamper Analysis', passed: true, telemetry_message: 'Clean' },
                   { rule_id: 'CV-07', rule_description: 'Stamp Context Consistency', passed: true, telemetry_message: 'N/A' },
-                  { rule_id: 'CV-08', rule_description: 'Cryptographic Signature', passed: true, telemetry_message: 'Valid' },
+                  { rule_id: 'CV-08', rule_description: 'Cryptographic Security', passed: true, telemetry_message: 'Valid' },
                 ],
                 rules_checked: 8,
                 processing_time_ms: 14.1,
               },
               risk: {
-                risk_score: 2.5,
+                risk_score: 3.0,
                 risk_level: 'GREEN',
                 auto_clear: true,
                 tripwire_triggered: false,
                 tripwire_codes: [],
-                reasons: [
-                  'Document substrate and text structure verified authentic.',
-                  'Zero pixel splicing detected across forensic tamper passes.',
-                  'Live face matches document photograph within confidence bounds.',
-                ],
+                reasons: ['Document and traveler photo pass all screening rules.'],
                 cross_validation_violations: [],
                 model_versions: {
-                  pp_ocr: 'PP-OCRv4-Multilingual',
-                  mrz_engine: 'ICAO-9303-v2.1',
-                  face_embedder: 'AdaFace-ResNet100-ONNX',
-                  tamper_detector: 'DocTamper-ResNet50-DTD',
+                  pp_ocr: 'PP-OCRv4',
+                  mrz_engine: 'ICAO-9303',
+                  face_embedder: 'AdaFace',
+                  tamper_detector: 'DocTamper',
                 },
-                processing_time_ms: latency,
+                processing_time_ms: 14.1,
                 audit_hash: makeHash(),
               },
               processing_time_ms: latency,
             },
           });
         }
+      } catch (err: any) {
+        setErrorMessage(err.message || 'Inspection failed. Please try again.');
+      } finally {
+        setIsScanning(false);
       }
-    } catch (err: any) {
-      console.error('Inspection failed:', err);
-      setErrorMessage(err.message || 'Inspection request failed.');
-    } finally {
-      setIsScanning(false);
-    }
+    },
+    [backendOnline, selectedCheckpoint.id, transitDate]
+  );
+
+  const handleScan = () => {
+    executeScreening(documentFile, documentPreviewUrl, livePhotoFile);
   };
 
+  // Real-Time Companion Camera Polling & Auto-Trigger
+  useEffect(() => {
+    let isMounted = true;
+    const pollCompanion = async () => {
+      try {
+        const res = await fetch('/api/v1/companion/latest');
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.has_capture && data.sequence_id > lastSequenceId) {
+            setLastSequenceId(data.sequence_id);
+            if (data.image_data) {
+              const file = dataURLtoFile(data.image_data, data.filename || 'field_capture.jpg');
+              if (data.capture_type === 'document') {
+                setDocumentFile(file);
+                setDocumentPreviewUrl(data.image_data);
+                setCompanionNotification(`📱 Document Scan received from Field Unit (${data.device_id})`);
+              } else {
+                setLivePhotoFile(file);
+                setLivePhotoPreviewUrl(data.image_data);
+                setCompanionNotification(`📱 Traveler Photo received from Field Unit (${data.device_id}) — Auto-running screening…`);
+
+                // Auto-run screening if document is already loaded
+                if (documentFile || documentPreviewUrl) {
+                  executeScreening(documentFile, documentPreviewUrl, file);
+                }
+              }
+              setTimeout(() => setCompanionNotification(null), 6000);
+            }
+          }
+        }
+      } catch (err) {
+        // silent background poll
+      }
+    };
+
+    const timer = setInterval(pollCompanion, 1500);
+    return () => {
+      isMounted = false;
+      clearInterval(timer);
+    };
+  }, [lastSequenceId, documentFile, documentPreviewUrl, executeScreening]);
+
   return (
-    <div className="min-h-screen bg-page text-ink flex flex-col selection:bg-accent selection:text-white">
-      {/* 1. Tactical Header with Station Status, Health Ping, and Modals */}
+    <div className="min-h-screen bg-page text-ink flex flex-col font-sans selection:bg-accent selection:text-white antialiased">
+      {/* 1. Header Navigation Bar */}
       <Header
         selectedCheckpoint={selectedCheckpoint}
         onSelectCheckpoint={setSelectedCheckpoint}
@@ -301,7 +353,20 @@ export function App() {
         hasScanResult={scanResult !== null}
       />
 
-      {/* 2. Main Ingestion & Reactive Screening Command Station */}
+      {/* Companion Real-Time Synced Notification Toast */}
+      {companionNotification && (
+        <div className="max-w-[1700px] w-full mx-auto px-4 pt-3">
+          <div className="bg-accent text-white px-4 py-2.5 rounded-card shadow-raised flex items-center justify-between text-xs font-semibold animate-fade-up">
+            <div className="flex items-center space-x-2">
+              <Smartphone className="w-4 h-4 animate-bounce" />
+              <span>{companionNotification}</span>
+            </div>
+            <span className="text-[11px] opacity-80 font-mono">Real-time Live Sync</span>
+          </div>
+        </div>
+      )}
+
+      {/* 2. Main Workstation */}
       <main className="flex-1 max-w-[1700px] w-full mx-auto p-3.5 sm:p-5 space-y-4">
         <OfflineWarningBanner
           backendOnline={backendOnline}
@@ -310,26 +375,24 @@ export function App() {
         />
 
         {errorMessage && (
-          <div
-            className="bg-red-bg border border-red/40 rounded-card p-3 text-xs text-ink flex items-center space-x-2 animate-fade-up shadow-card"
-          >
+          <div className="bg-red-bg border border-red/40 rounded-card p-3.5 text-xs text-red font-medium flex items-center space-x-2 animate-fade-up shadow-card">
             <AlertCircle className="w-4 h-4 text-red flex-shrink-0" />
             <span>{errorMessage}</span>
           </div>
         )}
 
-        {/* Tactical Officer Decision Alert Banner */}
+        {/* Officer Decision Confirmation Banner */}
         {officerDecision && (
           <div
-            className={`rounded-card p-3 border flex flex-wrap items-center justify-between gap-2 text-xs font-mono animate-pop-in ${
+            className={`rounded-card p-3.5 border flex flex-wrap items-center justify-between gap-2 text-xs font-mono animate-pop-in ${
               officerDecision.action === 'AUTO_CLEAR'
-                ? 'bg-green-tint border-green/30 text-green'
+                ? 'bg-green-bg border-green/30 text-green'
                 : officerDecision.action === 'SECONDARY_INSPECTION'
-                ? 'bg-orange-tint border-orange/30 text-orange'
-                : 'bg-red-tint border-red/30 text-red'
+                ? 'bg-orange-bg border-orange/30 text-orange'
+                : 'bg-red-bg border-red/30 text-red'
             }`}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               {officerDecision.action === 'AUTO_CLEAR' ? (
                 <CheckCircle2 className="w-4 h-4 text-green shrink-0" />
               ) : officerDecision.action === 'SECONDARY_INSPECTION' ? (
@@ -339,10 +402,10 @@ export function App() {
               )}
               <div>
                 <span className="font-bold uppercase tracking-wider block">
-                  Officer Action Logged: {officerDecision.action}
+                  Officer Decision: {officerDecision.action}
                 </span>
                 <span className="text-[11px] opacity-90 block">
-                  Badge ID: {officerDecision.badgeId} · Reason: {officerDecision.officerNotes || officerDecision.reason}
+                  Badge: {officerDecision.badgeId} · Notes: {officerDecision.officerNotes || officerDecision.reason}
                 </span>
               </div>
             </div>
@@ -353,9 +416,9 @@ export function App() {
               <button
                 type="button"
                 onClick={() => setIsAuditModalOpen(true)}
-                className="rounded-control bg-surface px-2.5 py-1 text-[11px] font-semibold text-ink shadow-btn border border-line hover:bg-hover transition-colors"
+                className="rounded-control bg-surface px-3 py-1 text-[11px] font-semibold text-ink shadow-btn border border-line hover:bg-hover transition-colors"
               >
-                View Signed Certificate
+                View Audit Certificate
               </button>
             </div>
           </div>
@@ -394,14 +457,14 @@ export function App() {
         )}
       </main>
 
-      {/* 3. Air-Gapped Compliance & Tactical Security Footer */}
-      <footer className="bg-surface border-t border-line px-4 py-2.5 text-[11px] text-ink-3 font-mono text-center">
+      {/* 3. Footer */}
+      <footer className="bg-surface border-t border-line px-4 py-3 text-[11.5px] text-ink-3 text-center">
         <div className="max-w-[1700px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <Lock className="w-3 h-3 text-ink-3" />
+            <Lock className="w-3.5 h-3.5 text-ink-3" />
             <span>CONFIDENTIAL • FOR OFFICIAL DEFENSE & IMMIGRATION SCREENING USE ONLY</span>
           </div>
-          <span>DPDP ACT 2023 & AADHAAR ACT COMPLIANT • ZERO RAW BIOMETRIC RETENTION</span>
+          <span>DPDP ACT 2023 COMPLIANT • ZERO PERMANENT BIOMETRIC RETENTION</span>
         </div>
       </footer>
 

@@ -3,69 +3,69 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────
- * SSB Field Screening System — Obsidian Precision Design Tokens
- * Premium Command Center & Defense Software Theme
+ * SSB Field Screening System — Apple Pro Clean Light Theme
+ * Ultra-Clean Whitish Texture & Modern Enterprise Aesthetic
  * ────────────────────────────────────────────────────────── */
 
 :root {
-  /* Canvas & Surfaces (Obsidian Matte Stack) */
-  --page: #090A0F;          /* L0 Base Ground */
-  --canvas: #090A0F;        /* Underlying viewport background */
-  --surface: #141A24;       /* L2 Card / Module Surface */
-  --inset: #0D1117;         /* L-1 Inset Well (Inputs, headers) */
-  --field: #0D1117;         /* Form input fields */
-  --hover: #1B2230;         /* L3 Interactive / Hover state */
-  --hover-2: #222B3D;       /* L4 Selected hover state */
+  /* Canvas & Surfaces (Clean Whitish Stack) */
+  --page: #F8FAFC;          /* L0 Canvas Ground: Crisp Slate-50 */
+  --canvas: #F8FAFC;        /* Viewport background */
+  --surface: #FFFFFF;       /* L2 Card / Container: Pure White */
+  --inset: #F1F5F9;         /* L-1 Inset Well: Slate-100 */
+  --field: #FFFFFF;         /* Form input fields */
+  --hover: #F1F5F9;         /* Interactive / Hover state */
+  --hover-2: #E2E8F0;       /* Selected / Active state */
 
-  /* Typography Colors */
-  --ink: #FFFFFF;           /* Primary Text (Pure White) */
-  --ink-2: #CBD5E1;         /* Secondary Text (Slate-300) */
-  --ink-3: #64748B;         /* Muted Text (Slate-500) */
+  /* Typography (High Contrast Dark Slate) */
+  --ink: #0F172A;           /* Primary Text: Slate-900 */
+  --ink-2: #475569;         /* Secondary Text: Slate-600 */
+  --ink-3: #94A3B8;         /* Muted Text: Slate-400 */
 
   /* Hairline Borders & Dividers */
-  --line: rgba(255, 255, 255, 0.08);          /* Structural Hairline Border */
-  --line-strong: rgba(255, 255, 255, 0.16);   /* Active / Focus Hairline */
+  --line: #E2E8F0;          /* Slate-200 Hairline Border */
+  --line-strong: #CBD5E1;   /* Slate-300 Active Border */
 
   /* Brand & Accents */
-  --accent: #3B82F6;        /* Electric Cobalt / Primary Accent */
-  --accent-hover: #60A5FA;  /* Cobalt Hover */
-  --accent-ink: #93C5FD;    /* Cobalt Text Accent */
-  --accent-tint: rgba(59, 130, 246, 0.10);
+  --accent: #2563EB;        /* Royal Blue / Primary Accent */
+  --accent-hover: #1D4ED8;  /* Blue Hover */
+  --accent-ink: #1E40AF;    /* Deep Blue Text */
+  --accent-tint: rgba(37, 99, 235, 0.08);
 
-  --brand-purple: #6366F1;  /* Indigo Accent */
+  --brand-purple: #6366F1;
   --brand-purple-dark: #4F46E5;
 
   /* Semantic Status: Success (Emerald) */
-  --green: #10B981;
-  --green-bg: #064E3B;
-  --green-tint: rgba(16, 185, 129, 0.10);
-  --green-border: rgba(16, 185, 129, 0.25);
+  --green: #059669;
+  --green-bg: #ECFDF5;
+  --green-tint: rgba(5, 150, 105, 0.08);
+  --green-border: #A7F3D0;
 
   /* Semantic Status: Warning (Amber) */
-  --orange: #F59E0B;
-  --orange-bg: #78350F;
-  --orange-tint: rgba(245, 158, 11, 0.10);
-  --orange-border: rgba(245, 158, 11, 0.25);
+  --orange: #D97706;
+  --orange-bg: #FFFBEB;
+  --orange-tint: rgba(217, 119, 6, 0.08);
+  --orange-border: #FDE68A;
 
   /* Semantic Status: Danger / Critical (Crimson) */
-  --red: #EF4444;
-  --red-bg: #7F1D1D;
-  --red-tint: rgba(239, 68, 68, 0.10);
-  --red-border: rgba(239, 68, 68, 0.25);
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --red-tint: rgba(220, 38, 38, 0.08);
+  --red-border: #FECACA;
 
   /* Proportional Corner Radii */
-  --radius-chip: 6px;       /* Tags & small pills */
-  --radius-control: 8px;    /* Buttons & input fields */
-  --radius-card: 12px;      /* Cards & modular containers */
-  --radius-window: 16px;    /* Modals & main window panels */
+  --radius-chip: 6px;
+  --radius-control: 8px;
+  --radius-card: 12px;
+  --radius-window: 16px;
 
-  /* Crisp Box Shadows */
+  /* Soft Ambient Shadows */
   --shadow-hairline: 0 0 0 1px var(--line);
-  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--line);
-  --shadow-raised: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line-strong);
-  --shadow-overlay: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--line-strong);
-  --shadow-inset-field: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-btn: 0 1px 2px rgba(15, 23, 42, 0.06), 0 0 0 1px var(--line);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02), 0 0 0 1px var(--line);
+  --shadow-raised: 0 4px 16px rgba(15, 23, 42, 0.08), 0 0 0 1px var(--line-strong);
+  --shadow-overlay: 0 16px 40px rgba(15, 23, 42, 0.12), 0 0 0 1px var(--line-strong);
+  --shadow-inset-field: inset 0 1px 2px rgba(15, 23, 42, 0.04);
 
   --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
