@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "identifier": "gov.mha.ssb.screening",
   "build": {
-    "beforeBuildCommand": "npm --prefix ../frontend run build",
+    "beforeBuildCommand": "npm --prefix frontend run build",
     "devUrl": "http://localhost:3000",
     "frontendDist": "../frontend/dist"
   },

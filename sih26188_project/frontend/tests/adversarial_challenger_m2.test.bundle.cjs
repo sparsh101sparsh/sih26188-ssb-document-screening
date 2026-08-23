@@ -28701,7 +28701,7 @@ var RiskStatusBanner = ({ assessment }) => {
   const { risk_level, risk_score, auto_clear, tripwire_triggered, tripwire_codes } = assessment;
   const cfg = LEVEL_CONFIG[risk_level] ?? LEVEL_CONFIG.GREEN;
   const { Icon: Icon2 } = cfg;
-  const subtitle = risk_level === "RED" ? tripwire_triggered ? "Deterministic Stage 1 tripwire triggered \u2014 critical cryptographic or identity breach." : "Compounding multi-modal forensic anomalies exceeded critical risk threshold." : cfg.subtitle;
+  const subtitle = risk_level === "RED" ? tripwire_triggered ? "Deterministic Critical Verification Trigger activated \u2014 critical cryptographic or identity breach." : "Compounding multi-modal forensic anomalies exceeded critical risk threshold." : cfg.subtitle;
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
     "div",
     {
@@ -28725,7 +28725,7 @@ var RiskStatusBanner = ({ assessment }) => {
                 ] }),
                 tripwire_triggered && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "text-[11px] font-mono font-bold bg-red text-white px-2.5 py-0.5 rounded-chip flex items-center gap-1 shadow-btn", children: [
                   /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Zap, { className: "w-3 h-3 fill-white text-white" }),
-                  " Stage 1 tripwire"
+                  " Critical Trigger"
                 ] })
               ] }),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { className: "text-xl md:text-2xl font-black tracking-tight text-ink uppercase", children: cfg.title }),
@@ -28734,7 +28734,7 @@ var RiskStatusBanner = ({ assessment }) => {
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 md:border-l border-line pt-3 md:pt-0 md:pl-4", children: [
             /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "text-left md:text-right", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10px] uppercase tracking-wider text-ink-3 font-semibold block", children: "Risk Score" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10px] uppercase tracking-wider text-ink-3 font-semibold block", children: "Threat Risk Level" }),
               /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-baseline space-x-1", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `text-3xl md:text-4xl font-black font-mono ${cfg.textClass}`, children: risk_score.toFixed(1) }),
                 /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-xs text-ink-3 font-mono", children: "/ 100" })
@@ -28746,7 +28746,7 @@ var RiskStatusBanner = ({ assessment }) => {
         tripwire_triggered && tripwire_codes.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "mt-3.5 pt-3 border-t border-red/40 bg-red-tint/60 -mx-4 -mb-4 p-3 rounded-b-card", children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-1.5 text-xs font-bold text-red mb-2", children: [
             /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Zap, { className: "w-4 h-4 text-orange" }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Stage 1 Hard Tripwire Assertions (instant RED override):" })
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Critical Verification Triggers (instant RED override):" })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("ul", { className: "space-y-1", children: tripwire_codes.map((code, idx) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
             "li",
@@ -28767,29 +28767,6 @@ var RiskStatusBanner = ({ assessment }) => {
 
 // src/components/RiskScoreCard.tsx
 var import_react4 = __toESM(require_react(), 1);
-
-// src/utils/formatting.ts
-function formatPercent(value, decimals = 1) {
-  if (value === void 0 || value === null || isNaN(value)) return "N/A";
-  return `${(value * 100).toFixed(decimals)}%`;
-}
-function formatLatency(ms) {
-  if (ms === void 0 || ms === null || isNaN(ms)) return "0 ms";
-  if (ms >= 1e3) {
-    return `${(ms / 1e3).toFixed(2)} s`;
-  }
-  return `${Math.round(ms)} ms`;
-}
-function maskAadhaar(raw) {
-  if (!raw) return "N/A";
-  const clean = raw.replace(/\s+/g, "").replace(/-/g, "");
-  if (clean.length === 12) {
-    return `XXXX-XXXX-${clean.slice(8)}`;
-  }
-  return raw;
-}
-
-// src/components/RiskScoreCard.tsx
 var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var RiskScoreCard = ({ assessment }) => {
   const [copiedHash, setCopiedHash] = (0, import_react4.useState)(false);
@@ -28815,11 +28792,15 @@ var RiskScoreCard = ({ assessment }) => {
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2.5 mb-3", children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center space-x-2", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Gauge, { className: "w-4 h-4 text-accent" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Bayesian Risk Calibration" })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Threat Level & Risk Calibration" })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center space-x-1.5 text-[11px] font-mono bg-inset px-2 py-1 rounded-control border border-line text-ink-2 shadow-btn", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Clock, { className: "w-3 h-3 text-ink-3" }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: formatLatency(processing_time_ms) })
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { children: [
+              "Screening Duration: ",
+              ((processing_time_ms || 350) / 1e3).toFixed(1),
+              "s"
+            ] })
           ] })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-3", children: [
@@ -28857,20 +28838,20 @@ var RiskScoreCard = ({ assessment }) => {
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center", children: [
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-3xl font-black font-mono tracking-tight text-ink", children: score.toFixed(1) }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[10px] uppercase font-bold text-ink-2 tracking-wider", children: risk_level })
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[10px] uppercase font-bold text-ink-2 tracking-wider", children: risk_level === "GREEN" ? "LOW RISK" : risk_level === "AMBER" ? "MODERATE RISK" : "CRITICAL THREAT" })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex justify-between w-full max-w-[170px] text-[10px] font-mono text-ink-3 px-1 mt-[-8px]", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "0 PASS" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "0 LOW" }),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "30" }),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "70" }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "100 FAIL" })
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "100 HIGH" })
             ] })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line text-xs", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center justify-between mb-2", children: [
               /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1 font-mono", children: [
                 /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Sigma, { className: "w-3.5 h-3.5 text-accent" }),
-                "Log-Odds Decomposition"
+                "Risk Factor Decomposition"
               ] }),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                 "button",
@@ -29250,7 +29231,7 @@ var ForensicsViewer = ({
                     )
                   ] }),
                   /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "text-[10px] font-mono text-ink-3 uppercase mb-1", children: "DocTamper & TruFor Heatmap" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "text-[10px] font-mono text-ink-3 uppercase mb-1", children: "Tamper & Splicing Heatmap" }),
                     sanitizedHeatmapUrl ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
                       "img",
                       {
@@ -29304,6 +29285,20 @@ var ForensicsViewer = ({
 // src/components/PillarsTable.tsx
 var import_react7 = __toESM(require_react(), 1);
 
+// src/utils/formatting.ts
+function formatPercent(value, decimals = 1) {
+  if (value === void 0 || value === null || isNaN(value)) return "N/A";
+  return `${(value * 100).toFixed(decimals)}%`;
+}
+function maskAadhaar(raw) {
+  if (!raw) return "N/A";
+  const clean = raw.replace(/\s+/g, "").replace(/-/g, "");
+  if (clean.length === 12) {
+    return `XXXX-XXXX-${clean.slice(8)}`;
+  }
+  return raw;
+}
+
 // src/components/PillarOCR.tsx
 var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
 var PillarOCR = ({ ocr }) => {
@@ -29323,12 +29318,12 @@ var PillarOCR = ({ ocr }) => {
         /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-xs font-bold font-mono text-accent", children: formatPercent(mean_confidence) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "VLM Quality Gate" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Enhanced Scan Gate" }),
         /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
           "span",
           {
             className: `text-xs font-bold font-mono ${requires_tier2_vlm ? "text-orange" : "text-ink-3"}`,
-            children: requires_tier2_vlm ? "TRIGGERED (Qwen2.5-VL)" : "BYPASS (PP-OCR PASS)"
+            children: requires_tier2_vlm ? "TRIGGERED (ENHANCED SCAN)" : "STANDARD VERIFIED (PASS)"
           }
         )
       ] })
@@ -29496,7 +29491,7 @@ var PillarBiometrics = ({ biometrics, liveness }) => {
     return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "bg-inset p-6 rounded-card border border-line text-center space-y-2", children: [
       /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(UserCheck, { className: "w-8 h-8 text-ink-3 mx-auto" }),
       /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("h4", { className: "text-xs font-bold text-ink font-mono uppercase", children: "No Biometric Data Available" }),
-      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "Capture a live face photograph using WebCam to evaluate 1:1 AdaFace similarity and MiniFASNet presentation attack detection." })
+      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "Capture a live face photograph using WebCam to evaluate 1:1 face match similarity and live selfie presentation verification." })
     ] });
   }
   return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
@@ -29504,7 +29499,7 @@ var PillarBiometrics = ({ biometrics, liveness }) => {
       /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
         /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center space-x-2", children: [
           /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(UserCheck, { className: "w-4 h-4 text-accent" }),
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "font-bold text-ink font-mono", children: "AdaFace-ResNet100 1:1 Cosine Verification" })
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "font-bold text-ink font-mono", children: "Facial Biometric Matcher \xB7 1:1 Identity Verification" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
           "span",
@@ -29516,7 +29511,7 @@ var PillarBiometrics = ({ biometrics, liveness }) => {
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
         /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Cosine Similarity" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Face Match Confidence" }),
           /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
             "span",
             {
@@ -29530,7 +29525,7 @@ var PillarBiometrics = ({ biometrics, liveness }) => {
           /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: biometrics.threshold.toFixed(2) })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Apparent Age Drift" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Age Validation" }),
           /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: biometrics.age_drift_years !== null && biometrics.age_drift_years !== void 0 ? `${biometrics.age_drift_years} yrs` : "0 yrs" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
@@ -29549,7 +29544,7 @@ var PillarBiometrics = ({ biometrics, liveness }) => {
       /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
         /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center space-x-2", children: [
           /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Activity, { className: "w-4 h-4 text-green" }),
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "font-bold text-ink font-mono", children: "MiniFASNetV2-SE Dual-Scale Anti-Spoofing" })
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "font-bold text-ink font-mono", children: "Selfie Liveness & Anti-Spoofing Check" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
           "span",
@@ -29561,7 +29556,7 @@ var PillarBiometrics = ({ biometrics, liveness }) => {
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
         /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Liveness Score" }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Selfie Liveness Check" }),
           /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
             "span",
             {
@@ -29641,7 +29636,7 @@ var PillarForensics = ({ forensics }) => {
         /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "tau_adapt = 0.180" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "DocTamper ResNet-50" }),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Digital Text Tamper Detector" }),
         /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
           "span",
           {
@@ -29652,7 +29647,7 @@ var PillarForensics = ({ forensics }) => {
         /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Text Scraping / Inpainting" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "TruFor SegFormer-B0" }),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Photo Splicing Localization" }),
         /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
           "span",
           {
@@ -29660,7 +29655,7 @@ var PillarForensics = ({ forensics }) => {
             children: formatPercent(trufor_score)
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Noiseprint++ Splicing" })
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Substrate Boundary Splicing" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
         /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Portrait Window Splicing" }),
@@ -29677,7 +29672,7 @@ var PillarForensics = ({ forensics }) => {
       /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-2", children: [
         /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: "flex items-center justify-between border-b border-line pb-1.5", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1.5 font-mono", children: [
           /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Layers, { className: "w-3.5 h-3.5 text-accent" }),
-          "Classical ELA (Q90 x20 Error)"
+          "Substrate Compression Analysis"
         ] }) }),
         /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "grid grid-cols-2 gap-2 font-mono text-[11px]", children: [
           /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { children: [
@@ -29802,7 +29797,7 @@ var PillarStamp = ({ stamp }) => {
             children: tamper_energy !== null && tamper_energy !== void 0 ? tamper_energy.toFixed(3) : "0.000"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "DocTamper Seal Mask" })
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Ink Tamper Mask" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
         /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Route & Date" }),
@@ -29813,7 +29808,7 @@ var PillarStamp = ({ stamp }) => {
             children: context_consistent ? "CONSISTENT" : "ROUTE MISMATCH"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Rule CV-07" })
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Registry Verification" })
       ] })
     ] }),
     reasons && reasons.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-1", children: [
@@ -29829,38 +29824,38 @@ var PillarsTable = ({ scanDetails }) => {
   const [activeTab, setActiveTab] = (0, import_react7.useState)("all");
   const { ocr, mrz, biometrics, liveness, forensics, stamp } = scanDetails;
   const tabs = [
-    { id: "all", label: "All 5 Pillars", icon: Grid3x3 },
+    { id: "all", label: "All Verification Checks", icon: Grid3x3 },
     {
       id: "ocr",
-      label: "1. OCR & QR PKI",
+      label: "1. Text & QR Check",
       icon: FileText,
       badge: ocr.qr_payload?.signature_valid === false ? "SIG FAIL" : void 0,
       badgeColor: "bg-red-tint text-red border-red/40"
     },
     {
       id: "mrz",
-      label: "2. ICAO MRZ",
+      label: "2. Document Format",
       icon: CreditCard,
       badge: mrz.mrz_detected ? mrz.valid ? "VALID" : "FAIL" : void 0,
       badgeColor: mrz.valid ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"
     },
     {
       id: "biometrics",
-      label: "3. Biometrics & FAS",
+      label: "3. Face Match & Liveness",
       icon: UserCheck,
       badge: liveness?.is_live === false ? "SPOOF" : biometrics?.match ? "MATCH" : void 0,
       badgeColor: liveness?.is_live === false ? "bg-red-tint text-red border-red/40" : "bg-green-tint text-green border-green/40"
     },
     {
       id: "forensics",
-      label: "4. Forensics & ELA",
+      label: "4. Ink & Substrate Integrity",
       icon: Microscope,
       badge: forensics.is_tampered ? "TAMPERED" : "CLEAN",
       badgeColor: forensics.is_tampered ? "bg-red-tint text-red border-red/40" : "bg-green-tint text-green border-green/40"
     },
     {
       id: "stamp",
-      label: "5. Border Stamp",
+      label: "5. Border Permit Stamp",
       icon: Stamp,
       badge: stamp?.stamp_found ? stamp.verdict : void 0,
       badgeColor: stamp?.verdict === "AUTHENTIC" ? "bg-green-tint text-green border-green/40" : "bg-orange-tint text-orange border-orange/40"
@@ -29899,35 +29894,35 @@ var PillarsTable = ({ scanDetails }) => {
           /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
             /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
               /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(FileText, { className: "w-4 h-4" }),
-              " Pillar 1: Multilingual OCR & Aadhaar QR Cryptography"
+              " Check 1: Text Extraction & QR Verification"
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(PillarOCR, { ocr })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
             /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
               /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(CreditCard, { className: "w-4 h-4" }),
-              " Pillar 2: ICAO Doc 9303 MRZ Checksum Validator"
+              " Check 2: Document Format & Security Checksums"
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(PillarMRZ, { mrz })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
             /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
               /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(UserCheck, { className: "w-4 h-4" }),
-              " Pillar 3: AdaFace Biometric Matching & MiniFASNet FAS"
+              " Check 3: Face Match & Selfie Liveness Check"
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(PillarBiometrics, { biometrics, liveness })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
             /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
               /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(Microscope, { className: "w-4 h-4" }),
-              " Pillar 4: DocTamper DTD, TruFor Splicing & Classical ELA"
+              " Check 4: Ink, Tamper & Substrate Integrity"
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(PillarForensics, { forensics })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
             /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
               /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(Stamp, { className: "w-4 h-4" }),
-              " Pillar 5: 4-Stage SSB Border Stamp Authentication"
+              " Check 5: Border Permit Stamp Verification"
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(PillarStamp, { stamp })
           ] })
@@ -30411,12 +30406,12 @@ var import_react_dom = __toESM(require_react_dom(), 1);
 var import_jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
 var DEFAULT_TELEMETRY = [
   {
-    name: "PP-OCRv4 Multilingual Engine",
-    label: "PP-OCRv4",
+    name: "Multilingual Text & QR Engine",
+    label: "Text & QR",
     status: "completed",
     durationMs: 28,
     confidence: 0.98,
-    modelVersion: "v4.1.0-onnx",
+    modelVersion: "text-qr-v4",
     chip: "extract_fields.onnx",
     icon: "ocr",
     detailLines: [
@@ -30425,49 +30420,49 @@ var DEFAULT_TELEMETRY = [
     ]
   },
   {
-    name: "DocTamper ResNet-50 Forensics",
-    label: "DocTamper DTD",
+    name: "Digital Text Tamper Detector",
+    label: "Tamper Inspector",
     status: "failed",
     durationMs: 110,
     confidence: 0.88,
-    modelVersion: "v2.4-mps",
+    modelVersion: "tamper-dtd-v2",
     chip: "tamper_heatmap.pt",
     icon: "forensics",
     detailLines: [
       { text: "\u2715 Photo splice anomaly detected on upper-left document quadrant", tone: "del" },
-      { text: "+ DocForge adaptive threshold triggered \u03C4 = 0.18 (Observed: 0.88)", tone: "add" }
+      { text: "+ Adaptive threshold triggered \u03C4 = 0.18 (Observed: 0.88)", tone: "add" }
     ]
   },
   {
-    name: "AdaFace Cosine Biometric Matcher",
-    label: "AdaFace-R100",
+    name: "Facial Biometric Matcher",
+    label: "Face Matcher",
     status: "completed",
     durationMs: 48,
     confidence: 0.74,
-    modelVersion: "resnet100-onnx",
+    modelVersion: "biometric-v1",
     chip: "face_align_112.onnx",
     icon: "face",
     detailLines: [
-      { text: "\u2713 Umeyama 5-point affine canonical alignment to 112\xD7112" },
-      { text: "\u2713 Cosine similarity 0.74 exceeds security threshold (0.35)" }
+      { text: "\u2713 Canonical facial alignment to 112\xD7112" },
+      { text: "\u2713 Face match confidence 0.74 exceeds security threshold (0.35)" }
     ]
   },
   {
-    name: "MiniFASNetV2 Anti-Spoofing",
-    label: "MiniFASNetV2-SE",
+    name: "Live Selfie Presentation Checker",
+    label: "Liveness Check",
     status: "completed",
     durationMs: 32,
     confidence: 0.99,
-    modelVersion: "fas-se-v2",
+    modelVersion: "liveness-v2",
     chip: "liveness_dual_scale.onnx",
     icon: "face",
     detailLines: [
       { text: "\u2713 Dual-scale crops (2.7\xD7 & 4.0\xD7) evaluated for 2D print / screen replay" },
-      { text: "\u2713 Live presentation verified (Liveness confidence: 99.1%)" }
+      { text: "\u2713 Live presentation verified (Selfie liveness check: 99.1%)" }
     ]
   },
   {
-    name: "4-Stage SSB Border Transit Stamp Verifier",
+    name: "Border Transit Permit Stamp Verifier",
     label: "Stamp Verifier",
     status: "completed",
     durationMs: 24,
@@ -31010,7 +31005,7 @@ var ResultsPanel = ({
     const steps = [
       {
         id: "ocr",
-        name: "PP-OCRv4 Multilingual OCR & UIDAI QR Engine",
+        name: "Multilingual Text & QR Extraction Engine",
         category: "OCR",
         status: ocrSuccess ? "completed" : "failed",
         latencyMs: Math.round(ocrProcessingTime),
@@ -31019,34 +31014,34 @@ var ResultsPanel = ({
       },
       {
         id: "mrz",
-        name: "ICAO Doc 9303 Modulo-10 Checksum Validator",
+        name: "Document Format & Security Checksum Validator",
         category: "MRZ",
         status: mrzSuccess ? "completed" : "failed",
         latencyMs: Math.round(mrzProcessingTime),
         confidence: details?.mrz?.valid ? 1 : 0.45,
-        details: details?.mrz?.mrz_detected ? details.mrz.valid ? "All 4 Check Digits Valid (7-3-1 weighting on CD1..CD4)" : `Checksum Failure: ${details.mrz.checksum_failures.join(", ") || "CD1 Mismatch"}` : "Bypassed (No MRZ band on PVC card substrate)"
+        details: details?.mrz?.mrz_detected ? details.mrz.valid ? "All Check Digits Valid (Security checksum verified)" : `Checksum Failure: ${details.mrz.checksum_failures.join(", ") || "CD1 Mismatch"}` : "Bypassed (Non-MRZ document format)"
       },
       {
         id: "biometrics",
-        name: "AdaFace Cosine Matcher & Umeyama 5-Pt Align",
+        name: "Facial Biometric Matcher & Anti-Spoofing",
         category: "BIOMETRICS",
         status: biometricsSuccess && livenessSuccess ? "completed" : "failed",
         latencyMs: Math.round(bioProcessingTime + liveProcessingTime),
         confidence: details?.biometrics?.similarity ?? 0.84,
-        details: details?.biometrics ? `Cosine: ${details.biometrics.similarity.toFixed(2)} (Thresh: ${details.biometrics.threshold.toFixed(2)}) \u2022 ${livenessSuccess ? "Live Face Confirmed" : "Spoof Attack Flagged"}` : "Biometric Face Ingested & Verified"
+        details: details?.biometrics ? `Face Match Confidence: ${(details.biometrics.similarity * 100).toFixed(0)}% \u2022 ${livenessSuccess ? "Live Human Confirmed" : "Spoof Attack Flagged"}` : "Biometric Face Ingested & Verified"
       },
       {
         id: "forensics",
-        name: "DocTamper ResNet-50 & TruFor Splicing Localization",
+        name: "Digital Text Tamper & Photo Splicing Detector",
         category: "FORENSICS",
         status: forensicsSuccess ? "completed" : "failed",
         latencyMs: Math.round(forensProcessingTime),
         confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
-        details: forensicsSuccess ? "Zero Tampering Detected \u2022 ELA Q90 Nominal Substrate" : `Critical Tampering Score: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}% \u2022 Splice Localized`
+        details: forensicsSuccess ? "Zero Tampering Detected \u2022 Substrate Nominal" : `Tamper Alert: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}% \u2022 Tampering localized`
       },
       {
         id: "stamp",
-        name: "4-Stage SSB Border Transit Stamp Matcher",
+        name: "Border Transit Permit Stamp Verifier",
         category: "STAMP",
         status: stampSuccess ? "completed" : "failed",
         latencyMs: Math.round(stampProcessingTime),
@@ -31056,12 +31051,12 @@ var ResultsPanel = ({
     ];
     const tools = [
       {
-        name: "PP-OCRv4 Multilingual Engine",
-        label: "PP-OCRv4",
+        name: "Multilingual Text & QR Engine",
+        label: "Text & QR",
         status: ocrSuccess ? "completed" : "failed",
         durationMs: Math.round(ocrProcessingTime),
         confidence: details?.ocr?.mean_confidence ?? 0.98,
-        modelVersion: assessment.model_versions?.pp_ocr || "v4.1.0-onnx",
+        modelVersion: assessment.model_versions?.pp_ocr || "text-qr-v4",
         chip: "extract_fields.onnx",
         icon: "ocr",
         detailLines: [
@@ -31075,77 +31070,77 @@ var ResultsPanel = ({
         ]
       },
       {
-        name: "ICAO Doc 9303 Modulo-10 Engine",
-        label: "ICAO 9303",
+        name: "Document Format & Security Checksum Validator",
+        label: "Document Format",
         status: mrzSuccess ? "completed" : "failed",
         durationMs: Math.round(mrzProcessingTime),
         confidence: details?.mrz?.valid ? 1 : 0.4,
-        modelVersion: assessment.model_versions?.mrz_engine || "icao-v2.1",
-        chip: "icao_731_validator.py",
+        modelVersion: assessment.model_versions?.mrz_engine || "format-v2",
+        chip: "checksum_validator.py",
         icon: "run",
         detailLines: [
           {
-            text: details?.mrz?.valid ? "\u2713 Modulo-10 7-3-1 check digit validation passed for CD1, CD2, CD3, Composite" : `\u2715 Checksum failure: ${details?.mrz?.checksum_failures?.join(", ") || "CD1 / Composite mismatch"}`,
+            text: details?.mrz?.valid ? "\u2713 Check digit security validation passed for all fields" : `\u2715 Checksum failure: ${details?.mrz?.checksum_failures?.join(", ") || "Checksum mismatch"}`,
             tone: details?.mrz?.valid ? "add" : "del"
           }
         ]
       },
       {
-        name: "AdaFace Cosine Biometric Matcher",
-        label: "AdaFace-R100",
+        name: "Facial Biometric Matcher",
+        label: "Face Matcher",
         status: biometricsSuccess ? "completed" : "failed",
         durationMs: Math.round(bioProcessingTime),
         confidence: details?.biometrics?.similarity ?? 0.84,
-        modelVersion: assessment.model_versions?.face_embedder || "resnet100-onnx",
+        modelVersion: assessment.model_versions?.face_embedder || "biometric-v1",
         chip: "face_align_112.onnx",
         icon: "face",
         detailLines: [
           {
-            text: `\u2713 Umeyama 5-point canonical affine alignment to 112\xD7112`
+            text: `\u2713 Canonical facial alignment to 112\xD7112`
           },
           {
-            text: `\u2713 Cosine similarity: ${(details?.biometrics?.similarity ?? 0.84).toFixed(3)} (Threshold: 0.35)`,
+            text: `\u2713 Face match confidence: ${((details?.biometrics?.similarity ?? 0.84) * 100).toFixed(0)}% (Threshold: 35%)`,
             tone: biometricsSuccess ? "add" : "del"
           }
         ]
       },
       {
-        name: "MiniFASNetV2 Anti-Spoofing",
-        label: "MiniFASNetV2-SE",
+        name: "Live Selfie Presentation Checker",
+        label: "Liveness Check",
         status: livenessSuccess ? "completed" : "failed",
         durationMs: Math.round(liveProcessingTime),
         confidence: details?.liveness?.confidence ?? 0.98,
-        modelVersion: "fas-se-v2",
+        modelVersion: "liveness-v2",
         chip: "liveness_dual_scale.onnx",
         icon: "face",
         detailLines: [
           {
-            text: livenessSuccess ? "\u2713 Dual-scale crops (2.7\xD7 & 4.0\xD7) verified live presentation" : "\u2715 Presentation attack detected: Replay or high-res 2D print spoof",
+            text: livenessSuccess ? "\u2713 Dual-scale verification confirmed live presentation" : "\u2715 Presentation attack detected: Replay or print spoof",
             tone: livenessSuccess ? "add" : "del"
           }
         ]
       },
       {
-        name: "DocTamper ResNet-50 Forensics",
-        label: "DocTamper DTD",
+        name: "Digital Text Tamper & Forensics Detector",
+        label: "Tamper Detector",
         status: forensicsSuccess ? "completed" : "failed",
         durationMs: Math.round(forensProcessingTime),
         confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
-        modelVersion: assessment.model_versions?.tamper_detector || "v2.4-mps",
+        modelVersion: assessment.model_versions?.tamper_detector || "tamper-v2",
         chip: "tamper_heatmap.pt",
         icon: "forensics",
         detailLines: [
           {
-            text: forensicsSuccess ? "\u2713 Substrate within nominal noise deadband (\u03C4 < 0.180)" : `\u2715 Localized tampering detected: Peak anomaly probability ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`,
+            text: forensicsSuccess ? "\u2713 Substrate within nominal integrity threshold" : `\u2715 Localized tampering detected: Peak anomaly probability ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`,
             tone: forensicsSuccess ? "add" : "del"
           },
           {
-            text: `\u2713 ELA Q90 intensity: ${(details?.forensics?.ela_result?.max_intensity ?? 0.04).toFixed(3)}`
+            text: `\u2713 Compression analysis intensity: ${(details?.forensics?.ela_result?.max_intensity ?? 0.04).toFixed(3)}`
           }
         ]
       },
       {
-        name: "4-Stage SSB Border Transit Stamp Verifier",
+        name: "Border Transit Permit Stamp Verifier",
         label: "Stamp Verifier",
         status: stampSuccess ? "completed" : "failed",
         durationMs: Math.round(stampProcessingTime),
@@ -31278,8 +31273,8 @@ var ResultsPanel = ({
       {
         id: "CV-08",
         rule: "Biometric Apparent Age vs Optical DOB Drift",
-        category: "Biometrics & FAS",
-        telemetry: hasViolation("age") || details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20 ? `Estimated age drift (${details?.biometrics?.age_drift_years || "20+"} yrs) exceeds biological bounds` : "Apparent facial age is consistent with optical birth year",
+        category: "Face Match & Liveness",
+        telemetry: hasViolation("age") || details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20 ? `Age Validation: Anomaly (${details?.biometrics?.age_drift_years || "20+"} yrs drift)` : "Age Validation: Consistent with optical birth year",
         status: hasViolation("age") || details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20 ? "warning" : "passed",
         details: hasViolation("age") || details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20 ? "Estimated facial biological age deviates significantly from the optical birthdate on the credential." : "Biometric age analysis conforms to declared document birthdate."
       }
@@ -31416,12 +31411,12 @@ var ResultsPanel = ({
     },
     {
       id: "telemetry",
-      label: "Neural Telemetry",
+      label: "Technical Telemetry",
       icon: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Cpu, { className: "size-3.5" })
     },
     {
       id: "pillars",
-      label: "5 Pillars",
+      label: "Verification Checks",
       icon: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(ShieldCheck, { className: "size-3.5" })
     }
   ];
@@ -31438,8 +31433,12 @@ var ResultsPanel = ({
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center flex-wrap gap-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(StatusPill, { tone: riskTone, dot: true, children: assessment.risk_level === "GREEN" ? `SCORE ${assessment.risk_score.toFixed(1)} \xB7 AUTO-CLEAR` : assessment.risk_level === "AMBER" ? `SCORE ${assessment.risk_score.toFixed(1)} \xB7 SECONDARY HOLD` : `SCORE ${assessment.risk_score.toFixed(1)} \xB7 INTERDICTION MANDATE` }),
-        assessment.tripwire_triggered && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(StatusPill, { tone: "red", dot: true, size: "sm", children: "STAGE 1 TRIPWIRE ACTIVE" }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(StatusPill, { tone: riskTone, dot: true, children: [
+          "Threat Level: ",
+          assessment.risk_score.toFixed(1),
+          " / 100"
+        ] }),
+        assessment.tripwire_triggered && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(StatusPill, { tone: "red", dot: true, size: "sm", children: "CRITICAL TRIGGER ACTIVE" }),
         officerDecision && /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(StatusPill, { tone: "green", size: "sm", children: [
           "SIGNED: ",
           officerDecision.badgeId
@@ -31467,6 +31466,13 @@ var ResultsPanel = ({
         )
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "space-y-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2 mb-1", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono flex items-center gap-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Cpu, { className: "w-4 h-4 text-accent" }),
+            "Advanced Verification Logs & Technical Audits"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[10px] font-mono text-ink-3", children: "Expandable Deep Forensic Diagnostics" })
+        ] }),
         /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
           AccordionSection,
           {
@@ -31492,7 +31498,7 @@ var ResultsPanel = ({
             icon: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(GitCompare, { className: "w-4 h-4" }),
             badge: mismatchCount > 0 ? `${mismatchCount} Discrepancies Flagged` : "0 Mismatches",
             badgeTone: mismatchCount > 0 ? "red" : "green",
-            isOpen: openAccordions.discrepancies || mismatchCount > 0,
+            isOpen: openAccordions.discrepancies,
             onToggle: () => toggleAccordion("discrepancies"),
             children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
               DiffTable,
@@ -31524,7 +31530,7 @@ var ResultsPanel = ({
         details && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
           AccordionSection,
           {
-            title: "Visual Forensics, ELA & Splicing Localization",
+            title: "Visual Forensics, Substrate & Splicing Localization",
             icon: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Eye, { className: "w-4 h-4" }),
             badge: `Tamper Score: ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%`,
             badgeTone: details.forensics.is_tampered ? "red" : "green",
@@ -31544,9 +31550,9 @@ var ResultsPanel = ({
         details && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
           AccordionSection,
           {
-            title: "Granular 5-Pillar Telemetry Breakdown",
+            title: "Granular Verification Checks Breakdown",
             icon: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(ShieldAlert, { className: "w-4 h-4" }),
-            badge: "OCR \xB7 MRZ \xB7 Biometrics \xB7 Forensics \xB7 Stamp",
+            badge: "Text \xB7 Format \xB7 Biometrics \xB7 Forensics \xB7 Stamp",
             badgeTone: "neutral",
             isOpen: openAccordions.pillars,
             onToggle: () => toggleAccordion("pillars"),
@@ -31595,7 +31601,7 @@ var ResultsPanel = ({
       ),
       /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3", children: [
         /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "DocTamper DTD Score" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Text Tamper Inspection Score" }),
           /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "text-xl font-bold font-mono text-ink", children: [
             ((details.forensics.doctamper_score ?? 0) * 100).toFixed(1),
             "%"
@@ -31603,7 +31609,7 @@ var ResultsPanel = ({
           /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] text-ink-2", children: "Text & digit alteration detector" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "TruFor Splicing Score" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Photo Splicing Score" }),
           /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "text-xl font-bold font-mono text-ink", children: [
             ((details.forensics.trufor_score ?? 0) * 100).toFixed(1),
             "%"
@@ -31611,7 +31617,7 @@ var ResultsPanel = ({
           /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] text-ink-2", children: "Dense RGB+Noise transformer" })
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "ELA Q90 Max Intensity" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Substrate Compression Intensity" }),
           /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "text-xl font-bold font-mono text-ink", children: (details.forensics.ela_result?.max_intensity ?? 0.04).toFixed(3) }),
           /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] text-ink-2", children: "JPEG compression deadband: 0.180" })
         ] })
@@ -31798,7 +31804,7 @@ var AuditCertificateModal = ({
                     /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-base font-black font-mono uppercase", children: assessment.risk_level === "GREEN" ? "AUTO-CLEAR PASS (APPROVED)" : assessment.risk_level === "AMBER" ? "SECONDARY INSPECTION (HOLD)" : "CRITICAL SECURITY ALERT (DETAIN)" })
                   ] }),
                   /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "text-right font-mono", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[10px] text-ink-3 block", children: "Risk Score:" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[10px] text-ink-3 block", children: "Threat Risk Level:" }),
                     /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "text-2xl font-black", children: [
                       assessment.risk_score.toFixed(1),
                       " / 100"
@@ -31966,9 +31972,9 @@ var PRESET_CLEAN_PASSPORT = {
     tripwire_codes: [],
     reasons: [
       "ICAO Doc 9303 Modulo-10 checksum verified on all check digits (CD1, CD2, CD3, Composite).",
-      "AdaFace-ResNet100 1:1 facial biometric match confirmed (Cosine Similarity: 0.88 >= 0.35).",
-      "MiniFASNetV2-SE passive anti-spoofing passed (Genuine Live Human, Confidence: 97.8%).",
-      "DocTamper & TruFor forensic analysis detected zero pixel splicing (Tamper Score: 0.03 < 0.18).",
+      "1:1 facial biometric match confirmed (Face Match Confidence: 88%).",
+      "Selfie liveness verification passed (Genuine Live Human, Confidence: 97.8%).",
+      "Digital forensics detected zero pixel splicing (Tamper Score: 0.03 < 0.18).",
       "All 8 Multi-Modal Cross-Validation checks successfully passed."
     ],
     cross_validation_violations: [],
@@ -32141,9 +32147,9 @@ var PRESET_CLEAN_PASSPORT = {
       tripwire_codes: [],
       reasons: [
         "ICAO Doc 9303 Modulo-10 checksum verified on all check digits (CD1, CD2, CD3, Composite).",
-        "AdaFace-ResNet100 1:1 facial biometric match confirmed (Cosine Similarity: 0.88 >= 0.35).",
-        "MiniFASNetV2-SE passive anti-spoofing passed (Genuine Live Human, Confidence: 97.8%).",
-        "DocTamper & TruFor forensic analysis detected zero pixel splicing (Tamper Score: 0.03 < 0.18).",
+        "1:1 facial biometric match confirmed (Face Match Confidence: 88%).",
+        "Selfie liveness verification passed (Genuine Live Human, Confidence: 97.8%).",
+        "Digital forensics detected zero pixel splicing (Tamper Score: 0.03 < 0.18).",
         "All 8 Multi-Modal Cross-Validation checks successfully passed."
       ],
       cross_validation_violations: [],
@@ -32185,8 +32191,8 @@ var PRESET_FORGED_AADHAAR = {
       "TRIPWIRE_2: UIDAI RSA-2048 PKI Signature Invalid or Forged"
     ],
     reasons: [
-      "STAGE 1 TRIPWIRE TRIGGERED: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.",
-      "DocTamper neural text scraper localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).",
+      "CRITICAL VERIFICATION TRIGGER: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.",
+      "Digital text tamper detector localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).",
       "Rule CV-01 Violation: Demographic Date of Birth mismatch between visual OCR and cryptographic QR payload [ERR_DOB_MISMATCH].",
       "Rule CV-06 Violation: Localized pixel tampering detected across OCR text bounding box [ERR_TEXT_FORGERY].",
       "Rule CV-08 Violation: UIDAI Root CA signature mismatch on embedded QR payload [ERR_PKI_FORGED]."
@@ -32336,7 +32342,7 @@ var PRESET_FORGED_AADHAAR = {
           severity: "CRITICAL",
           field_name: "dob",
           expected_value: "<= 0.180 (Nominal Noise)",
-          actual_value: "0.940 (DocTamper Anomaly)",
+          actual_value: "0.940 (Text Alteration Anomaly)",
           telemetry_code: "ERR_TEXT_FORGERY",
           details: "Scraping and ink erasure detected over DOB bounding box [180, 240, 360, 280]."
         },
@@ -32375,8 +32381,8 @@ var PRESET_FORGED_AADHAAR = {
         "TRIPWIRE_2: UIDAI RSA-2048 PKI Signature Invalid or Forged"
       ],
       reasons: [
-        "STAGE 1 TRIPWIRE TRIGGERED: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.",
-        "DocTamper neural text scraper localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).",
+        "CRITICAL VERIFICATION TRIGGER: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.",
+        "Digital text tamper detector localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).",
         "Rule CV-01 Violation: Demographic Date of Birth mismatch between visual OCR and cryptographic QR payload [ERR_DOB_MISMATCH].",
         "Rule CV-06 Violation: Localized pixel tampering detected across OCR text bounding box [ERR_TEXT_FORGERY].",
         "Rule CV-08 Violation: UIDAI Root CA signature mismatch on embedded QR payload [ERR_PKI_FORGED]."
@@ -32423,7 +32429,7 @@ var PRESET_TAMPERED_STAMP = {
     reasons: [
       "SECONDARY INSPECTION MANDATORY: Immigration stamp contour failed SSB Registry template match (SSIM: 0.42 < 0.75).",
       "Stamp text layout indicates Land Customs Station Sonauli but declared transit route is Jaigaon ICP [WRN_STAMP_EXPIRY].",
-      "DocTamper detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).",
+      "Digital forensics detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).",
       "Rule CV-07 Warning: Border transit stamp context mismatch with traveler declaration."
     ],
     cross_validation_violations: [
@@ -32585,7 +32591,7 @@ var PRESET_TAMPERED_STAMP = {
       reasons: [
         "SECONDARY INSPECTION MANDATORY: Immigration stamp contour failed SSB Registry template match (SSIM: 0.42 < 0.75).",
         "Stamp text layout indicates Land Customs Station Sonauli but declared transit route is Jaigaon ICP [WRN_STAMP_EXPIRY].",
-        "DocTamper detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).",
+        "Digital forensics detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).",
         "Rule CV-07 Warning: Border transit stamp context mismatch with traveler declaration."
       ],
       cross_validation_violations: [
@@ -32626,7 +32632,7 @@ var PRESET_PRESENTATION_SPOOF = {
       "TRIPWIRE_4: Biometric Presentation Attack / Screen Spoofing Detected"
     ],
     reasons: [
-      "STAGE 1 TRIPWIRE TRIGGERED: MiniFASNetV2-SE Dual-Scale Presentation Attack Detector flagged live capture as 2D digital screen replay attack.",
+      "CRITICAL VERIFICATION TRIGGER: Live presentation check flagged live capture as 2D digital screen replay attack.",
       "Scale 2.7x and 4.0x anti-spoofing confidence 0.04 (threshold >= 0.70). High-frequency 2D FFT Fourier Moir\xE9 screen matrix detected.",
       "High-risk security breach: Impersonator attempting border transit with electronic screen replay of genuine passport holder.",
       "IMMEDIATE OFFICER ACTION: Detain subject and conduct secondary identity verification under Section 14 Foreigners Act."
@@ -32794,7 +32800,7 @@ var PRESET_PRESENTATION_SPOOF = {
         "TRIPWIRE_4: Biometric Presentation Attack / Screen Spoofing Detected"
       ],
       reasons: [
-        "STAGE 1 TRIPWIRE TRIGGERED: MiniFASNetV2-SE Dual-Scale Presentation Attack Detector flagged live capture as 2D digital screen replay attack.",
+        "CRITICAL VERIFICATION TRIGGER: Live presentation check flagged live capture as 2D digital screen replay attack.",
         "Scale 2.7x and 4.0x anti-spoofing confidence 0.04 (threshold >= 0.70). High-frequency 2D FFT Fourier Moir\xE9 screen matrix detected.",
         "High-risk security breach: Impersonator attempting border transit with electronic screen replay of genuine passport holder.",
         "IMMEDIATE OFFICER ACTION: Detain subject and conduct secondary identity verification under Section 14 Foreigners Act."
@@ -33121,7 +33127,7 @@ var PRESET_LIST = [
     name: "Forged Aadhaar (Tampered DOB / Invalid PKI)",
     badge: "RED \xB7 DETAIN",
     badgeColor: "bg-red-500/20 text-red-300 border-red-500/40",
-    description: "Scraped birth year (1984 -> 1994) detected by DocTamper (0.94) with invalid UIDAI RSA-2048 cryptographic signature.",
+    description: "Scraped birth year (1984 -> 1994) detected by digital text tamper inspection (0.94) with invalid UIDAI RSA-2048 cryptographic signature.",
     documentType: "aadhaar",
     mockResponse: PRESET_FORGED_AADHAAR,
     generateImages: () => {
@@ -33153,9 +33159,9 @@ var PRESET_LIST = [
   {
     id: "presentation_spoof",
     name: "Presentation Spoof (Screen Replay)",
-    badge: "RED \xB7 TRIPWIRE",
+    badge: "RED \xB7 CRITICAL TRIGGER",
     badgeColor: "bg-red-500/20 text-red-300 border-red-500/40",
-    description: "MiniFASNetV2-SE flagged 2D digital screen replay attack (Fourier Moir\xE9 pattern detected, Liveness: 0.04).",
+    description: "Selfie anti-spoofing flagged 2D digital screen replay attack (Fourier Moir\xE9 pattern detected, Liveness: 0.04).",
     documentType: "passport",
     mockResponse: PRESET_PRESENTATION_SPOOF,
     generateImages: () => {
@@ -33305,8 +33311,8 @@ async function runAll() {
     import_strict.default.ok(html.includes("Multi-Model Inference Pipeline Trace"), "Trace accordion header present");
     import_strict.default.ok(html.includes("Forensic Field Discrepancy Matrix"), "Discrepancy accordion header present");
     import_strict.default.ok(html.includes("8-Rule Cross-Validation Consistency Guards"), "CrossVal accordion header present");
-    import_strict.default.ok(html.includes("Visual Forensics, ELA &amp; Splicing Localization") || html.includes("Visual Forensics, ELA & Splicing Localization"), "Forensics accordion header present");
-    import_strict.default.ok(html.includes("Granular 5-Pillar Telemetry Breakdown"), "Pillars accordion header present");
+    import_strict.default.ok(html.includes("Visual Forensics, Substrate &amp; Splicing Localization") || html.includes("Visual Forensics, Substrate & Splicing Localization"), "Forensics accordion header present");
+    import_strict.default.ok(html.includes("Granular Verification Checks Breakdown"), "Pillars accordion header present");
   });
   await test("AuditCertificateModal rendering and demographic masking", () => {
     const forgedPreset = PRESET_LIST.find((p) => p.id === "forged_aadhaar");
@@ -33431,12 +33437,12 @@ async function runAll() {
     const htmlTable = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(PillarsTable, { scanDetails: mockDetails })
     );
-    import_strict.default.ok(htmlTable.includes("All 5 Pillars"), "All 5 pillars tab missing");
-    import_strict.default.ok(htmlTable.includes("Pillar 1: Multilingual OCR"), "Pillar 1 section missing");
-    import_strict.default.ok(htmlTable.includes("Pillar 2: ICAO Doc 9303 MRZ"), "Pillar 2 section missing");
-    import_strict.default.ok(htmlTable.includes("Pillar 3: AdaFace Biometric"), "Pillar 3 section missing");
-    import_strict.default.ok(htmlTable.includes("Pillar 4: DocTamper DTD"), "Pillar 4 section missing");
-    import_strict.default.ok(htmlTable.includes("Pillar 5: 4-Stage SSB Border Stamp"), "Pillar 5 section missing");
+    import_strict.default.ok(htmlTable.includes("All Verification Checks"), "All Verification Checks tab missing");
+    import_strict.default.ok(htmlTable.includes("Check 1: Text Extraction &amp; QR Verification") || htmlTable.includes("Check 1: Text Extraction & QR Verification"), "Check 1 section missing");
+    import_strict.default.ok(htmlTable.includes("Check 2: Document Format &amp; Security Checksums") || htmlTable.includes("Check 2: Document Format & Security Checksums"), "Check 2 section missing");
+    import_strict.default.ok(htmlTable.includes("Check 3: Face Match &amp; Selfie Liveness Check") || htmlTable.includes("Check 3: Face Match & Selfie Liveness Check"), "Check 3 section missing");
+    import_strict.default.ok(htmlTable.includes("Check 4: Ink, Tamper &amp; Substrate Integrity") || htmlTable.includes("Check 4: Ink, Tamper & Substrate Integrity"), "Check 4 section missing");
+    import_strict.default.ok(htmlTable.includes("Check 5: Border Permit Stamp Verification"), "Check 5 section missing");
     const ocrHtml = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime24.jsx)(PillarOCR, { ocr: mockDetails.ocr }));
     import_strict.default.ok(ocrHtml.includes("Structured Demographic Fields"), "PillarOCR missing fields header");
     const mrzHtml = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime24.jsx)(PillarMRZ, { mrz: mockDetails.mrz }));
@@ -33444,11 +33450,11 @@ async function runAll() {
     const bioHtml = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(PillarBiometrics, { biometrics: mockDetails.biometrics, liveness: mockDetails.liveness })
     );
-    import_strict.default.ok(bioHtml.includes("AdaFace-ResNet100"), "PillarBiometrics missing model name");
+    import_strict.default.ok(bioHtml.includes("Facial Biometric Matcher"), "PillarBiometrics missing biometric matcher title");
     const forensHtml = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(PillarForensics, { forensics: mockDetails.forensics })
     );
-    import_strict.default.ok(forensHtml.includes("DocTamper ResNet-50"), "PillarForensics missing DocTamper score");
+    import_strict.default.ok(forensHtml.includes("Digital Text Tamper Detector"), "PillarForensics missing text tamper detector score");
     const nullStampHtml = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(PillarStamp, { stamp: null })
     );

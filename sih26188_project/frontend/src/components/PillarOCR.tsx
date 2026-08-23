@@ -35,13 +35,13 @@ export const PillarOCR: React.FC<PillarOCRProps> = ({ ocr }) => {
         </div>
 
         <div className="bg-inset p-2.5 rounded-control border border-line">
-          <span className="text-[10px] text-ink-3 font-mono uppercase block">VLM Quality Gate</span>
+          <span className="text-[10px] text-ink-3 font-mono uppercase block">Enhanced Scan Gate</span>
           <span
             className={`text-xs font-bold font-mono ${
               requires_tier2_vlm ? 'text-orange' : 'text-ink-3'
             }`}
           >
-            {requires_tier2_vlm ? 'TRIGGERED (Qwen2.5-VL)' : 'BYPASS (PP-OCR PASS)'}
+            {requires_tier2_vlm ? 'TRIGGERED (ENHANCED SCAN)' : 'STANDARD VERIFIED (PASS)'}
           </span>
         </div>
       </div>

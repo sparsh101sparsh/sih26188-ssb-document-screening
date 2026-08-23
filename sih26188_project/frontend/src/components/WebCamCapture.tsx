@@ -93,7 +93,7 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
           Live Traveler Biometric Ingestion
         </label>
         <span className="text-[10px] text-ink-3 font-mono">
-          AdaFace Cosine · MiniFASNet FAS
+          Face Match · Liveness Verified
         </span>
       </div>
 
@@ -107,7 +107,7 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
             Capture Live Portrait Selfie
           </p>
           <p className="text-[11.5px] text-ink-2 max-w-xs leading-relaxed mb-4">
-            Required for 1:1 facial biometric matching and Fourier liveness check
+            Required for 1:1 face match verification and live selfie anti-spoofing
           </p>
 
           <div className="flex items-center gap-2">
@@ -201,7 +201,7 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
                   {livePhotoFile?.name || 'Live Traveler Biometric Frame'}
                 </p>
                 <p className="text-[10px] text-ink-3 font-mono">
-                  Umeyama 112×112 Extracted · FAS Verified
+                  Face Extracted · Liveness Verified
                 </p>
               </div>
             </div>

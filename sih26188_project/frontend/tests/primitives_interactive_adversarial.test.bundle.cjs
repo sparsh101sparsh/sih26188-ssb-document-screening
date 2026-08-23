@@ -28614,12 +28614,12 @@ var import_react_dom = __toESM(require_react_dom(), 1);
 var import_jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
 var DEFAULT_TELEMETRY = [
   {
-    name: "PP-OCRv4 Multilingual Engine",
-    label: "PP-OCRv4",
+    name: "Multilingual Text & QR Engine",
+    label: "Text & QR",
     status: "completed",
     durationMs: 28,
     confidence: 0.98,
-    modelVersion: "v4.1.0-onnx",
+    modelVersion: "text-qr-v4",
     chip: "extract_fields.onnx",
     icon: "ocr",
     detailLines: [
@@ -28628,49 +28628,49 @@ var DEFAULT_TELEMETRY = [
     ]
   },
   {
-    name: "DocTamper ResNet-50 Forensics",
-    label: "DocTamper DTD",
+    name: "Digital Text Tamper Detector",
+    label: "Tamper Inspector",
     status: "failed",
     durationMs: 110,
     confidence: 0.88,
-    modelVersion: "v2.4-mps",
+    modelVersion: "tamper-dtd-v2",
     chip: "tamper_heatmap.pt",
     icon: "forensics",
     detailLines: [
       { text: "\u2715 Photo splice anomaly detected on upper-left document quadrant", tone: "del" },
-      { text: "+ DocForge adaptive threshold triggered \u03C4 = 0.18 (Observed: 0.88)", tone: "add" }
+      { text: "+ Adaptive threshold triggered \u03C4 = 0.18 (Observed: 0.88)", tone: "add" }
     ]
   },
   {
-    name: "AdaFace Cosine Biometric Matcher",
-    label: "AdaFace-R100",
+    name: "Facial Biometric Matcher",
+    label: "Face Matcher",
     status: "completed",
     durationMs: 48,
     confidence: 0.74,
-    modelVersion: "resnet100-onnx",
+    modelVersion: "biometric-v1",
     chip: "face_align_112.onnx",
     icon: "face",
     detailLines: [
-      { text: "\u2713 Umeyama 5-point affine canonical alignment to 112\xD7112" },
-      { text: "\u2713 Cosine similarity 0.74 exceeds security threshold (0.35)" }
+      { text: "\u2713 Canonical facial alignment to 112\xD7112" },
+      { text: "\u2713 Face match confidence 0.74 exceeds security threshold (0.35)" }
     ]
   },
   {
-    name: "MiniFASNetV2 Anti-Spoofing",
-    label: "MiniFASNetV2-SE",
+    name: "Live Selfie Presentation Checker",
+    label: "Liveness Check",
     status: "completed",
     durationMs: 32,
     confidence: 0.99,
-    modelVersion: "fas-se-v2",
+    modelVersion: "liveness-v2",
     chip: "liveness_dual_scale.onnx",
     icon: "face",
     detailLines: [
       { text: "\u2713 Dual-scale crops (2.7\xD7 & 4.0\xD7) evaluated for 2D print / screen replay" },
-      { text: "\u2713 Live presentation verified (Liveness confidence: 99.1%)" }
+      { text: "\u2713 Live presentation verified (Selfie liveness check: 99.1%)" }
     ]
   },
   {
-    name: "4-Stage SSB Border Transit Stamp Verifier",
+    name: "Border Transit Permit Stamp Verifier",
     label: "Stamp Verifier",
     status: "completed",
     durationMs: 24,

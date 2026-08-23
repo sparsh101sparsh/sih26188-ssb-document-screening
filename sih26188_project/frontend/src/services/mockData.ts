@@ -15,9 +15,9 @@ export const PRESET_CLEAN_PASSPORT: DocumentInspectResponse = {
     tripwire_codes: [],
     reasons: [
       'ICAO Doc 9303 Modulo-10 checksum verified on all check digits (CD1, CD2, CD3, Composite).',
-      'AdaFace-ResNet100 1:1 facial biometric match confirmed (Cosine Similarity: 0.88 >= 0.35).',
-      'MiniFASNetV2-SE passive anti-spoofing passed (Genuine Live Human, Confidence: 97.8%).',
-      'DocTamper & TruFor forensic analysis detected zero pixel splicing (Tamper Score: 0.03 < 0.18).',
+      '1:1 facial biometric match confirmed (Face Match Confidence: 88%).',
+      'Selfie liveness verification passed (Genuine Live Human, Confidence: 97.8%).',
+      'Digital forensics detected zero pixel splicing (Tamper Score: 0.03 < 0.18).',
       'All 8 Multi-Modal Cross-Validation checks successfully passed.'
     ],
     cross_validation_violations: [],
@@ -190,9 +190,9 @@ export const PRESET_CLEAN_PASSPORT: DocumentInspectResponse = {
       tripwire_codes: [],
       reasons: [
         'ICAO Doc 9303 Modulo-10 checksum verified on all check digits (CD1, CD2, CD3, Composite).',
-        'AdaFace-ResNet100 1:1 facial biometric match confirmed (Cosine Similarity: 0.88 >= 0.35).',
-        'MiniFASNetV2-SE passive anti-spoofing passed (Genuine Live Human, Confidence: 97.8%).',
-        'DocTamper & TruFor forensic analysis detected zero pixel splicing (Tamper Score: 0.03 < 0.18).',
+        '1:1 facial biometric match confirmed (Face Match Confidence: 88%).',
+        'Selfie liveness verification passed (Genuine Live Human, Confidence: 97.8%).',
+        'Digital forensics detected zero pixel splicing (Tamper Score: 0.03 < 0.18).',
         'All 8 Multi-Modal Cross-Validation checks successfully passed.'
       ],
       cross_validation_violations: [],
@@ -235,8 +235,8 @@ export const PRESET_FORGED_AADHAAR: DocumentInspectResponse = {
       'TRIPWIRE_2: UIDAI RSA-2048 PKI Signature Invalid or Forged'
     ],
     reasons: [
-      'STAGE 1 TRIPWIRE TRIGGERED: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.',
-      'DocTamper neural text scraper localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).',
+      'CRITICAL VERIFICATION TRIGGER: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.',
+      'Digital text tamper detector localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).',
       'Rule CV-01 Violation: Demographic Date of Birth mismatch between visual OCR and cryptographic QR payload [ERR_DOB_MISMATCH].',
       'Rule CV-06 Violation: Localized pixel tampering detected across OCR text bounding box [ERR_TEXT_FORGERY].',
       'Rule CV-08 Violation: UIDAI Root CA signature mismatch on embedded QR payload [ERR_PKI_FORGED].'
@@ -386,7 +386,7 @@ export const PRESET_FORGED_AADHAAR: DocumentInspectResponse = {
           severity: 'CRITICAL',
           field_name: 'dob',
           expected_value: '<= 0.180 (Nominal Noise)',
-          actual_value: '0.940 (DocTamper Anomaly)',
+          actual_value: '0.940 (Text Alteration Anomaly)',
           telemetry_code: 'ERR_TEXT_FORGERY',
           details: 'Scraping and ink erasure detected over DOB bounding box [180, 240, 360, 280].'
         },
@@ -425,8 +425,8 @@ export const PRESET_FORGED_AADHAAR: DocumentInspectResponse = {
         'TRIPWIRE_2: UIDAI RSA-2048 PKI Signature Invalid or Forged'
       ],
       reasons: [
-        'STAGE 1 TRIPWIRE TRIGGERED: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.',
-        'DocTamper neural text scraper localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).',
+        'CRITICAL VERIFICATION TRIGGER: Aadhaar QR RSA-2048 PKCS#1 v1.5 cryptographic signature verification failed.',
+        'Digital text tamper detector localized 0.94 anomaly probability on Date of Birth field (Visual DOB: 1994-08-12 vs Decoded: 1984-08-12).',
         'Rule CV-01 Violation: Demographic Date of Birth mismatch between visual OCR and cryptographic QR payload [ERR_DOB_MISMATCH].',
         'Rule CV-06 Violation: Localized pixel tampering detected across OCR text bounding box [ERR_TEXT_FORGERY].',
         'Rule CV-08 Violation: UIDAI Root CA signature mismatch on embedded QR payload [ERR_PKI_FORGED].'
@@ -474,7 +474,7 @@ export const PRESET_TAMPERED_STAMP: DocumentInspectResponse = {
     reasons: [
       'SECONDARY INSPECTION MANDATORY: Immigration stamp contour failed SSB Registry template match (SSIM: 0.42 < 0.75).',
       'Stamp text layout indicates Land Customs Station Sonauli but declared transit route is Jaigaon ICP [WRN_STAMP_EXPIRY].',
-      'DocTamper detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).',
+      'Digital forensics detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).',
       'Rule CV-07 Warning: Border transit stamp context mismatch with traveler declaration.'
     ],
     cross_validation_violations: [
@@ -636,7 +636,7 @@ export const PRESET_TAMPERED_STAMP: DocumentInspectResponse = {
       reasons: [
         'SECONDARY INSPECTION MANDATORY: Immigration stamp contour failed SSB Registry template match (SSIM: 0.42 < 0.75).',
         'Stamp text layout indicates Land Customs Station Sonauli but declared transit route is Jaigaon ICP [WRN_STAMP_EXPIRY].',
-        'DocTamper detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).',
+        'Digital forensics detected moderate ink splicing around stamp date impression (Tamper Score: 0.38).',
         'Rule CV-07 Warning: Border transit stamp context mismatch with traveler declaration.'
       ],
       cross_validation_violations: [
@@ -678,7 +678,7 @@ export const PRESET_PRESENTATION_SPOOF: DocumentInspectResponse = {
       'TRIPWIRE_4: Biometric Presentation Attack / Screen Spoofing Detected'
     ],
     reasons: [
-      'STAGE 1 TRIPWIRE TRIGGERED: MiniFASNetV2-SE Dual-Scale Presentation Attack Detector flagged live capture as 2D digital screen replay attack.',
+      'CRITICAL VERIFICATION TRIGGER: Live presentation check flagged live capture as 2D digital screen replay attack.',
       'Scale 2.7x and 4.0x anti-spoofing confidence 0.04 (threshold >= 0.70). High-frequency 2D FFT Fourier Moiré screen matrix detected.',
       'High-risk security breach: Impersonator attempting border transit with electronic screen replay of genuine passport holder.',
       'IMMEDIATE OFFICER ACTION: Detain subject and conduct secondary identity verification under Section 14 Foreigners Act.'
@@ -846,7 +846,7 @@ export const PRESET_PRESENTATION_SPOOF: DocumentInspectResponse = {
         'TRIPWIRE_4: Biometric Presentation Attack / Screen Spoofing Detected'
       ],
       reasons: [
-        'STAGE 1 TRIPWIRE TRIGGERED: MiniFASNetV2-SE Dual-Scale Presentation Attack Detector flagged live capture as 2D digital screen replay attack.',
+        'CRITICAL VERIFICATION TRIGGER: Live presentation check flagged live capture as 2D digital screen replay attack.',
         'Scale 2.7x and 4.0x anti-spoofing confidence 0.04 (threshold >= 0.70). High-frequency 2D FFT Fourier Moiré screen matrix detected.',
         'High-risk security breach: Impersonator attempting border transit with electronic screen replay of genuine passport holder.',
         'IMMEDIATE OFFICER ACTION: Detain subject and conduct secondary identity verification under Section 14 Foreigners Act.'

@@ -189,8 +189,8 @@ async function runAll() {
     assert.ok(html.includes('Multi-Model Inference Pipeline Trace'), 'Trace accordion header present');
     assert.ok(html.includes('Forensic Field Discrepancy Matrix'), 'Discrepancy accordion header present');
     assert.ok(html.includes('8-Rule Cross-Validation Consistency Guards'), 'CrossVal accordion header present');
-    assert.ok(html.includes('Visual Forensics, ELA &amp; Splicing Localization') || html.includes('Visual Forensics, ELA & Splicing Localization'), 'Forensics accordion header present');
-    assert.ok(html.includes('Granular 5-Pillar Telemetry Breakdown'), 'Pillars accordion header present');
+    assert.ok(html.includes('Visual Forensics, Substrate &amp; Splicing Localization') || html.includes('Visual Forensics, Substrate & Splicing Localization'), 'Forensics accordion header present');
+    assert.ok(html.includes('Granular Verification Checks Breakdown'), 'Pillars accordion header present');
   });
 
   await test('AuditCertificateModal rendering and demographic masking', () => {
@@ -304,12 +304,12 @@ async function runAll() {
     const htmlTable = ReactDOMServer.renderToStaticMarkup(
       <PillarsTable scanDetails={mockDetails} />
     );
-    assert.ok(htmlTable.includes('All 5 Pillars'), 'All 5 pillars tab missing');
-    assert.ok(htmlTable.includes('Pillar 1: Multilingual OCR'), 'Pillar 1 section missing');
-    assert.ok(htmlTable.includes('Pillar 2: ICAO Doc 9303 MRZ'), 'Pillar 2 section missing');
-    assert.ok(htmlTable.includes('Pillar 3: AdaFace Biometric'), 'Pillar 3 section missing');
-    assert.ok(htmlTable.includes('Pillar 4: DocTamper DTD'), 'Pillar 4 section missing');
-    assert.ok(htmlTable.includes('Pillar 5: 4-Stage SSB Border Stamp'), 'Pillar 5 section missing');
+    assert.ok(htmlTable.includes('All Verification Checks'), 'All Verification Checks tab missing');
+    assert.ok(htmlTable.includes('Check 1: Text Extraction &amp; QR Verification') || htmlTable.includes('Check 1: Text Extraction & QR Verification'), 'Check 1 section missing');
+    assert.ok(htmlTable.includes('Check 2: Document Format &amp; Security Checksums') || htmlTable.includes('Check 2: Document Format & Security Checksums'), 'Check 2 section missing');
+    assert.ok(htmlTable.includes('Check 3: Face Match &amp; Selfie Liveness Check') || htmlTable.includes('Check 3: Face Match & Selfie Liveness Check'), 'Check 3 section missing');
+    assert.ok(htmlTable.includes('Check 4: Ink, Tamper &amp; Substrate Integrity') || htmlTable.includes('Check 4: Ink, Tamper & Substrate Integrity'), 'Check 4 section missing');
+    assert.ok(htmlTable.includes('Check 5: Border Permit Stamp Verification'), 'Check 5 section missing');
 
     // PillarOCR
     const ocrHtml = ReactDOMServer.renderToStaticMarkup(<PillarOCR ocr={mockDetails.ocr} />);
@@ -323,13 +323,13 @@ async function runAll() {
     const bioHtml = ReactDOMServer.renderToStaticMarkup(
       <PillarBiometrics biometrics={mockDetails.biometrics} liveness={mockDetails.liveness} />
     );
-    assert.ok(bioHtml.includes('AdaFace-ResNet100'), 'PillarBiometrics missing model name');
+    assert.ok(bioHtml.includes('Facial Biometric Matcher'), 'PillarBiometrics missing biometric matcher title');
 
     // PillarForensics
     const forensHtml = ReactDOMServer.renderToStaticMarkup(
       <PillarForensics forensics={mockDetails.forensics} />
     );
-    assert.ok(forensHtml.includes('DocTamper ResNet-50'), 'PillarForensics missing DocTamper score');
+    assert.ok(forensHtml.includes('Digital Text Tamper Detector'), 'PillarForensics missing text tamper detector score');
 
     // PillarStamp (null stamp case)
     const nullStampHtml = ReactDOMServer.renderToStaticMarkup(

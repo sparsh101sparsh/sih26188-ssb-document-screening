@@ -22,6 +22,11 @@ export function formatLatency(ms?: number | null): string {
   return `${Math.round(ms)} ms`;
 }
 
+export function formatScreeningDuration(ms?: number | null): string {
+  if (ms === undefined || ms === null || isNaN(ms)) return '0.0 seconds';
+  return `${(ms / 1000).toFixed(1)} seconds`;
+}
+
 /**
  * Mask Aadhaar number according to DPDP Act 2023 / Aadhaar Act:
  * First 8 digits masked (XXXX-XXXX-1234)
@@ -71,7 +76,7 @@ export function getRiskColorClass(level: RiskLevel): {
 }
 
 export function getTelemetryTagInfo(code: string): { label: string; severity: 'CRITICAL' | 'WARNING' | 'INFO'; color: string } {
-  if (code.startsWith('TRIPWIRE_') || code.startsWith('ERR_') || code.includes('CRITICAL') || code.includes('FAIL')) {
+  if (code.startsWith('TRIPWIRE_') || code.startsWith('CRITICAL_TRIGGER_') || code.startsWith('ERR_') || code.includes('CRITICAL') || code.includes('FAIL')) {
     return {
       label: code,
       severity: 'CRITICAL',

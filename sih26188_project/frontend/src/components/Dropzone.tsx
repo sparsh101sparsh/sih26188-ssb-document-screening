@@ -89,7 +89,7 @@ export const Dropzone: React.FC<DropzoneProps> = ({
           </p>
 
           <div className="flex flex-wrap gap-1.5 mt-4 justify-center">
-            {['ICAO Doc 9303', 'UIDAI QR PKI', 'Devanagari OCR', 'Substrate ELA'].map((tag) => (
+            {['ICAO Doc 9303', 'UIDAI QR PKI', 'Devanagari Text', 'Substrate Integrity'].map((tag) => (
               <span key={tag} className="text-[10px] font-mono bg-inset text-ink-2 px-2 py-0.5 rounded-chip border border-line">
                 {tag}
               </span>

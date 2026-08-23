@@ -50,7 +50,7 @@ export const RiskStatusBanner: React.FC<RiskStatusBannerProps> = ({ assessment }
   const subtitle =
     risk_level === 'RED'
       ? tripwire_triggered
-        ? 'Deterministic Stage 1 tripwire triggered — critical cryptographic or identity breach.'
+        ? 'Deterministic Critical Verification Trigger activated — critical cryptographic or identity breach.'
         : 'Compounding multi-modal forensic anomalies exceeded critical risk threshold.'
       : cfg.subtitle;
 
@@ -82,7 +82,7 @@ export const RiskStatusBanner: React.FC<RiskStatusBannerProps> = ({ assessment }
 
               {tripwire_triggered && (
                 <span className="text-[11px] font-mono font-bold bg-red text-white px-2.5 py-0.5 rounded-chip flex items-center gap-1 shadow-btn">
-                  <Zap className="w-3 h-3 fill-white text-white" /> Stage 1 tripwire
+                  <Zap className="w-3 h-3 fill-white text-white" /> Critical Trigger
                 </span>
               )}
             </div>
@@ -97,7 +97,7 @@ export const RiskStatusBanner: React.FC<RiskStatusBannerProps> = ({ assessment }
         <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 md:border-l border-line pt-3 md:pt-0 md:pl-4">
           <div className="text-left md:text-right">
             <span className="text-[10px] uppercase tracking-wider text-ink-3 font-semibold block">
-              Risk Score
+              Threat Risk Level
             </span>
             <div className="flex items-baseline space-x-1">
               <span className={`text-3xl md:text-4xl font-black font-mono ${cfg.textClass}`}>
@@ -117,7 +117,7 @@ export const RiskStatusBanner: React.FC<RiskStatusBannerProps> = ({ assessment }
         <div className="mt-3.5 pt-3 border-t border-red/40 bg-red-tint/60 -mx-4 -mb-4 p-3 rounded-b-card">
           <div className="flex items-center gap-1.5 text-xs font-bold text-red mb-2">
             <Zap className="w-4 h-4 text-orange" />
-            <span>Stage 1 Hard Tripwire Assertions (instant RED override):</span>
+            <span>Critical Verification Triggers (instant RED override):</span>
           </div>
           <ul className="space-y-1">
             {tripwire_codes.map((code, idx) => (

@@ -139,7 +139,7 @@ export const AuditCertificateModal: React.FC<AuditCertificateModalProps> = ({
                 </span>
               </div>
               <div className="text-right font-mono">
-                <span className="text-[10px] text-ink-3 block">Risk Score:</span>
+                <span className="text-[10px] text-ink-3 block">Threat Risk Level:</span>
                 <span className="text-2xl font-black">{assessment.risk_score.toFixed(1)} / 100</span>
               </div>
             </div>

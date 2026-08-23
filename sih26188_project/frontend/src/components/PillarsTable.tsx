@@ -19,38 +19,38 @@ export const PillarsTable: React.FC<PillarsTableProps> = ({ scanDetails }) => {
   const { ocr, mrz, biometrics, liveness, forensics, stamp } = scanDetails;
 
   const tabs: Array<{ id: TabType; label: string; icon: React.ElementType; badge?: string; badgeColor?: string }> = [
-    { id: 'all', label: 'All 5 Pillars', icon: Grid },
+    { id: 'all', label: 'All Verification Checks', icon: Grid },
     {
       id: 'ocr',
-      label: '1. OCR & QR PKI',
+      label: '1. Text & QR Check',
       icon: FileText,
       badge: ocr.qr_payload?.signature_valid === false ? 'SIG FAIL' : undefined,
       badgeColor: 'bg-red-tint text-red border-red/40',
     },
     {
       id: 'mrz',
-      label: '2. ICAO MRZ',
+      label: '2. Document Format',
       icon: CreditCard,
       badge: mrz.mrz_detected ? (mrz.valid ? 'VALID' : 'FAIL') : undefined,
       badgeColor: mrz.valid ? 'bg-green-tint text-green border-green/40' : 'bg-red-tint text-red border-red/40',
     },
     {
       id: 'biometrics',
-      label: '3. Biometrics & FAS',
+      label: '3. Face Match & Liveness',
       icon: UserCheck,
       badge: liveness?.is_live === false ? 'SPOOF' : biometrics?.match ? 'MATCH' : undefined,
       badgeColor: liveness?.is_live === false ? 'bg-red-tint text-red border-red/40' : 'bg-green-tint text-green border-green/40',
     },
     {
       id: 'forensics',
-      label: '4. Forensics & ELA',
+      label: '4. Ink & Substrate Integrity',
       icon: Microscope,
       badge: forensics.is_tampered ? 'TAMPERED' : 'CLEAN',
       badgeColor: forensics.is_tampered ? 'bg-red-tint text-red border-red/40' : 'bg-green-tint text-green border-green/40',
     },
     {
       id: 'stamp',
-      label: '5. Border Stamp',
+      label: '5. Border Permit Stamp',
       icon: Stamp,
       badge: stamp?.stamp_found ? stamp.verdict : undefined,
       badgeColor:
@@ -100,35 +100,35 @@ export const PillarsTable: React.FC<PillarsTableProps> = ({ scanDetails }) => {
         <div className="space-y-4">
           <div className="border border-line rounded-card p-3.5 bg-inset">
             <h4 className="text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono">
-              <FileText className="w-4 h-4" /> Pillar 1: Multilingual OCR & Aadhaar QR Cryptography
+              <FileText className="w-4 h-4" /> Check 1: Text Extraction & QR Verification
             </h4>
             <PillarOCR ocr={ocr} />
           </div>
 
           <div className="border border-line rounded-card p-3.5 bg-inset">
             <h4 className="text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono">
-              <CreditCard className="w-4 h-4" /> Pillar 2: ICAO Doc 9303 MRZ Checksum Validator
+              <CreditCard className="w-4 h-4" /> Check 2: Document Format & Security Checksums
             </h4>
             <PillarMRZ mrz={mrz} />
           </div>
 
           <div className="border border-line rounded-card p-3.5 bg-inset">
             <h4 className="text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono">
-              <UserCheck className="w-4 h-4" /> Pillar 3: AdaFace Biometric Matching & MiniFASNet FAS
+              <UserCheck className="w-4 h-4" /> Check 3: Face Match & Selfie Liveness Check
             </h4>
             <PillarBiometrics biometrics={biometrics} liveness={liveness} />
           </div>
 
           <div className="border border-line rounded-card p-3.5 bg-inset">
             <h4 className="text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono">
-              <Microscope className="w-4 h-4" /> Pillar 4: DocTamper DTD, TruFor Splicing & Classical ELA
+              <Microscope className="w-4 h-4" /> Check 4: Ink, Tamper & Substrate Integrity
             </h4>
             <PillarForensics forensics={forensics} />
           </div>
 
           <div className="border border-line rounded-card p-3.5 bg-inset">
             <h4 className="text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono">
-              <Stamp className="w-4 h-4" /> Pillar 5: 4-Stage SSB Border Stamp Authentication
+              <Stamp className="w-4 h-4" /> Check 5: Border Permit Stamp Verification
             </h4>
             <PillarStamp stamp={stamp} />
           </div>

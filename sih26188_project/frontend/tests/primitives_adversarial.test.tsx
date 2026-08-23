@@ -437,9 +437,9 @@ console.log('\n--- 4. Testing ToolChips & Pipeline Trace ---');
 
 runTest('ToolChips', 'Default rendering', () => {
   const html = ReactDOMServer.renderToStaticMarkup(<ToolChips />);
-  assert.ok(html.includes('PP-OCRv4'));
-  assert.ok(html.includes('DocTamper DTD'));
-  assert.ok(html.includes('AdaFace-R100'));
+  assert.ok(html.includes('Text &amp; QR') || html.includes('Text & QR'));
+  assert.ok(html.includes('Tamper Inspector'));
+  assert.ok(html.includes('Face Matcher'));
   assert.ok(html.includes('1 Flagged'));
   assert.ok(html.includes('4 Passed'));
 });

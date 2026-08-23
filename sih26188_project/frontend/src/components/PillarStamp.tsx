@@ -95,7 +95,7 @@ export const PillarStamp: React.FC<PillarStampProps> = ({ stamp }) => {
           >
             {tamper_energy !== null && tamper_energy !== undefined ? tamper_energy.toFixed(3) : '0.000'}
           </span>
-          <span className="text-[9px] text-ink-3 block">DocTamper Seal Mask</span>
+          <span className="text-[9px] text-ink-3 block">Ink Tamper Mask</span>
         </div>
 
         <div className="bg-inset p-2.5 rounded-control border border-line">
@@ -107,7 +107,7 @@ export const PillarStamp: React.FC<PillarStampProps> = ({ stamp }) => {
           >
             {context_consistent ? 'CONSISTENT' : 'ROUTE MISMATCH'}
           </span>
-          <span className="text-[9px] text-ink-3 block">Rule CV-07</span>
+          <span className="text-[9px] text-ink-3 block">Registry Verification</span>
         </div>
       </div>
 

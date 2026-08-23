@@ -15,7 +15,7 @@ export const PillarBiometrics: React.FC<PillarBiometricsProps> = ({ biometrics, 
         <UserCheck className="w-8 h-8 text-ink-3 mx-auto" />
         <h4 className="text-xs font-bold text-ink font-mono uppercase">No Biometric Data Available</h4>
         <p className="text-[11px] text-ink-2 max-w-sm mx-auto">
-          Capture a live face photograph using WebCam to evaluate 1:1 AdaFace similarity and MiniFASNet presentation attack detection.
+          Capture a live face photograph using WebCam to evaluate 1:1 face match similarity and live selfie presentation verification.
         </p>
       </div>
     );
@@ -29,7 +29,7 @@ export const PillarBiometrics: React.FC<PillarBiometricsProps> = ({ biometrics, 
             <div className="flex items-center space-x-2">
               <UserCheck className="w-4 h-4 text-accent" />
               <span className="font-bold text-ink font-mono">
-                AdaFace-ResNet100 1:1 Cosine Verification
+                Facial Biometric Matcher · 1:1 Identity Verification
               </span>
             </div>
             <span
@@ -45,7 +45,7 @@ export const PillarBiometrics: React.FC<PillarBiometricsProps> = ({ biometrics, 
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]">
             <div className="bg-surface p-2 rounded-control border border-line shadow-btn">
-              <span className="text-ink-3 text-[10px] block">Cosine Similarity</span>
+              <span className="text-ink-3 text-[10px] block">Face Match Confidence</span>
               <span
                 className={`text-sm font-bold block mt-0.5 ${
                   biometrics.similarity >= biometrics.threshold
@@ -65,7 +65,7 @@ export const PillarBiometrics: React.FC<PillarBiometricsProps> = ({ biometrics, 
             </div>
 
             <div className="bg-surface p-2 rounded-control border border-line shadow-btn">
-              <span className="text-ink-3 text-[10px] block">Apparent Age Drift</span>
+              <span className="text-ink-3 text-[10px] block">Age Validation</span>
               <span className="text-sm font-bold text-ink-2 block mt-0.5">
                 {biometrics.age_drift_years !== null && biometrics.age_drift_years !== undefined
                   ? `${biometrics.age_drift_years} yrs`
@@ -93,7 +93,7 @@ export const PillarBiometrics: React.FC<PillarBiometricsProps> = ({ biometrics, 
             <div className="flex items-center space-x-2">
               <Activity className="w-4 h-4 text-green" />
               <span className="font-bold text-ink font-mono">
-                MiniFASNetV2-SE Dual-Scale Anti-Spoofing
+                Selfie Liveness & Anti-Spoofing Check
               </span>
             </div>
             <span
@@ -109,7 +109,7 @@ export const PillarBiometrics: React.FC<PillarBiometricsProps> = ({ biometrics, 
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]">
             <div className="bg-surface p-2 rounded-control border border-line shadow-btn">
-              <span className="text-ink-3 text-[10px] block">Liveness Score</span>
+              <span className="text-ink-3 text-[10px] block">Selfie Liveness Check</span>
               <span
                 className={`text-sm font-bold block mt-0.5 ${
                   liveness.is_live ? 'text-green' : 'text-red'

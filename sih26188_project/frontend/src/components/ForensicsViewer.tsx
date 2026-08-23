@@ -248,7 +248,7 @@ export const ForensicsViewer: React.FC<ForensicsViewerProps> = ({
 
             <div className="flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card">
               <span className="text-[10px] font-mono text-ink-3 uppercase mb-1">
-                DocTamper & TruFor Heatmap
+                Tamper & Splicing Heatmap
               </span>
               {sanitizedHeatmapUrl ? (
                 <img

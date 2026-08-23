@@ -55,7 +55,7 @@ export const PillarForensics: React.FC<PillarForensicsProps> = ({ forensics }) =
         </div>
 
         <div className="bg-inset p-2.5 rounded-control border border-line">
-          <span className="text-ink-3 text-[10px] block">DocTamper ResNet-50</span>
+          <span className="text-ink-3 text-[10px] block">Digital Text Tamper Detector</span>
           <span
             className={`text-sm font-bold block mt-0.5 ${
               doctamper_score >= 0.18 ? 'text-red' : 'text-ink-2'
@@ -67,7 +67,7 @@ export const PillarForensics: React.FC<PillarForensicsProps> = ({ forensics }) =
         </div>
 
         <div className="bg-inset p-2.5 rounded-control border border-line">
-          <span className="text-ink-3 text-[10px] block">TruFor SegFormer-B0</span>
+          <span className="text-ink-3 text-[10px] block">Photo Splicing Localization</span>
           <span
             className={`text-sm font-bold block mt-0.5 ${
               trufor_score >= 0.18 ? 'text-red' : 'text-ink-2'
@@ -75,7 +75,7 @@ export const PillarForensics: React.FC<PillarForensicsProps> = ({ forensics }) =
           >
             {formatPercent(trufor_score)}
           </span>
-          <span className="text-[9px] text-ink-3 block">Noiseprint++ Splicing</span>
+          <span className="text-[9px] text-ink-3 block">Substrate Boundary Splicing</span>
         </div>
 
         <div className="bg-inset p-2.5 rounded-control border border-line">
@@ -95,7 +95,7 @@ export const PillarForensics: React.FC<PillarForensicsProps> = ({ forensics }) =
           <div className="flex items-center justify-between border-b border-line pb-1.5">
             <span className="font-bold text-ink flex items-center gap-1.5 font-mono">
               <Layers className="w-3.5 h-3.5 text-accent" />
-              Classical ELA (Q90 x20 Error)
+              Substrate Compression Analysis
             </span>
           </div>
 

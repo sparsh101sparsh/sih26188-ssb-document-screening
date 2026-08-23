@@ -154,7 +154,7 @@ export function App() {
               tripwire_codes: [],
               reasons: [
                 'Document substrate and text structure verified authentic.',
-                'Zero pixel splicing detected across ELA and DocTamper passes.',
+                'Zero pixel splicing detected across forensic tamper passes.',
                 'Live face matches document photograph within confidence bounds.',
               ],
               cross_validation_violations: [],
@@ -260,7 +260,7 @@ export function App() {
                 tripwire_codes: [],
                 reasons: [
                   'Document substrate and text structure verified authentic.',
-                  'Zero pixel splicing detected across ELA and DocTamper passes.',
+                  'Zero pixel splicing detected across forensic tamper passes.',
                   'Live face matches document photograph within confidence bounds.',
                 ],
                 cross_validation_violations: [],

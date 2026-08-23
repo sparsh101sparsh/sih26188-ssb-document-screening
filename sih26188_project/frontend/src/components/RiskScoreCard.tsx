@@ -42,12 +42,12 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
         <div className="flex items-center space-x-2">
           <Gauge className="w-4 h-4 text-accent" />
           <h3 className="text-xs font-bold uppercase tracking-wider text-ink font-mono">
-            Bayesian Risk Calibration
+            Threat Level & Risk Calibration
           </h3>
         </div>
         <div className="flex items-center space-x-1.5 text-[11px] font-mono bg-inset px-2 py-1 rounded-control border border-line text-ink-2 shadow-btn">
           <Clock className="w-3 h-3 text-ink-3" />
-          <span>{formatLatency(processing_time_ms)}</span>
+          <span>Screening Duration: {((processing_time_ms || 350) / 1000).toFixed(1)}s</span>
         </div>
       </div>
 
@@ -80,15 +80,15 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
               {score.toFixed(1)}
             </span>
             <span className="text-[10px] uppercase font-bold text-ink-2 tracking-wider">
-              {risk_level}
+              {risk_level === 'GREEN' ? 'LOW RISK' : risk_level === 'AMBER' ? 'MODERATE RISK' : 'CRITICAL THREAT'}
             </span>
           </div>
 
           <div className="flex justify-between w-full max-w-[170px] text-[10px] font-mono text-ink-3 px-1 mt-[-8px]">
-            <span>0 PASS</span>
+            <span>0 LOW</span>
             <span>30</span>
             <span>70</span>
-            <span>100 FAIL</span>
+            <span>100 HIGH</span>
           </div>
         </div>
 
@@ -96,7 +96,7 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
           <div className="flex items-center justify-between mb-2">
             <span className="font-bold text-ink flex items-center gap-1 font-mono">
               <Sigma className="w-3.5 h-3.5 text-accent" />
-              Log-Odds Decomposition
+              Risk Factor Decomposition
             </span>
             <button
               type="button"

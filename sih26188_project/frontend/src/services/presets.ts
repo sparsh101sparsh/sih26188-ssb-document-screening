@@ -353,7 +353,7 @@ export const PRESET_LIST: PresetItem[] = [
     name: 'Forged Aadhaar (Tampered DOB / Invalid PKI)',
     badge: 'RED · DETAIN',
     badgeColor: 'bg-red-500/20 text-red-300 border-red-500/40',
-    description: 'Scraped birth year (1984 -> 1994) detected by DocTamper (0.94) with invalid UIDAI RSA-2048 cryptographic signature.',
+    description: 'Scraped birth year (1984 -> 1994) detected by digital text tamper inspection (0.94) with invalid UIDAI RSA-2048 cryptographic signature.',
     documentType: 'aadhaar',
     mockResponse: PRESET_FORGED_AADHAAR,
     generateImages: () => {
@@ -385,9 +385,9 @@ export const PRESET_LIST: PresetItem[] = [
   {
     id: 'presentation_spoof',
     name: 'Presentation Spoof (Screen Replay)',
-    badge: 'RED · TRIPWIRE',
+    badge: 'RED · CRITICAL TRIGGER',
     badgeColor: 'bg-red-500/20 text-red-300 border-red-500/40',
-    description: 'MiniFASNetV2-SE flagged 2D digital screen replay attack (Fourier Moiré pattern detected, Liveness: 0.04).',
+    description: 'Selfie anti-spoofing flagged 2D digital screen replay attack (Fourier Moiré pattern detected, Liveness: 0.04).',
     documentType: 'passport',
     mockResponse: PRESET_PRESENTATION_SPOOF,
     generateImages: () => {

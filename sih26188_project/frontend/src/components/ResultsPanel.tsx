@@ -168,7 +168,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
     const steps: InspectionStep[] = [
       {
         id: 'ocr',
-        name: 'PP-OCRv4 Multilingual OCR & UIDAI QR Engine',
+        name: 'Multilingual Text & QR Extraction Engine',
         category: 'OCR',
         status: ocrSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(ocrProcessingTime),
@@ -179,44 +179,44 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       },
       {
         id: 'mrz',
-        name: 'ICAO Doc 9303 Modulo-10 Checksum Validator',
+        name: 'Document Format & Security Checksum Validator',
         category: 'MRZ',
         status: mrzSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(mrzProcessingTime),
         confidence: details?.mrz?.valid ? 1.0 : 0.45,
         details: details?.mrz?.mrz_detected
           ? details.mrz.valid
-            ? 'All 4 Check Digits Valid (7-3-1 weighting on CD1..CD4)'
+            ? 'All Check Digits Valid (Security checksum verified)'
             : `Checksum Failure: ${details.mrz.checksum_failures.join(', ') || 'CD1 Mismatch'}`
-          : 'Bypassed (No MRZ band on PVC card substrate)',
+          : 'Bypassed (Non-MRZ document format)',
       },
       {
         id: 'biometrics',
-        name: 'AdaFace Cosine Matcher & Umeyama 5-Pt Align',
+        name: 'Facial Biometric Matcher & Anti-Spoofing',
         category: 'BIOMETRICS',
         status: biometricsSuccess && livenessSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(bioProcessingTime + liveProcessingTime),
         confidence: details?.biometrics?.similarity ?? 0.84,
         details: details?.biometrics
-          ? `Cosine: ${details.biometrics.similarity.toFixed(2)} (Thresh: ${details.biometrics.threshold.toFixed(2)}) • ${
-              livenessSuccess ? 'Live Face Confirmed' : 'Spoof Attack Flagged'
+          ? `Face Match Confidence: ${((details.biometrics.similarity) * 100).toFixed(0)}% • ${
+              livenessSuccess ? 'Live Human Confirmed' : 'Spoof Attack Flagged'
             }`
           : 'Biometric Face Ingested & Verified',
       },
       {
         id: 'forensics',
-        name: 'DocTamper ResNet-50 & TruFor Splicing Localization',
+        name: 'Digital Text Tamper & Photo Splicing Detector',
         category: 'FORENSICS',
         status: forensicsSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(forensProcessingTime),
         confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
         details: forensicsSuccess
-          ? 'Zero Tampering Detected • ELA Q90 Nominal Substrate'
-          : `Critical Tampering Score: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}% • Splice Localized`,
+          ? 'Zero Tampering Detected • Substrate Nominal'
+          : `Tamper Alert: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}% • Tampering localized`,
       },
       {
         id: 'stamp',
-        name: '4-Stage SSB Border Transit Stamp Matcher',
+        name: 'Border Transit Permit Stamp Verifier',
         category: 'STAMP',
         status: stampSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(stampProcessingTime),
@@ -230,12 +230,12 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
     // ToolChips Items
     const tools: ToolTelemetryItem[] = [
       {
-        name: 'PP-OCRv4 Multilingual Engine',
-        label: 'PP-OCRv4',
+        name: 'Multilingual Text & QR Engine',
+        label: 'Text & QR',
         status: ocrSuccess ? 'completed' : 'failed',
         durationMs: Math.round(ocrProcessingTime),
         confidence: details?.ocr?.mean_confidence ?? 0.98,
-        modelVersion: assessment.model_versions?.pp_ocr || 'v4.1.0-onnx',
+        modelVersion: assessment.model_versions?.pp_ocr || 'text-qr-v4',
         chip: 'extract_fields.onnx',
         icon: 'ocr',
         detailLines: [
@@ -251,83 +251,83 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         ],
       },
       {
-        name: 'ICAO Doc 9303 Modulo-10 Engine',
-        label: 'ICAO 9303',
+        name: 'Document Format & Security Checksum Validator',
+        label: 'Document Format',
         status: mrzSuccess ? 'completed' : 'failed',
         durationMs: Math.round(mrzProcessingTime),
         confidence: details?.mrz?.valid ? 1.0 : 0.4,
-        modelVersion: assessment.model_versions?.mrz_engine || 'icao-v2.1',
-        chip: 'icao_731_validator.py',
+        modelVersion: assessment.model_versions?.mrz_engine || 'format-v2',
+        chip: 'checksum_validator.py',
         icon: 'run',
         detailLines: [
           {
             text: details?.mrz?.valid
-              ? '✓ Modulo-10 7-3-1 check digit validation passed for CD1, CD2, CD3, Composite'
-              : `✕ Checksum failure: ${details?.mrz?.checksum_failures?.join(', ') || 'CD1 / Composite mismatch'}`,
+              ? '✓ Check digit security validation passed for all fields'
+              : `✕ Checksum failure: ${details?.mrz?.checksum_failures?.join(', ') || 'Checksum mismatch'}`,
             tone: details?.mrz?.valid ? 'add' : 'del',
           },
         ],
       },
       {
-        name: 'AdaFace Cosine Biometric Matcher',
-        label: 'AdaFace-R100',
+        name: 'Facial Biometric Matcher',
+        label: 'Face Matcher',
         status: biometricsSuccess ? 'completed' : 'failed',
         durationMs: Math.round(bioProcessingTime),
         confidence: details?.biometrics?.similarity ?? 0.84,
-        modelVersion: assessment.model_versions?.face_embedder || 'resnet100-onnx',
+        modelVersion: assessment.model_versions?.face_embedder || 'biometric-v1',
         chip: 'face_align_112.onnx',
         icon: 'face',
         detailLines: [
           {
-            text: `✓ Umeyama 5-point canonical affine alignment to 112×112`,
+            text: `✓ Canonical facial alignment to 112×112`,
           },
           {
-            text: `✓ Cosine similarity: ${(details?.biometrics?.similarity ?? 0.84).toFixed(3)} (Threshold: 0.35)`,
+            text: `✓ Face match confidence: ${((details?.biometrics?.similarity ?? 0.84) * 100).toFixed(0)}% (Threshold: 35%)`,
             tone: biometricsSuccess ? 'add' : 'del',
           },
         ],
       },
       {
-        name: 'MiniFASNetV2 Anti-Spoofing',
-        label: 'MiniFASNetV2-SE',
+        name: 'Live Selfie Presentation Checker',
+        label: 'Liveness Check',
         status: livenessSuccess ? 'completed' : 'failed',
         durationMs: Math.round(liveProcessingTime),
         confidence: details?.liveness?.confidence ?? 0.98,
-        modelVersion: 'fas-se-v2',
+        modelVersion: 'liveness-v2',
         chip: 'liveness_dual_scale.onnx',
         icon: 'face',
         detailLines: [
           {
             text: livenessSuccess
-              ? '✓ Dual-scale crops (2.7× & 4.0×) verified live presentation'
-              : '✕ Presentation attack detected: Replay or high-res 2D print spoof',
+              ? '✓ Dual-scale verification confirmed live presentation'
+              : '✕ Presentation attack detected: Replay or print spoof',
             tone: livenessSuccess ? 'add' : 'del',
           },
         ],
       },
       {
-        name: 'DocTamper ResNet-50 Forensics',
-        label: 'DocTamper DTD',
+        name: 'Digital Text Tamper & Forensics Detector',
+        label: 'Tamper Detector',
         status: forensicsSuccess ? 'completed' : 'failed',
         durationMs: Math.round(forensProcessingTime),
         confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
-        modelVersion: assessment.model_versions?.tamper_detector || 'v2.4-mps',
+        modelVersion: assessment.model_versions?.tamper_detector || 'tamper-v2',
         chip: 'tamper_heatmap.pt',
         icon: 'forensics',
         detailLines: [
           {
             text: forensicsSuccess
-              ? '✓ Substrate within nominal noise deadband (τ < 0.180)'
+              ? '✓ Substrate within nominal integrity threshold'
               : `✕ Localized tampering detected: Peak anomaly probability ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`,
             tone: forensicsSuccess ? 'add' : 'del',
           },
           {
-            text: `✓ ELA Q90 intensity: ${(details?.forensics?.ela_result?.max_intensity ?? 0.04).toFixed(3)}`,
+            text: `✓ Compression analysis intensity: ${(details?.forensics?.ela_result?.max_intensity ?? 0.04).toFixed(3)}`,
           },
         ],
       },
       {
-        name: '4-Stage SSB Border Transit Stamp Verifier',
+        name: 'Border Transit Permit Stamp Verifier',
         label: 'Stamp Verifier',
         status: stampSuccess ? 'completed' : 'failed',
         durationMs: Math.round(stampProcessingTime),
@@ -524,10 +524,10 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       {
         id: 'CV-08',
         rule: 'Biometric Apparent Age vs Optical DOB Drift',
-        category: 'Biometrics & FAS',
+        category: 'Face Match & Liveness',
         telemetry: hasViolation('age') || (details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20)
-          ? `Estimated age drift (${details?.biometrics?.age_drift_years || '20+'} yrs) exceeds biological bounds`
-          : 'Apparent facial age is consistent with optical birth year',
+          ? `Age Validation: Anomaly (${details?.biometrics?.age_drift_years || '20+'} yrs drift)`
+          : 'Age Validation: Consistent with optical birth year',
         status:
           hasViolation('age') || (details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20)
             ? 'warning'
@@ -724,12 +724,12 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
     },
     {
       id: 'telemetry',
-      label: 'Neural Telemetry',
+      label: 'Technical Telemetry',
       icon: <Cpu className="size-3.5" />,
     },
     {
       id: 'pillars',
-      label: '5 Pillars',
+      label: 'Verification Checks',
       icon: <ShieldCheck className="size-3.5" />,
     },
   ];
@@ -754,16 +754,12 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
         <div className="flex items-center flex-wrap gap-2">
           <StatusPill tone={riskTone} dot>
-            {assessment.risk_level === 'GREEN'
-              ? `SCORE ${assessment.risk_score.toFixed(1)} · AUTO-CLEAR`
-              : assessment.risk_level === 'AMBER'
-              ? `SCORE ${assessment.risk_score.toFixed(1)} · SECONDARY HOLD`
-              : `SCORE ${assessment.risk_score.toFixed(1)} · INTERDICTION MANDATE`}
+            Threat Level: {assessment.risk_score.toFixed(1)} / 100
           </StatusPill>
 
           {assessment.tripwire_triggered && (
             <StatusPill tone="red" dot size="sm">
-              STAGE 1 TRIPWIRE ACTIVE
+              CRITICAL TRIGGER ACTIVE
             </StatusPill>
           )}
 
@@ -801,6 +797,14 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
           {/* Deep Diagnostic Expandable Accordions (Collapsed by Default) */}
           <div className="space-y-3">
+            <div className="flex items-center justify-between border-b border-line pb-2 mb-1">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-ink font-mono flex items-center gap-2">
+                <Cpu className="w-4 h-4 text-accent" />
+                Advanced Verification Logs & Technical Audits
+              </h3>
+              <span className="text-[10px] font-mono text-ink-3">Expandable Deep Forensic Diagnostics</span>
+            </div>
+
             {/* Accordion 1: Multi-Model Pipeline Latency Trace */}
             <AccordionSection
               title="Multi-Model Inference Pipeline Trace"
@@ -822,7 +826,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
               icon={<GitCompare className="w-4 h-4" />}
               badge={mismatchCount > 0 ? `${mismatchCount} Discrepancies Flagged` : '0 Mismatches'}
               badgeTone={mismatchCount > 0 ? 'red' : 'green'}
-              isOpen={openAccordions.discrepancies || mismatchCount > 0}
+              isOpen={openAccordions.discrepancies}
               onToggle={() => toggleAccordion('discrepancies')}
             >
               <DiffTable
@@ -849,7 +853,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             {/* Accordion 4: Dual-Canvas Visual Forensics & Heatmaps */}
             {details && (
               <AccordionSection
-                title="Visual Forensics, ELA & Splicing Localization"
+                title="Visual Forensics, Substrate & Splicing Localization"
                 icon={<Eye className="w-4 h-4" />}
                 badge={`Tamper Score: ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%`}
                 badgeTone={details.forensics.is_tampered ? 'red' : 'green'}
@@ -865,12 +869,12 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
               </AccordionSection>
             )}
 
-            {/* Accordion 5: Granular 5-Pillar Telemetry */}
+            {/* Accordion 5: Granular Verification Checks Breakdown */}
             {details && (
               <AccordionSection
-                title="Granular 5-Pillar Telemetry Breakdown"
+                title="Granular Verification Checks Breakdown"
                 icon={<ShieldAlert className="w-4 h-4" />}
-                badge="OCR · MRZ · Biometrics · Forensics · Stamp"
+                badge="Text · Format · Biometrics · Forensics · Stamp"
                 badgeTone="neutral"
                 isOpen={openAccordions.pillars}
                 onToggle={() => toggleAccordion('pillars')}
@@ -923,7 +927,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1">
-              <span className="text-[11px] font-mono text-ink-3 uppercase">DocTamper DTD Score</span>
+              <span className="text-[11px] font-mono text-ink-3 uppercase">Text Tamper Inspection Score</span>
               <div className="text-xl font-bold font-mono text-ink">
                 {((details.forensics.doctamper_score ?? 0) * 100).toFixed(1)}%
               </div>
@@ -931,7 +935,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             </div>
 
             <div className="p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1">
-              <span className="text-[11px] font-mono text-ink-3 uppercase">TruFor Splicing Score</span>
+              <span className="text-[11px] font-mono text-ink-3 uppercase">Photo Splicing Score</span>
               <div className="text-xl font-bold font-mono text-ink">
                 {((details.forensics.trufor_score ?? 0) * 100).toFixed(1)}%
               </div>
@@ -939,7 +943,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             </div>
 
             <div className="p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1">
-              <span className="text-[11px] font-mono text-ink-3 uppercase">ELA Q90 Max Intensity</span>
+              <span className="text-[11px] font-mono text-ink-3 uppercase">Substrate Compression Intensity</span>
               <div className="text-xl font-bold font-mono text-ink">
                 {(details.forensics.ela_result?.max_intensity ?? 0.04).toFixed(3)}
               </div>

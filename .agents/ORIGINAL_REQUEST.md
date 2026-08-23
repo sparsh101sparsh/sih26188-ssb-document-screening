@@ -1,72 +1,41 @@
 # Original User Request
 
-## 2026-08-23T15:33:48Z
+## Initial Request — 2026-08-23T16:17:32Z
 
-Complete visual redesign, decluttering, and UX simplification of the **Sashastra Seema Bal (SSB) Field Screening System** (both Android and Computer apps) using the **Universal Product Design Language System (DLS)**.
+You are the Project Orchestrator for the SSB Field Screening System refactoring task.
 
-Working directory: /Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford
-Integrity mode: development
+Your working directory is:
+/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/orchestrator_1
 
----
+The user request is documented in:
+/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/ORIGINAL_REQUEST.md
 
-## 🎨 Unified Design Tokens (Deep Oceanic Environment)
-Both the Android app and the Computer app (React/Tauri) must use the Deep Oceanic palette as their primary theme:
-- **Base Canvas**: `#030B14`
-- **Supporting Surface**: `#0B1A2E`
-- **Inset / Header Surface**: `#081525`
-- **Interactive Surface**: `#112745`
-- **Structural Border**: `#1E3A5F`
-- **Hover / Active Border**: `#2C5282`
-- **Primary Text**: `#F8FAFC`
-- **Secondary / Muted Text**: `#94A3B8` / `#64748B`
-- **Brand Purple**: `#5B21B6` / `#4C1D95`
-- **Interaction Blue**: `#2563EB` / `#3B82F6`
-- **Amber Warning**: `#F59E0B`
-- **Success / Emerald**: `#10B981` (foreground), `#ECFDF5` (background), `#A7F3D0` (border)
-- **Danger / Crimson**: `#EF4444`
+Workspace root:
+/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford
 
----
+Task Summary & Requirements:
+1. R1. Remove Technical Jargon & Implement Operational Language
+   - Remove occurrences of `PP-OCRv4`, `AdaFace-ResNet100`, `MiniFASNetV2`, `DocTamper DTD`, `TruFor`, `ELA` from user-facing views.
+   - Rename metrics: `Risk Score` (0-100) -> `Threat Risk Level` ("Threat Level: X / 100", GREEN/AMBER/RED bands), `Stage 1 Tripwire` -> `Critical Verification Trigger`, `Cosine Similarity` / `Liveness Confidence` -> `Face Match Confidence` / `Selfie Liveness Check`, `apparent_age` / `age_drift` -> `Age Validation`.
+   - Simplify timings: Remove individual sub-second model processing times from the main view. On primary dashboard, show only `Screening Duration: X.X seconds`.
+2. R2. Progressive Disclosure & Collapsed Technical Accordions
+   - Primary Dashboard View (Level 1): Document submitted, genuine/suspicious, operational bullet points of what looks wrong (e.g. "Passport photo shows signs of replacement in the bottom right corner"), face match status, clear actionable directive (APPROVED / MANUAL HOLD / DETAIN).
+   - Advanced Audit Accordion (Level 3): Collapsed section titled "Advanced Verification Logs & Technical Audits" (defaults to closed) containing intermediate metric floats, model latencies, rule codes (CV-01), JSON/compliance certificate buttons.
+3. R3. App Spacing, Clutter & Tab Refinement
+   - Android App: Reorganize bottom tabs and Compose views to prioritize photo comparison, live selfie verification status, and Threat Risk Level badge. Keep diagnostics tables/logs collapsed.
+   - Computer App (`PillarsTable.tsx`): Plain-text operational titles:
+     - Tab 1: Text & QR Check (was OCR & QR PKI)
+     - Tab 2: Document Format (was ICAO MRZ)
+     - Tab 3: Face Match & Liveness (was Biometrics & FAS)
+     - Tab 4: Ink & Substrate Integrity (was Forensics & ELA)
+     - Tab 5: Border Permit Stamp (was Border Stamp)
+   - Remove duplicate connection indicators, cogs, or redundant labels.
+4. Acceptance Criteria:
+   - Android app: Primary results card shows "Threat Risk Level: X/100" and semantic badge; no AdaFace/MiniFASNet/DocTamper on main screening results; check digits, age drifts, logs collapsed.
+   - Computer app: Centered dashboard with connected device status, active queue, latest results with operational bullet reasons, action card; timelines/matrices/JSON collapsed in advanced accordion; individual model latencies hidden, displaying only "Screening Duration: X.X seconds".
+   - Build Verification:
+     - Android: `./gradlew assembleDebug` succeeds
+     - Backend: `pytest tests/` passes
+     - Frontend: `npm run build` succeeds
 
-## Requirements
-
-### R1. Android App Declutter & Redesign
-Transform the Android field capture application into a focused operational tool:
-1. **Layout & Colors**: Inject the Deep Oceanic color scheme across all composables. Use proportional corner radii (22% squircle rule, e.g. 11dp for 48dp elements, 8dp for smaller elements).
-2. **Simplified Navigation**: Restructure to exactly 3 primary navigation tabs: CAPTURE, RESULTS, OUTBOX. Hide any other screen (like Gateway Diagnostics) behind a small, clean settings/cogs icon in the header.
-3. **Quiet Capture View**: Clean up `DualCameraCaptureView.kt` to maximize the camera viewports. Only keep vital overlays: connection state (top bar) and capture button (bottom).
-4. **Accordion-Based Diagnostics**: On the Results screen, place the detailed `InspectionPipelineTrace`, `CrossValidationMatrix`, and `DiscrepancyDiffTable` under thin, neat expandable accordions. The parent view must remain clean and dominated by the high-contrast Risk Score badge.
-
-### R2. Computer App (React + Tauri) Declutter & Redesign
-Simplify the computer app (`frontend/src/App.tsx`, components, and styles) to act as a quiet command-center monitor:
-1. **Design Tokens**: Standardize colors in `frontend/src/index.css` using the Deep Oceanic variables. Remove neon gradients, random sparkles, and decorative blobs.
-2. **Decluttered Dashboard**:
-   - Primary view: Active screening queue / current document processing state, latest results, and connected devices tracker.
-   - Remove redundant statistics cards, decorative KPIs, and large illustrations.
-   - Hide technical details (raw JSON, pipeline trace) under expandable, clean accordions.
-3. **Device Connection Panel**: Create a compact connected devices indicator in the header or sidebar that reads from the `/api/v1/devices` endpoint.
-
-### R3. Remove Slop, Redundant Codes & Dead Views
-Ensure codebase cleanliness based on `slop.md` guidelines:
-- Remove dead tabs and navigation configurations from Android `NavigationScreen`.
-- Consolidate double/triple connection status badges on both platforms into a single authoritative indicator in the header.
-- Clean up unused imports, comments, and orphaned components across both frontends.
-
----
-
-## Acceptance Criteria
-
-### Android Application
-- [ ] Primary background is `#030B14` (slate-950) and cards/surfaces are `#0B1A2E` (slate-900).
-- [ ] Navigation is reduced to Capture, Results, and Outbox. Diagnostics button is a settings/cogs item in the top bar.
-- [ ] Interactive elements use proportional radii matching the 22% rule where appropriate.
-- [ ] Technical diagnostics (pipeline trace, cross-validation rules) are collapsed by default.
-
-### Computer Application
-- [ ] Core dashboard displays: Connected Phone details, Current active scan queue, and the latest Screening results.
-- [ ] Colors conform exactly to the Deep Oceanic color system tokens (no neon glow/arbitrary gradients).
-- [ ] Built frontend size remains optimized with zero TypeScript errors.
-
-### Build Verification
-- [ ] Android: `./gradlew assembleDebug` succeeds.
-- [ ] Backend: `pytest tests/` passes.
-- [ ] Frontend: `npm run build` succeeds.
+Please orchestrate this work with your team, maintain `progress.md` and `plan.md` in your directory, run verification tests, and notify me with your completion report when all requirements and tests pass.
