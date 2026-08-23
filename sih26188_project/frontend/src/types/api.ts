@@ -244,3 +244,21 @@ export interface OfficerDecision {
   timestamp: string;
 }
 
+export interface ConnectedClient {
+  client_ip: string;
+  user_agent?: string | null;
+  checkpoint_id?: string | null;
+  last_seen: string;
+  last_endpoint: string;
+  total_requests: number;
+  latency_ms?: number | null;
+  status: 'ONLINE' | 'IDLE' | 'OFFLINE' | string;
+}
+
+export interface DevicesResponse {
+  status: string;
+  total_devices: number;
+  devices: ConnectedClient[];
+  last_active_device?: ConnectedClient | null;
+}
+

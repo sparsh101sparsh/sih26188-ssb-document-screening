@@ -14,7 +14,9 @@ export interface ApprovalCardProps {
   riskScore?: number;
   initialAction?: string;
   officerBadgeId?: string;
+  isOpen?: boolean;
   onDecide?: (decision: DecisionAction) => void;
+  onDecision?: (decision: 'clear' | 'secondary' | 'interdict', notes: string) => void;
   onAction?: (action: string) => void;
   disabled?: boolean;
 }
@@ -22,10 +24,14 @@ export interface ApprovalCardProps {
 export const ApprovalCard: React.FC<ApprovalCardProps> = ({
   riskLevel = 'GREEN',
   riskScore = 0,
+  officerBadgeId = 'SSB-IND-7049',
+  isOpen = true,
   onDecide,
+  onDecision,
   onAction,
   disabled = false,
 }) => {
+  const [open, setOpen] = useState(isOpen);
   const [selectedAction, setSelectedAction] = useState<
     'AUTO_CLEAR' | 'SECONDARY_INSPECTION' | 'DETAIN_AND_INTERDICT'
   >(
@@ -42,10 +48,19 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
     const decision: DecisionAction = {
       action: selectedAction,
       reason: `Officer decision based on risk score ${riskScore.toFixed(1)} (${riskLevel})`,
-      badgeId: 'OFFICER_01',
+      badgeId: officerBadgeId,
       officerNotes: notes,
     };
+
+    const mappedDecision: 'clear' | 'secondary' | 'interdict' =
+      selectedAction === 'AUTO_CLEAR'
+        ? 'clear'
+        : selectedAction === 'SECONDARY_INSPECTION'
+        ? 'secondary'
+        : 'interdict';
+
     onDecide?.(decision);
+    onDecision?.(mappedDecision, notes);
     onAction?.(selectedAction);
     setSubmitted(true);
   };
@@ -55,6 +70,19 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
     setNotes('');
   };
 
+  if (!open || isOpen === false) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="w-full bg-surface border border-line rounded-card p-3.5 text-xs font-mono text-ink-2 hover:text-ink text-left flex items-center justify-between shadow-card hover:bg-hover transition-colors"
+      >
+        <span className="font-bold">Open Officer Authorization</span>
+        <span className="text-[11px] text-ink-3">Click to expand decision console</span>
+      </button>
+    );
+  }
+
   if (submitted) {
     return (
       <div className="w-full bg-surface border border-line rounded-card p-3.5 flex items-center justify-between shadow-card animate-pop-in">
@@ -63,7 +91,7 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
             <Check className="w-3.5 h-3.5" />
           </span>
           <span className="text-xs font-semibold text-ink font-mono">
-            Interdiction Order Dispatched • Decision Logged to Tamper-Proof Audit
+            Interdiction Order Dispatched • Decision Logged to Tamper-Proof Audit ({officerBadgeId})
           </span>
         </div>
         <button
@@ -83,7 +111,9 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
         <span className="text-xs font-bold text-ink uppercase tracking-wider font-mono">
           Human-In-The-Loop Officer Authorization
         </span>
-        <span className="text-[11px] font-mono text-ink-3">Section 4(2) Passport Act</span>
+        <span className="text-[11px] font-mono text-ink-3">
+          Section 4(2) Passport & Immigration Act · {officerBadgeId}
+        </span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -150,7 +180,7 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           type="text"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          placeholder="Officer Remarks / Duty Officer Badge ID (optional)…"
+          placeholder={`Officer Remarks / Duty Officer Badge ID (${officerBadgeId})…`}
           className="flex-1 bg-inset border border-line rounded-control px-3 py-1.5 text-xs text-ink placeholder:text-ink-3 font-mono focus:outline-none focus:border-accent shadow-inset-field"
         />
         <Button
@@ -158,9 +188,11 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           size="md"
           onClick={handleSubmit}
         >
-          Authorize Decision
+          Commit Decision
         </Button>
       </div>
     </div>
   );
 };
+
+export default ApprovalCard;

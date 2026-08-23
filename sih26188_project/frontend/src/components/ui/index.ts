@@ -1,12 +1,7 @@
-// Beautiful-UI Primitives & Atoms Barrel Export
+// Deep Oceanic UI Primitives & Atoms Barrel Export
 
 // Atoms
 export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './Button';
-export { Chip, type ChipProps, type ChipTone } from './Chip';
-export { ProgressRing, type ProgressRingProps, type ProgressRingTone } from './ProgressRing';
-export { Shimmer, type ShimmerProps } from './Shimmer';
-export { StreamText, type StreamTextProps } from './StreamText';
-export { Switch, type SwitchProps } from './Switch';
 export { TextRow, type TextRowProps } from './TextRow';
 
 // Primitives
@@ -36,12 +31,6 @@ export {
   type ToolTelemetryItem,
   type ToolDiffChip,
 } from './ToolChips';
-export {
-  TaskRows,
-  type TaskRowsProps,
-  type TaskItem,
-  type TaskDetail,
-} from './TaskRows';
 export {
   InspectionPipelineTrace,
   type InspectionPipelineTraceProps,

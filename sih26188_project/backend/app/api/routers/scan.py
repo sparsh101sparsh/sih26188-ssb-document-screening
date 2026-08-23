@@ -17,7 +17,7 @@ import time
 from typing import Any, Dict, List, Optional, Tuple
 from uuid import uuid4
 
-from fastapi import APIRouter, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile, status
 
 from app.core.backend_selector import get_hardware_status, get_optimal_execution_providers
 from app.core.config import settings
@@ -193,12 +193,20 @@ def _execute_stream_2_biometrics(
     return face_match_res, liveness_res, photo_bbox, apparent_age
 
 
-def _execute_stream_3_forensics_and_stamps(doc_bytes: bytes) -> Tuple[ForensicsResult, StampResult]:
+def _execute_stream_3_forensics_and_stamps(
+    doc_bytes: bytes,
+    declared_checkpost: Optional[str] = None,
+    declared_date: Optional[str] = None,
+) -> Tuple[ForensicsResult, StampResult]:
     """
     Stream 3: DocTamper DTD, TruFor Splicing, ELA/DQT Analysis, and 4-Stage Stamp Verification.
     """
     forensics_res = tamper_detector.analyze(doc_bytes)
-    stamp_res = stamp_verifier.verify_stamp(doc_bytes)
+    stamp_res = stamp_verifier.verify_stamp(
+        doc_bytes,
+        declared_checkpost=declared_checkpost,
+        declared_date=declared_date,
+    )
     return forensics_res, stamp_res
 
 
@@ -232,12 +240,22 @@ async def get_scan_status():
 async def inspect_document(
     document_image: UploadFile = File(..., description="Document image file (JPEG/PNG)"),
     live_face_image: Optional[UploadFile] = File(None, description="Optional live traveler selfie (JPEG/PNG)"),
+    live_photo: Optional[UploadFile] = File(None, description="Optional live traveler selfie alias (Android client)"),
+    checkpoint_id: Optional[str] = Form(None, description="Border checkpoint ID (Android client)"),
+    declared_checkpost: Optional[str] = Form(None, description="Border checkpoint ID (Desktop frontend)"),
+    transit_date: Optional[str] = Form(None, description="Transit timestamp (Android client)"),
+    declared_transit_date: Optional[str] = Form(None, description="Transit timestamp (Desktop frontend)"),
 ) -> DocumentInspectResponse:
     """
     Master inspection endpoint executing the full 3-stream parallel screening pipeline.
     """
     start_time = time.perf_counter()
     session_id = str(uuid4())
+
+    # Resolve parameter aliases
+    effective_live_image = live_face_image if live_face_image is not None else live_photo
+    effective_checkpoint = checkpoint_id or declared_checkpost or "SSB_SONAULI_01"
+    effective_transit_date = transit_date or declared_transit_date
 
     # 1. Validate Document Image
     if not document_image.content_type or not document_image.content_type.startswith("image/"):
@@ -255,13 +273,13 @@ async def inspect_document(
 
     # 2. Validate Optional Live Face Image
     live_bytes: Optional[bytes] = None
-    if live_face_image is not None:
-        if not live_face_image.content_type or not live_face_image.content_type.startswith("image/"):
+    if effective_live_image is not None:
+        if not effective_live_image.content_type or not effective_live_image.content_type.startswith("image/"):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Invalid live face image file type: {live_face_image.content_type}. Expected image/jpeg or image/png.",
+                detail=f"Invalid live face image file type: {effective_live_image.content_type}. Expected image/jpeg or image/png.",
             )
-        live_bytes = await live_face_image.read()
+        live_bytes = await effective_live_image.read()
         if len(live_bytes) < 100:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -279,7 +297,12 @@ async def inspect_document(
     # 4. Execute 3 Streams Concurrently via asyncio.gather()
     task_stream_1 = asyncio.to_thread(_execute_stream_1_text_and_mrz, doc_bytes)
     task_stream_2 = asyncio.to_thread(_execute_stream_2_biometrics, doc_bytes, live_bytes)
-    task_stream_3 = asyncio.to_thread(_execute_stream_3_forensics_and_stamps, doc_bytes)
+    task_stream_3 = asyncio.to_thread(
+        _execute_stream_3_forensics_and_stamps,
+        doc_bytes,
+        effective_checkpoint,
+        effective_transit_date,
+    )
 
     (ocr_res, mrz_res, qr_res), (face_match_res, liveness_res, photo_bbox, apparent_age), (forensics_res, stamp_res) = await asyncio.gather(
         task_stream_1,
@@ -291,8 +314,8 @@ async def inspect_document(
 
     # 5. Execute 8-Rule Multi-Modal Cross-Validation Matrix
     photo_tamper_density = 0.85 if forensics_res.photo_region_tampered else (0.0 if not forensics_res.is_tampered else forensics_res.trufor_score)
-    stamp_date_str = None
-    if stamp_res and stamp_res.stamp_found:
+    stamp_date_str = effective_transit_date
+    if not stamp_date_str and stamp_res and stamp_res.stamp_found:
         # Extract potential stamp date from reasons or specification
         stamp_date_str = "2026-08-20"
 

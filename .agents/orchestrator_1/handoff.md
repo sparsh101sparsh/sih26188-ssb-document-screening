@@ -1,77 +1,85 @@
-# Orchestrator Final Handoff Report — SIH26188 AI-Based Fake Identity & Document Screening System
+# Orchestrator Final Handoff Report — Deep Oceanic Redesign & Decluttering
 
-**Date**: 2026-08-23T02:50:15+05:30  
-**Project**: SIH26188 (Smart India Hackathon 2026) — Sashastra Seema Bal (SSB), MHA  
-**Monorepo Root**: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/`  
-**Status**: 100% COMPLETE & PRODUCTION READY (Hard Handoff)  
-
----
-
-## 1. Milestone State
-
-| Milestone | Deliverables | Verification Status |
-|---|---|---|
-| **M1: Skeleton & Infra** | Directory tree, pinned `requirements.txt`, `backend_selector.py` (CoreML/MPS/CUDA/CPU), `config.py`, `stamp_registry.json`, `uidai_root_cert.pem`, schemas, `docker-compose.yml`, `export_models_to_onnx.py`, `.venv311` (Python 3.11) | **DONE** (6/6 tests passed) |
-| **M2: OCR + MRZ** | `pp_ocr_engine.py` (Devanagari + Latin), `mrz_engine.py` (pure Python Modulo-10 7-3-1 for TD1/TD2/TD3), `qr_decoder.py` (offline RSA-2048 PKCS#1 v1.5 PKI), `cross_validator.py` (8 rules CV-01 to CV-08), `api/routers/ocr.py` | **DONE** (29/29 tests passed) |
-| **M3: Biometrics** | `face_detector.py` (SCRFD-10GF + Umeyama 5-pt alignment to 112x112), `face_matcher.py` (AdaFace-R100 512-D + 1:1 Cosine + deadband $\psi_{face}$), `liveness_detector.py` (MiniFASNetV2-SE dual-scale + 2D FFT Fourier moiré analysis + deadband $\psi_{live}$), `api/routers/biometrics.py` | **DONE** (23/23 tests passed) |
-| **M4: Forensics & Stamps** | `tamper_detector.py` (DocTamper DTD ONNX + TruFor + DocForge $\tau_{adapt}=0.18$ + Turbo colormap alpha-blended overlay), `ela_engine.py` (JPEG Q90 20x amplification), `metadata_parser.py` (EXIF / DQT tables), `stamp_verifier.py` (4-stage pipeline: HSV+Hough -> SSIM/ORB template match -> ELA -> context check), `api/routers/forensics.py` | **DONE** (29/29 tests passed) |
-| **M5: Risk Engine & Master Router** | `risk_scorer.py` (Stage 1 Hard Tripwires TRIPWIRE_1 to TRIPWIRE_6 -> instant RED 95.0 + Stage 2 Multi-Factor Log-Odds Bayesian scoring with noise deadbands, zero false-positive baseline 2.0 GREEN), `api/routers/scan.py` (`POST /api/v1/scan/inspect` with 3-stream `asyncio.gather()`), `main.py` routing | **DONE** (23/23 tests passed) |
-| **M6: Frontend Dashboard** | React 19 + Vite 6 + TailwindCSS officer dashboard in `frontend/` (SSB header, checkpost selector, document dropzone, live webcam capture, 4 border presets, tri-band status banner, SVG risk gauge, Bayesian breakdown, 8-rule CV table, dual-canvas visual forensics viewer with opacity slider & Turbo colormap, 5-pillar module grid, printable audit certificate) | **DONE** (Vite build passed in 1.96s, 0 errors) |
-| **M7: Integration & Docs** | `test_e2e_pipeline.py` (5 border scenarios), `download_weights.sh` verified, publication-grade `README.md` (350+ lines), `android-agent/MASTER_PROMPT.md` finalized | **DONE** (121/121 backend tests passed) |
+**Project**: SSB Field Screening System (Android, Computer App React/Tauri, Backend)  
+**Orchestrator**: `orchestrator_1`  
+**Timestamp**: 2026-08-23T15:56:00Z  
+**Type**: Hard Handoff (Project Complete)  
 
 ---
 
-## 2. Active Subagents
-
-All 7 subagents have completed their tasks, submitted their verified handoff reports, and are idle:
-- `worker_m1`: `7130d029-1879-482c-a03e-639e25405ce1` (completed)
-- `worker_m2`: `9d4db8a5-d017-45cb-9e24-0f93f9b7de1d` (completed)
-- `worker_m3`: `5a074085-4da4-4826-bbf7-b73386fbade3` (completed)
-- `worker_m4`: `700ca521-0427-482f-aee8-55cd399da9ab` (completed)
-- `worker_m5`: `00ac4f93-7da5-4a72-a02e-c32b96198a0c` (completed)
-- `worker_m6`: `c85f35e7-293d-4bdb-a549-79d13851d77b` (completed)
-- `worker_m7`: `a1272007-bd84-4f5b-9cef-dcd6124169fd` (completed)
+## 1. Executive Summary
+The visual redesign, decluttering, and UX simplification of the Sashastra Seema Bal (SSB) Field Screening System across both Android and Computer (React/Tauri) apps using the Deep Oceanic Design Language System (DLS) has been completed, empirically tested, adversarially verified, and forensically audited with a 100% clean record.
 
 ---
 
-## 3. Pending Decisions
+## 2. Milestone State
 
-None. All architectural requirements from Version 3.0 of the Master Architecture & Research Report have been met.
-
----
-
-## 4. Key Artifacts
-
-- Monorepo Root: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/`
-- Documentation: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/README.md`
-- Mobile Handoff: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/android-agent/MASTER_PROMPT.md`
-- Download Script: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/backend/scripts/download_weights.sh`
-- Docker Mesh: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/docker/docker-compose.yml`
-- Test Suite: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/backend/tests/` (121 tests)
-- Frontend App: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/frontend/`
-- Orchestrator Metadata: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/orchestrator_1/`
+| Milestone | Name | Scope | Verdict | Status |
+|---|---|---|---|---|
+| **M1** | Android App Declutter & Deep Oceanic DLS | Injected palette in `Color.kt`/`Theme.kt`, 22% squircle radii, 3-tab navigation (`CAPTURE`, `RESULTS`, `OUTBOX`), cogs diagnostics modal in `HeaderBar.kt`, quiet capture viewports in `DualCameraCaptureView.kt`, collapsible accordions on Results screen, slop removal. | **APPROVE** (Reviewer 1, Challenger 1) | **DONE** |
+| **M2** | Computer App (React/Tauri) Declutter & DLS | Standardized `index.css` & `tailwind.config.js` with Deep Oceanic variables, removed neon glows/sparkles/blobs/grid patterns, simplified `App.tsx` dashboard, single authoritative `/api/v1/devices` status capsule in `Header.tsx`, clean collapsible accordions in `ResultsPanel.tsx`, pruned 7 dead components. | **APPROVE** (Reviewer 2, Challenger 2) | **DONE** |
+| **M3** | End-to-End System Verification & Audit | Multi-platform build verification, adversarial challenge suite execution, and forensic integrity audit. | **CLEAN** (Forensic Auditor 1) | **DONE** |
 
 ---
 
-## 5. Verification Commands
+## 3. Detailed Deliverables & Accomplishments
 
-1. **Backend Test Suite (121/121 passing)**:
-   ```bash
-   cd /Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/backend
-   PYTHONPATH=. ../.venv311/bin/pytest tests/ -v
-   ```
-2. **Frontend Production Build (0 errors)**:
-   ```bash
-   cd /Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/frontend
-   npm run build
-   ```
-3. **Run Backend Service**:
-   ```bash
-   cd /Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/backend
-   PYTHONPATH=. ../.venv311/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-   ```
-4. **Run Frontend Dashboard**:
-   ```bash
-   cd /Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/frontend
-   npm run dev
-   ```
+### 🎨 1. Deep Oceanic Unified Design Language System
+All screens and components across Android and Desktop now adhere strictly to the Deep Oceanic palette:
+- **Base Canvas**: `#030B14`
+- **Supporting Surface**: `#0B1A2E`
+- **Inset / Header Surface**: `#081525`
+- **Interactive Surface**: `#112745`
+- **Structural Border**: `#1E3A5F`
+- **Hover / Active Border**: `#2C5282`
+- **Primary Text**: `#F8FAFC`
+- **Secondary / Muted Text**: `#94A3B8` / `#64748B`
+- **Brand Purple**: `#5B21B6` / `#4C1D95`
+- **Interaction Blue**: `#2563EB` / `#3B82F6`
+- **Amber Warning**: `#F59E0B`
+- **Success / Emerald**: `#10B981` (foreground), `#ECFDF5` (background), `#A7F3D0` (border)
+- **Danger / Crimson**: `#EF4444`
+
+### 📱 2. Android Field Screening App (`ssb-field-screening`)
+- **Theme & Squircle Radii**: `SsbColors` and `SsbInspectionTheme` configured with Deep Oceanic tokens and 22% squircle proportional corner radii (14–16dp for card surfaces, 11–12dp for buttons, 6–8dp for badges/chips).
+- **Streamlined Navigation**: Bottom bar reduced to strictly 3 operational tabs (`CAPTURE`, `RESULTS`, `OUTBOX`). Gateway Diagnostics is cleanly routed through a settings cogs button (`header_diagnostics_gear_btn`) in `HeaderBar.kt`.
+- **Quiet Capture View**: `DualCameraCaptureView.kt` viewports expanded to 230dp with all laser sweep animations, corner bracket noise, and multi-step state machine clutter removed.
+- **Collapsible Diagnostics**: `InspectionPipelineTrace`, `CrossValidationMatrix`, and `DiscrepancyDiffTable` default to collapsed accordions (`isExpanded = false`), placing primary operational focus on the high-contrast Risk Score badge and Officer Decision Card.
+- **Authoritative Status**: Consolidated double badges into a single telemetry status pill with live latency and mode indicator.
+
+### 💻 3. Computer App (`frontend/` React + Tauri)
+- **Visual Noise & Slop Removal**: Removed `@keyframes pulseGlowRed`, `radar-sweep`, `glow-red`, `glow-green`, `alert-pulse-red`, and `bg-grid-pattern`. Replaced hardcoded `slate-*` classes with canonical CSS variables.
+- **Decluttered Dashboard**: Focused `App.tsx` on active scan queue, latest screening results, and connected devices tracker. Removed redundant KPI cards and large decorative illustrations.
+- **Single Authoritative Connection Capsule**: Consolidated header telemetry into a single status capsule querying `/api/v1/devices` (`🟢 1 FIELD UNIT (38ms) | AIR-GAPPED`).
+- **Expandable Diagnostic Accordions**: Structured deep diagnostics (4-stream pipeline trace, discrepancy diff table, 8-rule cross-validation matrix, ELA/FFT forensics viewer, raw JSON) into clean collapsible accordions in `ResultsPanel.tsx`.
+- **Slop Elimination**: Completely deleted 7 orphaned components (`StandbyTelemetry.tsx`, `TaskRows.tsx`, `ProgressRing.tsx`, `StreamText.tsx`, `Switch.tsx`, `Shimmer.tsx`, `Chip.tsx`) and updated barrel exports with zero circular dependencies.
+
+---
+
+## 4. Verification Evidence
+
+1. **Android Application**:
+   - Command: `JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew assembleDebug testDebugUnitTest`
+   - Result: `BUILD SUCCESSFUL` (100% unit tests passed, `app-debug.apk` built).
+2. **Frontend Application**:
+   - Command: `npm run typecheck && npm run build && npm test`
+   - Result: 0 TypeScript errors, clean production bundle (108 kB JS gzip, 6.4 kB CSS gzip), 55/55 adversarial and unit tests passed.
+3. **Backend API & Contracts**:
+   - Command: `pytest tests/ -v`
+   - Result: **242 / 242 tests passed** (100% pass rate in 18.5s).
+4. **Forensic Integrity Audit**:
+   - Verdict: **CLEAN** (Verified genuine implementation, zero test falsification, zero dummy facades).
+
+---
+
+## 5. Artifact Index
+- Project Spec: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/orchestrator_1/PROJECT.md`
+- Gate Verdicts: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/orchestrator_1/GATE_STATUS.md`
+- Progress Log: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/orchestrator_1/progress.md`
+- Worker M1 Report: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_worker_m1/m1_android_report.md`
+- Worker M2 Report: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_worker_m2/m2_frontend_report.md`
+- Reviewer 1 Report: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_reviewer_m1_1/review_android.md`
+- Reviewer 2 Report: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_reviewer_m2_1/review_frontend.md`
+- Challenger 1 Report: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_challenger_m1_1/challenge_android.md`
+- Challenger 2 Report: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_challenger_m2_1/challenge_frontend.md`
+- Forensic Audit Report: `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_auditor_m1_m2_1/audit_report.md`

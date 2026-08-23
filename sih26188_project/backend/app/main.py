@@ -15,13 +15,15 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from typing import Dict
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers import biometrics, forensics, ocr, scan
 from app.core.backend_selector import get_hardware_status, get_optimal_execution_providers
 from app.core.config import settings
+from app.core.device_tracker import device_tracker
 from app.core.logging import get_logger, setup_logging
+from app.schemas.scan import DocumentInspectResponse
 
 # Initialize Structured Logging
 setup_logging()
@@ -107,11 +109,55 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.middleware("http")
+async def track_device_activity_middleware(request: Request, call_next):
+    """
+    Middleware intercepting incoming HTTP requests to track connected field devices,
+    recording IP, user-agent, target endpoint, and execution latency in the DeviceTracker registry.
+    """
+    start_time = time.perf_counter()
+    response = await call_next(request)
+    duration_ms = (time.perf_counter() - start_time) * 1000.0
+
+    path = request.url.path
+    if path.startswith("/api/v1/") or path in ("/health", "/api/v1/health"):
+        # Resolve client IP (support reverse proxy headers)
+        forwarded = request.headers.get("x-forwarded-for")
+        if forwarded:
+            client_ip = forwarded.split(",")[0].strip()
+        else:
+            client_ip = request.headers.get("x-real-ip") or (request.client.host if request.client else "127.0.0.1")
+
+        user_agent = request.headers.get("user-agent")
+        checkpoint_id = request.headers.get("x-checkpoint-id")
+
+        device_tracker.record_activity(
+            client_ip=client_ip,
+            user_agent=user_agent,
+            endpoint=path,
+            checkpoint_id=checkpoint_id,
+            latency_ms=duration_ms,
+        )
+
+    return response
+
 # Mount all API Routers
 app.include_router(ocr.router)
 app.include_router(biometrics.router)
 app.include_router(forensics.router)
 app.include_router(scan.router)
+
+# Mount backward-compatible alias route for Android client
+app.add_api_route(
+    "/api/v1/inspect",
+    scan.inspect_document,
+    methods=["POST"],
+    response_model=DocumentInspectResponse,
+    tags=["Master Screening"],
+    summary="Master 3-Stream Parallel Document Inspection Endpoint (Android Alias)",
+    description="Backward-compatible alias route delegating directly to scan.inspect_document.",
+)
 
 
 @app.get("/health", tags=["Telemetry"])
@@ -137,11 +183,36 @@ async def get_api_v1_health():
     """
     API v1 health contract matching mobile & Tauri desktop requirements.
     """
+    aggregated_models = {
+        "pp_ocrv4": bool(MODELS_STATE.get("pp_ocrv4_det") or MODELS_STATE.get("pp_ocrv4_rec")),
+        "adaface": bool(MODELS_STATE.get("adaface_r100")),
+        "minifasnet": bool(MODELS_STATE.get("minifasnet_v2")),
+        "trufor": bool(MODELS_STATE.get("trufor")),
+        "doctamper": bool(MODELS_STATE.get("doctamper_dtd")),
+        "stamp_verifier": bool(MODELS_STATE.get("stamp_verifier")),
+        **MODELS_STATE,
+    }
     return {
         "status": "healthy",
         "engine_mode": "darwin_arm64_coreml" if "CoreMLExecutionProvider" in get_optimal_execution_providers() else "cuda_tensorrt",
-        "models_loaded": MODELS_STATE,
+        "models_loaded": aggregated_models,
         "uptime_seconds": round(time.time() - APP_START_TIME, 2),
+    }
+
+
+@app.get("/api/v1/devices", tags=["Telemetry"])
+async def get_connected_devices():
+    """
+    Returns list of connected Android screening clients and edge terminals,
+    providing IP, checkpoint ID, request counts, and round-trip latency metrics.
+    """
+    devices = device_tracker.get_all_devices()
+    last_device = device_tracker.get_last_active_device()
+    return {
+        "status": "ok",
+        "total_devices": len(devices),
+        "devices": [d.model_dump() for d in devices],
+        "last_active_device": last_device.model_dump() if last_device else None,
     }
 
 

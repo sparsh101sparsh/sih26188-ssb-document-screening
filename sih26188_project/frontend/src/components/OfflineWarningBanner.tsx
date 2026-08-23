@@ -18,19 +18,18 @@ export const OfflineWarningBanner: React.FC<OfflineWarningBannerProps> = ({
 
   return (
     <div
-      className="bg-amber-950 border border-amber-800 rounded-[10px] p-3 text-xs text-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
-      style={{ boxShadow: 'var(--shadow-card)' }}
+      className="bg-orange-tint border border-orange/40 rounded-card p-3 text-xs text-ink flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-card"
     >
       <div className="flex items-start space-x-2.5">
-        <AlertCircle className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+        <AlertCircle className="w-4 h-4 text-orange flex-shrink-0 mt-0.5" />
         <div className="space-y-0.5">
-          <p className="font-bold text-amber-100">
+          <p className="font-bold text-ink">
             Local Air-Gapped Inference Server (localhost:8000) is Offline
           </p>
-          <p className="text-[11px] text-amber-300 leading-normal">
-            The UI is running in <span className="font-semibold underline">Offline Simulation Mode</span> with full procedural presets.
+          <p className="text-[11px] text-ink-2 leading-normal">
+            The UI is running in <span className="font-semibold underline text-ink">Offline Simulation Mode</span> with full procedural presets.
             To connect the live PyTorch/ONNX backend, launch:
-            <code className="ml-1 bg-black/50 px-1.5 py-0.5 rounded-[4px] font-mono text-amber-200 border border-amber-800">
+            <code className="ml-1 bg-surface px-1.5 py-0.5 rounded-chip font-mono text-orange border border-line">
               uvicorn app.main:app --port 8000 --reload
             </code>
           </p>
@@ -39,16 +38,18 @@ export const OfflineWarningBanner: React.FC<OfflineWarningBannerProps> = ({
 
       <div className="flex items-center space-x-2 self-end sm:self-center">
         <button
+          type="button"
           onClick={onRetry}
           disabled={isChecking}
-          className="flex items-center space-x-1 bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold px-2.5 py-1 rounded-[6px] transition-colors text-[11px]"
+          className="flex items-center space-x-1 bg-orange hover:brightness-105 text-white font-bold px-2.5 py-1 rounded-control transition-colors text-[11px] shadow-btn"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isChecking ? 'animate-spin' : ''}`} />
           <span>Retry Connection</span>
         </button>
         <button
+          type="button"
           onClick={() => setDismissed(true)}
-          className="p-1 hover:bg-amber-900 rounded-[4px] text-amber-400 hover:text-white transition-colors"
+          className="p-1 hover:bg-hover rounded-control text-ink-3 hover:text-ink transition-colors"
           title="Dismiss Banner"
         >
           <X className="w-4 h-4" />
@@ -57,3 +58,5 @@ export const OfflineWarningBanner: React.FC<OfflineWarningBannerProps> = ({
     </div>
   );
 };
+
+export default OfflineWarningBanner;

@@ -224,28 +224,25 @@ class PPOCREngine:
 
     async def run_qwen_vl_quality_gate(self, image: Any, degraded_fields: List[str]) -> Dict[str, Any]:
         """
-        ================================================================================================
-        TODO: Qwen2.5-VL-3B-Instruct (AWQ INT4) Tier-2 Quality Gate Async Dispatch (Section 2.1, Topic B)
-        ================================================================================================
+        Tier-2 Quality Gate Async Dispatch for degraded identity documents (Section 2.1, Topic B).
+
+        When PP-OCRv4 mean confidence drops below TAU_OCR (0.82) or MRZ checksum validation fails,
+        this method dispatches the document image to an asynchronous Qwen2.5-VL-3B-Instruct (AWQ INT4)
+        worker pool to recover low-contrast text and verify degraded fields.
+
         Operational Rationale:
         Autoregressive token generation takes ~4.06s - 4.94s, exceeding the <1.5s synchronous SLA.
-        Therefore, Qwen2.5-VL is dispatched asynchronously into a background worker pool ONLY when
-        mean PP-OCRv4 confidence drops below TAU_OCR (0.82) or MRZ checksum validation fails.
+        Therefore, Qwen2.5-VL is dispatched asynchronously into a background worker pool.
 
-        Implementation Steps for Production Checkpoint:
-        1. Load Qwen2.5-VL-3B-Instruct-AWQ via vLLM / llama.cpp Python binding.
-        2. Prompt template: "Extract JSON fields [full_name, dob, doc_number, gender] from degraded image."
-        3. Await background generation and emit websocket event `vlm_refinement_complete` to officer UI.
-        ================================================================================================
+        Raises:
+            NotImplementedError: Real autoregressive VLM inference requires loading the
+            Qwen2.5-VL-3B-Instruct-AWQ checkpoint via vLLM / llama-cpp-python in a dedicated worker process.
         """
         logger.info(f"[ASYNC TIER-2 VLM TRIGGERED] Queued Qwen2.5-VL refinement for fields: {degraded_fields}")
-        await asyncio.sleep(0.01)  # Ephemeral async yield
-        return {
-            "status": "queued",
-            "model": "qwen2.5-vl-3b-instruct-q4",
-            "degraded_fields": degraded_fields,
-            "message": "Tier-2 VLM semantic refinement running asynchronously in background",
-        }
+        raise NotImplementedError(
+            "Tier-2 Qwen2.5-VL-3B-Instruct (AWQ INT4) quality gate requires a background vLLM / llama-cpp worker. "
+            f"Degraded fields requested for refinement: {degraded_fields}. Checkpoint: {settings.QWEN_VL_MODEL}"
+        )
 
     def extract_text(self, image_or_text: Union[Any, str]) -> OCRResult:
         """

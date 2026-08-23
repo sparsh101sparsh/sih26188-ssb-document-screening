@@ -1,5 +1,5 @@
 /**
- * SIH26188 — Frontend Formatting and Color Utilities
+ * SIH26188 — Frontend Formatting and Color Utilities (Deep Oceanic DLS)
  */
 
 import { RiskLevel } from '../types/api';
@@ -45,27 +45,27 @@ export function getRiskColorClass(level: RiskLevel): {
   switch (level) {
     case 'GREEN':
       return {
-        badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
-        border: 'border-emerald-500',
-        bg: 'bg-emerald-950/40',
-        text: 'text-emerald-400',
-        glow: 'shadow-[0_0_20px_rgba(16,185,129,0.3)]',
+        badge: 'bg-green-tint text-green border-green/40',
+        border: 'border-green',
+        bg: 'bg-green-tint',
+        text: 'text-green',
+        glow: '',
       };
     case 'AMBER':
       return {
-        badge: 'bg-amber-500/20 text-amber-400 border-amber-500/40',
-        border: 'border-amber-500',
-        bg: 'bg-amber-950/40',
-        text: 'text-amber-400',
-        glow: 'shadow-[0_0_20px_rgba(245,158,11,0.3)]',
+        badge: 'bg-orange-tint text-orange border-orange/40',
+        border: 'border-orange',
+        bg: 'bg-orange-tint',
+        text: 'text-orange',
+        glow: '',
       };
     case 'RED':
       return {
-        badge: 'bg-red-500/25 text-red-400 border-red-500/50',
-        border: 'border-red-500',
-        bg: 'bg-red-950/50',
-        text: 'text-red-400',
-        glow: 'pulsing-alert-red',
+        badge: 'bg-red-tint text-red border-red/40',
+        border: 'border-red',
+        bg: 'bg-red-tint',
+        text: 'text-red',
+        glow: '',
       };
   }
 }
@@ -75,20 +75,20 @@ export function getTelemetryTagInfo(code: string): { label: string; severity: 'C
     return {
       label: code,
       severity: 'CRITICAL',
-      color: 'bg-red-500/20 text-red-300 border-red-500/40',
+      color: 'bg-red-tint text-red border-red/40',
     };
   }
   if (code.startsWith('WRN_') || code.includes('WARNING') || code.includes('ANOMALY')) {
     return {
       label: code,
       severity: 'WARNING',
-      color: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+      color: 'bg-orange-tint text-orange border-orange/40',
     };
   }
   return {
     label: code,
     severity: 'INFO',
-    color: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
+    color: 'bg-accent-tint text-accent border-accent/40',
   };
 }
 
@@ -96,17 +96,17 @@ export function getStatusBadge(passed?: boolean | null, trueText = 'PASSED', fal
   if (passed === true) {
     return {
       text: trueText,
-      className: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-xs px-2 py-0.5 rounded',
+      className: 'bg-green-tint text-green border border-green/30 font-mono text-xs px-2 py-0.5 rounded-chip font-semibold',
     };
   }
   if (passed === false) {
     return {
       text: falseText,
-      className: 'bg-red-500/20 text-red-400 border border-red-500/40 font-mono text-xs px-2 py-0.5 rounded font-bold',
+      className: 'bg-red-tint text-red border border-red/30 font-mono text-xs px-2 py-0.5 rounded-chip font-bold',
     };
   }
   return {
     text: 'NOT CHECKED',
-    className: 'bg-slate-700/50 text-slate-400 border border-slate-600/30 font-mono text-xs px-2 py-0.5 rounded',
+    className: 'bg-inset text-ink-3 border border-line font-mono text-xs px-2 py-0.5 rounded-chip',
   };
 }

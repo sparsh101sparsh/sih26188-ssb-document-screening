@@ -12,10 +12,10 @@ const LEVEL_CONFIG = {
     subtitle: 'All cryptographic signatures, ICAO check digits and facial biometrics authenticated.',
     action: 'APPROVED — Safe for fast-path border transit clearance.',
     Icon: ShieldCheck,
-    borderClass: 'border-green/40',
-    bgClass: 'bg-green-tint/30',
+    borderClass: 'border-green/50',
+    bgClass: 'bg-green-tint',
     badgeClass: 'bg-green-tint text-green border-green/40',
-    iconBg: 'bg-green-tint text-green border border-green/30',
+    iconBg: 'bg-green-tint text-green border border-green/40',
     textClass: 'text-green',
   },
   AMBER: {
@@ -23,10 +23,10 @@ const LEVEL_CONFIG = {
     subtitle: 'Anomalies detected in demographic cross-validation or stamp template match.',
     action: 'MANUAL HOLD — Officer must conduct physical document inspection.',
     Icon: AlertTriangle,
-    borderClass: 'border-orange/40',
-    bgClass: 'bg-orange-tint/30',
+    borderClass: 'border-orange/50',
+    bgClass: 'bg-orange-tint',
     badgeClass: 'bg-orange-tint text-orange border-orange/40',
-    iconBg: 'bg-orange-tint text-orange border border-orange/30',
+    iconBg: 'bg-orange-tint text-orange border border-orange/40',
     textClass: 'text-orange',
   },
   RED: {
@@ -34,10 +34,10 @@ const LEVEL_CONFIG = {
     subtitle: '',
     action: 'INTERDICTION MANDATE — Detain subject under Section 14 Foreigners Act.',
     Icon: ShieldAlert,
-    borderClass: 'border-red/50 pulsing-alert-red',
-    bgClass: 'bg-red-tint/40',
+    borderClass: 'border-red/60',
+    bgClass: 'bg-red-tint',
     badgeClass: 'bg-red-tint text-red border-red/40',
-    iconBg: 'bg-red-tint text-red border border-red/40 animate-pulse',
+    iconBg: 'bg-red-tint text-red border border-red/50',
     textClass: 'text-red',
   },
 } as const;
@@ -81,7 +81,7 @@ export const RiskStatusBanner: React.FC<RiskStatusBannerProps> = ({ assessment }
               )}
 
               {tripwire_triggered && (
-                <span className="text-[11px] font-mono font-bold bg-red text-white px-2.5 py-0.5 rounded-chip flex items-center gap-1 animate-bounce shadow-btn">
+                <span className="text-[11px] font-mono font-bold bg-red text-white px-2.5 py-0.5 rounded-chip flex items-center gap-1 shadow-btn">
                   <Zap className="w-3 h-3 fill-white text-white" /> Stage 1 tripwire
                 </span>
               )}
@@ -114,7 +114,7 @@ export const RiskStatusBanner: React.FC<RiskStatusBannerProps> = ({ assessment }
       </div>
 
       {tripwire_triggered && tripwire_codes.length > 0 && (
-        <div className="mt-3.5 pt-3 border-t border-red/40 bg-red-tint -mx-4 -mb-4 p-3 rounded-b-card">
+        <div className="mt-3.5 pt-3 border-t border-red/40 bg-red-tint/60 -mx-4 -mb-4 p-3 rounded-b-card">
           <div className="flex items-center gap-1.5 text-xs font-bold text-red mb-2">
             <Zap className="w-4 h-4 text-orange" />
             <span>Stage 1 Hard Tripwire Assertions (instant RED override):</span>
@@ -135,3 +135,5 @@ export const RiskStatusBanner: React.FC<RiskStatusBannerProps> = ({ assessment }
     </div>
   );
 };
+
+export default RiskStatusBanner;

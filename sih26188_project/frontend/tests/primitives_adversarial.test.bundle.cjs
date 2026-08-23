@@ -1454,7 +1454,7 @@ var require_react = __commonJS({
 var require_react_dom_production = __commonJS({
   "node_modules/react-dom/cjs/react-dom.production.js"(exports2) {
     "use strict";
-    var React8 = require_react();
+    var React6 = require_react();
     function formatProdErrorMessage(code) {
       var url = "https://react.dev/errors/" + code;
       if (1 < arguments.length) {
@@ -1494,7 +1494,7 @@ var require_react_dom_production = __commonJS({
         implementation
       };
     }
-    var ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     function getCrossOriginStringAs(as, input) {
       if ("font" === as) return "";
       if ("string" === typeof input)
@@ -1648,7 +1648,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React8 = require_react(), Internals = {
+      var React6 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1666,7 +1666,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -1873,7 +1873,7 @@ var require_react_dom = __commonJS({
 var require_react_dom_server_legacy_node_production = __commonJS({
   "node_modules/react-dom/cjs/react-dom-server-legacy.node.production.js"(exports2) {
     "use strict";
-    var React8 = require_react();
+    var React6 = require_react();
     var ReactDOM = require_react_dom();
     var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element");
     var REACT_PORTAL_TYPE = Symbol.for("react.portal");
@@ -2073,7 +2073,7 @@ var require_react_dom_server_legacy_node_production = __commonJS({
     function sanitizeURL(url) {
       return isJavaScriptProtocol.test("" + url) ? "javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')" : url;
     }
-    var ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var sharedNotPendingObject = {
       pending: false,
@@ -2434,7 +2434,7 @@ var require_react_dom_server_legacy_node_production = __commonJS({
     }
     function flattenOptionChildren(children) {
       var content = "";
-      React8.Children.forEach(children, function(child) {
+      React6.Children.forEach(children, function(child) {
         null != child && (content += child);
       });
       return content;
@@ -6814,7 +6814,7 @@ var require_react_dom_server_node_production = __commonJS({
     var util = require("util");
     var crypto = require("crypto");
     var async_hooks = require("async_hooks");
-    var React8 = require_react();
+    var React6 = require_react();
     var ReactDOM = require_react_dom();
     var stream = require("stream");
     var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element");
@@ -7041,7 +7041,7 @@ var require_react_dom_server_node_production = __commonJS({
     function sanitizeURL(url) {
       return isJavaScriptProtocol.test("" + url) ? "javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')" : url;
     }
-    var ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var sharedNotPendingObject = {
       pending: false,
@@ -7617,7 +7617,7 @@ var require_react_dom_server_node_production = __commonJS({
     }
     function flattenOptionChildren(children) {
       var content = "";
-      React8.Children.forEach(children, function(child) {
+      React6.Children.forEach(children, function(child) {
         null != child && (content += child);
       });
       return content;
@@ -12121,7 +12121,7 @@ var require_react_dom_server_node_production = __commonJS({
       };
     }
     function ensureCorrectIsomorphicReactVersion() {
-      var isomorphicReactPackageVersion = React8.version;
+      var isomorphicReactPackageVersion = React6.version;
       if ("19.2.8" !== isomorphicReactPackageVersion)
         throw Error(
           'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.8\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -13655,7 +13655,7 @@ var require_react_dom_server_legacy_node_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React8.Children.forEach(children, function(child) {
+        React6.Children.forEach(children, function(child) {
           null != child && (content += child, didWarnInvalidOptionChildren || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || (didWarnInvalidOptionChildren = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           )));
@@ -18710,7 +18710,7 @@ var require_react_dom_server_legacy_node_development = __commonJS({
           );
         return result;
       }
-      var React8 = require_react(), ReactDOM = require_react_dom(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
+      var React6 = require_react(), ReactDOM = require_react_dom(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
         "^[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), illegalAttributeNameCache = {}, validatedAttributeNameCache = {}, unitlessNumbers = new Set(
         "animationIterationCount aspectRatio borderImageOutset borderImageSlice borderImageWidth boxFlex boxFlexGroup boxOrdinalGroup columnCount columns flex flexGrow flexPositive flexShrink flexNegative flexOrder gridArea gridRow gridRowEnd gridRowSpan gridRowStart gridColumn gridColumnEnd gridColumnSpan gridColumnStart fontWeight lineClamp lineHeight opacity order orphans scale tabSize widows zIndex zoom fillOpacity floodOpacity stopOpacity strokeDasharray strokeDashoffset strokeMiterlimit strokeOpacity strokeWidth MozAnimationIterationCount MozBoxFlex MozBoxFlexGroup MozLineClamp msAnimationIterationCount msFlex msZoom msFlexGrow msFlexNegative msFlexOrder msFlexPositive msFlexShrink msGridColumn msGridColumnSpan msGridRow msGridRowSpan WebkitAnimationIterationCount WebkitBoxFlex WebKitBoxFlexGroup WebkitBoxOrdinalGroup WebkitColumnCount WebkitColumns WebkitFlex WebkitFlexGrow WebkitFlexPositive WebkitFlexShrink WebkitLineClamp".split(
@@ -19358,7 +19358,7 @@ var require_react_dom_server_legacy_node_development = __commonJS({
         "^(aria)-[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), rARIACamel = RegExp(
         "^(aria)[A-Z][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
-      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -20934,7 +20934,7 @@ var require_react_dom_server_node_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React8.Children.forEach(children, function(child) {
+        React6.Children.forEach(children, function(child) {
           null != child && (content += child, didWarnInvalidOptionChildren || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || (didWarnInvalidOptionChildren = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           )));
@@ -26030,7 +26030,7 @@ var require_react_dom_server_node_development = __commonJS({
         };
       }
       function ensureCorrectIsomorphicReactVersion() {
-        var isomorphicReactPackageVersion = React8.version;
+        var isomorphicReactPackageVersion = React6.version;
         if ("19.2.8" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.8\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -26140,7 +26140,7 @@ var require_react_dom_server_node_development = __commonJS({
           }
         };
       }
-      var util = require("util"), crypto = require("crypto"), async_hooks = require("async_hooks"), React8 = require_react(), ReactDOM = require_react_dom(), stream = require("stream"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), scheduleMicrotask = queueMicrotask, currentView = null, writtenBytes = 0, destinationHasCapacity$1 = true, textEncoder = new util.TextEncoder(), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
+      var util = require("util"), crypto = require("crypto"), async_hooks = require("async_hooks"), React6 = require_react(), ReactDOM = require_react_dom(), stream = require("stream"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), scheduleMicrotask = queueMicrotask, currentView = null, writtenBytes = 0, destinationHasCapacity$1 = true, textEncoder = new util.TextEncoder(), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
         "^[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), illegalAttributeNameCache = {}, validatedAttributeNameCache = {}, unitlessNumbers = new Set(
         "animationIterationCount aspectRatio borderImageOutset borderImageSlice borderImageWidth boxFlex boxFlexGroup boxOrdinalGroup columnCount columns flex flexGrow flexPositive flexShrink flexNegative flexOrder gridArea gridRow gridRowEnd gridRowSpan gridRowStart gridColumn gridColumnEnd gridColumnSpan gridColumnStart fontWeight lineClamp lineHeight opacity order orphans scale tabSize widows zIndex zoom fillOpacity floodOpacity stopOpacity strokeDasharray strokeDashoffset strokeMiterlimit strokeOpacity strokeWidth MozAnimationIterationCount MozBoxFlex MozBoxFlexGroup MozLineClamp msAnimationIterationCount msFlex msZoom msFlexGrow msFlexNegative msFlexOrder msFlexPositive msFlexShrink msGridColumn msGridColumnSpan msGridRow msGridRowSpan WebkitAnimationIterationCount WebkitBoxFlex WebKitBoxFlexGroup WebkitBoxOrdinalGroup WebkitColumnCount WebkitColumns WebkitFlex WebkitFlexGrow WebkitFlexPositive WebkitFlexShrink WebkitLineClamp".split(
@@ -26788,7 +26788,7 @@ var require_react_dom_server_node_development = __commonJS({
         "^(aria)-[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), rARIACamel = RegExp(
         "^(aria)[A-Z][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
-      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -27918,18 +27918,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React8 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React8.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React6 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React6.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React8 = {
+      React6 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React8.react_stack_bottom_frame.bind(
-        React8,
+      var unknownOwnerDebugStack = React6.react_stack_bottom_frame.bind(
+        React6,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -28015,27 +28015,11 @@ function Button({
   );
 }
 
-// src/components/ui/Chip.tsx
+// src/components/ui/TextRow.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 
-// src/components/ui/ProgressRing.tsx
-var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
-
-// src/components/ui/Shimmer.tsx
-var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
-
-// src/components/ui/StreamText.tsx
-var import_react = __toESM(require_react(), 1);
-var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
-
-// src/components/ui/Switch.tsx
-var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
-
-// src/components/ui/TextRow.tsx
-var import_jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
-
 // src/components/ui/StatusPill.tsx
-var import_jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var tones = {
   green: {
     bg: "bg-green-tint",
@@ -28101,25 +28085,25 @@ function StatusPill({
 }) {
   const t = tones[tone] || tones.neutral;
   const isAlert = tone === "red" || pulse;
-  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
     "span",
     {
       className: `inline-flex items-center rounded-full font-medium leading-none select-none border transition-colors ${t.bg} ${t.fg} ${t.border} ${sizeClasses[size]} ${className}`,
       children: [
-        dot && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+        dot && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "span",
           {
             className: `size-1.5 shrink-0 rounded-full ${t.dot} ${isAlert ? "animate-pulse" : ""}`
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "truncate", children })
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate", children })
       ]
     }
   );
 }
 
 // src/components/ui/SegmentedControl.tsx
-var import_jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 function SegmentedControl({
   options,
   value,
@@ -28153,7 +28137,7 @@ function SegmentedControl({
   };
   const heightCls = size === "sm" ? "h-7 text-[12px]" : "h-8.5 text-[13px]";
   const padCls = size === "sm" ? "px-2.5 py-0.5" : "px-3 py-1";
-  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
     "div",
     {
       role: "tablist",
@@ -28162,7 +28146,7 @@ function SegmentedControl({
       className: `relative inline-grid select-none rounded-full bg-field/80 p-0.5 border border-line focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${heightCls} ${className}`,
       style: { gridTemplateColumns: `repeat(${count}, 1fr)` },
       children: [
-        activeIndex >= 0 && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+        activeIndex >= 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "span",
           {
             "aria-hidden": true,
@@ -28177,7 +28161,7 @@ function SegmentedControl({
         ),
         normalizedOptions.map((opt) => {
           const isSelected = opt.id === value;
-          return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+          return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
             "button",
             {
               type: "button",
@@ -28186,9 +28170,9 @@ function SegmentedControl({
               onClick: () => onChange(opt.id),
               className: `relative z-10 flex items-center justify-center gap-1.5 rounded-full font-medium transition-colors duration-150 ${padCls} ${isSelected ? "text-ink font-semibold" : "text-ink-2 hover:text-ink"}`,
               children: [
-                opt.icon && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "size-3.5 shrink-0 flex items-center justify-center", children: opt.icon }),
-                /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "truncate", children: opt.label }),
-                opt.badge !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                opt.icon && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "size-3.5 shrink-0 flex items-center justify-center", children: opt.icon }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "truncate", children: opt.label }),
+                opt.badge !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
                   "span",
                   {
                     className: `ml-0.5 rounded-full px-1.5 py-0.2 text-[10.5px] tabular-nums font-mono ${isSelected ? "bg-accent/15 text-accent-ink" : "bg-inset text-ink-3"}`,
@@ -28206,781 +28190,509 @@ function SegmentedControl({
 }
 
 // src/components/ui/DiffTable.tsx
-var import_react2 = __toESM(require_react(), 1);
-var import_jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
+var import_react = __toESM(require_react(), 1);
+var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
 var DEFAULT_ROWS = [
-  {
-    field: "Date of Birth",
-    sourceA: "Visual OCR",
-    sourceB: "ICAO MRZ (Line 2)",
-    valueA: "1984-07-12",
-    valueB: "840712",
-    isMatch: true
-  },
-  {
-    field: "Document Number",
-    sourceA: "Visual OCR",
-    sourceB: "ICAO MRZ (Line 1)",
-    valueA: "P98421034",
-    valueB: "P98421038",
-    isMatch: false,
-    details: 'Visual digit "4" was altered; MRZ check digit CD1 confirms 8.'
-  },
-  {
-    field: "Full Legal Name",
-    sourceA: "Visual OCR",
-    sourceB: "UIDAI QR PKI",
-    valueA: "KUMAR<<ANAND",
-    valueB: "KUMAR<<ANAND",
-    isMatch: true
-  },
-  {
-    field: "Issuing State Code",
-    sourceA: "Visual OCR",
-    sourceB: "ICAO MRZ",
-    valueA: "IND",
-    valueB: "IND",
-    isMatch: true
-  }
+  { field: "Document Number", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "P98421034", valueB: "P98421034", isMatch: true },
+  { field: "Date of Birth (DOB)", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "1984-07-12", valueB: "1984-07-12", isMatch: true },
+  { field: "Full Legal Name", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "ANAND KUMAR", valueB: "ANAND KUMAR", isMatch: true },
+  { field: "Issuing Country", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "IND", valueB: "IND", isMatch: true }
 ];
-function IncludedMark({
-  included,
-  tone
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-    "span",
-    {
-      "aria-hidden": true,
-      className: `flex size-4.5 shrink-0 items-center justify-center rounded-[5px] transition-[background-color,color,transform] duration-150 ${included ? tone === "red" ? "bg-red text-white" : "bg-green text-white" : "bg-inset text-ink-3 shadow-hairline"}`,
-      style: { transform: included ? "scale(1)" : "scale(0.92)" },
-      children: included ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-        "svg",
-        {
-          width: "11",
-          height: "11",
-          viewBox: "0 0 24 24",
-          fill: "none",
-          stroke: "currentColor",
-          strokeWidth: "3",
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("path", { d: "M20 6L9 17l-5-5" })
-        }
-      ) : null
-    }
-  );
-}
-function DiffTable({
+var DiffTable = ({
   title = "Field Discrepancy Matrix",
   rows,
   items,
-  showApplyButton = true,
+  diffs,
   onApplyEdits,
-  className = ""
-}) {
-  const normalizedRows = import_react2.default.useMemo(() => {
-    if (rows && rows.length > 0) return rows;
-    if (items && items.length > 0) {
-      return items.map((it) => ({
-        field: it.field,
-        sourceA: it.sourceA || it.labelA || "Visual OCR",
-        sourceB: it.sourceB || it.labelB || "ICAO MRZ / PKI",
-        valueA: it.valueA || it.labelA || "",
-        valueB: it.valueB || it.labelB || "",
-        isMatch: it.status === "match"
-      }));
-    }
-    return DEFAULT_ROWS;
-  }, [rows, items]);
-  const [filterMismatch, setFilterMismatch] = (0, import_react2.useState)(false);
-  const [copiedKey, setCopiedKey] = (0, import_react2.useState)(null);
-  const [expandedRows, setExpandedRows] = (0, import_react2.useState)({});
-  const [acknowledged, setAcknowledged] = (0, import_react2.useState)({});
-  const [applied, setApplied] = (0, import_react2.useState)(false);
-  const displayedRows = filterMismatch ? normalizedRows.filter((r) => !r.isMatch) : normalizedRows;
-  const mismatchCount = normalizedRows.filter((r) => !r.isMatch).length;
-  const matchCount = normalizedRows.filter((r) => r.isMatch).length;
-  const toggleRowExpanded = (key) => {
-    setExpandedRows((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-  const toggleAcknowledged = (key) => {
-    setAcknowledged((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-  const copyToClipboard = (text, key, e) => {
-    e.stopPropagation();
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(text);
-      setCopiedKey(key);
-      setTimeout(() => setCopiedKey(null), 1600);
-    }
-  };
+  showApplyButton = true
+}) => {
+  const rawList = rows !== void 0 ? rows : items !== void 0 ? items : diffs !== void 0 ? diffs : DEFAULT_ROWS;
+  const rawItems = rawList && rawList.length > 0 ? rawList : rows !== void 0 || items !== void 0 ? rawList || [] : DEFAULT_ROWS;
+  const normalizedItems = (rawItems.length > 0 ? rawItems : DEFAULT_ROWS).map((r) => {
+    const isMatch = r.isMatch !== void 0 ? r.isMatch : r.status ? r.status === "match" : r.valueA === r.valueB;
+    return {
+      ...r,
+      isMatch
+    };
+  });
+  const [filterMismatch, setFilterMismatch] = (0, import_react.useState)(false);
+  const displayedRows = filterMismatch ? normalizedItems.filter((r) => !r.isMatch) : normalizedItems;
+  const mismatchCount = normalizedItems.filter((r) => !r.isMatch).length;
+  const matchCount = normalizedItems.length - mismatchCount;
   const handleApply = () => {
-    setApplied(true);
-    const flagged = Object.keys(acknowledged).filter((k) => acknowledged[k]);
+    const flagged = normalizedItems.filter((r) => !r.isMatch).map((r) => r.field);
     onApplyEdits?.(flagged);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-    "div",
-    {
-      className: `w-full overflow-hidden rounded-card bg-surface shadow-card border border-line ${className}`,
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "primitive-card-bar flex flex-wrap items-center justify-between gap-2 border-b border-line bg-canvas/40", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[12.5px] font-semibold text-ink uppercase tracking-wider font-mono", children: title }),
-            mismatchCount > 0 ? /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "inline-flex items-center gap-1 rounded-full bg-red-tint px-2 py-0.5 text-[11px] font-medium font-mono text-red border border-red/20", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "size-1.5 rounded-full bg-red animate-pulse" }),
-              mismatchCount,
-              " Discrepanc",
-              mismatchCount === 1 ? "y" : "ies",
-              " Found"
-            ] }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "inline-flex items-center gap-1 rounded-full bg-green-tint px-2 py-0.5 text-[11px] font-medium font-mono text-green border border-green/20", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "size-1.5 rounded-full bg-green" }),
-              "100% Cross-Stream Consistency"
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "flex items-center gap-1.5", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-            "button",
-            {
-              type: "button",
-              onClick: () => setFilterMismatch(!filterMismatch),
-              className: `rounded-control px-2.5 py-1 text-[11.5px] font-medium font-mono transition-colors border ${filterMismatch ? "bg-red-tint text-red border-red/30" : "bg-surface text-ink-2 border-line hover:bg-hover hover:text-ink"}`,
-              children: filterMismatch ? "Show All Fields" : "Filter Mismatches Only"
-            }
-          ) })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("table", { className: "w-full table-fixed border-collapse text-left text-[12.5px]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("colgroup", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("col", { className: "w-[28%]" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("col", { className: "w-[28%]" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("col", { className: "w-[28%]" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("col", { className: "w-[16%]" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("tr", { className: "border-b border-line bg-inset/40 text-[11.5px] font-medium font-mono text-ink-3", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("th", { className: "primitive-table-cell", children: "Target Attribute" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("th", { className: "primitive-table-cell", children: "Primary Visual OCR" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("th", { className: "primitive-table-cell", children: "MRZ / Digital PKI" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("th", { className: "primitive-table-cell text-right", children: "Verdict" })
-          ] }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("tbody", { className: "divide-y divide-line", children: displayedRows.map((row, idx) => {
-            const rowKey = `${row.field}-${idx}`;
-            const isMismatch = !row.isMatch;
-            const isExpanded = expandedRows[rowKey] ?? false;
-            const isAck = acknowledged[rowKey] ?? true;
-            return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_react2.default.Fragment, { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-                "tr",
-                {
-                  onClick: () => isMismatch ? toggleAcknowledged(rowKey) : toggleRowExpanded(rowKey),
-                  className: `group transition-[background-color] duration-150 cursor-pointer ${isMismatch ? "bg-red-tint/50 hover:bg-red-tint/80" : "hover:bg-hover/60"}`,
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("td", { className: "primitive-table-cell font-medium text-ink", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center gap-1.5", children: [
-                      isMismatch && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(IncludedMark, { included: isAck, tone: "red" }),
-                      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "truncate", children: row.field })
-                    ] }) }),
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("td", { className: "primitive-table-cell font-mono", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center justify-between gap-1", children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                        "span",
-                        {
-                          className: `truncate ${isMismatch ? "line-through text-red font-medium decoration-red/60" : "text-ink-2"}`,
-                          children: row.valueA || "\u2014"
-                        }
-                      ),
-                      row.valueA && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                        "button",
-                        {
-                          type: "button",
-                          "aria-label": `Copy visual ${row.field}`,
-                          onClick: (e) => copyToClipboard(row.valueA, `a-${rowKey}`, e),
-                          className: "opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-hover text-ink-3 hover:text-ink transition-opacity",
-                          children: copiedKey === `a-${rowKey}` ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "var(--green)", strokeWidth: "3", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("path", { d: "M20 6L9 17l-5-5" }) }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: [
-                            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("rect", { x: "9", y: "9", width: "13", height: "13", rx: "2", ry: "2" }),
-                            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("path", { d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" })
-                          ] })
-                        }
-                      )
-                    ] }) }),
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("td", { className: "primitive-table-cell font-mono", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center justify-between gap-1", children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                        "span",
-                        {
-                          className: `truncate ${isMismatch ? "text-ink font-semibold bg-surface/80 px-1.5 py-0.5 rounded border border-line" : "text-ink-2"}`,
-                          children: row.valueB || "\u2014"
-                        }
-                      ),
-                      row.valueB && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                        "button",
-                        {
-                          type: "button",
-                          "aria-label": `Copy decoded ${row.field}`,
-                          onClick: (e) => copyToClipboard(row.valueB, `b-${rowKey}`, e),
-                          className: "opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-hover text-ink-3 hover:text-ink transition-opacity",
-                          children: copiedKey === `b-${rowKey}` ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "var(--green)", strokeWidth: "3", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("path", { d: "M20 6L9 17l-5-5" }) }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: [
-                            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("rect", { x: "9", y: "9", width: "13", height: "13", rx: "2", ry: "2" }),
-                            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("path", { d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" })
-                          ] })
-                        }
-                      )
-                    ] }) }),
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("td", { className: "primitive-table-cell text-right", children: row.isMatch ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "inline-flex items-center gap-1 rounded-[5px] bg-green-tint px-2 py-0.5 text-[10.5px] font-mono font-semibold text-green border border-green/20", children: "\u2713 MATCH" }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "inline-flex items-center gap-1 rounded-[5px] bg-red-tint px-2 py-0.5 text-[10.5px] font-mono font-bold text-red border border-red/30 animate-pulse", children: "\u2715 MISMATCH" }) })
-                  ]
-                }
-              ),
-              row.details && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("td", { colSpan: 4, className: "p-0 border-b border-line", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                "div",
-                {
-                  className: "grid transition-[grid-template-rows,opacity] duration-200",
-                  style: {
-                    gridTemplateRows: isMismatch || isExpanded ? "1fr" : "0fr",
-                    opacity: isMismatch || isExpanded ? 1 : 0,
-                    transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
-                  },
-                  children: /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "overflow-hidden bg-inset/60 px-3.5 py-2 text-[11.5px] text-ink-2 font-mono border-l-2 border-red", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "font-semibold text-red", children: "Discrepancy Note: " }),
-                    row.details
-                  ] })
-                }
-              ) }) })
-            ] }, rowKey);
-          }) })
-        ] }) }),
-        showApplyButton && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "primitive-card-footer flex min-h-11 items-center justify-between border-t border-line bg-canvas/30", children: applied ? /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-          "span",
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "px-3.5 py-2.5 bg-inset border-b border-line flex flex-wrap items-center justify-between gap-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider font-mono", children: title }),
+        mismatchCount > 0 ? /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-red-tint text-red border border-red/30", children: [
+          mismatchCount,
+          " Discrepanc",
+          mismatchCount === 1 ? "y" : "ies",
+          " Found"
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-green-tint text-green border border-green/30", children: "100% Cross-Stream Consistency" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+          "(",
+          matchCount,
+          " verified \xB7 ",
+          mismatchCount,
+          " mismatches)"
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center gap-2", children: [
+        showApplyButton && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+          "button",
           {
-            className: "inline-flex items-center gap-1.5 rounded-full bg-green-tint py-1 pr-3 pl-1.5 text-[12px] font-medium text-green border border-green/20 animate-pop-in",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "flex size-4.5 items-center justify-center rounded-full bg-green text-white", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("path", { d: "M20 6L9 17l-5-5" }) }) }),
-              "Discrepancy Acknowledgement Recorded"
-            ]
+            type: "button",
+            onClick: handleApply,
+            className: "text-[11px] font-mono px-2.5 py-1 rounded-control bg-accent text-white font-semibold shadow-btn hover:bg-accent-hover transition-colors",
+            children: mismatchCount === 0 ? "Confirm Cross-Validation" : `Acknowledge ${mismatchCount} Discrepanc${mismatchCount === 1 ? "y" : "ies"}`
           }
-        ) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "text-[11.5px] tabular-nums font-mono text-ink-3", children: [
-            matchCount,
-            " verified \xB7 ",
-            mismatchCount,
-            " ",
-            mismatchCount === 1 ? "mismatch" : "mismatches"
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "flex items-center gap-2", children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-            Button,
-            {
-              variant: mismatchCount > 0 ? "accent" : "secondary",
-              size: "sm",
-              onClick: handleApply,
-              className: "text-[12px]",
-              children: mismatchCount > 0 ? `Acknowledge ${mismatchCount} Discrepanc${mismatchCount === 1 ? "y" : "ies"}` : "Confirm Cross-Validation"
-            }
-          ) })
-        ] }) })
-      ]
-    }
-  );
-}
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilterMismatch(!filterMismatch),
+            className: `text-[11px] font-mono px-2.5 py-1 rounded-control transition-colors border shadow-btn ${filterMismatch ? "bg-red-tint text-red border-red/40" : "bg-surface text-ink-2 border-line hover:text-ink hover:bg-hover"}`,
+            children: filterMismatch ? "Show All Fields" : "Filter Mismatches Only"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("table", { className: "w-full text-left border-collapse text-xs", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("tr", { className: "border-b border-line text-[11px] text-ink-3 font-mono bg-inset", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("th", { className: "px-3.5 py-2", children: "Target Attribute" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("th", { className: "px-3.5 py-2", children: "Primary Visual OCR" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("th", { className: "px-3.5 py-2", children: "MRZ / Digital PKI" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("th", { className: "px-3.5 py-2 text-right", children: "Verification Status" })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("tbody", { className: "divide-y divide-line font-mono bg-surface", children: displayedRows.map((row, idx) => /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+        "tr",
+        {
+          className: `transition-colors ${!row.isMatch ? "bg-red-tint/30 hover:bg-red-tint/50" : "hover:bg-hover"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("td", { className: "px-3.5 py-2.5 font-medium text-ink", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { children: row.field || "\u2014" }),
+              row.details && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "text-[10px] text-ink-3 font-sans mt-0.5", children: row.details })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("td", { className: "px-3.5 py-2.5 text-ink-2", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: !row.isMatch ? "line-through text-red font-semibold" : "", children: row.valueA || "\u2014" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("td", { className: "px-3.5 py-2.5 text-ink", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: !row.isMatch ? "text-green font-bold" : "", children: row.valueB || "\u2014" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("td", { className: "px-3.5 py-2.5 text-right", children: row.isMatch ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-green-tint text-green border border-green/30 font-semibold", children: "\u2713 MATCH" }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-red-tint text-red border border-red/40 font-bold", children: "\u2715 MISMATCH" }) })
+          ]
+        },
+        idx
+      )) })
+    ] }) })
+  ] });
+};
 
 // src/components/ui/FilterTable.tsx
-var import_react3 = __toESM(require_react(), 1);
-var import_jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
+var import_react2 = __toESM(require_react(), 1);
+var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
 var DEFAULT_ROWS2 = [
-  {
-    id: "CV-01",
-    rule: "Visual Full Name vs MRZ Primary Identifier",
-    category: "OCR / MRZ",
-    telemetry: "Exact string match across 18 characters (Levenstein: 0)",
-    status: "passed"
-  },
-  {
-    id: "CV-02",
-    rule: "Visual Date of Birth vs MRZ DOB Check Digit",
-    category: "OCR / MRZ",
-    telemetry: "MRZ check digit matches optical date 1984-07-12",
-    status: "passed"
-  },
-  {
-    id: "CV-03",
-    rule: "Document Number vs Modulo-10 Checksum (CD1)",
-    category: "MRZ Checksum",
-    telemetry: "Computed check digit 8 differs from expected optical digit 4",
-    status: "violation",
-    details: "Critical Modulo-10 mismatch: Visual OCR indicates P98421034 but MRZ checksum requires digit 8."
-  },
-  {
-    id: "CV-04",
-    rule: "DocTamper Splice & Digit Modification Detection",
-    category: "Forensics",
-    telemetry: "Localized heat anomaly on Document Number field (Score: 0.88)",
-    status: "violation",
-    details: "DocTamper ResNet-50 highlighted photo region tampering and font boundary splicing."
-  },
-  {
-    id: "CV-05",
-    rule: "AdaFace Biometric Cosine Similarity",
-    category: "Biometrics",
-    telemetry: "Cosine similarity 0.74 exceeds security threshold (0.35)",
-    status: "passed"
-  },
-  {
-    id: "CV-06",
-    rule: "MiniFASNetV2 Anti-Spoofing & Liveness",
-    category: "Biometrics",
-    telemetry: "Live presentation verified \u2022 Print/replay score: 0.02",
-    status: "passed"
-  },
-  {
-    id: "CV-07",
-    rule: "Border Transit Seal Context Consistency",
-    category: "Stamp Verifier",
-    telemetry: "Jaigaon ICP stamp matched with high confidence (0.94)",
-    status: "passed"
-  },
-  {
-    id: "CV-08",
-    rule: "Document Expiry vs Transit Date Check",
-    category: "Permit Rules",
-    telemetry: "Document valid for 180+ days",
-    status: "passed"
-  }
+  { id: "CV-01", rule: "MRZ DOB vs Visual OCR DOB", category: "OCR/MRZ", telemetry: "Exact date sequence matched", status: "passed" },
+  { id: "CV-02", rule: "MRZ Doc No vs Visual Doc No", category: "OCR/MRZ", telemetry: "Document number checksum verified", status: "passed" },
+  { id: "CV-03", rule: "MRZ Name vs Visual Full Name", category: "OCR/MRZ", telemetry: "Normalized surname/given matched", status: "passed" },
+  { id: "CV-04", rule: "Biometric Apparent Age vs DOB", category: "Biometrics", telemetry: "Estimated age drift consistent", status: "passed" },
+  { id: "CV-05", rule: "Photo Splicing Density", category: "Forensics", telemetry: "Portrait region substrate clean", status: "passed" },
+  { id: "CV-06", rule: "Text Tamper Probability", category: "Forensics", telemetry: "No text scraping detected", status: "passed" },
+  { id: "CV-07", rule: "Stamp Context Consistency", category: "Stamp", telemetry: "Seal matches declared ICP", status: "passed" },
+  { id: "CV-08", rule: "Cryptographic Signature", category: "Crypto PKI", telemetry: "UIDAI root certificate verified", status: "passed" }
 ];
-var STATUS_CONFIG = {
-  passed: {
-    label: "Passed",
-    dot: "var(--green)",
-    toneClass: "bg-green-tint text-green border border-green/20",
-    badge: "\u2713 PASS"
-  },
-  violation: {
-    label: "Violations",
-    dot: "var(--red)",
-    toneClass: "bg-red-tint text-red border border-red/30",
-    badge: "\u2715 VIOLATION"
-  },
-  warning: {
-    label: "Warnings",
-    dot: "var(--orange)",
-    toneClass: "bg-orange-tint text-orange border border-orange/20",
-    badge: "\u26A0 WARN"
-  },
-  info: {
-    label: "Info",
-    dot: "var(--accent)",
-    toneClass: "bg-accent-tint text-accent-ink border border-accent/20",
-    badge: "\u2139 INFO"
-  },
-  done: {
-    label: "Completed",
-    dot: "var(--green)",
-    toneClass: "filter-status-done",
-    badge: "\u2713 DONE"
-  },
-  progress: {
-    label: "In Progress",
-    dot: "var(--accent)",
-    toneClass: "filter-status-progress",
-    badge: "\u23F3 RUN"
-  },
-  todo: {
-    label: "To do",
-    dot: "var(--orange)",
-    toneClass: "filter-status-todo",
-    badge: "\u25CB TODO"
-  }
-};
-function FilterTable({
+var FilterTable = ({
   title = "Multi-Stream Cross-Validation Rules",
   rows,
-  rules,
-  className = ""
-}) {
-  const normalizedRows = import_react3.default.useMemo(() => {
-    if (rows && rows.length > 0) return rows;
-    if (rules && rules.length > 0) {
-      return rules.map((r) => ({
-        id: r.id,
-        rule: r.name || r.description || "",
-        category: r.category || "General Guard",
-        telemetry: r.details || r.description || "",
-        status: r.status,
-        details: r.details
-      }));
-    }
-    return DEFAULT_ROWS2;
-  }, [rows, rules]);
-  const [activeFilter, setActiveFilter] = (0, import_react3.useState)("all");
-  const [expandedRowIds, setExpandedRowIds] = (0, import_react3.useState)(/* @__PURE__ */ new Set());
-  const passedCount = normalizedRows.filter((r) => r.status === "passed").length;
-  const violationCount = normalizedRows.filter((r) => r.status === "violation").length;
-  const warningCount = normalizedRows.filter((r) => r.status === "warning").length;
-  const infoCount = normalizedRows.filter((r) => r.status === "info").length;
-  const filters = [
-    { key: "all", label: "All", count: normalizedRows.length },
-    { key: "passed", label: "Passed", dot: "var(--green)", count: passedCount },
-    ...violationCount > 0 ? [{ key: "violation", label: "Violations", dot: "var(--red)", count: violationCount }] : [],
-    ...warningCount > 0 ? [{ key: "warning", label: "Warnings", dot: "var(--orange)", count: warningCount }] : [],
-    ...infoCount > 0 ? [{ key: "info", label: "Info", dot: "var(--accent)", count: infoCount }] : []
-  ];
-  const toggleExpand = (id) => {
-    setExpandedRowIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
-    "div",
-    {
-      className: `w-full overflow-hidden rounded-card bg-surface shadow-card border border-line ${className}`,
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "primitive-card-bar flex flex-wrap items-center justify-between gap-2 border-b border-line bg-canvas/40", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[12.5px] font-semibold text-ink uppercase tracking-wider font-mono", children: title }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
-              "(",
-              normalizedRows.length,
-              " active guards)"
-            ] })
+  rules
+}) => {
+  const rawList = rows !== void 0 ? rows : rules !== void 0 ? rules : DEFAULT_ROWS2;
+  const items = rawList || [];
+  const [filter, setFilter] = (0, import_react2.useState)("all");
+  const passedCount = items.filter((r) => r.status === "passed").length;
+  const warningCount = items.filter((r) => r.status === "warning").length;
+  const violationCount = items.filter((r) => r.status === "violation").length;
+  const displayedRows = filter === "all" ? items : items.filter((r) => r.status === filter);
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "px-3.5 py-2.5 bg-inset border-b border-line flex flex-wrap items-center justify-between gap-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider font-mono", children: title }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+          "(",
+          items.length,
+          " active guards)"
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center gap-1.5", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("all"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "all" ? "bg-hover text-ink shadow-btn border border-line" : "text-ink-2 hover:bg-hover hover:text-ink"}`,
+            children: [
+              "All (",
+              items.length,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("passed"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "passed" ? "bg-green-tint text-green border border-green/30 shadow-btn" : "text-ink-2 hover:text-green hover:bg-hover"}`,
+            children: [
+              "Passed (",
+              passedCount,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("warning"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "warning" ? "bg-orange-tint text-orange border border-orange/30 shadow-btn" : "text-ink-2 hover:text-orange hover:bg-hover"}`,
+            children: [
+              "Warnings (",
+              warningCount,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("violation"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "violation" ? "bg-red-tint text-red border border-red/30 shadow-btn" : "text-ink-2 hover:text-red hover:bg-hover"}`,
+            children: [
+              "Violations (",
+              violationCount,
+              ")"
+            ]
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("table", { className: "w-full text-left border-collapse text-xs", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("tr", { className: "border-b border-line text-[11px] text-ink-3 font-mono bg-inset", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("th", { className: "px-3.5 py-2 w-16", children: "Rule ID" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("th", { className: "px-3.5 py-2", children: "Verification Check" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("th", { className: "px-3.5 py-2", children: "Engine Stream" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("th", { className: "px-3.5 py-2", children: "Observed Signal" }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("th", { className: "px-3.5 py-2 text-right", children: "Verdict" })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("tbody", { className: "divide-y divide-line font-mono bg-surface", children: displayedRows.map((row) => {
+        const ruleTitle = row.rule || row.name || "Validation Guard";
+        const categoryName = row.category || "Security";
+        const telemetryText = row.telemetry || row.description || "Verified nominal";
+        const isPass = row.status === "passed";
+        const isWarn = row.status === "warning";
+        return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("tr", { className: "hover:bg-hover transition-colors", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("td", { className: "px-3.5 py-2.5 text-ink-3 font-bold", children: row.id }),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("td", { className: "px-3.5 py-2.5 text-ink font-medium", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { children: ruleTitle }),
+            row.details && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "text-[10px] text-ink-3 mt-0.5 font-sans whitespace-pre-line max-w-md line-clamp-2", children: row.details })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-            "div",
-            {
-              className: "-mx-1 flex items-center gap-1 overflow-x-auto px-1 py-0.5",
-              style: { scrollbarWidth: "none" },
-              children: filters.map((f) => {
-                const active = activeFilter === f.key;
-                return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
-                  "button",
-                  {
-                    type: "button",
-                    "aria-pressed": active,
-                    onClick: () => setActiveFilter(f.key),
-                    className: `flex h-6.5 shrink-0 items-center gap-1.5 rounded-full px-2.5 text-[11.5px] font-medium transition-[background-color,box-shadow,color,border-color] duration-150 border ${active ? "bg-surface text-ink shadow-btn border-line-strong font-semibold" : "bg-transparent text-ink-2 border-transparent hover:bg-hover hover:text-ink"}`,
-                    children: [
-                      f.dot && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-                        "span",
-                        {
-                          className: "size-1.5 rounded-full",
-                          style: { background: f.dot }
-                        }
-                      ),
-                      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: f.label }),
-                      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-                        "span",
-                        {
-                          className: `rounded-[4px] px-1 text-[10px] font-mono tabular-nums ${active ? "bg-field text-ink" : "text-ink-3"}`,
-                          children: f.count
-                        }
-                      )
-                    ]
-                  },
-                  f.key
-                );
-              })
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "min-w-[480px]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "grid grid-cols-[70px_1.4fr_0.8fr_1.4fr_95px] border-b border-line bg-inset/40 px-3.5 py-2 text-[11.5px] font-medium font-mono text-ink-3", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: "Rule ID" }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: "Verification Check" }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: "Engine Stream" }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: "Observed Signal" }),
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-right", children: "Verdict" })
-          ] }),
-          normalizedRows.map((row) => {
-            const isShown = activeFilter === "all" || row.status === activeFilter;
-            const isExpanded = expandedRowIds.has(row.id);
-            const statusCfg = STATUS_CONFIG[row.status] || STATUS_CONFIG.passed;
-            return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-              "div",
-              {
-                className: "grid transition-[grid-template-rows,opacity] duration-200",
-                style: {
-                  gridTemplateRows: isShown ? "1fr" : "0fr",
-                  opacity: isShown ? 1 : 0,
-                  transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
-                },
-                children: /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "overflow-hidden", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
-                    "div",
-                    {
-                      onClick: () => toggleExpand(row.id),
-                      className: "grid grid-cols-[70px_1.4fr_0.8fr_1.4fr_95px] items-center border-b border-line px-3.5 py-2.5 text-[12px] transition-colors duration-100 last:border-0 hover:bg-hover/60 cursor-pointer",
-                      children: [
-                        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-mono font-bold text-ink-3", children: row.id }),
-                        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-medium text-ink truncate pr-2", children: row.rule }),
-                        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "inline-flex items-center rounded-chip bg-field px-1.5 py-0.5 text-[10px] font-mono text-ink-2 border border-line", children: row.category || "Pipeline" }) }),
-                        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-2 truncate pr-2 text-[11.5px] font-mono", children: row.telemetry || "\u2014" }),
-                        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-right", children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-                          "span",
-                          {
-                            className: `inline-flex items-center rounded-[5px] px-2 py-0.5 text-[10px] font-mono font-semibold ${statusCfg.toneClass}`,
-                            children: statusCfg.badge
-                          }
-                        ) })
-                      ]
-                    }
-                  ),
-                  row.details && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-                    "div",
-                    {
-                      className: "grid transition-[grid-template-rows,opacity] duration-200",
-                      style: {
-                        gridTemplateRows: isExpanded ? "1fr" : "0fr",
-                        opacity: isExpanded ? 1 : 0,
-                        transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
-                      },
-                      children: /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "overflow-hidden bg-inset/70 px-4 py-2 text-[11.5px] text-ink-2 font-mono border-l-2 border-accent border-b border-line", children: [
-                        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-semibold text-accent-ink", children: "Forensic Breakdown: " }),
-                        row.details
-                      ] })
-                    }
-                  )
-                ] })
-              },
-              row.id
-            );
-          })
-        ] }) })
-      ]
-    }
-  );
-}
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("td", { className: "px-3.5 py-2.5", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-[9.5px] bg-inset text-ink-2 px-2 py-0.5 rounded-chip border border-line", children: categoryName }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("td", { className: "px-3.5 py-2.5 text-ink-2 text-[12px] font-sans", children: telemetryText }),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("td", { className: "px-3.5 py-2.5 text-right", children: isPass ? /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-green-tint text-green border border-green/30 font-semibold", children: "\u2713 PASS" }) : isWarn ? /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-orange-tint text-orange border border-orange/30 font-semibold", children: "\u26A0 WARN" }) : /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-red-tint text-red border border-red/30 font-bold", children: "\u2715 VIOLATION" }) })
+        ] }, row.id);
+      }) })
+    ] }) })
+  ] });
+};
 
 // src/components/ui/ApprovalCard.tsx
+var import_react5 = __toESM(require_react(), 1);
+
+// node_modules/lucide-react/dist/esm/createLucideIcon.js
 var import_react4 = __toESM(require_react(), 1);
-var import_jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
-var ACTION_OPTIONS = [
-  {
-    id: "AUTO_CLEAR",
-    mappedDecision: "clear",
-    title: "Clear Traveler",
-    subtitle: "Authorize normal transit entry (Zero active red alerts)",
-    tone: "green",
-    icon: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("svg", { width: "15", height: "15", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("path", { d: "M9 12l2 2 4-4" })
-    ] })
-  },
-  {
-    id: "SECONDARY_INSPECTION",
-    mappedDecision: "secondary",
-    title: "Secondary Hold",
-    subtitle: "Redirect to physical document inspection counter",
-    tone: "orange",
-    icon: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("svg", { width: "15", height: "15", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("path", { d: "M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("line", { x1: "12", y1: "9", x2: "12", y2: "13" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("line", { x1: "12", y1: "17", x2: "12.01", y2: "17" })
-    ] })
-  },
-  {
-    id: "DETAIN_AND_INTERDICT",
-    mappedDecision: "interdict",
-    title: "Interdiction Order",
-    subtitle: "Detain subject & file formal report with MHA",
-    tone: "red",
-    icon: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("svg", { width: "15", height: "15", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("polygon", { points: "7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("line", { x1: "12", y1: "8", x2: "12", y2: "12" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("line", { x1: "12", y1: "16", x2: "12.01", y2: "16" })
-    ] })
+
+// node_modules/lucide-react/dist/esm/shared/src/utils.js
+var toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+var mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+
+// node_modules/lucide-react/dist/esm/Icon.js
+var import_react3 = __toESM(require_react(), 1);
+
+// node_modules/lucide-react/dist/esm/defaultAttributes.js
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+// node_modules/lucide-react/dist/esm/Icon.js
+var Icon = (0, import_react3.forwardRef)(
+  ({
+    color = "currentColor",
+    size = 24,
+    strokeWidth = 2,
+    absoluteStrokeWidth,
+    className = "",
+    children,
+    iconNode,
+    ...rest
+  }, ref) => {
+    return (0, import_react3.createElement)(
+      "svg",
+      {
+        ref,
+        ...defaultAttributes,
+        width: size,
+        height: size,
+        stroke: color,
+        strokeWidth: absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
+        className: mergeClasses("lucide", className),
+        ...rest
+      },
+      [
+        ...iconNode.map(([tag, attrs]) => (0, import_react3.createElement)(tag, attrs)),
+        ...Array.isArray(children) ? children : [children]
+      ]
+    );
   }
+);
+
+// node_modules/lucide-react/dist/esm/createLucideIcon.js
+var createLucideIcon = (iconName, iconNode) => {
+  const Component = (0, import_react4.forwardRef)(
+    ({ className, ...props }, ref) => (0, import_react4.createElement)(Icon, {
+      ref,
+      iconNode,
+      className: mergeClasses(`lucide-${toKebabCase(iconName)}`, className),
+      ...props
+    })
+  );
+  Component.displayName = `${iconName}`;
+  return Component;
+};
+
+// node_modules/lucide-react/dist/esm/icons/check.js
+var __iconNode = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+var Check = createLucideIcon("Check", __iconNode);
+
+// node_modules/lucide-react/dist/esm/icons/octagon-alert.js
+var __iconNode2 = [
+  ["path", { d: "M12 16h.01", key: "1drbdi" }],
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  [
+    "path",
+    {
+      d: "M15.312 2a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586l-4.688-4.688A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2z",
+      key: "1fd625"
+    }
+  ]
 ];
-function ApprovalCard({
+var OctagonAlert = createLucideIcon("OctagonAlert", __iconNode2);
+
+// node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
+var __iconNode3 = [
+  ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
+  ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
+];
+var RotateCcw = createLucideIcon("RotateCcw", __iconNode3);
+
+// node_modules/lucide-react/dist/esm/icons/shield-alert.js
+var __iconNode4 = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+];
+var ShieldAlert = createLucideIcon("ShieldAlert", __iconNode4);
+
+// node_modules/lucide-react/dist/esm/icons/shield-check.js
+var __iconNode5 = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+var ShieldCheck = createLucideIcon("ShieldCheck", __iconNode5);
+
+// src/components/ui/ApprovalCard.tsx
+var import_jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
+var ApprovalCard = ({
   riskLevel = "GREEN",
-  riskScore = 12,
+  riskScore = 0,
+  officerBadgeId = "SSB-IND-7049",
+  isOpen = true,
   onDecide,
   onDecision,
-  onCancel,
-  isOpen = true,
-  resettable = true,
-  className = ""
-}) {
-  const initialAction = riskLevel === "RED" ? "DETAIN_AND_INTERDICT" : riskLevel === "AMBER" ? "SECONDARY_INSPECTION" : "AUTO_CLEAR";
-  const [selectedAction, setSelectedAction] = (0, import_react4.useState)(initialAction);
-  const [badgeId, setBadgeId] = (0, import_react4.useState)("SSB-IND-7049");
-  const [notes, setNotes] = (0, import_react4.useState)("");
-  const [reasonTag, setReasonTag] = (0, import_react4.useState)("Cross-Validation Telemetry Verified");
-  const [submitted, setSubmitted] = (0, import_react4.useState)(false);
-  const [open, setOpen] = (0, import_react4.useState)(isOpen);
-  const selectedOpt = ACTION_OPTIONS.find((opt) => opt.id === selectedAction) || ACTION_OPTIONS[0];
+  onAction,
+  disabled = false
+}) => {
+  const [open, setOpen] = (0, import_react5.useState)(isOpen);
+  const [selectedAction, setSelectedAction] = (0, import_react5.useState)(
+    riskLevel === "GREEN" ? "AUTO_CLEAR" : riskLevel === "AMBER" ? "SECONDARY_INSPECTION" : "DETAIN_AND_INTERDICT"
+  );
+  const [notes, setNotes] = (0, import_react5.useState)("");
+  const [submitted, setSubmitted] = (0, import_react5.useState)(false);
   const handleSubmit = () => {
-    const fullNotes = [badgeId ? `Officer: ${badgeId}` : "", reasonTag, notes].filter(Boolean).join(" \u2022 ");
-    onDecide?.({
+    const decision = {
       action: selectedAction,
-      reason: `Officer decision based on risk score ${riskScore.toFixed(1)} (${riskLevel}): ${reasonTag}`,
-      officerNotes: fullNotes,
-      badgeId
-    });
-    onDecision?.(selectedOpt.mappedDecision, fullNotes);
+      reason: `Officer decision based on risk score ${riskScore.toFixed(1)} (${riskLevel})`,
+      badgeId: officerBadgeId,
+      officerNotes: notes
+    };
+    const mappedDecision = selectedAction === "AUTO_CLEAR" ? "clear" : selectedAction === "SECONDARY_INSPECTION" ? "secondary" : "interdict";
+    onDecide?.(decision);
+    onDecision?.(mappedDecision, notes);
+    onAction?.(selectedAction);
     setSubmitted(true);
   };
   const handleReset = () => {
     setSubmitted(false);
     setNotes("");
   };
-  if (!open) {
-    return /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+  if (!open || isOpen === false) {
+    return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
       "button",
       {
         type: "button",
         onClick: () => setOpen(true),
-        className: "rounded-control bg-surface px-3 py-2 text-[12.5px] font-medium text-ink shadow-btn border border-line transition-colors hover:bg-hover",
-        children: "Open Officer Authorization"
-      }
-    );
-  }
-  if (submitted) {
-    return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
-      "div",
-      {
-        className: `flex w-full items-center justify-between gap-3 rounded-card bg-surface p-3.5 shadow-card border border-line animate-pop-in ${className}`,
+        className: "w-full bg-surface border border-line rounded-card p-3.5 text-xs font-mono text-ink-2 hover:text-ink text-left flex items-center justify-between shadow-card hover:bg-hover transition-colors",
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center gap-2.5", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "flex size-6 shrink-0 items-center justify-center rounded-full bg-green text-white", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("svg", { width: "12", height: "12", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("path", { d: "M20 6L9 17l-5-5" }) }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex flex-col", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("span", { className: "text-[12.5px] font-semibold text-ink font-mono", children: [
-                "Decision Dispatched \u2022 ",
-                selectedOpt.title,
-                " Logged to Tamper-Proof Audit"
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("span", { className: "text-[11px] text-ink-3 font-mono", children: [
-                "Badge: ",
-                badgeId || "ANON-OFFICER",
-                " \xB7 Risk Score: ",
-                riskScore.toFixed(1)
-              ] })
-            ] })
-          ] }),
-          resettable && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-            "button",
-            {
-              type: "button",
-              onClick: handleReset,
-              className: "text-[12px] font-medium text-ink-3 hover:text-ink transition-colors font-mono",
-              children: "Change Decision"
-            }
-          )
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "font-bold", children: "Open Officer Authorization" }),
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-ink-3", children: "Click to expand decision console" })
         ]
       }
     );
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
-    "div",
-    {
-      className: `w-full overflow-hidden rounded-card bg-surface shadow-card border border-line animate-fade-up ${className}`,
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "primitive-card-bar flex items-center justify-between border-b border-line bg-canvas/40", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[12.5px] font-semibold text-ink uppercase tracking-wider font-mono", children: "Human-In-The-Loop Officer Authorization" }),
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[10.5px] font-mono text-ink-3", children: "Section 4(2) Passport & Immigration Act" })
-          ] }),
-          onCancel && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-            "button",
-            {
-              type: "button",
-              "aria-label": "Close card",
-              onClick: () => {
-                setOpen(false);
-                onCancel?.();
-              },
-              className: "primitive-icon-button text-ink-3 hover:bg-hover hover:text-ink",
-              children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("path", { d: "M18 6L6 18M6 6l12 12" }) })
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "p-3.5 space-y-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-2", children: ACTION_OPTIONS.map((opt) => {
-            const isSelected = selectedAction === opt.id;
-            const borderCls = isSelected ? opt.tone === "green" ? "border-green bg-green-tint/40 shadow-sm" : opt.tone === "orange" ? "border-orange bg-orange-tint/40 shadow-sm" : "border-red bg-red-tint/40 shadow-sm" : "border-line bg-canvas/50 hover:border-line-strong hover:bg-hover";
-            const textToneCls = opt.tone === "green" ? "text-green" : opt.tone === "orange" ? "text-orange" : "text-red";
-            return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
-              "button",
-              {
-                type: "button",
-                "aria-pressed": isSelected,
-                onClick: () => setSelectedAction(opt.id),
-                className: `p-3 rounded-control text-left border transition-all flex flex-col justify-between ${borderCls}`,
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center justify-between w-full", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center gap-2", children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: textToneCls, children: opt.icon }),
-                      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[12.5px] font-bold text-ink font-mono", children: opt.title })
-                    ] }),
-                    /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-                      "span",
-                      {
-                        className: `flex size-4 shrink-0 items-center justify-center rounded-full border transition-colors ${isSelected ? "border-ink bg-ink text-canvas" : "border-line-strong bg-surface"}`,
-                        children: isSelected && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "size-1.5 rounded-full bg-canvas" })
-                      }
-                    )
-                  ] }),
-                  /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[11px] text-ink-2 mt-2 leading-tight", children: opt.subtitle })
-                ]
-              },
-              opt.id
-            );
-          }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex flex-wrap items-center gap-1.5 pt-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[11.5px] font-mono text-ink-3 mr-1", children: "Pretext:" }),
-            [
-              "Cross-Validation Telemetry Verified",
-              "Photo Region Splice Suspected",
-              "Modulo-10 Checksum Inconsistency",
-              "Routine Transit Clearance"
-            ].map((tag) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-              "button",
-              {
-                type: "button",
-                onClick: () => setReasonTag(tag),
-                className: `rounded-chip px-2 py-0.5 text-[11px] font-mono font-medium transition-colors border ${reasonTag === tag ? "bg-accent-tint text-accent-ink border-accent/30 font-semibold" : "bg-inset text-ink-3 border-line hover:text-ink-2 hover:bg-hover"}`,
-                children: tag
-              },
-              tag
-            ))
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex flex-col sm:flex-row items-center gap-2 pt-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "w-full sm:w-44 shrink-0", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-              "input",
-              {
-                type: "text",
-                value: badgeId,
-                onChange: (e) => setBadgeId(e.target.value),
-                placeholder: "Officer Badge ID\u2026",
-                className: "w-full rounded-control border border-line bg-field/90 px-3 py-1.5 text-[12px] font-mono text-ink placeholder:text-ink-3 focus:border-accent focus:outline-none"
-              }
-            ) }),
-            /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "w-full flex-1 flex items-center gap-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-                "input",
-                {
-                  type: "text",
-                  value: notes,
-                  onChange: (e) => setNotes(e.target.value),
-                  placeholder: "Duty remarks or justification note (optional)\u2026",
-                  className: "flex-1 rounded-control border border-line bg-field/90 px-3 py-1.5 text-[12px] font-mono text-ink placeholder:text-ink-3 focus:border-accent focus:outline-none"
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-                Button,
-                {
-                  variant: selectedAction === "DETAIN_AND_INTERDICT" ? "danger" : selectedAction === "SECONDARY_INSPECTION" ? "accent" : "success",
-                  size: "md",
-                  onClick: handleSubmit,
-                  className: "shrink-0 text-[12.5px]",
-                  children: "Commit Decision"
-                }
-              )
-            ] })
-          ] })
+  if (submitted) {
+    return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card p-3.5 flex items-center justify-between shadow-card animate-pop-in", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "flex size-6 items-center justify-center rounded-full bg-green text-surface font-bold", children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Check, { className: "w-3.5 h-3.5" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-xs font-semibold text-ink font-mono", children: [
+          "Interdiction Order Dispatched \u2022 Decision Logged to Tamper-Proof Audit (",
+          officerBadgeId,
+          ")"
         ] })
-      ]
-    }
-  );
-}
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: handleReset,
+          className: "text-xs text-ink-3 hover:text-ink font-mono flex items-center gap-1.5",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(RotateCcw, { className: "w-3 h-3" }),
+            " Change Decision"
+          ]
+        }
+      )
+    ] });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card p-3.5 space-y-3 shadow-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider font-mono", children: "Human-In-The-Loop Officer Authorization" }),
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+        "Section 4(2) Passport & Immigration Act \xB7 ",
+        officerBadgeId
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-2.5", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: () => setSelectedAction("AUTO_CLEAR"),
+          disabled,
+          className: `p-3 rounded-control text-left border transition-all flex flex-col justify-between ${selectedAction === "AUTO_CLEAR" ? "bg-green-tint border-green shadow-btn" : "bg-inset border-line hover:border-line-strong"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(ShieldCheck, { className: "w-4 h-4 text-green shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-ink font-mono", children: "Clear Traveler" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-ink-2 mt-1.5 font-sans", children: "Proceed with normal transit entry" })
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: () => setSelectedAction("SECONDARY_INSPECTION"),
+          disabled,
+          className: `p-3 rounded-control text-left border transition-all flex flex-col justify-between ${selectedAction === "SECONDARY_INSPECTION" ? "bg-orange-tint border-orange shadow-btn" : "bg-inset border-line hover:border-line-strong"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(ShieldAlert, { className: "w-4 h-4 text-orange shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-ink font-mono", children: "Secondary Hold" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-ink-2 mt-1.5 font-sans", children: "Redirect for physical document inspection" })
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: () => setSelectedAction("DETAIN_AND_INTERDICT"),
+          disabled,
+          className: `p-3 rounded-control text-left border transition-all flex flex-col justify-between ${selectedAction === "DETAIN_AND_INTERDICT" ? "bg-red-tint border-red shadow-btn" : "bg-inset border-line hover:border-line-strong"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(OctagonAlert, { className: "w-4 h-4 text-red shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-ink font-mono", children: "Interdiction Order" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-ink-2 mt-1.5 font-sans", children: "Issue border detention & report to MHA" })
+          ]
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center gap-2 pt-1", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+        "input",
+        {
+          type: "text",
+          value: notes,
+          onChange: (e) => setNotes(e.target.value),
+          placeholder: `Officer Remarks / Duty Officer Badge ID (${officerBadgeId})\u2026`,
+          className: "flex-1 bg-inset border border-line rounded-control px-3 py-1.5 text-xs text-ink placeholder:text-ink-3 font-mono focus:outline-none focus:border-accent shadow-inset-field"
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+        Button,
+        {
+          variant: selectedAction === "DETAIN_AND_INTERDICT" ? "danger" : "accent",
+          size: "md",
+          onClick: handleSubmit,
+          children: "Commit Decision"
+        }
+      )
+    ] })
+  ] });
+};
 
 // src/components/ui/ToolChips.tsx
-var import_react5 = __toESM(require_react(), 1);
+var import_react6 = __toESM(require_react(), 1);
 var import_react_dom = __toESM(require_react_dom(), 1);
-var import_jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
 var DEFAULT_TELEMETRY = [
   {
     name: "PP-OCRv4 Multilingual Engine",
@@ -29077,28 +28789,28 @@ var DEFAULT_DIFFS = [
   }
 ];
 var ICONS = {
-  think: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" }) }),
-  write: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" }) }),
-  run: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M4 17l6-5-6-5M12 19h8" }) }),
-  read: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M14 2v6h6" })
+  think: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" }) }),
+  write: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" }) }),
+  run: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M4 17l6-5-6-5M12 19h8" }) }),
+  read: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M14 2v6h6" })
   ] }),
-  ocr: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("polyline", { points: "4 7 4 4 20 4 20 7" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("line", { x1: "9", y1: "20", x2: "15", y2: "20" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("line", { x1: "12", y1: "4", x2: "12", y2: "20" })
+  ocr: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("polyline", { points: "4 7 4 4 20 4 20 7" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("line", { x1: "9", y1: "20", x2: "15", y2: "20" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("line", { x1: "12", y1: "4", x2: "12", y2: "20" })
   ] }),
-  face: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M8 14s1.5 2 4 2 4-2 4-2" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("line", { x1: "9", y1: "9", x2: "9.01", y2: "9" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("line", { x1: "15", y1: "9", x2: "15.01", y2: "9" })
+  face: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M8 14s1.5 2 4 2 4-2 4-2" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("line", { x1: "9", y1: "9", x2: "9.01", y2: "9" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("line", { x1: "15", y1: "9", x2: "15.01", y2: "9" })
   ] }),
-  forensics: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" }) }),
-  stamp: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
-    /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "m4.93 4.93 14.14 14.14" })
+  forensics: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" }) }),
+  stamp: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "m4.93 4.93 14.14 14.14" })
   ] })
 };
 function ToolChips({
@@ -29107,9 +28819,9 @@ function ToolChips({
   title,
   className = ""
 }) {
-  const [open, setOpen] = (0, import_react5.useState)(true);
-  const [openRows, setOpenRows] = (0, import_react5.useState)(/* @__PURE__ */ new Set());
-  const [preview, setPreview] = (0, import_react5.useState)(null);
+  const [open, setOpen] = (0, import_react6.useState)(true);
+  const [openRows, setOpenRows] = (0, import_react6.useState)(/* @__PURE__ */ new Set());
+  const [preview, setPreview] = (0, import_react6.useState)(null);
   const completedCount = telemetry.filter((t) => t.status === "completed").length;
   const failedCount = telemetry.filter((t) => t.status === "failed").length;
   const toggleRow = (name) => {
@@ -29138,12 +28850,12 @@ function ToolChips({
   const closePreview = (file) => () => {
     setPreview((current) => current?.file === file ? null : current);
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
     "div",
     {
       className: `w-full overflow-hidden rounded-card bg-surface shadow-card border border-line p-3 ${className}`,
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
           "button",
           {
             type: "button",
@@ -29151,8 +28863,8 @@ function ToolChips({
             onClick: () => setOpen((c) => !c),
             className: "flex w-full items-center justify-between gap-2 rounded-control p-1 text-left transition-colors hover:bg-hover",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                   "svg",
                   {
                     width: "13",
@@ -29165,17 +28877,17 @@ function ToolChips({
                     strokeLinejoin: "round",
                     className: "transition-transform duration-200 text-ink-3",
                     style: { transform: open ? "rotate(0deg)" : "rotate(-90deg)" },
-                    children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M6 9l6 6 6-6" })
+                    children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M6 9l6 6 6-6" })
                   }
                 ),
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-[12.5px] font-semibold text-ink font-mono", children: title || `${telemetry.length} Neural Models Executed` })
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-[12.5px] font-semibold text-ink font-mono", children: title || `${telemetry.length} Neural Models Executed` })
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center gap-1.5 font-mono text-[11px]", children: [
-                failedCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "rounded-full bg-red-tint px-2 py-0.5 font-semibold text-red border border-red/20", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center gap-1.5 font-mono text-[11px]", children: [
+                failedCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "rounded-full bg-red-tint px-2 py-0.5 font-semibold text-red border border-red/20", children: [
                   failedCount,
                   " Flagged"
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "rounded-full bg-green-tint px-2 py-0.5 font-medium text-green border border-green/20", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "rounded-full bg-green-tint px-2 py-0.5 font-medium text-green border border-green/20", children: [
                   completedCount,
                   " Passed"
                 ] })
@@ -29183,20 +28895,20 @@ function ToolChips({
             ]
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
           "div",
           {
             className: "grid transition-[grid-template-rows,opacity] duration-300",
             style: { gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 },
-            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "overflow-hidden pt-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "flex flex-col gap-1", children: telemetry.map((row) => {
+            children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "overflow-hidden pt-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "flex flex-col gap-1", children: telemetry.map((row) => {
                 const rowKey = row.name;
                 const rowOpen = openRows.has(rowKey);
                 const iconKey = row.icon || "run";
                 const isFailed = row.status === "failed";
                 const isRunning = row.status === "running";
-                return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex flex-col", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+                return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex flex-col", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
                     "button",
                     {
                       type: "button",
@@ -29204,24 +28916,24 @@ function ToolChips({
                       onClick: () => toggleRow(rowKey),
                       className: "group flex h-7.5 w-full items-center gap-2 rounded-control px-2 text-left transition-colors duration-100 hover:bg-hover",
                       children: [
-                        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+                        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                           "span",
                           {
                             className: `flex size-4 shrink-0 items-center justify-center ${isFailed ? "text-red" : isRunning ? "text-accent animate-spin" : "text-ink-3"}`,
                             children: ICONS[iconKey] || ICONS.run
                           }
                         ),
-                        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "min-w-0 truncate text-[12.5px] font-medium text-ink font-mono", children: row.label || row.name }),
-                        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "inline-flex h-5.5 min-w-0 flex-1 items-center truncate rounded-chip bg-field px-1.5 font-mono text-[11px] text-ink-2 border border-line", children: row.chip || row.modelVersion || "onnx-runtime" }),
-                        row.confidence !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "min-w-0 truncate text-[12.5px] font-medium text-ink font-mono", children: row.label || row.name }),
+                        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "inline-flex h-5.5 min-w-0 flex-1 items-center truncate rounded-chip bg-field px-1.5 font-mono text-[11px] text-ink-2 border border-line", children: row.chip || row.modelVersion || "onnx-runtime" }),
+                        row.confidence !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
                           (row.confidence * 100).toFixed(0),
                           "%"
                         ] }),
-                        row.durationMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
+                        row.durationMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
                           row.durationMs,
                           "ms"
                         ] }),
-                        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+                        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                           "svg",
                           {
                             width: "12",
@@ -29234,13 +28946,13 @@ function ToolChips({
                             strokeLinejoin: "round",
                             className: "text-ink-3 transition-transform duration-200 shrink-0",
                             style: { transform: rowOpen ? "rotate(180deg)" : "rotate(0deg)" },
-                            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M6 9l6 6 6-6" })
+                            children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("path", { d: "M6 9l6 6 6-6" })
                           }
                         )
                       ]
                     }
                   ),
-                  /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                     "div",
                     {
                       className: "grid transition-[grid-template-rows,opacity] duration-200",
@@ -29249,9 +28961,9 @@ function ToolChips({
                         opacity: rowOpen ? 1 : 0,
                         transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
                       },
-                      children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "my-1 ml-3 flex flex-col gap-0.5 border-l-2 border-line pl-3 py-1 text-[11.5px] font-mono text-ink-2", children: [
-                        row.details && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "text-ink-2", children: row.details }),
-                        (row.detailLines || []).map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+                      children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "my-1 ml-3 flex flex-col gap-0.5 border-l-2 border-line pl-3 py-1 text-[11.5px] font-mono text-ink-2", children: [
+                        row.details && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "text-ink-2", children: row.details }),
+                        (row.detailLines || []).map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                           "div",
                           {
                             className: `truncate leading-relaxed ${line.tone === "del" ? "text-red font-medium" : line.tone === "add" ? "text-green font-medium" : "text-ink-3"}`,
@@ -29264,9 +28976,9 @@ function ToolChips({
                   )
                 ] }, rowKey);
               }) }),
-              diffs.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "mt-2.5 flex flex-wrap items-center gap-1.5 border-t border-line pt-2.5", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-[11px] font-mono text-ink-3 mr-1", children: "Tensors:" }),
-                diffs.map((d) => /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+              diffs.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "mt-2.5 flex flex-wrap items-center gap-1.5 border-t border-line pt-2.5", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-[11px] font-mono text-ink-3 mr-1", children: "Tensors:" }),
+                diffs.map((d) => /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
                   "button",
                   {
                     type: "button",
@@ -29274,12 +28986,12 @@ function ToolChips({
                     onMouseLeave: closePreview(d.file),
                     className: "inline-flex h-6 items-center gap-1.5 rounded-chip bg-surface px-2 font-mono text-[11px] text-ink shadow-btn border border-line hover:bg-hover transition-colors",
                     children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "truncate max-w-[140px]", children: d.file }),
-                      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-green tabular-nums", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "truncate max-w-[140px]", children: d.file }),
+                      /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "text-green tabular-nums", children: [
                         "+",
                         d.add
                       ] }),
-                      d.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-red tabular-nums", children: [
+                      d.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "text-red tabular-nums", children: [
                         "\u2212",
                         d.del
                       ] })
@@ -29292,7 +29004,7 @@ function ToolChips({
           }
         ),
         preview && typeof document !== "undefined" && (0, import_react_dom.createPortal)(
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
             "div",
             {
               className: "fixed z-50 w-72 overflow-hidden rounded-[10px] bg-surface shadow-overlay border border-line font-mono text-[11px] animate-pop-in",
@@ -29303,26 +29015,26 @@ function ToolChips({
                 transformOrigin: preview.top === void 0 ? "bottom left" : "top left"
               },
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center justify-between border-b border-line bg-canvas/60 px-2.5 py-1.5 font-medium", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "truncate text-ink", children: preview.file }),
-                  /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "tabular-nums", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-green", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-between border-b border-line bg-canvas/60 px-2.5 py-1.5 font-medium", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "truncate text-ink", children: preview.file }),
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "tabular-nums", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "text-green", children: [
                       "+",
                       preview.add
                     ] }),
-                    preview.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-red", children: [
+                    preview.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "text-red", children: [
                       " \u2212",
                       preview.del
                     ] })
                   ] })
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "p-1.5 space-y-0.5 leading-relaxed bg-surface", children: preview.lines.map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "p-1.5 space-y-0.5 leading-relaxed bg-surface", children: preview.lines.map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
                   "div",
                   {
                     className: `flex gap-1.5 px-2 py-0.5 rounded ${line.tone === "add" ? "bg-green-tint text-green" : line.tone === "del" ? "bg-red-tint text-red" : "text-ink-3"}`,
                     children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "w-2.5 shrink-0 select-none", children: line.tone === "add" ? "+" : line.tone === "del" ? "\u2212" : " " }),
-                      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "truncate", children: line.text })
+                      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "w-2.5 shrink-0 select-none", children: line.tone === "add" ? "+" : line.tone === "del" ? "\u2212" : " " }),
+                      /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "truncate", children: line.text })
                     ]
                   },
                   idx
@@ -29337,222 +29049,61 @@ function ToolChips({
   );
 }
 
-// src/components/ui/TaskRows.tsx
-var import_react6 = __toESM(require_react(), 1);
-var import_jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
-var DEFAULT_TASKS = [
-  {
-    key: "ocr",
-    label: "PP-OCRv4 Multilingual Extraction",
-    amount: "14 fields",
-    status: "completed",
-    details: [
-      { label: "Script Detector", meta: "Devanagari & Latin" },
-      { label: "Mean BBox Confidence", meta: "98.4%" },
-      { label: "Inference Latency", meta: "28ms" }
-    ]
-  },
-  {
-    key: "mrz",
-    label: "ICAO Doc 9303 Modulo-10 Checksum",
-    amount: "4 digits",
-    status: "completed",
-    details: [
-      { label: "CD1 (Doc Number)", meta: "Valid (Weight 7-3-1)" },
-      { label: "CD2 (Date of Birth)", meta: "Valid" },
-      { label: "CD3 (Expiry Date)", meta: "Valid" }
-    ]
-  },
-  {
-    key: "biometrics",
-    label: "AdaFace Cosine Matching & FAS",
-    amount: "Score: 0.74",
-    status: "completed",
-    details: [
-      { label: "Facial Canonical Crop", meta: "112\xD7112 Canonical" },
-      { label: "MiniFASNet Liveness", meta: "Live (99.1%)" },
-      { label: "Cosine Similarity", meta: "0.74 (Threshold: 0.35)" }
-    ]
-  },
-  {
-    key: "forensics",
-    label: "DocTamper ResNet-50 Splicing Localizer",
-    amount: "Score: 0.88",
-    status: "failed",
-    details: [
-      { label: "Photo Region Tamper", meta: "Flagged (0.88)" },
-      { label: "DocForge Splicing \u03C4", meta: "Exceeded (0.18)" },
-      { label: "ELA High-Frequency Residual", meta: "Suspicious Q90" }
-    ]
-  },
-  {
-    key: "stamp",
-    label: "4-Stage SSB Border Transit Seal",
-    amount: "Jaigaon ICP",
-    status: "completed",
-    details: [
-      { label: "Color Space Filtering", meta: "HSV Purple/Blue Seal" },
-      { label: "ORB Keypoint SSIM", meta: "0.94 Confidence" },
-      { label: "Transit Direction", meta: "Authentic Entry" }
-    ]
-  }
-];
-function SpinnerRing({ active, children }) {
-  const size = 22;
-  const stroke = 2;
-  const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
-    "span",
-    {
-      className: "relative inline-flex shrink-0 items-center justify-center",
-      style: { width: size, height: size },
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
-          "svg",
-          {
-            width: size,
-            height: size,
-            className: "absolute inset-0",
-            style: active ? { animation: "spin 1.1s linear infinite" } : void 0,
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-                "circle",
-                {
-                  cx: size / 2,
-                  cy: size / 2,
-                  r,
-                  fill: "none",
-                  stroke: "var(--line)",
-                  strokeWidth: stroke
-                }
-              ),
-              active && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-                "circle",
-                {
-                  cx: size / 2,
-                  cy: size / 2,
-                  r,
-                  fill: "none",
-                  stroke: "var(--accent)",
-                  strokeWidth: stroke,
-                  strokeLinecap: "round",
-                  strokeDasharray: `${c * 0.3} ${c * 0.7}`
-                }
-              )
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "relative text-[10px] font-mono font-semibold tabular-nums text-ink", children })
-      ]
-    }
-  );
-}
-function TaskBadge({ tone, children }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-    "span",
-    {
-      className: `flex size-5 shrink-0 items-center justify-center rounded-full text-white ${tone === "red" ? "bg-red" : "bg-green"}`,
-      style: { animation: "pop-in 250ms cubic-bezier(0.23,1,0.32,1) both" },
-      children
-    }
-  );
-}
-function TaskRows({
-  tasks = DEFAULT_TASKS,
-  variant = "Capsules",
-  className = ""
-}) {
-  const [openMap, setOpenMap] = (0, import_react6.useState)({});
-  const toggle = (key) => {
-    setOpenMap((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-  const isList = variant === "List";
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-    "div",
-    {
-      className: `flex w-full flex-col ${isList ? "overflow-hidden rounded-card bg-surface shadow-card border border-line divide-y divide-line" : "gap-2"} ${className}`,
-      children: tasks.map((task, idx) => {
-        const isOpen = openMap[task.key] ?? false;
-        const isCompleted = task.status === "completed";
-        const isFailed = task.status === "failed";
-        const isRunning = task.status === "running";
-        return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
-          "div",
-          {
-            className: `overflow-hidden transition-all duration-200 ${isList ? "bg-surface hover:bg-hover/60" : "rounded-card bg-surface shadow-card border border-line hover:border-line-strong"}`,
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
-                "button",
-                {
-                  type: "button",
-                  "aria-expanded": isOpen,
-                  onClick: () => toggle(task.key),
-                  className: "flex h-10 w-full items-center gap-2.5 px-3 text-left transition-colors cursor-pointer",
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "flex size-5.5 shrink-0 items-center justify-center", children: isCompleted ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(TaskBadge, { tone: "green", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.5", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("path", { d: "M20 6L9 17l-5-5" }) }) }) : isFailed ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(TaskBadge, { tone: "red", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "3.5", strokeLinecap: "round", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("path", { d: "M18 6L6 18M6 6l12 12" }) }) }) : isRunning ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SpinnerRing, { active: true, children: idx + 1 }) : /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(SpinnerRing, { children: idx + 1 }) }),
-                    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "min-w-0 flex-1 truncate text-[12.5px] font-semibold text-ink font-mono", children: task.label }),
-                    task.amount && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[11.5px] font-mono text-ink-3 tabular-nums shrink-0", children: task.amount }),
-                    isFailed ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "inline-flex h-5 items-center gap-1 rounded-full bg-red-tint px-2 text-[11px] font-mono font-bold text-red border border-red/20", children: "Anomaly Flagged" }) : isCompleted ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "inline-flex h-5 items-center gap-1 rounded-full bg-green-tint px-2 text-[11px] font-mono font-medium text-green border border-green/20", children: "Verified" }) : null,
-                    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "flex size-5 shrink-0 items-center justify-center text-ink-3", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-                      "svg",
-                      {
-                        width: "13",
-                        height: "13",
-                        viewBox: "0 0 24 24",
-                        fill: "none",
-                        stroke: "currentColor",
-                        strokeWidth: "2.2",
-                        strokeLinecap: "round",
-                        strokeLinejoin: "round",
-                        className: "transition-transform duration-200",
-                        style: { transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" },
-                        children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("path", { d: "M6 9l6 6 6-6" })
-                      }
-                    ) })
-                  ]
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-                "div",
-                {
-                  className: "grid transition-[grid-template-rows,opacity] duration-200",
-                  style: {
-                    gridTemplateRows: isOpen ? "1fr" : "0fr",
-                    opacity: isOpen ? 1 : 0,
-                    transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
-                  },
-                  children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "mb-2.5 grid grid-cols-[22px_1fr] gap-2 px-3 pt-1", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { "aria-hidden": true, className: "mx-auto h-full w-px bg-line" }),
-                    /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "flex flex-col gap-1", children: (task.details || []).map((d) => /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
-                      "div",
-                      {
-                        className: "flex items-center justify-between text-[11.5px] font-mono",
-                        children: [
-                          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-2", children: d.label }),
-                          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink font-semibold tabular-nums", children: d.meta })
-                        ]
-                      },
-                      d.label
-                    )) })
-                  ] }) })
-                }
-              )
-            ]
-          },
-          task.key
-        );
-      })
-    }
-  );
-}
-
 // src/components/ui/InspectionPipelineTrace.tsx
 var import_react7 = __toESM(require_react(), 1);
-var import_jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
+var InspectionPipelineTrace = ({
+  steps,
+  totalLatencyMs,
+  isScanning
+}) => {
+  const [expanded, setExpanded] = import_react7.default.useState(true);
+  const completedCount = steps.filter((s) => s.status === "completed").length;
+  const failedCount = steps.filter((s) => s.status === "failed").length;
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+      "button",
+      {
+        type: "button",
+        onClick: () => setExpanded(!expanded),
+        className: "w-full px-3.5 py-2.5 bg-inset hover:bg-hover flex items-center justify-between transition-colors border-b border-line",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider", children: "3-Stream Neural Pipeline Trace" }),
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+              "(",
+              completedCount,
+              "/",
+              steps.length,
+              " checks passed)"
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: "flex items-center space-x-2", children: totalLatencyMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "text-[10px] font-mono bg-surface px-2 py-0.5 rounded-chip border border-line text-ink-3", children: [
+            totalLatencyMs,
+            "ms"
+          ] }) })
+        ]
+      }
+    ),
+    expanded && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: "p-3.5 divide-y divide-line space-y-1 bg-surface", children: steps.map((step) => /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "pt-2 pb-1 flex items-center justify-between text-xs font-mono", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-2.5 truncate", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: step.status === "completed" ? "text-green font-bold" : "text-red font-bold", children: step.status === "completed" ? "\u2713" : "\u2715" }),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink font-semibold truncate", children: step.name }),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[9.5px] bg-inset text-ink-3 px-2 py-0.5 rounded-chip border border-line", children: step.category })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-2 shrink-0", children: [
+        step.details && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[11.5px] text-ink-2 font-sans hidden sm:inline truncate max-w-xs", children: step.details }),
+        step.latencyMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "text-[10.5px] text-ink-3 tabular-nums", children: [
+          step.latencyMs,
+          "ms"
+        ] })
+      ] })
+    ] }, step.id)) })
+  ] });
+};
 
 // tests/primitives_adversarial.test.tsx
-var import_jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
 var totalTests = 0;
 var passedTests = 0;
 var failedTests = 0;
@@ -29571,7 +29122,7 @@ function runTest(suite, name, fn) {
 }
 console.log("\n--- 1. Testing DiffTable ---");
 runTest("DiffTable", "Default rendering without props", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, {}));
   import_strict.default.ok(html.includes("Field Discrepancy Matrix"));
   import_strict.default.ok(html.includes("Date of Birth"));
   import_strict.default.ok(html.includes("P98421034"));
@@ -29617,7 +29168,7 @@ runTest("DiffTable", "Unicode handling: Devanagari, Nepali, Bengali, Nastaliq, C
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Unicode Discrepancy Matrix", rows: unicodeRows })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Unicode Discrepancy Matrix", rows: unicodeRows })
   );
   import_strict.default.ok(html.includes("\u0906\u0928\u0928\u094D\u0926 \u0915\u0941\u092E\u093E\u0930 \u0936\u0930\u094D\u092E\u093E"));
   import_strict.default.ok(html.includes("\u0930\u093E\u092E \u092A\u094D\u0930\u0938\u093E\u0926 \u0905\u0927\u093F\u0915\u093E\u0930\u0940"));
@@ -29646,7 +29197,7 @@ runTest("DiffTable", "Special characters, HTML injection & boundary strings", ()
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Security & Injection Test", rows: maliciousRows })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Security & Injection Test", rows: maliciousRows })
   );
   import_strict.default.ok(!html.includes("<script>alert"));
   import_strict.default.ok(html.includes("&lt;script&gt;alert"));
@@ -29672,7 +29223,7 @@ runTest("DiffTable", "Empty string fields and missing values", () => {
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Empty Matrix", rows: emptyRows })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Empty Matrix", rows: emptyRows })
   );
   import_strict.default.ok(html.includes("\u2014"));
   import_strict.default.ok(html.includes("1 Discrepancy Found"));
@@ -29687,7 +29238,7 @@ runTest("DiffTable", "All-Match state (0 mismatches)", () => {
     isMatch: true
   }));
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "100% Match Table", rows: matchRows })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "100% Match Table", rows: matchRows })
   );
   import_strict.default.ok(html.includes("100% Cross-Stream Consistency"));
   import_strict.default.ok(html.includes("10 verified \xB7 0 mismatches"));
@@ -29705,7 +29256,7 @@ runTest("DiffTable", "All-Mismatch state (100% mismatches)", () => {
     details: `Cryptographic hash validation failed for field ${i + 1}`
   }));
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "100% Tampered Table", rows: mismatchRows })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "100% Tampered Table", rows: mismatchRows })
   );
   import_strict.default.ok(html.includes("10 Discrepancies Found"));
   import_strict.default.ok(html.includes("0 verified \xB7 10 mismatches"));
@@ -29743,7 +29294,7 @@ runTest("DiffTable", "Support for items prop contract from PROJECT.md", () => {
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Items Format Contract", items })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Items Format Contract", items })
   );
   import_strict.default.ok(html.includes("Passport Number"));
   import_strict.default.ok(html.includes("Date of Expiry"));
@@ -29751,7 +29302,7 @@ runTest("DiffTable", "Support for items prop contract from PROJECT.md", () => {
 });
 console.log("\n--- 2. Testing FilterTable ---");
 runTest("FilterTable", "Default rendering without props", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, {}));
   import_strict.default.ok(html.includes("Multi-Stream Cross-Validation Rules"));
   import_strict.default.ok(html.includes("CV-01"));
   import_strict.default.ok(html.includes("8 active guards"));
@@ -29759,7 +29310,7 @@ runTest("FilterTable", "Default rendering without props", () => {
   import_strict.default.ok(html.includes("Violations"));
 });
 runTest("FilterTable", "Zero rules empty array", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { rows: [] }));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { rows: [] }));
   import_strict.default.ok(typeof html === "string");
 });
 runTest("FilterTable", "Stress test: 50 rules with high density and all statuses", () => {
@@ -29778,7 +29329,7 @@ runTest("FilterTable", "Stress test: 50 rules with high density and all statuses
     details: `Deep telemetry breakdown for RULE-${i + 1}: Checksum verified on node cluster worker #${i % 5 + 1}.`
   }));
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { title: "60-Guard Comprehensive Filter Matrix", rows: largeRules })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { title: "60-Guard Comprehensive Filter Matrix", rows: largeRules })
   );
   import_strict.default.ok(html.includes("60-Guard Comprehensive Filter Matrix"));
   import_strict.default.ok(html.includes("60 active guards"));
@@ -29805,7 +29356,7 @@ runTest("FilterTable", "Rules with long multiline details & Unicode telemetry", 
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { title: "Multiline Test", rows: multilineRows })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { title: "Multiline Test", rows: multilineRows })
   );
   import_strict.default.ok(html.includes("\u092C\u0939\u0941\u092D\u093E\u0937\u0940 \u0938\u0924\u094D\u092F\u093E\u092A\u0928 \u0928\u093F\u092F\u092E"));
   import_strict.default.ok(html.includes("CV-ML-01"));
@@ -29833,7 +29384,7 @@ runTest("FilterTable", "Support for rules prop contract from PROJECT.md", () => 
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { title: "Rules Format Contract", rules })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { title: "Rules Format Contract", rules })
   );
   import_strict.default.ok(html.includes("MRZ Check Digit 1"));
   import_strict.default.ok(html.includes("Face Match Cosine"));
@@ -29842,7 +29393,7 @@ runTest("FilterTable", "Support for rules prop contract from PROJECT.md", () => 
 });
 console.log("\n--- 3. Testing ApprovalCard ---");
 runTest("ApprovalCard", "Default rendering without props", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, {}));
   import_strict.default.ok(html.includes("Human-In-The-Loop Officer Authorization"));
   import_strict.default.ok(html.includes("Clear Traveler"));
   import_strict.default.ok(html.includes("Secondary Hold"));
@@ -29851,21 +29402,21 @@ runTest("ApprovalCard", "Default rendering without props", () => {
 });
 runTest("ApprovalCard", "Risk Level GREEN -> Defaults to Auto Clear", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskLevel: "GREEN", riskScore: 14.2 })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskLevel: "GREEN", riskScore: 14.2 })
   );
   import_strict.default.ok(html.includes("Clear Traveler"));
   import_strict.default.ok(html.includes("border-green"));
 });
 runTest("ApprovalCard", "Risk Level AMBER -> Defaults to Secondary Hold", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskLevel: "AMBER", riskScore: 52.8 })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskLevel: "AMBER", riskScore: 52.8 })
   );
   import_strict.default.ok(html.includes("Secondary Hold"));
   import_strict.default.ok(html.includes("border-orange"));
 });
 runTest("ApprovalCard", "Risk Level RED -> Defaults to Interdiction Order", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskLevel: "RED", riskScore: 96.4 })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskLevel: "RED", riskScore: 96.4 })
   );
   import_strict.default.ok(html.includes("Interdiction Order"));
   import_strict.default.ok(html.includes("border-red"));
@@ -29874,14 +29425,14 @@ runTest("ApprovalCard", "Extreme Risk Scores: 0, 100, 99.9999, negative, NaN", (
   const scores = [0, 100, 99.9999, -5.5, 1e3];
   for (const score of scores) {
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskScore: score, riskLevel: "RED" })
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskScore: score, riskLevel: "RED" })
     );
     import_strict.default.ok(typeof html === "string");
     import_strict.default.ok(html.includes("Commit Decision"));
   }
 });
 runTest("ApprovalCard", "Closed state (isOpen=false)", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { isOpen: false }));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { isOpen: false }));
   import_strict.default.ok(html.includes("Open Officer Authorization"));
   import_strict.default.ok(!html.includes("Human-In-The-Loop Officer Authorization"));
 });
@@ -29900,12 +29451,12 @@ runTest("ApprovalCard", "Callback execution on submit", () => {
       decisionNotes = notes;
     }
   };
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { ...props }));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { ...props }));
   import_strict.default.ok(html.includes("Commit Decision"));
 });
-console.log("\n--- 4. Testing ToolChips & TaskRows ---");
+console.log("\n--- 4. Testing ToolChips & Pipeline Trace ---");
 runTest("ToolChips", "Default rendering", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ToolChips, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ToolChips, {}));
   import_strict.default.ok(html.includes("PP-OCRv4"));
   import_strict.default.ok(html.includes("DocTamper DTD"));
   import_strict.default.ok(html.includes("AdaFace-R100"));
@@ -29950,7 +29501,7 @@ runTest("ToolChips", "All status permutations & extreme latencies/confidences", 
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ToolChips, { telemetry: telemetryData, title: "Telemetry Extreme Bounds" })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ToolChips, { telemetry: telemetryData, title: "Telemetry Extreme Bounds" })
   );
   import_strict.default.ok(html.includes("Telemetry Extreme Bounds"));
   import_strict.default.ok(html.includes("0%"));
@@ -29967,44 +29518,30 @@ runTest("ToolChips", "Tensor Diff Chips with zero and negative changes", () => {
     { file: 'special_chars_<>&".json', add: 5, del: 2 }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ToolChips, { diffs })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ToolChips, { diffs })
   );
   import_strict.default.ok(html.includes("empty_tensor.bin"));
   import_strict.default.ok(html.includes("huge_weights.onnx"));
   import_strict.default.ok(html.includes("+1048576"));
   import_strict.default.ok(html.includes("\u2212524288"));
 });
-runTest("TaskRows", "Default rendering", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(TaskRows, {}));
+runTest("InspectionPipelineTrace", "Default rendering with steps", () => {
+  const steps = [
+    { id: "1", name: "PP-OCRv4 Multilingual Extraction", category: "OCR", status: "completed", latencyMs: 28 },
+    { id: "2", name: "DocTamper ResNet-50 Splicing Localizer", category: "FORENSICS", status: "failed", latencyMs: 110 }
+  ];
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(InspectionPipelineTrace, { steps, totalLatencyMs: 138 }));
   import_strict.default.ok(html.includes("PP-OCRv4 Multilingual Extraction"));
   import_strict.default.ok(html.includes("DocTamper ResNet-50 Splicing Localizer"));
-  import_strict.default.ok(html.includes("Anomaly Flagged"));
-  import_strict.default.ok(html.includes("Verified"));
-});
-runTest("TaskRows", "List variant with 10 tasks and mixed statuses", () => {
-  const tasks = Array.from({ length: 10 }, (_, i) => ({
-    key: `task-${i}`,
-    label: `Pipeline Inspection Step #${i + 1}`,
-    amount: `${(i + 1) * 10}ms`,
-    status: ["pending", "running", "completed", "failed"][i % 4],
-    details: [
-      { label: "Sub-step A", meta: "OK" },
-      { label: "Sub-step B", meta: "Passed" }
-    ]
-  }));
-  const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(TaskRows, { tasks, variant: "List" })
-  );
-  import_strict.default.ok(html.includes("Pipeline Inspection Step #1"));
-  import_strict.default.ok(html.includes("Pipeline Inspection Step #10"));
-  import_strict.default.ok(html.includes("divide-y"));
+  import_strict.default.ok(html.includes("3-Stream Neural Pipeline Trace"));
+  import_strict.default.ok(html.includes("138ms"));
 });
 console.log("\n--- 5. Testing SegmentedControl & StatusPill ---");
 runTest("SegmentedControl", "Normal string options array", () => {
   const options = ["Document", "Face Capture", "History", "Diagnostics"];
   let selected = "Document";
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
       SegmentedControl,
       {
         options,
@@ -30025,17 +29562,17 @@ runTest("SegmentedControl", "Object options with custom icons and badges", () =>
       id: "fast",
       label: "Fast Scan (M4)",
       badge: "28ms",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { "data-testid": "bolt-icon", children: "\u26A1" })
+      icon: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { "data-testid": "bolt-icon", children: "\u26A1" })
     },
     {
       id: "deep",
       label: "Deep Forensic (RTX)",
       badge: "98%",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { "data-testid": "shield-icon", children: "\u{1F6E1}\uFE0F" })
+      icon: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { "data-testid": "shield-icon", children: "\u{1F6E1}\uFE0F" })
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
       SegmentedControl,
       {
         options,
@@ -30056,7 +29593,7 @@ runTest("SegmentedControl", "Object options with custom icons and badges", () =>
 runTest("SegmentedControl", "Out-of-bounds value (non-existent tab)", () => {
   const options = ["Tab 1", "Tab 2", "Tab 3"];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
       SegmentedControl,
       {
         options,
@@ -30073,7 +29610,7 @@ runTest("SegmentedControl", "Out-of-bounds value (non-existent tab)", () => {
 });
 runTest("SegmentedControl", "Empty options array", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(SegmentedControl, { options: [], value: "", onChange: () => {
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(SegmentedControl, { options: [], value: "", onChange: () => {
     } })
   );
   import_strict.default.ok(html.includes('role="tablist"'));
@@ -30091,7 +29628,7 @@ runTest("StatusPill", "All 8 Tone Variants + Invalid Fallback", () => {
   ];
   for (const tone of tones2) {
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(StatusPill, { tone, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(StatusPill, { tone, children: [
         tone.toUpperCase(),
         " BADGE"
       ] })
@@ -30099,17 +29636,17 @@ runTest("StatusPill", "All 8 Tone Variants + Invalid Fallback", () => {
     import_strict.default.ok(html.includes(`${tone.toUpperCase()} BADGE`));
   }
   const fallbackHtml = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(StatusPill, { tone: "invalid_tone", children: "FALLBACK BADGE" })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(StatusPill, { tone: "invalid_tone", children: "FALLBACK BADGE" })
   );
   import_strict.default.ok(fallbackHtml.includes("FALLBACK BADGE"));
 });
 runTest("StatusPill", "Sizes, Dot toggle, Pulse animation, Unicode", () => {
   const htmlSm = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(StatusPill, { size: "sm", dot: false, pulse: false, children: "Small No Dot" })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(StatusPill, { size: "sm", dot: false, pulse: false, children: "Small No Dot" })
   );
   import_strict.default.ok(htmlSm.includes("text-[11px]"));
   const htmlLg = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(StatusPill, { size: "lg", tone: "red", pulse: true, children: "\u{1F534} \u091A\u0947\u0924\u093E\u0935\u0928\u0940 (Devanagari Alert) \u26A0\uFE0F" })
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(StatusPill, { size: "lg", tone: "red", pulse: true, children: "\u{1F534} \u091A\u0947\u0924\u093E\u0935\u0928\u0940 (Devanagari Alert) \u26A0\uFE0F" })
   );
   import_strict.default.ok(htmlLg.includes("animate-pulse"));
   import_strict.default.ok(htmlLg.includes("\u091A\u0947\u0924\u093E\u0935\u0928\u0940"));
@@ -30240,5 +29777,22 @@ react/cjs/react-jsx-runtime.development.js:
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
+   *)
+
+lucide-react/dist/esm/shared/src/utils.js:
+lucide-react/dist/esm/defaultAttributes.js:
+lucide-react/dist/esm/Icon.js:
+lucide-react/dist/esm/createLucideIcon.js:
+lucide-react/dist/esm/icons/check.js:
+lucide-react/dist/esm/icons/octagon-alert.js:
+lucide-react/dist/esm/icons/rotate-ccw.js:
+lucide-react/dist/esm/icons/shield-alert.js:
+lucide-react/dist/esm/icons/shield-check.js:
+lucide-react/dist/esm/lucide-react.js:
+  (**
+   * @license lucide-react v0.475.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
    *)
 */

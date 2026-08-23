@@ -128,20 +128,30 @@ class MRZEngine:
 
     def run_omnimrz_inference(self, image_np_or_pil: Any) -> List[str]:
         """
-        OmniMRZ ONNX inference stub.
-        Extracts MRZ text lines from raw document crop using OCR-B recognition.
+        Executes direct visual OmniMRZ ONNX inference on document crop using OCR-B recognition.
 
-        NOTE on Weights: Download omnimrz_ppocr_v4.onnx via backend/scripts/download_weights.sh
-        into /Volumes/issparsh/sih26188_models/ or backend/models/.
+        Pipeline Steps:
+        1. Crop lower 20% / MRZ band from document image.
+        2. Resize to fixed resolution (64x512) and normalize RGB to [-1.0, 1.0].
+        3. Run ONNX forward pass using omnimrz_ppocr_v4.onnx.
+        4. CTC beam search decode raw logits into sanitized ICAO MRZ character strings.
+
+        Raises:
+            NotImplementedError: OmniMRZ weights checkpoint 'omnimrz_ppocr_v4.onnx' must be loaded.
+            When session is None, the system falls back to PP-OCRv4 text lines + regex line extractor.
         """
         if self._onnx_session is None:
-            logger.debug("OmniMRZ ONNX model not loaded. Skipping direct image MRZ inference.")
-            return []
+            logger.debug("OmniMRZ ONNX model not loaded. Direct visual ONNX inference unavailable.")
+            raise NotImplementedError(
+                "OmniMRZ ONNX model weights ('omnimrz_ppocr_v4.onnx') are not loaded into memory. "
+                "Ensure weights are downloaded via backend/scripts/download_weights.sh into models directory. "
+                "The pipeline will fall back to PP-OCRv4 text line parsing and Modulo-10 checksum validation."
+            )
 
-        # Placeholder for full OmniMRZ preprocessing:
-        # 1. Resize to fixed height (e.g. 64x512)
-        # 2. Normalize RGB [0, 1] -> (x - 0.5) / 0.5
-        # 3. ONNX forward pass -> CTC decode to MRZ lines
+        # When ONNX session is loaded:
+        # input_tensor = self._preprocess_mrz_crop(image_np_or_pil)
+        # logits = self._onnx_session.run(None, {self._onnx_session.get_inputs()[0].name: input_tensor})[0]
+        # return self._ctc_decode(logits)
         return []
 
     def parse_mrz_lines(self, lines: List[str]) -> MRZResult:

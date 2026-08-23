@@ -17,7 +17,6 @@ import { PresetItem } from './services/presets';
 import {
   Lock,
   AlertCircle,
-  ShieldCheck,
   CheckCircle2,
   AlertTriangle,
   ShieldAlert,
@@ -288,7 +287,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-blue-600 selection:text-white bg-grid-pattern">
+    <div className="min-h-screen bg-page text-ink flex flex-col selection:bg-accent selection:text-white">
       {/* 1. Tactical Header with Station Status, Health Ping, and Modals */}
       <Header
         selectedCheckpoint={selectedCheckpoint}
@@ -312,10 +311,9 @@ export function App() {
 
         {errorMessage && (
           <div
-            className="bg-red-950 border border-red-800 rounded-[12px] p-3 text-xs text-red-200 flex items-center space-x-2 animate-fade-up"
-            style={{ boxShadow: 'var(--shadow-card)' }}
+            className="bg-red-bg border border-red/40 rounded-card p-3 text-xs text-ink flex items-center space-x-2 animate-fade-up shadow-card"
           >
-            <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+            <AlertCircle className="w-4 h-4 text-red flex-shrink-0" />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -397,10 +395,10 @@ export function App() {
       </main>
 
       {/* 3. Air-Gapped Compliance & Tactical Security Footer */}
-      <footer className="bg-slate-950 border-t border-slate-900 px-4 py-2.5 text-[11px] text-slate-500 font-mono text-center">
+      <footer className="bg-surface border-t border-line px-4 py-2.5 text-[11px] text-ink-3 font-mono text-center">
         <div className="max-w-[1700px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <Lock className="w-3 h-3 text-slate-600" />
+            <Lock className="w-3 h-3 text-ink-3" />
             <span>CONFIDENTIAL • FOR OFFICIAL DEFENSE & IMMIGRATION SCREENING USE ONLY</span>
           </div>
           <span>DPDP ACT 2023 & AADHAAR ACT COMPLIANT • ZERO RAW BIOMETRIC RETENTION</span>

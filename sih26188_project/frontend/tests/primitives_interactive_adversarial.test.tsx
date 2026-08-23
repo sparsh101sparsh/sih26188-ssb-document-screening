@@ -10,8 +10,8 @@ import {
   DecisionAction,
   ToolChips,
   ToolTelemetryItem,
-  TaskRows,
-  TaskItem,
+  InspectionPipelineTrace,
+  InspectionStep,
   SegmentedControl,
   SegmentedOptionItem,
   StatusPill,
@@ -165,7 +165,7 @@ runTest('SegmentedControl: Keyboard navigation state machine logic', () => {
   assert.equal(clampedIndex, 0);
 });
 
-// 5. ToolChips & TaskRows Diagnostic Rendering
+// 5. ToolChips & InspectionPipelineTrace Diagnostic Rendering
 runTest('ToolChips: Render without duration, confidence, or detail lines', () => {
   const minimalTelemetry: ToolTelemetryItem[] = [
     {
@@ -183,27 +183,29 @@ runTest('ToolChips: Render without duration, confidence, or detail lines', () =>
   assert.ok(!html.includes('undefined'));
 });
 
-runTest('TaskRows: Render tasks with empty details array', () => {
-  const minimalTasks: TaskItem[] = [
+runTest('InspectionPipelineTrace: Render pipeline trace with empty details and mixed statuses', () => {
+  const minimalSteps: InspectionStep[] = [
     {
-      key: 't1',
-      label: 'Bare Task',
+      id: 's1',
+      name: 'Bare Step',
+      category: 'OCR',
       status: 'completed',
-      details: [],
     },
     {
-      key: 't2',
-      label: 'No Details Task',
+      id: 's2',
+      name: 'No Details Step',
+      category: 'FORENSICS',
       status: 'failed',
     },
   ];
 
   const html = ReactDOMServer.renderToStaticMarkup(
-    <TaskRows tasks={minimalTasks} />
+    <InspectionPipelineTrace steps={minimalSteps} />
   );
 
-  assert.ok(html.includes('Bare Task'));
-  assert.ok(html.includes('No Details Task'));
+  assert.ok(html.includes('Bare Step'));
+  assert.ok(html.includes('No Details Step'));
+  assert.ok(html.includes('3-Stream Neural Pipeline Trace'));
 });
 
 // 6. Stress Test: High-Volume Rapid Batch Rendering

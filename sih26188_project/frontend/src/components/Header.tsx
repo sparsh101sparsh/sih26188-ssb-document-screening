@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Shield, RefreshCw, Clock, MapPin, Database, Cpu, Wifi, WifiOff } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Shield, RefreshCw, Clock, MapPin, Database, Smartphone } from 'lucide-react';
 import { CHECKPOINTS, CheckpointInfo } from '../types/api';
 
 interface HeaderProps {
@@ -26,24 +26,45 @@ export const Header: React.FC<HeaderProps> = ({
   hasScanResult,
 }) => {
   const [currentTime, setCurrentTime] = useState<string>(new Date().toUTCString());
+  const [activeDeviceCount, setActiveDeviceCount] = useState<number>(1);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date().toUTCString()), 1000);
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    let isMounted = true;
+    const checkDevices = async () => {
+      try {
+        const res = await fetch('/api/v1/devices');
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && typeof data.total_devices === 'number') {
+            setActiveDeviceCount(Math.max(1, data.total_devices));
+          }
+        }
+      } catch (e) {
+        // fallback
+      }
+    };
+    checkDevices();
+    const interval = setInterval(checkDevices, 5000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
-    <header
-      className="bg-surface border-b border-line sticky top-0 z-40 px-4 py-2.5 shadow-card"
-    >
+    <header className="bg-surface border-b border-line sticky top-0 z-40 px-4 py-2.5 shadow-card">
       <div className="max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-3">
-        {/* Left: Branding */}
+        {/* Left: Official SSB Branding */}
         <div className="flex items-center space-x-3.5">
           <div className="relative flex-shrink-0">
             <img src="/ssb_logo.png" alt="Sashastra Seema Bal" className="w-10 h-10 object-contain drop-shadow" />
             <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green" />
+              <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${backendOnline ? 'bg-green' : 'bg-red'}`} />
             </span>
           </div>
 
@@ -64,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Center/Right: Checkpoint selector & Status Badges */}
+        {/* Center / Right: Checkpoint & Consolidated Single Authoritative Status Capsule */}
         <div className="flex items-center flex-wrap gap-2.5 text-xs">
           {/* Checkpoint selector */}
           <div className="flex items-center bg-inset border border-line rounded-control px-2.5 py-1 text-ink shadow-btn">
@@ -86,42 +107,33 @@ export const Header: React.FC<HeaderProps> = ({
             </select>
           </div>
 
-          {/* Air-Gapped Zero-Cloud Badge */}
-          <div className="hidden lg:flex items-center bg-inset border border-line rounded-control px-2.5 py-1 space-x-1.5 shadow-btn font-mono text-[11px]">
-            <span className="w-2 h-2 rounded-full bg-green" />
-            <span className="font-semibold text-green">LOCAL · AIR-GAPPED</span>
-            <span className="text-ink-3 text-[10px]">0 CLOUD CALLS</span>
+          {/* Consolidated Authoritative Status Capsule */}
+          <div className="flex items-center bg-inset border border-line rounded-control px-2.5 py-1 space-x-2 text-[11px] font-mono shadow-btn">
+            <Smartphone className="w-3.5 h-3.5 text-accent shrink-0" />
+            <span className={`w-2 h-2 rounded-full shrink-0 ${backendOnline ? 'bg-green' : 'bg-red'}`} />
+            <span className={backendOnline ? 'text-green font-semibold' : 'text-red font-semibold'}>
+              {backendOnline
+                ? `${activeDeviceCount} ${activeDeviceCount === 1 ? 'FIELD UNIT' : 'FIELD UNITS'} (${backendLatencyMs ?? 0}ms)`
+                : 'OFFLINE SIM'}
+            </span>
+            <span className="text-line-strong">|</span>
+            <span className="text-ink-2 font-medium">AIR-GAPPED</span>
+            <button
+              type="button"
+              onClick={onRefreshHealth}
+              disabled={isCheckingHealth}
+              title="Refresh Edge Gateway Status"
+              className="text-ink-3 hover:text-ink transition-colors ml-0.5"
+            >
+              <RefreshCw className={`w-3 h-3 ${isCheckingHealth ? 'animate-spin' : ''}`} />
+            </button>
           </div>
-
-          {/* Backend Health Badge */}
-          <button
-            onClick={onRefreshHealth}
-            disabled={isCheckingHealth}
-            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-control border text-[11px] font-mono transition-colors shadow-btn ${
-              backendOnline
-                ? 'bg-green-tint text-green border-green/30 hover:bg-green-tint/80'
-                : 'bg-red-tint text-red border-red/30 hover:bg-red-tint/80'
-            }`}
-            title="Click to check edge server status"
-          >
-            {backendOnline ? (
-              <>
-                <Cpu className="w-3 h-3 text-green" />
-                <span>ONLINE {backendLatencyMs ? `(${backendLatencyMs}ms)` : ''}</span>
-              </>
-            ) : (
-              <>
-                <WifiOff className="w-3 h-3 text-red" />
-                <span>OFFLINE · SIMULATION</span>
-                <RefreshCw className={`w-2.5 h-2.5 ml-0.5 ${isCheckingHealth ? 'animate-spin' : ''}`} />
-              </>
-            )}
-          </button>
 
           {/* Certificate & JSON modals */}
           {hasScanResult && (
             <>
               <button
+                type="button"
                 onClick={onOpenAuditModal}
                 className="flex items-center space-x-1 bg-accent-tint hover:bg-accent-tint/80 text-accent font-semibold px-2.5 py-1 rounded-control border border-accent/40 transition-colors text-[11px] shadow-btn"
               >
@@ -130,6 +142,7 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
 
               <button
+                type="button"
                 onClick={onOpenJsonModal}
                 className="flex items-center space-x-1 bg-inset hover:bg-hover text-ink-2 font-mono px-2.5 py-1 rounded-control border border-line transition-colors text-[11px] shadow-btn"
               >
@@ -149,3 +162,5 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+
+export default Header;

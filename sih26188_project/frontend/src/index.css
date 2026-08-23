@@ -3,55 +3,72 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────
- * Beautiful UI — design tokens (Exact port from beautiful-ui)
+ * SSB Field Screening System — Deep Oceanic Design Tokens
  * ────────────────────────────────────────────────────────── */
 
 :root {
-  /* surfaces — dark theme default for defense system */
-  --page: oklch(0.209 0.004 264.477);
-  --canvas: oklch(0.231 0.004 264.487);
-  --surface: oklch(0.26 0.006 271.191);
-  --inset: oklch(0.243 0.004 264.492);
-  --hover: oklch(0.289 0.006 271.22);
-  --hover-2: oklch(0.318 0.007 274.747);
+  /* Canvas & Surfaces */
+  --page: #030B14;          /* Base Canvas (App background) */
+  --canvas: #030B14;        /* Underlying viewport background */
+  --surface: #0B1A2E;       /* Supporting Surface (Cards, panels, modules) */
+  --inset: #081525;         /* Inset Surface (Sub-panels, table headers, inputs) */
+  --field: #081525;         /* Form input fields */
+  --hover: #112745;         /* Interactive Surface / Hover state */
+  --hover-2: #163259;       /* Active / Selected hover state */
 
-  --ink: oklch(0.964 0.002 247.839);
-  --ink-2: oklch(0.731 0.008 260.731);
-  --ink-3: oklch(0.541 0.01 264.484);
+  /* Typography Colors */
+  --ink: #F8FAFC;           /* Primary Text (High contrast, headers, values) */
+  --ink-2: #94A3B8;         /* Secondary Text (Body, labels, descriptions) */
+  --ink-3: #64748B;         /* Muted Text (Hints, timestamps, inactive) */
 
-  --line: oklch(0.308 0.006 258.354);
-  --line-strong: oklch(0.356 0.007 264.474);
-  --field: oklch(0.293 0.006 271.223);
-  --stripe: oklch(1 0 0 / 0.055);
-  --stripe-bg: oklch(0.226 0.004 264.485);
+  /* Borders & Dividers */
+  --line: #1E3A5F;          /* Structural Border (Subtle card & panel boundaries) */
+  --line-strong: #2C5282;   /* Active / Hover Border (Focus rings, selected tabs) */
 
-  --accent: oklch(0.68 0.173 253.301);
-  --accent-ink: oklch(0.788 0.113 248.33);
-  --accent-tint: oklch(0.68 0.173 253.301 / 0.16);
+  /* Brand & Accents */
+  --accent: #2563EB;        /* Interaction Blue / Primary CTA */
+  --accent-hover: #3B82F6;  /* Interaction Blue Hover */
+  --accent-ink: #93C5FD;    /* Blue Text Accent */
+  --accent-tint: rgba(37, 99, 235, 0.16);
 
-  --green: oklch(0.705 0.154 153.814);
-  --green-tint: oklch(0.705 0.154 153.814 / 0.14);
-  --orange: oklch(0.746 0.156 55.642);
-  --orange-tint: oklch(0.746 0.156 55.642 / 0.14);
-  --red: oklch(0.666 0.18 21.433);
-  --red-tint: oklch(0.666 0.18 21.433 / 0.14);
+  --brand-purple: #5B21B6;  /* SSB Security Purple */
+  --brand-purple-dark: #4C1D95;
 
-  --tooltip-bg: oklch(0.182 0.004 264.459);
-  --tooltip-fg: oklch(0.964 0.002 247.839);
-  --tooltip-muted: oklch(0.731 0.008 260.731);
-  --tooltip-border: oklch(0.308 0.006 258.354);
+  /* Semantic Status: Success (Emerald) */
+  --green: #10B981;
+  --green-bg: #022C22;
+  --green-tint: rgba(16, 185, 129, 0.16);
+  --green-border: #065F46;
 
+  /* Semantic Status: Warning (Amber) */
+  --orange: #F59E0B;
+  --orange-bg: #451A03;
+  --orange-tint: rgba(245, 158, 11, 0.16);
+  --orange-border: #92400E;
+
+  /* Semantic Status: Danger / Critical (Crimson) */
+  --red: #EF4444;
+  --red-bg: #450A0A;
+  --red-tint: rgba(239, 68, 68, 0.16);
+  --red-border: #991B1B;
+
+  /* Proportional Corner Radii (22% squircle rule) */
+  --radius-chip: 6px;       /* Tags & small pills */
+  --radius-control: 8px;    /* Buttons & input fields */
+  --radius-card: 10px;      /* Cards & modular containers */
+  --radius-window: 14px;    /* Modals & main window panels */
+
+  /* Crisp Box Shadows (No neon glows) */
   --shadow-hairline: 0 0 0 1px var(--line);
-  --shadow-btn: 0 0 0 1px oklch(1 0 0 / 0.1), 0 1px 2px oklch(0 0 0 / 0.3);
-  --shadow-card: 0 0 0 1px oklch(1 0 0 / 0.11), 0 1px 2px oklch(0 0 0 / 0.2), 0 2px 6px oklch(0 0 0 / 0.2);
-  --shadow-raised: 0 0 0 1px oklch(1 0 0 / 0.13), 0 2px 10px oklch(0 0 0 / 0.22);
-  --shadow-overlay: 0 0 0 1px oklch(1 0 0 / 0.15), 0 8px 28px oklch(0 0 0 / 0.34);
-  --shadow-inset-field: inset 0 1px 2px oklch(0 0 0 / 0.4);
+  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--line);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--line);
+  --shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line-strong);
+  --shadow-overlay: 0 12px 32px rgba(0, 0, 0, 0.75), 0 0 0 1px var(--line-strong);
+  --shadow-inset-field: inset 0 1px 2px rgba(0, 0, 0, 0.5);
 
-  --radius-chip: 6px;
-  --radius-control: 8px;
-  --radius-card: 10px;
-  --radius-window: 14px;
+  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-link: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @layer base {
@@ -69,14 +86,9 @@
   }
 }
 
-/* Beautiful UI animations */
-@keyframes shimmer-text {
-  from { background-position: 150% center; }
-  to { background-position: -50% center; }
-}
-
+/* Functional UI animations (Fast, subtle, non-distracting) */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -86,21 +98,8 @@
 }
 
 @keyframes pop-in {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.97); }
   to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes pulseGlowRed {
-  0%, 100% {
-    box-shadow: 0 0 12px oklch(0.666 0.18 21.433 / 0.35), 0 0 0 1px oklch(0.666 0.18 21.433 / 0.5);
-  }
-  50% {
-    box-shadow: 0 0 28px oklch(0.666 0.18 21.433 / 0.65), 0 0 0 1px oklch(0.666 0.18 21.433 / 0.9);
-  }
-}
-
-.pulsing-alert-red {
-  animation: pulseGlowRed 1.2s ease-in-out infinite;
 }
 
 .primitive-card-pad {

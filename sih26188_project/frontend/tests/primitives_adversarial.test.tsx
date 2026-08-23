@@ -13,8 +13,8 @@ import {
   ToolChips,
   ToolTelemetryItem,
   ToolDiffChip,
-  TaskRows,
-  TaskItem,
+  InspectionPipelineTrace,
+  InspectionStep,
   SegmentedControl,
   SegmentedOptionItem,
   StatusPill,
@@ -261,7 +261,6 @@ runTest('FilterTable', 'Default rendering without props', () => {
 
 runTest('FilterTable', 'Zero rules empty array', () => {
   const html = ReactDOMServer.renderToStaticMarkup(<FilterTable rows={[]} />);
-  // When rows is empty array, it falls back to DEFAULT_ROWS or renders safely
   assert.ok(typeof html === 'string');
 });
 
@@ -414,7 +413,6 @@ runTest('ApprovalCard', 'Callback execution on submit', () => {
   let decisionMapped: string | null = null;
   let decisionNotes: string | null = null;
 
-  // Render component and verify callback structure
   const props = {
     riskLevel: 'RED',
     riskScore: 92.5,
@@ -433,9 +431,9 @@ runTest('ApprovalCard', 'Callback execution on submit', () => {
 
 
 // -------------------------------------------------------------
-// 4. ToolChips & TaskRows Adversarial Tests
+// 4. ToolChips & InspectionPipelineTrace Adversarial Tests
 // -------------------------------------------------------------
-console.log('\n--- 4. Testing ToolChips & TaskRows ---');
+console.log('\n--- 4. Testing ToolChips & Pipeline Trace ---');
 
 runTest('ToolChips', 'Default rendering', () => {
   const html = ReactDOMServer.renderToStaticMarkup(<ToolChips />);
@@ -512,33 +510,16 @@ runTest('ToolChips', 'Tensor Diff Chips with zero and negative changes', () => {
   assert.ok(html.includes('−524288'));
 });
 
-runTest('TaskRows', 'Default rendering', () => {
-  const html = ReactDOMServer.renderToStaticMarkup(<TaskRows />);
+runTest('InspectionPipelineTrace', 'Default rendering with steps', () => {
+  const steps: InspectionStep[] = [
+    { id: '1', name: 'PP-OCRv4 Multilingual Extraction', category: 'OCR', status: 'completed', latencyMs: 28 },
+    { id: '2', name: 'DocTamper ResNet-50 Splicing Localizer', category: 'FORENSICS', status: 'failed', latencyMs: 110 },
+  ];
+  const html = ReactDOMServer.renderToStaticMarkup(<InspectionPipelineTrace steps={steps} totalLatencyMs={138} />);
   assert.ok(html.includes('PP-OCRv4 Multilingual Extraction'));
   assert.ok(html.includes('DocTamper ResNet-50 Splicing Localizer'));
-  assert.ok(html.includes('Anomaly Flagged'));
-  assert.ok(html.includes('Verified'));
-});
-
-runTest('TaskRows', 'List variant with 10 tasks and mixed statuses', () => {
-  const tasks: TaskItem[] = Array.from({ length: 10 }, (_, i) => ({
-    key: `task-${i}`,
-    label: `Pipeline Inspection Step #${i + 1}`,
-    amount: `${(i + 1) * 10}ms`,
-    status: (['pending', 'running', 'completed', 'failed'] as const)[i % 4],
-    details: [
-      { label: 'Sub-step A', meta: 'OK' },
-      { label: 'Sub-step B', meta: 'Passed' },
-    ],
-  }));
-
-  const html = ReactDOMServer.renderToStaticMarkup(
-    <TaskRows tasks={tasks} variant="List" />
-  );
-
-  assert.ok(html.includes('Pipeline Inspection Step #1'));
-  assert.ok(html.includes('Pipeline Inspection Step #10'));
-  assert.ok(html.includes('divide-y'));
+  assert.ok(html.includes('3-Stream Neural Pipeline Trace'));
+  assert.ok(html.includes('138ms'));
 });
 
 
@@ -608,7 +589,6 @@ runTest('SegmentedControl', 'Out-of-bounds value (non-existent tab)', () => {
     />
   );
 
-  // Must render all buttons without throwing, and none selected
   assert.ok(html.includes('Tab 1'));
   assert.ok(html.includes('Tab 2'));
   assert.ok(html.includes('Tab 3'));
@@ -641,7 +621,6 @@ runTest('StatusPill', 'All 8 Tone Variants + Invalid Fallback', () => {
     assert.ok(html.includes(`${tone.toUpperCase()} BADGE`));
   }
 
-  // Invalid tone test
   const fallbackHtml = ReactDOMServer.renderToStaticMarkup(
     <StatusPill tone={'invalid_tone' as any}>FALLBACK BADGE</StatusPill>
   );

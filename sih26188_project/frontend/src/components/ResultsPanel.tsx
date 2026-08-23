@@ -42,9 +42,8 @@ import {
   Eye,
   Cpu,
   ShieldCheck,
-  Zap,
-  CheckCircle2,
-  AlertTriangle,
+  ChevronDown,
+  ChevronRight,
   ShieldAlert,
 } from 'lucide-react';
 
@@ -58,6 +57,70 @@ interface ResultsPanelProps {
 
 type ResultsViewTab = 'overview' | 'discrepancies' | 'forensics' | 'telemetry' | 'pillars';
 
+interface AccordionSectionProps {
+  title: string;
+  icon: React.ReactNode;
+  badge?: string;
+  badgeTone?: 'green' | 'orange' | 'red' | 'neutral' | 'accent';
+  isOpen: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}
+
+const AccordionSection: React.FC<AccordionSectionProps> = ({
+  title,
+  icon,
+  badge,
+  badgeTone = 'neutral',
+  isOpen,
+  onToggle,
+  children,
+}) => {
+  return (
+    <div className="rounded-card border border-line overflow-hidden bg-surface shadow-card transition-all">
+      <button
+        type="button"
+        onClick={onToggle}
+        className="w-full px-4 py-3 bg-inset hover:bg-hover flex items-center justify-between gap-3 text-left transition-colors cursor-pointer select-none"
+      >
+        <div className="flex items-center space-x-2.5">
+          <span className="text-accent">{icon}</span>
+          <span className="text-xs font-bold font-mono uppercase tracking-wider text-ink">
+            {title}
+          </span>
+        </div>
+
+        <div className="flex items-center space-x-2.5">
+          {badge && (
+            <span
+              className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-chip border ${
+                badgeTone === 'green'
+                  ? 'bg-green-tint text-green border-green/30'
+                  : badgeTone === 'orange'
+                  ? 'bg-orange-tint text-orange border-orange/30'
+                  : badgeTone === 'red'
+                  ? 'bg-red-tint text-red border-red/30'
+                  : badgeTone === 'accent'
+                  ? 'bg-accent-tint text-accent border-accent/30'
+                  : 'bg-surface text-ink-2 border-line'
+              }`}
+            >
+              {badge}
+            </span>
+          )}
+          {isOpen ? (
+            <ChevronDown className="w-4 h-4 text-ink-3" />
+          ) : (
+            <ChevronRight className="w-4 h-4 text-ink-3" />
+          )}
+        </div>
+      </button>
+
+      {isOpen && <div className="p-3.5 border-t border-line animate-fade-in">{children}</div>}
+    </div>
+  );
+};
+
 export const ResultsPanel: React.FC<ResultsPanelProps> = ({
   result,
   documentImageUrl,
@@ -67,6 +130,19 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 }) => {
   const { assessment, details } = result;
   const [activeTab, setActiveTab] = useState<ResultsViewTab>('overview');
+
+  // Accordion state
+  const [openAccordions, setOpenAccordions] = useState<{ [key: string]: boolean }>({
+    trace: false,
+    discrepancies: false,
+    crossVal: false,
+    forensics: false,
+    pillars: false,
+  });
+
+  const toggleAccordion = (key: string) => {
+    setOpenAccordions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   // 1. Build Multi-Model Execution Telemetry for ToolChips & InspectionPipelineTrace
   const { traceSteps, toolTelemetry, tensorDiffs } = useMemo(() => {
@@ -317,7 +393,6 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
   // 2. Build 8 Cross-Validation Rules for FilterTable
   const cvRules: FilterTableRow[] = useMemo(() => {
-    // If backend returns flags, start with them
     const existingFlags = details?.cross_validation?.flags || [];
     const violations = details?.cross_validation?.violations || [];
 
@@ -464,7 +539,6 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       },
     ];
 
-    // If backend provided flags that have specific messages, merge them
     if (existingFlags.length > 0) {
       return rules.map((r) => {
         const flag = existingFlags.find((f) => f.rule_id === r.id);
@@ -634,7 +708,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
   const tabOptions = [
     {
       id: 'overview',
-      label: 'Executive Overview',
+      label: 'Operational Overview',
       icon: <LayoutDashboard className="size-3.5" />,
     },
     {
@@ -669,7 +743,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
   return (
     <div className="space-y-4 animate-fade-up">
-      {/* 1. Tactical Command Bar: Segmented Tab Switcher & Multi-Tone Status Pills */}
+      {/* 1. Tactical Command Bar: Segmented Tab Switcher & Status Badges */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-card bg-surface p-2.5 shadow-card border border-line">
         <SegmentedControl
           options={tabOptions}
@@ -679,7 +753,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         />
 
         <div className="flex items-center flex-wrap gap-2">
-          <StatusPill tone={riskTone} dot pulse={assessment.tripwire_triggered}>
+          <StatusPill tone={riskTone} dot>
             {assessment.risk_level === 'GREEN'
               ? `SCORE ${assessment.risk_score.toFixed(1)} · AUTO-CLEAR`
               : assessment.risk_level === 'AMBER'
@@ -688,7 +762,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
           </StatusPill>
 
           {assessment.tripwire_triggered && (
-            <StatusPill tone="red" dot pulse size="sm">
+            <StatusPill tone="red" dot size="sm">
               STAGE 1 TRIPWIRE ACTIVE
             </StatusPill>
           )}
@@ -704,23 +778,17 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       {/* 2. Top-Level High-Visibility Risk Status Banner */}
       <RiskStatusBanner assessment={assessment} />
 
-      {/* 3. Human-In-The-Loop Officer Authorization Workflow (beautiful-ui primitive) */}
+      {/* 3. Human-In-The-Loop Officer Authorization Workflow */}
       <ApprovalCard
         riskLevel={assessment.risk_level}
         riskScore={assessment.risk_score}
         onDecide={handleOfficerDecision}
       />
 
-      {/* TAB CONTENT: Overview */}
+      {/* TAB CONTENT: Overview (Clean Master View with Collapsible Accordions) */}
       {activeTab === 'overview' && (
         <div className="space-y-4">
-          {/* 5-Pillar Neural Telemetry Trace */}
-          <InspectionPipelineTrace
-            steps={traceSteps}
-            totalLatencyMs={Math.round(assessment.processing_time_ms)}
-          />
-
-          {/* Analytics Row: Calibrated Bayesian Gauge & Reason Bullet List */}
+          {/* Primary Assessment Summary Row: Bayesian Gauge & Reason Bullet List */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <RiskScoreCard assessment={assessment} />
             {details && (
@@ -731,34 +799,90 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             )}
           </div>
 
-          {/* Discrepancy DiffTable (Visual OCR vs MRZ / PKI) */}
-          <DiffTable
-            title="Forensic Field Discrepancy Matrix (Visual OCR vs MRZ / PKI)"
-            rows={diffRows}
-          />
+          {/* Deep Diagnostic Expandable Accordions (Collapsed by Default) */}
+          <div className="space-y-3">
+            {/* Accordion 1: Multi-Model Pipeline Latency Trace */}
+            <AccordionSection
+              title="Multi-Model Inference Pipeline Trace"
+              icon={<Cpu className="w-4 h-4" />}
+              badge={`${traceSteps.length} Models · ${Math.round(assessment.processing_time_ms)}ms`}
+              badgeTone="accent"
+              isOpen={openAccordions.trace}
+              onToggle={() => toggleAccordion('trace')}
+            >
+              <InspectionPipelineTrace
+                steps={traceSteps}
+                totalLatencyMs={Math.round(assessment.processing_time_ms)}
+              />
+            </AccordionSection>
 
-          {/* Cross-Validation FilterTable */}
-          <FilterTable
-            title="8-Rule Multi-Stream Cross-Validation Log"
-            rows={cvRules}
-          />
+            {/* Accordion 2: Forensic Field Discrepancy Matrix */}
+            <AccordionSection
+              title="Forensic Field Discrepancy Matrix (Visual OCR vs MRZ / PKI)"
+              icon={<GitCompare className="w-4 h-4" />}
+              badge={mismatchCount > 0 ? `${mismatchCount} Discrepancies Flagged` : '0 Mismatches'}
+              badgeTone={mismatchCount > 0 ? 'red' : 'green'}
+              isOpen={openAccordions.discrepancies || mismatchCount > 0}
+              onToggle={() => toggleAccordion('discrepancies')}
+            >
+              <DiffTable
+                title="Cross-Stream Field Discrepancy Matrix"
+                rows={diffRows}
+              />
+            </AccordionSection>
 
-          {/* Dual-Canvas Visual Forensics & Heatmap Compositor */}
-          {details && (
-            <ForensicsViewer
-              documentImageUrl={documentImageUrl}
-              heatmapImageUrl={heatmapImageUrl || assessment.heatmap_base64}
-              forensics={details.forensics}
-              stamp={details.stamp}
-            />
-          )}
+            {/* Accordion 3: 8-Rule Multi-Stream Cross-Validation Log */}
+            <AccordionSection
+              title="8-Rule Cross-Validation Consistency Guards"
+              icon={<ShieldCheck className="w-4 h-4" />}
+              badge={violationCount > 0 ? `${violationCount} Violations` : '8/8 Guards Valid'}
+              badgeTone={violationCount > 0 ? 'red' : 'green'}
+              isOpen={openAccordions.crossVal}
+              onToggle={() => toggleAccordion('crossVal')}
+            >
+              <FilterTable
+                title="8-Rule Cross-Validation Guard Matrix"
+                rows={cvRules}
+              />
+            </AccordionSection>
 
-          {/* Granular 5-Pillar Deep Breakdown */}
-          {details && <PillarsTable scanDetails={details} />}
+            {/* Accordion 4: Dual-Canvas Visual Forensics & Heatmaps */}
+            {details && (
+              <AccordionSection
+                title="Visual Forensics, ELA & Splicing Localization"
+                icon={<Eye className="w-4 h-4" />}
+                badge={`Tamper Score: ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%`}
+                badgeTone={details.forensics.is_tampered ? 'red' : 'green'}
+                isOpen={openAccordions.forensics}
+                onToggle={() => toggleAccordion('forensics')}
+              >
+                <ForensicsViewer
+                  documentImageUrl={documentImageUrl}
+                  heatmapImageUrl={heatmapImageUrl || assessment.heatmap_base64}
+                  forensics={details.forensics}
+                  stamp={details.stamp}
+                />
+              </AccordionSection>
+            )}
+
+            {/* Accordion 5: Granular 5-Pillar Telemetry */}
+            {details && (
+              <AccordionSection
+                title="Granular 5-Pillar Telemetry Breakdown"
+                icon={<ShieldAlert className="w-4 h-4" />}
+                badge="OCR · MRZ · Biometrics · Forensics · Stamp"
+                badgeTone="neutral"
+                isOpen={openAccordions.pillars}
+                onToggle={() => toggleAccordion('pillars')}
+              >
+                <PillarsTable scanDetails={details} />
+              </AccordionSection>
+            )}
+          </div>
         </div>
       )}
 
-      {/* TAB CONTENT: Discrepancies */}
+      {/* TAB CONTENT: Discrepancies Focused View */}
       {activeTab === 'discrepancies' && (
         <div className="space-y-4 animate-fade-up">
           <div className="flex items-center justify-between p-3 rounded-card bg-surface border border-line shadow-card">
@@ -787,7 +911,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         </div>
       )}
 
-      {/* TAB CONTENT: Visual Forensics */}
+      {/* TAB CONTENT: Visual Forensics Focused View */}
       {activeTab === 'forensics' && details && (
         <div className="space-y-4 animate-fade-up">
           <ForensicsViewer
@@ -801,7 +925,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             <div className="p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1">
               <span className="text-[11px] font-mono text-ink-3 uppercase">DocTamper DTD Score</span>
               <div className="text-xl font-bold font-mono text-ink">
-                {(details.forensics.doctamper_score * 100).toFixed(1)}%
+                {((details.forensics.doctamper_score ?? 0) * 100).toFixed(1)}%
               </div>
               <span className="text-[11px] text-ink-2">Text & digit alteration detector</span>
             </div>
@@ -809,7 +933,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             <div className="p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1">
               <span className="text-[11px] font-mono text-ink-3 uppercase">TruFor Splicing Score</span>
               <div className="text-xl font-bold font-mono text-ink">
-                {(details.forensics.trufor_score * 100).toFixed(1)}%
+                {((details.forensics.trufor_score ?? 0) * 100).toFixed(1)}%
               </div>
               <span className="text-[11px] text-ink-2">Dense RGB+Noise transformer</span>
             </div>
@@ -825,7 +949,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         </div>
       )}
 
-      {/* TAB CONTENT: Neural Telemetry */}
+      {/* TAB CONTENT: Neural Telemetry Focused View */}
       {activeTab === 'telemetry' && (
         <div className="space-y-4 animate-fade-up">
           <ToolChips
@@ -869,7 +993,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
             <div className="p-4 rounded-card bg-surface border border-line shadow-card space-y-2">
               <div className="flex items-center gap-2">
-                <ShieldAlert className="w-4 h-4 text-amber-400" />
+                <ShieldAlert className="w-4 h-4 text-orange" />
                 <span className="text-[12.5px] font-bold font-mono text-ink uppercase">
                   Cryptographic Audit Trail
                 </span>
@@ -895,7 +1019,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         </div>
       )}
 
-      {/* TAB CONTENT: 5 Pillars */}
+      {/* TAB CONTENT: 5 Pillars Detailed View */}
       {activeTab === 'pillars' && details && (
         <div className="space-y-4 animate-fade-up">
           <PillarsTable scanDetails={details} />
