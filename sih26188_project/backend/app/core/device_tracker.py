@@ -29,6 +29,10 @@ class ConnectedClient(BaseModel):
     status: str = Field(default="ONLINE", description="Device status: ONLINE | IDLE | OFFLINE")
 
 
+# Default offline timeout threshold in seconds for client inactivity
+DEFAULT_OFFLINE_TIMEOUT_SECONDS: float = 8.0
+
+
 class DeviceTracker:
     """
     Thread-safe in-memory device registry for edge appliance monitoring.
@@ -36,6 +40,35 @@ class DeviceTracker:
 
     def __init__(self) -> None:
         self._devices: Dict[str, ConnectedClient] = {}
+
+    def _evaluate_device_status(
+        self,
+        dev: ConnectedClient,
+        timeout_seconds: float = DEFAULT_OFFLINE_TIMEOUT_SECONDS,
+    ) -> str:
+        """
+        Evaluates dynamic device status based on elapsed time since last_seen.
+        Transitions to OFFLINE if inactive longer than timeout_seconds.
+        """
+        try:
+            last_dt = datetime.fromisoformat(dev.last_seen)
+            if last_dt.tzinfo is None:
+                last_dt = last_dt.replace(tzinfo=timezone.utc)
+            now = datetime.now(timezone.utc)
+            elapsed = (now - last_dt).total_seconds()
+            return "ONLINE" if elapsed <= timeout_seconds else "OFFLINE"
+        except Exception:
+            return "OFFLINE"
+
+    def update_statuses(
+        self,
+        timeout_seconds: float = DEFAULT_OFFLINE_TIMEOUT_SECONDS,
+    ) -> None:
+        """
+        Refreshes the status attribute of all tracked devices.
+        """
+        for dev in self._devices.values():
+            dev.status = self._evaluate_device_status(dev, timeout_seconds=timeout_seconds)
 
     def record_activity(
         self,
@@ -76,19 +109,50 @@ class DeviceTracker:
             self._devices[client_ip] = dev
             return dev
 
-    def get_all_devices(self) -> List[ConnectedClient]:
+    def get_all_devices(
+        self,
+        timeout_seconds: float = DEFAULT_OFFLINE_TIMEOUT_SECONDS,
+        active_only: bool = False,
+    ) -> List[ConnectedClient]:
         """
         Returns a list of all recorded field devices sorted by last_seen descending.
+        Refreshes status against timeout_seconds before returning.
+        If active_only is True, filters to return only ONLINE devices.
         """
-        return sorted(self._devices.values(), key=lambda d: d.last_seen, reverse=True)
+        self.update_statuses(timeout_seconds=timeout_seconds)
+        devices = list(self._devices.values())
+        if active_only:
+            devices = [d for d in devices if d.status == "ONLINE"]
+        return sorted(devices, key=lambda d: d.last_seen, reverse=True)
 
-    def get_last_active_device(self) -> Optional[ConnectedClient]:
+    def get_active_devices(
+        self,
+        timeout_seconds: float = DEFAULT_OFFLINE_TIMEOUT_SECONDS,
+    ) -> List[ConnectedClient]:
+        """
+        Returns a list of currently active (ONLINE) field devices sorted by last_seen descending.
+        """
+        return self.get_all_devices(timeout_seconds=timeout_seconds, active_only=True)
+
+    def get_last_active_device(
+        self,
+        timeout_seconds: float = DEFAULT_OFFLINE_TIMEOUT_SECONDS,
+        active_only: bool = True,
+    ) -> Optional[ConnectedClient]:
         """
         Returns the most recently active screening device.
+        If active_only is True, returns None if no device is currently ONLINE.
         """
-        if not self._devices:
-            return None
-        return max(self._devices.values(), key=lambda d: d.last_seen)
+        if active_only:
+            active_devices = self.get_active_devices(timeout_seconds=timeout_seconds)
+            if not active_devices:
+                return None
+            return active_devices[0]
+        else:
+            self.update_statuses(timeout_seconds=timeout_seconds)
+            if not self._devices:
+                return None
+            return max(self._devices.values(), key=lambda d: d.last_seen)
 
     def clear(self) -> None:
         """

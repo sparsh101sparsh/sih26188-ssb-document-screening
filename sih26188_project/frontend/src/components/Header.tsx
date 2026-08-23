@@ -26,7 +26,8 @@ export const Header: React.FC<HeaderProps> = ({
   hasScanResult,
 }) => {
   const [currentTime, setCurrentTime] = useState<string>(new Date().toUTCString());
-  const [activeDeviceCount, setActiveDeviceCount] = useState<number>(1);
+  const [activeDeviceCount, setActiveDeviceCount] = useState<number>(0);
+  const [deviceLatencyMs, setDeviceLatencyMs] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date().toUTCString()), 1000);
@@ -41,15 +42,26 @@ export const Header: React.FC<HeaderProps> = ({
         if (res.ok) {
           const data = await res.json();
           if (isMounted && typeof data.total_devices === 'number') {
-            setActiveDeviceCount(Math.max(1, data.total_devices));
+            setActiveDeviceCount(data.total_devices);
+            if (data.last_active_device && typeof data.last_active_device.latency_ms === 'number') {
+              setDeviceLatencyMs(Math.round(data.last_active_device.latency_ms));
+            } else if (data.total_devices === 0) {
+              setDeviceLatencyMs(null);
+            }
           }
+        } else if (isMounted) {
+          setActiveDeviceCount(0);
+          setDeviceLatencyMs(null);
         }
       } catch (e) {
-        // fallback
+        if (isMounted) {
+          setActiveDeviceCount(0);
+          setDeviceLatencyMs(null);
+        }
       }
     };
     checkDevices();
-    const interval = setInterval(checkDevices, 5000);
+    const interval = setInterval(checkDevices, 3000);
     return () => {
       isMounted = false;
       clearInterval(interval);
@@ -110,11 +122,29 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Consolidated Authoritative Status Capsule */}
           <div className="flex items-center bg-inset border border-line rounded-control px-2.5 py-1 space-x-2 text-[11px] font-mono shadow-btn">
             <Smartphone className="w-3.5 h-3.5 text-accent shrink-0" />
-            <span className={`w-2 h-2 rounded-full shrink-0 ${backendOnline ? 'bg-green' : 'bg-red'}`} />
-            <span className={backendOnline ? 'text-green font-semibold' : 'text-red font-semibold'}>
-              {backendOnline
-                ? `${activeDeviceCount} ${activeDeviceCount === 1 ? 'FIELD UNIT' : 'FIELD UNITS'} (${backendLatencyMs ?? 0}ms)`
-                : 'OFFLINE SIM'}
+            <span
+              className={`w-2 h-2 rounded-full shrink-0 ${
+                !backendOnline
+                  ? 'bg-red'
+                  : activeDeviceCount > 0
+                  ? 'bg-green'
+                  : 'bg-orange'
+              }`}
+            />
+            <span
+              className={`font-semibold ${
+                !backendOnline
+                  ? 'text-red'
+                  : activeDeviceCount > 0
+                  ? 'text-green'
+                  : 'text-orange'
+              }`}
+            >
+              {!backendOnline
+                ? 'OFFLINE SIM'
+                : activeDeviceCount === 0
+                ? '0 FIELD UNITS (OFFLINE)'
+                : `${activeDeviceCount} ${activeDeviceCount === 1 ? 'FIELD UNIT' : 'FIELD UNITS'} (${deviceLatencyMs ?? backendLatencyMs ?? 0}ms)`}
             </span>
             <span className="text-line-strong">|</span>
             <span className="text-ink-2 font-medium">AIR-GAPPED</span>

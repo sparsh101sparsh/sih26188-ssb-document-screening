@@ -11,6 +11,7 @@ Tests:
 import asyncio
 import io
 import time
+from datetime import datetime, timezone, timedelta
 import pytest
 from concurrent.futures import ThreadPoolExecutor
 from fastapi.testclient import TestClient
@@ -118,6 +119,99 @@ class TestDeviceTrackerMechanics:
         total_recorded = sum(d.total_requests for d in devices)
         assert total_recorded == num_workers * requests_per_worker
 
+    def test_inactivity_timeout_transition_to_offline(self):
+        """Verify device status transitions to OFFLINE after 8.0s timeout and is excluded from active queries."""
+        tracker = DeviceTracker()
+        tracker.record_activity("192.168.2.50", user_agent="Android-App/1.0", checkpoint_id="CP_TEST")
+        
+        # Freshly recorded device is ONLINE
+        active_devs = tracker.get_active_devices()
+        assert len(active_devs) == 1
+        assert active_devs[0].status == "ONLINE"
+        assert tracker.get_last_active_device().client_ip == "192.168.2.50"
+
+        # Advance timestamp past 8.0 seconds (e.g. 9 seconds ago)
+        stale_time = (datetime.now(timezone.utc) - timedelta(seconds=9.0)).isoformat()
+        tracker._devices["192.168.2.50"].last_seen = stale_time
+
+        # Inactive device should now evaluate to OFFLINE
+        all_devs = tracker.get_all_devices(active_only=False)
+        assert len(all_devs) == 1
+        assert all_devs[0].status == "OFFLINE"
+
+        # Active queries must exclude it
+        assert tracker.get_active_devices() == []
+        assert tracker.get_last_active_device() is None
+        # Non-active last device query should still return it with OFFLINE status
+        last_dev = tracker.get_last_active_device(active_only=False)
+        assert last_dev is not None
+        assert last_dev.client_ip == "192.168.2.50"
+        assert last_dev.status == "OFFLINE"
+
+    def test_reactivation_after_inactivity(self):
+        """Verify an OFFLINE device transitions back to ONLINE upon receiving fresh ping/request."""
+        tracker = DeviceTracker()
+        tracker.record_activity("192.168.2.60", endpoint="/api/v1/health")
+
+        # Simulate going offline (15s ago)
+        tracker._devices["192.168.2.60"].last_seen = (
+            datetime.now(timezone.utc) - timedelta(seconds=15.0)
+        ).isoformat()
+        assert tracker.get_active_devices() == []
+
+        # New ping comes in
+        reactivated = tracker.record_activity("192.168.2.60", endpoint="/api/v1/health")
+        assert reactivated.status == "ONLINE"
+        assert reactivated.total_requests == 2
+        assert len(tracker.get_active_devices()) == 1
+        assert tracker.get_active_devices()[0].client_ip == "192.168.2.60"
+        assert tracker.get_last_active_device().client_ip == "192.168.2.60"
+
+    def test_custom_timeout_threshold(self):
+        """Verify custom timeout_seconds parameter correctly controls active evaluation."""
+        tracker = DeviceTracker()
+        tracker.record_activity("192.168.2.70")
+        # 5.0 seconds ago
+        tracker._devices["192.168.2.70"].last_seen = (
+            datetime.now(timezone.utc) - timedelta(seconds=5.0)
+        ).isoformat()
+
+        # Under default 8.0s timeout, it is active
+        assert len(tracker.get_active_devices(timeout_seconds=8.0)) == 1
+        assert tracker.get_active_devices(timeout_seconds=8.0)[0].status == "ONLINE"
+
+        # Under 3.0s timeout, it is inactive (OFFLINE)
+        assert len(tracker.get_active_devices(timeout_seconds=3.0)) == 0
+        assert tracker.get_all_devices(timeout_seconds=3.0, active_only=False)[0].status == "OFFLINE"
+
+    def test_multiple_devices_partial_expiry(self):
+        """Verify mixed active and offline devices are filtered and sorted accurately."""
+        tracker = DeviceTracker()
+        now = datetime.now(timezone.utc)
+        
+        # Dev 1: Active 2s ago
+        tracker.record_activity("10.0.0.1")
+        tracker._devices["10.0.0.1"].last_seen = (now - timedelta(seconds=2.0)).isoformat()
+
+        # Dev 2: Offline 12s ago
+        tracker.record_activity("10.0.0.2")
+        tracker._devices["10.0.0.2"].last_seen = (now - timedelta(seconds=12.0)).isoformat()
+
+        # Dev 3: Active 0.5s ago
+        tracker.record_activity("10.0.0.3")
+        tracker._devices["10.0.0.3"].last_seen = (now - timedelta(seconds=0.5)).isoformat()
+
+        active = tracker.get_active_devices()
+        assert len(active) == 2
+        # Sorted newest first: 10.0.0.3, then 10.0.0.1
+        assert [d.client_ip for d in active] == ["10.0.0.3", "10.0.0.1"]
+        assert tracker.get_last_active_device().client_ip == "10.0.0.3"
+
+        all_devices = tracker.get_all_devices(active_only=False)
+        assert len(all_devices) == 3
+        assert [d.client_ip for d in all_devices] == ["10.0.0.3", "10.0.0.1", "10.0.0.2"]
+        assert [d.status for d in all_devices] == ["ONLINE", "ONLINE", "OFFLINE"]
+
 
 # =============================================================================
 # 2. HTTP Middleware & /api/v1/devices Endpoint Integration
@@ -181,6 +275,78 @@ class TestDevicesEndpointIntegration:
         assert data["devices"][0]["client_ip"] == "192.168.2.100"
         assert data["devices"][0]["checkpoint_id"] == "SSB_JAIGAON_01"
         assert data["devices"][0]["last_endpoint"] == "/api/v1/inspect"
+
+    def test_devices_endpoint_excludes_offline_devices(self, client):
+        """Verify GET /api/v1/devices excludes clients older than 8.0 seconds."""
+        headers = {"X-Real-IP": "192.168.2.99", "User-Agent": "SSB-Field-Android/3.0"}
+        # Ping health endpoint to register device
+        res = client.get("/api/v1/health", headers=headers)
+        assert res.status_code == 200
+
+        # Immediately active: total_devices == 1
+        dev_res = client.get("/api/v1/devices")
+        data = dev_res.json()
+        assert data["total_devices"] == 1
+        assert len(data["devices"]) == 1
+        assert data["devices"][0]["client_ip"] == "192.168.2.99"
+        assert data["devices"][0]["status"] == "ONLINE"
+        assert data["last_active_device"] is not None
+        assert data["last_active_device"]["client_ip"] == "192.168.2.99"
+
+        # Advance last_seen beyond 8.0s timeout (e.g. 10.0s ago)
+        device_tracker._devices["192.168.2.99"].last_seen = (
+            datetime.now(timezone.utc) - timedelta(seconds=10.0)
+        ).isoformat()
+
+        # Query endpoint again: stale device should be excluded
+        dev_res2 = client.get("/api/v1/devices")
+        data2 = dev_res2.json()
+        assert data2["total_devices"] == 0
+        assert data2["devices"] == []
+        assert data2["last_active_device"] is None
+
+    def test_devices_endpoint_mixed_active_and_offline(self, client):
+        """Verify GET /api/v1/devices filters out stale devices while keeping active ones."""
+        # Device 1: Stale
+        client.get("/health", headers={"X-Real-IP": "10.0.0.1", "User-Agent": "Field-Unit-1"})
+        # Device 2: Active
+        client.get("/health", headers={"X-Real-IP": "10.0.0.2", "User-Agent": "Field-Unit-2"})
+
+        # Make Device 1 stale (15 seconds ago)
+        device_tracker._devices["10.0.0.1"].last_seen = (
+            datetime.now(timezone.utc) - timedelta(seconds=15.0)
+        ).isoformat()
+
+        dev_res = client.get("/api/v1/devices")
+        data = dev_res.json()
+        assert data["total_devices"] == 1
+        assert len(data["devices"]) == 1
+        assert data["devices"][0]["client_ip"] == "10.0.0.2"
+        assert data["devices"][0]["status"] == "ONLINE"
+        assert data["last_active_device"]["client_ip"] == "10.0.0.2"
+
+    def test_devices_endpoint_reactivates_when_offline_pings_again(self, client):
+        """Verify an inactive device immediately reappears in /api/v1/devices upon pinging."""
+        # Initial ping
+        client.get("/api/v1/health", headers={"X-Real-IP": "10.0.0.5"})
+        # Expire device
+        device_tracker._devices["10.0.0.5"].last_seen = (
+            datetime.now(timezone.utc) - timedelta(seconds=12.0)
+        ).isoformat()
+
+        dev_res1 = client.get("/api/v1/devices")
+        assert dev_res1.json()["total_devices"] == 0
+
+        # Fresh health ping from the device
+        client.get("/api/v1/health", headers={"X-Real-IP": "10.0.0.5"})
+
+        dev_res2 = client.get("/api/v1/devices")
+        data = dev_res2.json()
+        assert data["total_devices"] == 1
+        assert len(data["devices"]) == 1
+        assert data["devices"][0]["client_ip"] == "10.0.0.5"
+        assert data["devices"][0]["total_requests"] == 2
+        assert data["devices"][0]["status"] == "ONLINE"
 
 
 # =============================================================================

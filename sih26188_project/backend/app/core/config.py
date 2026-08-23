@@ -30,6 +30,10 @@ class Settings(BaseSettings):
     # Server Binding
     HOST: str = "0.0.0.0"
     PORT: int = 8000
+    DEVICE_OFFLINE_TIMEOUT_SECONDS: float = Field(
+        default=8.0,
+        description="Inactivity timeout in seconds before a connected field client is marked OFFLINE",
+    )
 
     # Cross-Origin Resource Sharing (CORS)
     CORS_ORIGINS: List[str] = [

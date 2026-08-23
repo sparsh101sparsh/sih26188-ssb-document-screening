@@ -28538,7 +28538,8 @@ var Header = ({
   hasScanResult
 }) => {
   const [currentTime, setCurrentTime] = (0, import_react3.useState)((/* @__PURE__ */ new Date()).toUTCString());
-  const [activeDeviceCount, setActiveDeviceCount] = (0, import_react3.useState)(1);
+  const [activeDeviceCount, setActiveDeviceCount] = (0, import_react3.useState)(0);
+  const [deviceLatencyMs, setDeviceLatencyMs] = (0, import_react3.useState)(null);
   (0, import_react3.useEffect)(() => {
     const timer = setInterval(() => setCurrentTime((/* @__PURE__ */ new Date()).toUTCString()), 1e3);
     return () => clearInterval(timer);
@@ -28551,14 +28552,26 @@ var Header = ({
         if (res.ok) {
           const data = await res.json();
           if (isMounted && typeof data.total_devices === "number") {
-            setActiveDeviceCount(Math.max(1, data.total_devices));
+            setActiveDeviceCount(data.total_devices);
+            if (data.last_active_device && typeof data.last_active_device.latency_ms === "number") {
+              setDeviceLatencyMs(Math.round(data.last_active_device.latency_ms));
+            } else if (data.total_devices === 0) {
+              setDeviceLatencyMs(null);
+            }
           }
+        } else if (isMounted) {
+          setActiveDeviceCount(0);
+          setDeviceLatencyMs(null);
         }
       } catch (e) {
+        if (isMounted) {
+          setActiveDeviceCount(0);
+          setDeviceLatencyMs(null);
+        }
       }
     };
     checkDevices();
-    const interval = setInterval(checkDevices, 5e3);
+    const interval = setInterval(checkDevices, 3e3);
     return () => {
       isMounted = false;
       clearInterval(interval);
@@ -28604,8 +28617,19 @@ var Header = ({
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center bg-inset border border-line rounded-control px-2.5 py-1 space-x-2 text-[11px] font-mono shadow-btn", children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Smartphone, { className: "w-3.5 h-3.5 text-accent shrink-0" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `w-2 h-2 rounded-full shrink-0 ${backendOnline ? "bg-green" : "bg-red"}` }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: backendOnline ? "text-green font-semibold" : "text-red font-semibold", children: backendOnline ? `${activeDeviceCount} ${activeDeviceCount === 1 ? "FIELD UNIT" : "FIELD UNITS"} (${backendLatencyMs ?? 0}ms)` : "OFFLINE SIM" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "span",
+          {
+            className: `w-2 h-2 rounded-full shrink-0 ${!backendOnline ? "bg-red" : activeDeviceCount > 0 ? "bg-green" : "bg-orange"}`
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "span",
+          {
+            className: `font-semibold ${!backendOnline ? "text-red" : activeDeviceCount > 0 ? "text-green" : "text-orange"}`,
+            children: !backendOnline ? "OFFLINE SIM" : activeDeviceCount === 0 ? "0 FIELD UNITS (OFFLINE)" : `${activeDeviceCount} ${activeDeviceCount === 1 ? "FIELD UNIT" : "FIELD UNITS"} (${deviceLatencyMs ?? backendLatencyMs ?? 0}ms)`
+          }
+        ),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-line-strong", children: "|" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-ink-2 font-medium", children: "AIR-GAPPED" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(

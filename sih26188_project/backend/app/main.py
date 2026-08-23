@@ -121,7 +121,7 @@ async def track_device_activity_middleware(request: Request, call_next):
     duration_ms = (time.perf_counter() - start_time) * 1000.0
 
     path = request.url.path
-    if path.startswith("/api/v1/") or path in ("/health", "/api/v1/health"):
+    if (path.startswith("/api/v1/") or path in ("/health", "/api/v1/health")) and not path.startswith("/api/v1/devices"):
         # Resolve client IP (support reverse proxy headers)
         forwarded = request.headers.get("x-forwarded-for")
         if forwarded:
@@ -205,13 +205,14 @@ async def get_connected_devices():
     """
     Returns list of connected Android screening clients and edge terminals,
     providing IP, checkpoint ID, request counts, and round-trip latency metrics.
+    Excludes OFFLINE devices (inactive > 8.0s) from active device count and listing.
     """
-    devices = device_tracker.get_all_devices()
-    last_device = device_tracker.get_last_active_device()
+    active_devices = device_tracker.get_active_devices(timeout_seconds=settings.DEVICE_OFFLINE_TIMEOUT_SECONDS)
+    last_device = device_tracker.get_last_active_device(timeout_seconds=settings.DEVICE_OFFLINE_TIMEOUT_SECONDS)
     return {
         "status": "ok",
-        "total_devices": len(devices),
-        "devices": [d.model_dump() for d in devices],
+        "total_devices": len(active_devices),
+        "devices": [d.model_dump() for d in active_devices],
         "last_active_device": last_device.model_dump() if last_device else None,
     }
 

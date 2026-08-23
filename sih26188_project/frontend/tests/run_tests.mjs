@@ -9,6 +9,7 @@ const testFiles = [
   'primitives_adversarial.test.tsx',
   'primitives_interactive_adversarial.test.tsx',
   'adversarial_challenger_m2.test.tsx',
+  'challenger_m3_frontend.test.tsx',
 ];
 
 for (const file of testFiles) {
