@@ -3,68 +3,69 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────
- * SSB Field Screening System — Deep Oceanic Design Tokens
+ * SSB Field Screening System — Obsidian Precision Design Tokens
+ * Premium Command Center & Defense Software Theme
  * ────────────────────────────────────────────────────────── */
 
 :root {
-  /* Canvas & Surfaces */
-  --page: #030B14;          /* Base Canvas (App background) */
-  --canvas: #030B14;        /* Underlying viewport background */
-  --surface: #0B1A2E;       /* Supporting Surface (Cards, panels, modules) */
-  --inset: #081525;         /* Inset Surface (Sub-panels, table headers, inputs) */
-  --field: #081525;         /* Form input fields */
-  --hover: #112745;         /* Interactive Surface / Hover state */
-  --hover-2: #163259;       /* Active / Selected hover state */
+  /* Canvas & Surfaces (Obsidian Matte Stack) */
+  --page: #090A0F;          /* L0 Base Ground */
+  --canvas: #090A0F;        /* Underlying viewport background */
+  --surface: #141A24;       /* L2 Card / Module Surface */
+  --inset: #0D1117;         /* L-1 Inset Well (Inputs, headers) */
+  --field: #0D1117;         /* Form input fields */
+  --hover: #1B2230;         /* L3 Interactive / Hover state */
+  --hover-2: #222B3D;       /* L4 Selected hover state */
 
   /* Typography Colors */
-  --ink: #F8FAFC;           /* Primary Text (High contrast, headers, values) */
-  --ink-2: #94A3B8;         /* Secondary Text (Body, labels, descriptions) */
-  --ink-3: #64748B;         /* Muted Text (Hints, timestamps, inactive) */
+  --ink: #FFFFFF;           /* Primary Text (Pure White) */
+  --ink-2: #CBD5E1;         /* Secondary Text (Slate-300) */
+  --ink-3: #64748B;         /* Muted Text (Slate-500) */
 
-  /* Borders & Dividers */
-  --line: #1E3A5F;          /* Structural Border (Subtle card & panel boundaries) */
-  --line-strong: #2C5282;   /* Active / Hover Border (Focus rings, selected tabs) */
+  /* Hairline Borders & Dividers */
+  --line: rgba(255, 255, 255, 0.08);          /* Structural Hairline Border */
+  --line-strong: rgba(255, 255, 255, 0.16);   /* Active / Focus Hairline */
 
   /* Brand & Accents */
-  --accent: #2563EB;        /* Interaction Blue / Primary CTA */
-  --accent-hover: #3B82F6;  /* Interaction Blue Hover */
-  --accent-ink: #93C5FD;    /* Blue Text Accent */
-  --accent-tint: rgba(37, 99, 235, 0.16);
+  --accent: #3B82F6;        /* Electric Cobalt / Primary Accent */
+  --accent-hover: #60A5FA;  /* Cobalt Hover */
+  --accent-ink: #93C5FD;    /* Cobalt Text Accent */
+  --accent-tint: rgba(59, 130, 246, 0.10);
 
-  --brand-purple: #5B21B6;  /* SSB Security Purple */
-  --brand-purple-dark: #4C1D95;
+  --brand-purple: #6366F1;  /* Indigo Accent */
+  --brand-purple-dark: #4F46E5;
 
   /* Semantic Status: Success (Emerald) */
   --green: #10B981;
-  --green-bg: #022C22;
-  --green-tint: rgba(16, 185, 129, 0.16);
-  --green-border: #065F46;
+  --green-bg: #064E3B;
+  --green-tint: rgba(16, 185, 129, 0.10);
+  --green-border: rgba(16, 185, 129, 0.25);
 
   /* Semantic Status: Warning (Amber) */
   --orange: #F59E0B;
-  --orange-bg: #451A03;
-  --orange-tint: rgba(245, 158, 11, 0.16);
-  --orange-border: #92400E;
+  --orange-bg: #78350F;
+  --orange-tint: rgba(245, 158, 11, 0.10);
+  --orange-border: rgba(245, 158, 11, 0.25);
 
   /* Semantic Status: Danger / Critical (Crimson) */
   --red: #EF4444;
-  --red-bg: #450A0A;
-  --red-tint: rgba(239, 68, 68, 0.16);
-  --red-border: #991B1B;
+  --red-bg: #7F1D1D;
+  --red-tint: rgba(239, 68, 68, 0.10);
+  --red-border: rgba(239, 68, 68, 0.25);
 
-  /* Proportional Corner Radii (22% squircle rule) */
+  /* Proportional Corner Radii */
   --radius-chip: 6px;       /* Tags & small pills */
   --radius-control: 8px;    /* Buttons & input fields */
-  --radius-card: 10px;      /* Cards & modular containers */
-  --radius-window: 14px;    /* Modals & main window panels */
+  --radius-card: 12px;      /* Cards & modular containers */
+  --radius-window: 16px;    /* Modals & main window panels */
 
-  /* Crisp Box Shadows (No neon glows) */
+  /* Crisp Box Shadows */
   --shadow-hairline: 0 0 0 1px var(--line);
-  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--line);
+  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--line);
-  --shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line-strong);
-  --shadow-overlay: 0 12px 32px rgba(0, 0, 0, 0.75), 0 0 0 1px var(--line-strong);
-  --shadow-inset-field: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-raised: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line-strong);
+  --shadow-overlay: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--line-strong);
+  --shadow-inset-field: inset 0 1px 2px rgba(0, 0, 0, 0.6);
 
   --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
@@ -86,7 +87,7 @@
   }
 }
 
-/* Functional UI animations (Fast, subtle, non-distracting) */
+/* Functional UI animations */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -103,19 +104,19 @@
 }
 
 .primitive-card-pad {
-  padding: 12px;
+  padding: 14px;
 }
 
 .primitive-card-bar {
-  padding: 10px 12px;
+  padding: 10px 14px;
 }
 
 .primitive-card-footer {
-  padding: 10px 12px;
+  padding: 10px 14px;
 }
 
 .primitive-table-cell {
-  padding: 10px 12px;
+  padding: 10px 14px;
 }
 
 .records-shell {

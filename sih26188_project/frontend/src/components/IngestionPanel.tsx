@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scan, RotateCcw, Loader2, Calendar, Navigation } from 'lucide-react';
+import { Scan, RotateCcw, Loader2, Calendar, Navigation, ShieldCheck } from 'lucide-react';
 import { Dropzone } from './Dropzone';
 import { WebCamCapture } from './WebCamCapture';
 import { PresetsBar } from './PresetsBar';
@@ -46,7 +46,7 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
 }) => {
   return (
     <div className="flex flex-col space-y-3.5">
-      {/* 1. Presets Bar */}
+      {/* 1. Sleek Compact Presets Strip */}
       <PresetsBar onSelectPreset={onSelectPreset} disabled={isScanning} />
 
       {/* 2. Dual Ingestion Cards */}
@@ -69,7 +69,7 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
       </div>
 
       {/* 3. Action Toolbar */}
-      <div className="bg-surface p-3 rounded-card border border-line flex flex-wrap items-center justify-between gap-3 shadow-card">
+      <div className="bg-surface p-3.5 rounded-card border border-line flex flex-wrap items-center justify-between gap-3 shadow-card">
         <div className="flex items-center flex-wrap gap-4 text-xs">
           <div className="flex items-center space-x-2 text-ink-2">
             <Navigation className="w-3.5 h-3.5 text-accent" />
@@ -90,12 +90,12 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 w-full sm:w-auto justify-end">
+        <div className="flex items-center space-x-2.5 w-full sm:w-auto justify-end">
           <button
             type="button"
             onClick={onReset}
             disabled={isScanning || (!documentPreviewUrl && !livePhotoPreviewUrl)}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-control text-xs font-semibold bg-inset hover:bg-hover text-ink border border-line transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-btn"
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-control text-xs font-semibold bg-inset hover:bg-hover text-ink border border-line transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-btn"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset</span>
@@ -105,21 +105,21 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
             type="button"
             onClick={onScan}
             disabled={!canScan || isScanning}
-            className={`flex-1 sm:flex-none flex items-center justify-center space-x-2 px-6 py-2 rounded-control font-bold text-sm transition-all shadow-btn ${
+            className={`flex-1 sm:flex-none flex items-center justify-center space-x-2 px-6 py-2.5 rounded-control font-bold text-sm transition-all shadow-btn ${
               canScan && !isScanning
-                ? 'bg-accent text-white hover:brightness-105 active:scale-[0.98]'
+                ? 'bg-white text-[#090A0F] hover:bg-slate-100 active:scale-[0.98]'
                 : 'bg-inset text-ink-3 border border-line cursor-not-allowed'
             }`}
           >
             {isScanning ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Running Pipeline…</span>
+                <Loader2 className="w-4 h-4 animate-spin text-[#090A0F]" />
+                <span>Running Screening Engine…</span>
               </>
             ) : (
               <>
-                <Scan className="w-4 h-4" />
-                <span>Scan Document & Match Biometrics</span>
+                <ShieldCheck className="w-4 h-4" />
+                <span>Run Document Screening</span>
               </>
             )}
           </button>
@@ -128,3 +128,5 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
     </div>
   );
 };
+
+export default IngestionPanel;

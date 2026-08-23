@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* Deep Oceanic Design Tokens */
+        /* Obsidian Precision Design Tokens */
         page: 'var(--page)',
         canvas: 'var(--canvas)',
         surface: 'var(--surface)',
@@ -40,14 +40,14 @@ export default {
         'red-tint': 'var(--red-tint)',
         'red-border': 'var(--red-border)',
 
-        /* Deep Oceanic Canonical Palette */
-        oceanic: {
-          base: '#030B14',
-          surface: '#0B1A2E',
-          inset: '#081525',
-          interactive: '#112745',
-          border: '#1E3A5F',
-          borderActive: '#2C5282',
+        /* Canonical Obsidian Stack */
+        obsidian: {
+          canvas: '#090A0F',
+          panel: '#0E121A',
+          card: '#141A24',
+          raised: '#1B2230',
+          overlay: '#222B3D',
+          inset: '#0D1117',
         },
       },
       fontFamily: {

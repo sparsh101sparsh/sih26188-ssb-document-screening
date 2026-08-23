@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
-import { Camera, RefreshCw, Upload, CheckCircle2, User, Eye, X } from 'lucide-react';
+import { Camera, Upload, CheckCircle2, User, X } from 'lucide-react';
 
 interface WebCamCaptureProps {
   livePhotoFile: File | null;
@@ -37,7 +37,7 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
       setIsStreaming(true);
     } catch (err: any) {
       console.warn('Camera access denied or unavailable:', err);
-      setCameraError('Camera unavailable. Please upload a portrait photo.');
+      setCameraError('Webcam unavailable. Upload a portrait image.');
       setIsStreaming(false);
     }
   };
@@ -87,35 +87,35 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
 
   return (
     <div className="flex flex-col h-full bg-surface border border-line rounded-card overflow-hidden shadow-card">
-      <div className="flex items-center justify-between px-3.5 py-2.5 bg-inset border-b border-line">
+      <div className="flex items-center justify-between px-4 py-3 bg-inset border-b border-line">
         <label className="text-xs font-semibold uppercase tracking-wider text-ink flex items-center gap-2">
           <User className="w-3.5 h-3.5 text-accent" />
           Live Traveler Biometric Ingestion
         </label>
-        <span className="text-[10px] text-ink-3 font-mono">
-          Face Match · Liveness Verified
+        <span className="text-[11px] text-ink-3 font-medium">
+          Optional 1:1 Live Comparison
         </span>
       </div>
 
       {!livePhotoPreviewUrl && !isStreaming ? (
-        <div className="p-6 flex flex-col items-center justify-center text-center min-h-[220px] flex-1">
-          <div className="p-3 bg-inset rounded-control border border-line-strong text-accent mb-2.5 shadow-btn">
+        <div className="p-8 flex flex-col items-center justify-center text-center min-h-[220px] flex-1">
+          <div className="p-3 bg-inset rounded-control border border-line text-accent mb-3 shadow-btn">
             <Camera className="w-6 h-6" />
           </div>
 
-          <p className="text-xs font-semibold text-ink mb-1">
+          <p className="text-sm font-semibold text-ink mb-1">
             Capture Live Portrait Selfie
           </p>
-          <p className="text-[11.5px] text-ink-2 max-w-xs leading-relaxed mb-4">
-            Required for 1:1 face match verification and live selfie anti-spoofing
+          <p className="text-xs text-ink-2 max-w-xs leading-relaxed mb-4">
+            Compare traveler's live face against document photo for 1:1 biometric clearance
           </p>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <button
               type="button"
               onClick={startCamera}
               disabled={disabled}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-control text-xs font-semibold bg-accent text-white hover:brightness-105 shadow-btn transition-all active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-control text-xs font-semibold bg-accent text-white hover:brightness-105 shadow-btn transition-all active:scale-[0.98]"
             >
               <Camera className="w-3.5 h-3.5" />
               Start Webcam
@@ -124,7 +124,7 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={disabled}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-control text-xs font-semibold bg-inset hover:bg-hover text-ink border border-line shadow-btn transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-control text-xs font-semibold bg-inset hover:bg-hover text-ink border border-line shadow-btn transition-colors"
             >
               <Upload className="w-3.5 h-3.5" />
               Upload Photo
@@ -144,27 +144,27 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
           </div>
 
           {cameraError && (
-            <p className="text-[11px] text-red mt-2 font-mono">{cameraError}</p>
+            <p className="text-xs text-red mt-2.5 font-medium">{cameraError}</p>
           )}
         </div>
       ) : isStreaming ? (
-        <div className="relative flex flex-col flex-1 min-h-[220px] bg-canvas">
+        <div className="relative flex flex-col flex-1 min-h-[220px] bg-inset">
           <div className="relative w-full h-[190px] flex items-center justify-center overflow-hidden">
             <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
-            <div className="absolute inset-0 border-2 border-accent/40 pointer-events-none" />
+            <div className="absolute inset-0 border border-accent/40 pointer-events-none" />
           </div>
-          <div className="p-2.5 bg-surface border-t border-line flex items-center justify-between">
+          <div className="p-3 bg-surface border-t border-line flex items-center justify-between">
             <button
               type="button"
               onClick={capturePhoto}
-              className="px-3.5 py-1.5 bg-accent text-white font-semibold text-xs rounded-control shadow-btn flex items-center gap-1.5"
+              className="px-4 py-1.5 bg-accent text-white font-semibold text-xs rounded-control shadow-btn flex items-center gap-1.5"
             >
               <Camera className="w-3.5 h-3.5" /> Snap Photo
             </button>
             <button
               type="button"
               onClick={stopCamera}
-              className="px-3 py-1.5 bg-inset hover:bg-hover text-ink-2 text-xs rounded-control border border-line"
+              className="px-3.5 py-1.5 bg-inset hover:bg-hover text-ink-2 text-xs rounded-control border border-line"
             >
               Cancel
             </button>
@@ -172,7 +172,7 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
         </div>
       ) : (
         <div className="relative flex flex-col flex-1 min-h-[220px]">
-          <div className="relative w-full h-[190px] bg-canvas flex items-center justify-center p-3 overflow-hidden">
+          <div className="relative w-full h-[190px] bg-inset flex items-center justify-center p-3 overflow-hidden">
             <img
               src={livePhotoPreviewUrl || undefined}
               alt="Live Portrait"
@@ -193,15 +193,15 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
             </div>
           </div>
 
-          <div className="p-2.5 bg-surface border-t border-line flex items-center justify-between text-xs mt-auto">
-            <div className="flex items-center space-x-2 truncate">
+          <div className="p-3 bg-surface border-t border-line flex items-center justify-between text-xs mt-auto">
+            <div className="flex items-center space-x-2.5 truncate">
               <CheckCircle2 className="w-4 h-4 text-green flex-shrink-0" />
               <div className="truncate">
-                <p className="font-semibold text-ink truncate text-[11.5px]">
+                <p className="font-semibold text-ink truncate text-xs">
                   {livePhotoFile?.name || 'Live Traveler Biometric Frame'}
                 </p>
-                <p className="text-[10px] text-ink-3 font-mono">
-                  Face Extracted · Liveness Verified
+                <p className="text-[11px] text-ink-3 font-mono">
+                  Biometric frame ready for 1:1 match
                 </p>
               </div>
             </div>
@@ -211,7 +211,7 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
                 startCamera();
               }}
               disabled={disabled}
-              className="text-[11.5px] text-accent hover:underline font-medium px-2 py-1 rounded-control bg-inset border border-line"
+              className="text-xs text-accent hover:underline font-medium px-2.5 py-1 rounded-control bg-inset border border-line shadow-btn"
             >
               Re-capture
             </button>
@@ -221,3 +221,5 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
     </div>
   );
 };
+
+export default WebCamCapture;
