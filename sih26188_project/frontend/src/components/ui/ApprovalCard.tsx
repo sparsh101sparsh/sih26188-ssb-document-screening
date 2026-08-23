@@ -84,6 +84,13 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
   }
 
   if (submitted) {
+    const confirmationLabel =
+      selectedAction === 'AUTO_CLEAR'
+        ? 'Traveler Cleared • Entry Permit Authorized'
+        : selectedAction === 'SECONDARY_INSPECTION'
+        ? 'Secondary Inspection Order Issued • Subject Directed to Counter 2'
+        : 'Interdiction Order Dispatched • Detention Protocol Active';
+
     return (
       <div className="w-full bg-surface border border-line rounded-card p-3.5 flex items-center justify-between shadow-card animate-pop-in">
         <div className="flex items-center space-x-2.5">
@@ -91,7 +98,7 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
             <Check className="w-3.5 h-3.5" />
           </span>
           <span className="text-xs font-semibold text-ink font-mono">
-            Interdiction Order Dispatched • Decision Logged to Tamper-Proof Audit ({officerBadgeId})
+            {confirmationLabel} • Logged to Audit ({officerBadgeId})
           </span>
         </div>
         <button

@@ -117,11 +117,11 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
           {score_breakdown ? (
             <div className="space-y-1 font-mono text-[11px]">
               {([
-                ['Prior Log-Odds (L0)', score_breakdown.base_prior_log_odds],
-                ['Tamper Penalty', score_breakdown.tamper_log_odds_delta],
-                ['Biometric Penalty', score_breakdown.face_log_odds_delta],
-                ['Cross-Val Penalty', score_breakdown.cross_val_log_odds_delta],
-                ['Stamp Penalty', score_breakdown.stamp_log_odds_delta],
+                ['Base Checkpoint Baseline', score_breakdown.base_prior_log_odds],
+                ['Ink / Substrate Tamper Impact', score_breakdown.tamper_log_odds_delta],
+                ['Face Match / Liveness Impact', score_breakdown.face_log_odds_delta],
+                ['Cross-Verification Mismatch', score_breakdown.cross_val_log_odds_delta],
+                ['Border Stamp Irregularity', score_breakdown.stamp_log_odds_delta],
               ] as [string, number][]).map(([label, val]) => (
                 <div key={label} className="flex justify-between text-ink-2">
                   <span>{label}:</span>
@@ -131,14 +131,14 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
                 </div>
               ))}
               <div className="border-t border-line pt-1 flex justify-between font-bold text-ink">
-                <span>Posterior:</span>
+                <span>Calibrated Threat Risk:</span>
                 <span className="text-accent">
-                  {(score_breakdown.raw_posterior_probability * 100).toFixed(2)}%
+                  {(score_breakdown.raw_posterior_probability * 100).toFixed(1)}%
                 </span>
               </div>
             </div>
           ) : (
-            <p className="text-[11px] text-ink-3 font-mono">No decomposition available.</p>
+            <p className="text-[11px] text-ink-3 font-mono">Standard linear assessment.</p>
           )}
         </div>
       </div>
