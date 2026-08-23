@@ -1,0 +1,30 @@
+FROM nvidia/cuda:12.1.1-runtime-ubuntu24.04
+
+# Install System Dependencies
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.11 \
+    python3.11-venv \
+    python3-pip \
+    libgl1 \
+    libglib2.0-0 \
+    libgomp1 \
+    libdmtx0b \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+# Set Up Python Environment
+COPY requirements.txt .
+RUN python3.11 -m pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN python3.11 -m pip install --no-cache-dir -r requirements.txt
+
+# Copy Application Source
+COPY app/ /workspace/app/
+COPY data/ /workspace/data/
+
+ENV PYTHONPATH=/workspace
+EXPOSE 8000
+
+CMD ["python3.11", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

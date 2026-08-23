@@ -1,0 +1,22 @@
+[package]
+name = "ssb-screening"
+version = "1.0.0"
+description = "SSB Document Screening — SIH26188"
+authors = ["SIH26188 Team"]
+edition = "2021"
+
+[lib]
+name = "ssb_screening_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "ssb-screening"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

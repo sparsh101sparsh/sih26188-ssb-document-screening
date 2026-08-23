@@ -1,0 +1,11 @@
+# Ignore large model checkpoints from git tracking
+*.onnx
+*.pth
+*.pth.tar
+*.tar
+*.gguf
+*.bin
+*.pt
+*.engine
+!README.md
+!.gitignore

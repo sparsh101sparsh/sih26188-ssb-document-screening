@@ -1,0 +1,2900 @@
+screening ke liya short decision window mtlb?
+
+“Screening ke liye short decision window” ka matlab hai ki border
+oﬃcer ke paas document/person ko verify karke decision lene ke liye
+bahut kam time hai.
+
+Tumhare project ke context mein:
+
+Person border checkpoint par aaya → document scan hua → system ne
+seconds ke andar batana hai ki document/identity genuine,
+suspicious, ya further inspection required hai.
+
+Example:
+
+ Traveller arrives
+
+ Passport/ID scan
+
+ OCR + document checks + identity matching
+
+ Suspicious indicators detect
+
+/
+
+ Decision/alert
+
+Ye sab ideally real-time ya near-real-time hona chahiye.
+
+“Short” kitna short?
+
+Report mein agar exact benchmark nahi diya hai, toh 10,000–50,000
+crossings/day ko dekhkar tum ye engineering assumption le sakte ho:
+
+From my side: Initial screening response target ~1–3 seconds rakhna
+sensible hai, while deeper/manual veriﬁcation background mein continue ho
+sakti hai.
+
+Important distinction:
+
+Short decision window ≠ oﬃcer ke paas literally 1 second hi hai.
+
+Iska point ye hai ki system ko long cloud processing / manual document
+veriﬁcation ke liye traveller ko unnecessarily wait nahi karwana
+chahiye.
+
+Isi wajah se tumhare architecture mein edge/local inference + oﬄine
+capability + lightweight ﬁrst-pass screening important ho jaata hai.
+Human beings apparently border crossings ko distributed computing problem
+bana dete hain. 
+
+toh phir iska solution kya hai
+
+Make sure to include in your response to cite this ﬁle, or to surface it as a
+link. Replace the placeholder line range with the actual line range from the
+result that best ﬁts the snippet you want to surface with the citation.
+Use ref_id "turn0ﬁle0" to reference this ﬁle. For broad questions or unknown
+locations, retrieve relevant chunks with files.search scoped to this ﬁle. Use
+files.find only for exact text, and use files.read for a known range or to
+expand relevant results. Full ﬁle size: 23 pages, 1466 ﬁle lines.
+
+[L1] <PARSED TEXT FOR PAGE: 1 / 23>
+
+[L2] S M A R T I N D I A H AC K AT H O N 2 0 2 6 · S I H 2 6 1 8 8
+[L3] AI-Based Fake Identity &
+[L4] Document Screening System
+[L5] Deﬁnitive Master Technical Architecture, Adversarial SOTA Benchmark,
+16-Phase
+[L6] Implementation Blueprint, and Edge Deployment Speciﬁcation
+[L7] OR GANIZATION
+[L8] Ministry of Home Aﬀairs (MHA)
+[L9] D EPARTMENT
+[L10] Sashastra Seema Bal (SSB), Police II Division
+
+DATE
+[L12] August 2026 · Version 2.0 (Production Master)
+[L13] C LASSI F I CATION
+[L14] Publication-Grade Engineering Architecture Report
+[L15] TAR G ET D EPLOYMENT
+[L16] Air-Gapped Edge · NVIDIA RTX 4060 / Jetson Orin
+[L17] BOR D ER COVERAG E
+[L18] Indo-Nepal (1,751 km) · Indo-Bhutan (699 km)
+
+[L19] <PARSED TEXT FOR PAGE: 2 / 23>
+
+[L20] SIH26188: AI-Based Fake Identity & Document Screening
+[L21] System
+[L22] Deﬁnitive Master Technical Architecture, Adversarial SOTA Benchmark,
+16-
+[L23] Phase Implementation Blueprint, and Edge Deployment Speciﬁcation
+for
+[L24] Sashastra Seema Bal (SSB) / Ministry of Home Aﬀairs
+[L25] Project: Smart India Hackathon 2026 (SIH26188)
+[L26] Organization: Ministry of Home Aﬀairs (MHA) | Sashastra Seema Bal
+(SSB), Police II Division
+[L27] Document Classiﬁcation: Publication-Grade Master Engineering
+Architecture & Research Report
+[L28] Author: Master Technical Synthesis Team (AI, Biometrics, Forensics &
+Edge Systems)
+[L29] Date: August 2026 | Version: 2.0 (Production Master)
+[L30] Target Deployment: Air-Gapped Edge Checkpoints (NVIDIA RTX 4060 /
+Jetson Orin / Intel i7) & Rugged Mobile
+[L31] Patrol Units (Flutter / Android) along the Indo-Nepal (1,751 km) and
+Indo-Bhutan (699 km) Borders
+[L32] Table of Contents
+[L33] 1. Executive Summary & Border Operational Reality Analysis
+[L34] 2. Adversarial SOTA Module Evaluations & Architectural Decisions
+[L35] 2.1 Module 1: Multilingual Document OCR & Key Information Extraction
+[L36] 2.2 Module 2: Biometric Face Veriﬁcation & Anti-Spooﬁng
+[L37] 2.3 Module 3: Document Tampering & Forensic Forgery Detection
+[L38] 2.4 Module 4: Passport MRZ & Barcode/QR Decoding
+[L39] 2.5 Module 5: Mobile Client & Oﬄine Edge Framework
+[L40] 3. Exact Hardware, Library Versions & Runtime Speciﬁcations
+[L41] 3.1 Pinned Requirements Speciﬁcation
+[L42] 3.2 Pre-trained Weights & Checkpoints Repository
+[L43] 3.3 Hardware Memory Sizing & VRAM Allocation Breakdown
+[L44] 4. End-to-End Latency Budget & Processing Benchmark
+[L45] 5. Comprehensive ASCII Architecture & Dataﬂow Diagrams
+[L46] 5.1 Full System Architecture Diagram
+[L47] 5.2 Parallel 3-Stream Multi-Modal Execution Dataﬂow
+
+[L48] 5.3 ICAO Doc 9303 MRZ Checksum Dataﬂow
+[L49] 5.4 Aadhaar Secure QR Oﬄine PKI RSA-2048 & JP2000 Veriﬁcation Flow
+[L50] 5.5 Tampering Detection Multi-Branch Fusion Flow
+[L51] 6. 16-Phase Implementation Roadmap (5 Students / 12 Weeks)
+[L52] 6.1 Team Role Allocation Matrix
+[L53] 6.2 Detailed Week-by-Week Phase Execution Plan
+[L54] 7. Comprehensive Dataset & Synthetic Generation Strategy
+[L55] 7.1 Public Benchmark Datasets
+[L56] 7.2 Synthetic Indian Identity Generation Engine
+[L57] 8. SIH Grand Finale MVP Deﬁnition & Pitch Presentation Strategy
+[L58] 8.1 MVP Milestone Scope vs Phase 2 Enterprise Capabilities
+
+[L59] <PARSED TEXT FOR PAGE: 3 / 23>
+
+[L60] 8.2 Air-Gapped Fail-Safe Demonstration Protocol
+[L61] 8.3 12-Slide SSB / MHA Pitch Presentation Deck
+[L62] 9. Top 5 Technical Risks & Concrete Engineering Mitigations
+[L63] 10. Academic References & Benchmark Citations
+[L64] 1. Executive Summary & Border Operational Reality Analysis
+[L65] 1.1 The Operational Domain: Indo-Nepal & Indo-Bhutan Porous Borders
+[L66] The Sashastra Seema Bal (SSB), operating under the Police II Division of
+the Ministry of Home Aﬀairs (MHA), is
+[L67] tasked with safeguarding India's 1,751 km border with Nepal and 699
+km border with Bhutan. Unlike militarized
+[L68] or strictly fenced perimeters, these international frontiers operate
+under historic bilateral peace treaties (the
+[L69] 1950 Indo-Nepal Treaty of Peace and Friendship and the 1949 Indo-
+Bhutan Treaty). Under these frameworks:
+[L70] 1. Visa-Free Transit: Indian and Nepalese/Bhutanese citizens are legally
+entitled to traverse the border
+[L71] without obtaining formal consular visas.
+[L72] 2. High-Throughput Transit Volumes: Major Integrated Check Posts
+(ICPs) and Land Customs Stations—such
+[L73] as Raxaul (Bihar), Sonauli (Uttar Pradesh), Panitanki (West Bengal), and
+Jaigaon (West Bengal)—process
+[L74] between 10,000 and 50,000 pedestrian and vehicular crossings daily.
+[L75] 3. Severe Time Windows: SSB screening personnel have an operational
+window of less than 3 to 5 seconds
+[L76] per traveler to make a clearance decision before traﬃc queues create
+severe border congestion.
+[L77] +--------------------------------------------------------------------------------------------------
+-------------+
+[L78] | SSB BORDER OPERATIONAL PROFILE
+|
+[L80] | INDO-NEPAL BORDER (1,751 km) INDO-BHUTAN BORDER (699 km)
+[L81] | • Visa-Free Bilateral Treaty • Visa-Free Bilateral Treaty
+
+[L82] | • Key Gates: Raxaul, Sonauli, Panitanki • Key Gates: Jaigaon,
+Darranga, Dadgiri
+[L83] | • Daily Crossings: 50,000+ per Major ICP • Daily Crossings: 15,000+
+per Major ICP
+[L84] | • Documents: Passports, Aadhaar, Voter ID, • Documents: Bhutan
+Voter ID, Border Permits,
+[L85] | Nepali Nagrikta, Border Passes Indian Driving Licenses, Emergency
+Certs
+|
+[L87] | OPERATIONAL THREATS: ENVIRONMENTAL REALITIES:
+[L88] | - Physical Photo Replacement & Splicing - Zero / Flaky Cellular
+Connectivity
+[L89] | - Scraping & Alteration of Date of Birth (DOB) - Extreme Dust, Rain,
+Humidity, Thermal Fluctuations
+[L90] | - Forged Immigration & Consular Transit Stamps - Low-End Android
+Rugged Tablets & Laptops
+[L91] | - Laser-Printed Synthetic Clones - Mandatory MHA / DPDP Act 2023 Air-
+Gap Mandate
+[L92] | - Generative AI Diﬀusion Inpainting & Deepfakes - Sub-3.5 Second
+Latency SLA Guarantee
+[L93] +--------------------------------------------------------------------------------------------------
+-------------+
+[L94] 1.2 Document Heterogeneity & Threat Modalities
+[L95] Cross-border travelers present a wide array of identity credentials:
+[L96] Indian Nationals: Indian Passports (ICAO Doc 9303 TD3), Aadhaar Cards
+(PVC smart cards, paper eAadhaar with 2048-bit RSA signed QR code), Voter
+ID (EPIC with 1D/2D barcodes), PAN Cards, Driving
+[L97] Licenses.
+[L98] Nepalese Nationals: Nepalese Machine Readable Passports (MRP / e-
+Passports), Nepali Citizenship
+[L99] Certiﬁcates (Nagrikta Praman Patra), Nepali Voter Cards.
+[L100] Bhutanese Nationals: Bhutanese Travel Documents, Royal
+Government Citizenship ID Cards, Special
+[L101] Border Permits.
+[L102] Third-Country Nationals: International Passports and Indian Visas
+(ICAO TD2 / PDF417 format).
+[L103] Adversaries exploit this open border paradigm using ﬁve primary
+fraud vectors:
+[L104] 1. Photo Replacement (Splicing): Delaminating a genuine passport or
+Aadhaar card and replacing the original
+[L105] portrait with an impostor's photograph, often smoothed with plastic
+overlay re-lamination.
+[L106] 2. Text Manipulation (Mechanical & Digital): Altering critical
+ﬁelds—such as Date of Birth (to facilitate illegal
+
+[L107] migration or underage transit), Passport Numbers, or Surname
+spelling—using razor scraping, chemical
+[L108] washing, or digital desktop publishing (DTP) reproduction.
+[L109] 3. Stamp Forgery: Applying counterfeit rubber stamps or laser-
+transferred ink impressions simulating SSB
+[L110] immigration clearance or consular entry permits.
+[L111] 4. Presentation Attacks & Impersonation: Impersonators presenting
+high-resolution printed photographs, 4K
+[L112] tablet screen replays, or 3D latex masks of legitimate document
+owners.
+
+[L113] <IMAGE FOR PAGE: 3 / 23>
+
+CESIMG_0
+
+[L114] <PARSED TEXT FOR PAGE: 4 / 23>
+
+[L115] 5. Generative Diﬀusion Inpainting: High-tech synthesis using diﬀusion
+models (Stable Diﬀusion, Ideogram
+[L116] v2) to erase text or seals and inpaint seamless, context-aware
+replacements.
+[L117] 1.3 Legal & Security Constraints: The Zero-Cloud Mandate
+[L118] Under Section 29 and Section 38 of the Aadhaar (Targeted Delivery of
+Financial and Other Subsidies,
+[L119] Beneﬁts and Services) Act, 2016, The Digital Personal Data Protection
+(DPDP) Act, 2023, and Ministry of
+[L120] Home Aﬀairs data sovereignty regulations:
+[L121] No biometric data or unmasked identity document imagery may be
+transmitted across public internet
+[L122] connections or stored on commercial cloud providers (AWS, Azure,
+Google Cloud).
+[L123] All identity validation, optical character recognition, facial biometric
+extraction, and forensic tamper analysis
+[L124] must execute 100% locally on air-gapped edge appliances and ﬁeld
+mobile devices.
+[L125] Any architectural proposal relying on external commercial APIs (e.g.,
+AWS Textract, Google Cloud Vision,
+[L126] Azure Face) is fundamentally disqualiﬁed.
+[L127] 2. Adversarial SOTA Module Evaluations & Architectural Decisions
+[L128] To ensure optimal performance under real-world border constraints,
+every module was subjected to adversarial
+[L129] evaluation against modern 2024–2026 state-of-the-art architectures.
+[L130]
++=============================================
+==============================================
+====================+
+[L131] | MASTER ARCHITECTURAL VERDICTS SUMMARY
+
+[L132]
++=============================================
+==============================================
+====================+
+[L133] | MODULE 1: OCR & PARSING | WINNER: PP-OCRv4 + PP-StructureV2 |
+[L134] | | RUNNER-UP / QUALITY-GATE: Qwen2.5-VL-3B-Instruct (AWQ INT4)
+[L135] | | DISQUALIFIED: GOT-OCR 2.0, MinerU 2.5-Pro, Surya-OCR, TrOCR,
+docTR
+[L136] +--------------------------------+--------------------------------------------------------------
+----------------+
+[L137] | MODULE 2: BIOMETRICS & FAS | WINNER: AdaFace-ResNet100 +
+SCRFD-10GF + MiniFASNetV2-SE Dual-Scale Ensemble
+[L138] | | RUNNER-UP: ArcFace-ResNet100 (antelopev2) + CDCN +
+[L139] | | DISQUALIFIED: ArcFace-R50 buﬀalo_l (No FAS), MagFace,
+FeatherNets
+[L140] +--------------------------------+--------------------------------------------------------------
+----------------+
+[L141] | MODULE 3: DOCUMENT FORENSICS | WINNER: DocTamper DTD +
+TruFor (RGB/Noiseprint +) + DocForge tau_adapt=0.18
+[L142] | | RUNNER-UP: CAT-Net v2 + ELA Noise Filter
+[L143] | | DISQUALIFIED: Baseline ELA + Shallow CNN, PSCC-Net
+[L144] +--------------------------------+--------------------------------------------------------------
+----------------+
+[L145] | MODULE 4: MRZ & BARCODE/QR | WINNER (MRZ): OmniMRZ + ICAO
+Doc 9303 Modulo-10 7-3-1 Checksum Engine
+[L146] | | WINNER (QR): zxing-cpp v2.2+ + UIDAI RSA-2048 PKI + JP2000
+Face Extractor |
+[L147] | | RUNNER-UP: FastMRZ (ONNX) + QReader
+[L148] | | DISQUALIFIED: PassportEye, Legacy pyzbar
+[L149] +--------------------------------+--------------------------------------------------------------
+----------------+
+[L150] | MODULE 5: MOBILE & EDGE SYNC | WINNER: Flutter v3.24+ (Dart FFI
+C + + Drift/SQLCipher + Outbox Sync)
+[L151] | | RUNNER-UP: React Native / Expo (Fabric + WatermelonDB)
+[L152]
++=============================================
+==============================================
+====================+
+[L153] 2.1 Module 1: Multilingual Document OCR & Key Information
+Extraction
+[L154] 2.1.1 Evaluated Candidates
+[L155] 1. PP-OCRv4 + PP-StructureV2 (Baidu PaddlePaddle)
+[L156] 2. Qwen2.5-VL-3B-Instruct (Alibaba Cloud)
+[L157] 3. GLM-OCR (0.9B) (Zhipu AI)
+
+[L158] 4. GOT-OCR 2.0 (580M) (Haoran Wei et al., Megvii/CAS)
+[L159] 5. MinerU 2.5-Pro (OpenDataLab)
+[L160] 6. Surya-OCR (VikParuchuri / Datalab)
+[L161] 7. TrOCR (Microsoft Research)
+[L162] 8. docTR (Mindee)
+
+[L163] <IMAGE FOR PAGE: 4 / 23>
+
+CESIMG_1
+
+[L164] <PARSED TEXT FOR PAGE: 5 / 23>
+
+[L165] 2.1.2 Adversarial Comparison Matrix
+[L166] Model /
+[L167] Framework
+[L168] Architecture
+Type
+[L170] English
+CER
+(%)
+[L173] Devanagari
+[L174] CER (%)
+[L175] Layout
+[L176] Parsing / KIE
+CPU
+[L178] Latency
+(i7-
+[L180] 13700H)
+GPU
+[L182] Latency
+(RTX
+4060)
+VRAM
+[L186] (FP16/INT8)
+[L187] System
+RAM
+[L189] License
+[L190] Oﬄine
+Edge
+[L192] Feasibility
+[L193] PP-OCRv4
+[L194] + PPStructureV2
+[L195] DBNet++ +
+[L196] SVTRLCNet
+[L197] 1.12% 2.85% Native SLANet 320 ms 45 ms 0.8 GB 1.2 GB Apache
+2.0
+[L199] S-Tier
+
+[L200] (Native
+[L201] ONNX /
+[L202] OpenVINO)
+[L203] Qwen2.5-
+[L204] VL-3BInstruct
+[L205] Dynamic
+[L206] Res VLM
+(3B)
+[L208] 0.82% 1.75% Zero-Shot
+JSON
+4,800
+ms
+[L212] 280 ms
+[L213] (INT4)
+[L214] 3.8 GB
+(AWQ)
+[L216] 6.5 GB Apache
+2.0
+[L218] A-Tier
+[L219] (QualityGate
+[L220] Fallback)
+[L221] GLM-OCR
+[L222] (0.9B)
+VLM +
+[L224] Multi-Token
+Pred
+[L226] 1.05% 3.40% Structural
+JSON
+1,320
+ms
+[L230] 110 ms 1.9 GB 3.1 GB Apache
+2.0
+[L232] B-Tier
+[L233] (Indic
+[L234] dictionary
+gaps)
+[L236] Surya-OCR Segformer +
+[L237] ViT Rec
+[L238] 1.85% 3.20% Layout +
+Order
+[L240] 980 ms 185 ms 2.4 GB 2.9 GB GPL
+3.0*
+[L242] B-Tier
+(GPL
+
+[L244] license
+risk)
+[L246] MinerU 2.5-
+Pro
+[L248] Decoupled
+[L249] Pipeline
+[L250] 1.20% 4.10% Academic/PDF
+Heavy
+2,800
+ms
+[L254] 420 ms 4.5 GB 5.8 GB Apache
+2.0
+[L256] C-Tier
+[L257] (Overkill
+[L258] for ID
+[L259] cards)
+[L260] GOT-OCR
+[L261] 2.0 (580M)
+[L262] ViT-B +
+[L263] OPT-125M
+[L264] 2.10% 6.80% Formatting
+[L265] tokens
+1,850
+ms
+[L268] 210 ms 2.2 GB 3.6 GB Apache
+2.0
+[L270] C-Tier
+(Weak
+Indic
+[L273] accuracy)
+docTR
+[L275] (Mindee)
+[L276] Fast-Base +
+CRNN
+[L278] 2.40% 8.90% Bounding Box
+Only
+[L280] 640 ms 95 ms 1.4 GB 2.0 GB Apache
+2.0
+[L282] C-Tier
+(Poor
+[L284] Devanagari
+[L285] ligatures)
+TrOCR
+[L287] (Stage-2
+
+Rec)
+ViT +
+[L290] RoBERTa
+[L291] 1.90% 5.60% Line
+[L292] recognizer
+only
+1,200
+ms
+[L296] 160 ms 2.0 GB 2.8 GB MIT C-Tier
+[L297] (Requires
+[L298] separate
+[L299] detector)
+[L300] 2.1.3 Architectural Verdict: Two-Tier Intelligent OCR Router
+ Primary Production Winner: PP-OCRv4 + PP-StructureV2
+[L301] 
+[L302] Rationale: Decoupled DBNet + and SVTR-LCNet provides
+deterministic, non-hallucinating character
+[L303] extraction in < 45 ms on GPU and < 350 ms on CPU with under 1 GB
+VRAM. Pretrained on extensive
+[L304] Hindi/Devanagari lexicons, ensuring robust parsing of bilingual
+Indian/Nepali IDs.
+[L305] 
+AWQ)
+[L306] Rationale: If average PP-OCRv4 character conﬁdence drops below
+(e.g., severe card
+[L307] abrasion, faint dot-matrix printing, or heavily creased paper permits),
+the scan is asynchronously
+[L308] dispatched to Qwen2.5-VL-3B-Instruct for zero-shot semantic
+recovery.
+[L309] Disqualiﬁed:
+[L310] GOT-OCR 2.0: Severe tokenization degradation on Devanagari
+conjuncts (CER > 6.8%).
+[L311] MinerU 2.5-Pro: Exceeds VRAM budgets (4.5 GB) and optimized for
+multi-page scientiﬁc papers rather
+[L312] than identity cards.
+[L313] Surya-OCR: GPL 3.0 copyleft license imposes severe legal risks for
+government and defence
+[L314] deployments.
+[L315] auocr = 0.82
+
+ Dynamic Quality-Gate Runner-Up: Qwen2.5-VL-3B-Instruct (INT4
+
+[L316] <IMAGE FOR PAGE: 5 / 23>
+
+CESIMG_2
+
+[L317] <PARSED TEXT FOR PAGE: 6 / 23>
+
+[L318] 2.2 Module 2: Biometric Face Veriﬁcation & Anti-Spooﬁng
+[L319] 2.2.1 Evaluated Candidates
+
+[L320] 1. AdaFace-ResNet100 + SCRFD-10GF (Minchul Kim et al., CVPR 2022)
+[L321] 2. ArcFace-ResNet100 / ResNet50 (InsightFace antelopev2 & buﬀalo_l ,
+CVPR 2019)
+[L322] 3. MagFace (Meng et al., CVPR 2021)
+[L323] 4. MiniFASNetV2-SE Dual-Scale Ensemble (Silent-Face-Anti-Spooﬁng)
+[L324] 5. CDCN++ (Central Diﬀerence Convolutional Network, CVPR 2020)
+[L325] 6. FeatherNets (CVPRW 2019)
+[L326] 2.2.2 Mathematical Analysis of Quality Adaptive Margin (AdaFace)
+[L327] In border checkpoint operations, the primary biometric bottleneck is
+matching a high-resolution live webcam
+[L328] capture against a low-resolution, 5–10 year old passport photo
+degraded by JPEG compression:
+[L329] ┌────────────────────────────────────────────────────────┐
+[L330] │ Border Biometric Triplet │
+[L331] └───────────────────────────┬────────────────────────────┘
+│
+[L333] ┌────────────────────────┴────────────────────────┐
+▼ ▼
+[L335] ┌─────────────────────────┐ ┌─────────────────────────┐
+[L336] │ Live Border Camera │ │ Old Document Photo │
+[L337] │ • 1080p / 4K RGB │ │ • Low Resolution │
+[L338] │ • High Feature Norm z_i │ │ • Low Feature Norm z_i │
+[L339] │ • Current Physical Age │ │ • 5–10 Year Age Drift │
+[L340] └────────────┬────────────┘ └────────────┬────────────┘
+│ │
+[L342] └────────────────────────┬────────────────────────┘
+▼
+[L344] ┌───────────────────────────────────┐
+[L345] │ AdaFace Adaptive Margin Loss │
+[L346] │ m_adaptive = -m * z_hat + m │
+[L347] │ High Norm > Tight Angular Margin│
+[L348] │ Low Norm > Gradient Damping │
+[L349] └───────────────────────────────────┘
+[L350] The AdaFace loss dynamically modulates the angular margin based on
+the $L2 zi =
+[L351] \|\mathbf{f}_i\|_2$ (a reliable proxy for image quality):
+[L352]
+
+[L355] Where the adaptive margin function is deﬁned as:
+[L356]
+
+[L358] By contrast, standard ArcFace applies a rigid constant margin
+regardless of image quality. When
+[L359] applied to severely degraded ID crops, ArcFace forces the gradient to
+ﬁt high-frequency compression noise,
+[L360] leading to catastrophic feature divergence.
+[L361] featurenorm
+[L362] m = 0.5
+
+[L363] <IMAGE FOR PAGE: 6 / 23>
+
+CESIMG_3
+
+[L364] <PARSED TEXT FOR PAGE: 7 / 23>
+
+[L365] 2.2.3 Quantitative Biometric & Liveness Benchmark Matrix
+[L366] Architecture
+[L367] Backbone
+/ Det
+LFW
+Acc
+(%)
+[L372] AgeDB30 (5-
+10 yr
+gap)
+IJB-C
+[L376] (TAR@FAR=1e4)
+[L377] TinyFace
+[L378] Low-Res
+TAR
+[L380] AntiSpoof
+ACER
+[L382] (CelebA)
+GPU
+[L384] Latency
+VRAM
+[L386] Footprint
+[L387] AdaFaceR100 +
+[L388] MiniFASNetV2
+[L389] ResNet100
+[L390] + SCRFD10G
+[L391] 99.82% 98.80% 97.95% 75.40% 1.32% 14.2 ms 1,150 MB
+[L392] ArcFace-R100
+[L393] + CDCN++
+[L394] ResNet100
+[L395] + SCRFD10G
+[L396] 99.83% 98.45% 97.35% 68.40% 1.68% 22.5 ms 1,450
+MB
+
+ Winner: AdaFace-ResNet100 + SCRFD-10GF + MiniFASNetV2-SE
+
+[L398] ArcFace-R50
+[L399] (buﬀalo_l)
+[L400] ResNet50
+[L401] + SCRFD10G
+[L402] 99.80% 97.90% 96.02% 65.20% None
+[L403] (No FAS)
+[L404] 8.2 ms 780 MB
+[L405] MagFaceR100
+[L406] ResNet100
++
+[L408] RetinaFace
+[L409] 99.78% 98.15% 96.85% 67.10% None
+[L410] (No FAS)
+[L411] 18.5 ms 1,320 MB
+[L412] FeatherNetB MobileNetFAS
+[L413] — — — — 2.45% 8.2 ms 180 MB
+[L414] 2.2.4 Architectural Verdict: Dual-Stage Biometric Veriﬁcation Engine
+[L415] 
+Dual-Scale Ensemble
+[L416] Face Detector: SCRFD-10GF provides 5-point landmark localization
+(Umeyama alignment to
+[L417] ) in 3.1 ms GPU / 24.2 ms CPU.
+[L418] Veriﬁcation Backbone: AdaFace-ResNet100 (Glint360K weights)
+delivers unmatched robustness on 5–
+[L419] 10 year age-drift (98.80% on AgeDB-30) and low-res ID crops (75.40%
+on TinyFace).
+[L420] Passive Anti-Spooﬁng: MiniFASNetV2-SE multi-scale ensemble (Scale
+2.7x tight skin pore crop + Scale
+[L421] 4.0x bezel context crop + 2D FFT Fourier loss) detects 2D print
+cutouts, 4K screen replays, and 3D
+[L422] silicone masks in 2.1 ms.
+[L423] 
+[L424] Disqualiﬁed: Baseline ArcFace buﬀalo_l without anti-spooﬁng (zero
+presentation attack defense,
+[L425] vulnerable to printed photo cutouts).
+[L426] 2.3 Module 3: Document Tampering & Forensic Forgery Detection
+[L427] 2.3.1 The Failure of Baseline Error Level Analysis (ELA) + Shallow CNN
+[L428] Preliminary system designs frequently suggest Error Level Analysis
+(ELA) paired with a generic CNN. In
+[L429] rigorous 2026 forensics benchmarks, standalone ELA fails
+catastrophically:
+[L430] 1. False-Positive Explosions on Re-saved Files: ELA calculates pixel-
+wise compression residuals:
+[L431] When legitimate documents undergo ﬂatbed scanning, PDF
+
+ Runner-Up: ArcFace-ResNet100 ( antelopev2 ) + CDCN++.
+
+rasterization, or multi-generational
+[L432] compression, uniform compression variations trigger intense false-
+positive error maps across legitimate
+text.
+[L434] 2. Blindness to Generative AI & Diﬀusion Inpainting: Modern tools
+(Stable Diﬀusion Inpaint, Ideogram v2)
+[L435] generate text and portraits with continuous frequency characteristics,
+completely evading ELA diﬀerence
+[L436] thresholds.
+[L437] 3. Lack of Spatial Semantics: ELA cannot distinguish between an
+altered passport expiry digit and a legitimate
+[L438] holographic foil reﬂection.
+[L439] 2.3.2 The 2026 Paradigm Shift: DocForge-Bench & AIForge-Doc
+[L440] Recent 2026 benchmark evaluations (Zengqi Zhao et al., DocForge-
+Bench, arXiv:2603.01433; Jiaqi Wu et al.,
+[L441] AIForge-Doc, arXiv:2602.20569) established two critical principles:
+[L442] 112imes112
+[L443] Math input error
+
+[L444] <IMAGE FOR PAGE: 7 / 23>
+
+CESIMG_4
+
+[L445] <PARSED TEXT FOR PAGE: 8 / 23>
+
+[L446] The Small-Area AUC-F1 Gap: In identity document tampering (e.g.,
+changing a single digit '1984' to '1994'),
+[L447] the forged area occupies only 0.27% to 2.5% of the total document
+area. Standard forensic detectors
+[L448] evaluated at the default threshold yield catastrophic F1 scores ( )
+despite high AUC (
+).
+[L450] Domain Adaptive Calibration ( ): Calibrating decision thresholds
+speciﬁcally for document
+[L451] micro-tampering restores Pixel-F1 to without retraining.
+[L452] 2.3.3 SOTA Document Forgery Model Benchmark Matrix
+Model
+[L454] Architecture
+[L455] Backbones /
+[L456] Components
+[L457] DocTamper
+F1 (
+)
+[L460] DocTamper F1
+(
+)
+[L463] Pixel-AUC
+
+[L464] (DocForge)
+Photo
+[L466] Splicing
+[L467] Detection
+[L468] Text/Digit
+[L469] Alteration
+AI
+[L471] Inpainting
+[L472] Detection
+[L473] Inference
+[L474] Latency
+(GPU)
+[L476] DocTamper
+[L477] DTD (CVPR
+2023)
+[L479] ResNet50 +
+[L480] FPH + MID
+[L481] 0.672 0.789 0.841 Good Exceptional Moderate 28.0 ms
+[L482] TruFor
+(CVPR
+2023)
+[L485] RGB Trans +
+[L486] Noiseprint++
+[L487] 0.042 0.742 0.864 Exceptional Very Good Strong 42.5 ms
+[L488] CAT-Net v2
+[L489] (TPAMI
+2024)
+[L491] HRNet +
+[L492] DCT Stream
+[L493] 0.038 0.685 0.812 Very Good Good Weak 65.0 ms
+[L494] PSCC-Net
+[L495] (CVPR 2021)
+[L496] SpatioChannel
+[L497] DenseNet
+[L498] 0.021 0.592 0.778 Good Moderate Very
+Weak
+[L500] 34.0 ms
+[L501] Baseline
+[L502] ELA + CNN
+[L503] Diﬀerence +
+[L504] Custom CNN
+[L505] 0.005 0.182 0.540 Poor Poor Blind 12.0 ms
+[L506] 2.3.4 Architectural Verdict: Cascaded Multi-Domain Forensic Suite
+[L507] 
+
+ Winner: DocTamper DTD + TruFor (RGB/Noiseprint++) + DocForge
+
+Adaptive Calibration (
+)
+[L509] Text & Digit Forensics: DocTamper DTD utilizes a Frequency
+Perception Head (FPH) with Discrete
+[L510] Cosine Transform (DCT) multi-band decomposition to expose
+character-level kerning disturbances and
+[L511] font anti-aliasing mismatches.
+[L512] Photo Replacement & Splicing: TruFor combines an RGB Transformer
+with Noiseprint++ (selfsupervised sensor residual extractor) and outputs a
+Reliability Map, suppressing false alarms on
+[L513] saturated highlights and textured guilloché patterns.
+[L514] Calibration Layer: Fixed adaptive threshold resolves the small-area
+anomaly suppression
+[L515] bottleneck.
+[L516] Metadata & DQT Engine: Parses EXIF, XMP, and Quantization Tables
+(DQT) to catch desktop publishing
+[L517] signatures ( Photoshop , GIMP ).
+[L518] 
+ Runner-Up: CAT-Net v2 (HRNet + DCT Compression Stream).
+[L519] Disqualiﬁed: Baseline ELA + CNN (High false alarms, blind to AI
+inpainting).
+[L520] 2.4 Module 4: Passport MRZ & Barcode/QR Decoding
+[L521] 2.4.1 Passport MRZ Extraction: OmniMRZ vs FastMRZ vs PassportEye
+[L522] Travel documents compliant with ICAO Doc 9303 contain Machine
+Readable Zones (MRZ). General OCR
+[L523] engines frequently confuse OCR-B characters ( 0 vs O , 1 vs I , 8 vs B ,
+< ﬁller characters).
+[L524] au = 0.5 < 0.05 > 0.85
+[L525] auadapt = 0.18
+[L526] 0.74 − 0.79
+[L527] au = 0.5
+[L528] auadapt = 0.18
+[L529] auadapt = 0.18
+[L530] auadapt = 0.18
+
+[L531] <IMAGE FOR PAGE: 8 / 23>
+
+CESIMG_5
+
+[L532] <PARSED TEXT FOR PAGE: 9 / 23>
+
+[L533] Framework
+[L534] Detection
+[L535] Algorithm
+OCR
+[L537] Backend
+[L538] ICAO 9303
+[L539] Formats
+
+[L540] Checksum (7-
+3-1)
+[L542] Latency
+(CPU)
+[L544] Skew/Glare
+[L545] Robustness
+[L546] Failure
+[L547] Recovery
+Rate
+[L549] OmniMRZ Morphological
+[L550] / DBNet
+[L551] PP-OCRv4
+[L552] (OCR-B
+[L553] Tuned)
+[L554] TD1, TD2,
+TD3,
+[L556] MRVA/B
+[L557] Native Full
+[L558] Engine
+[L559] 65 ms High (up to
+[L560] 35° skew)
+99.4%
+[L562] FastMRZ Edge contours Tesseract
+[L563] / ONNX
+[L564] TD1, TD3 Basic built-in 180 ms Moderate 92.1%
+[L565] PassportEye Morphological
+[L566] slices
+[L567] Legacy
+[L568] Tesseract
+4
+TD3
+[L571] (Passports
+only)
+[L573] Basic 340 ms Low
+[L574] (sensitive to
+tilt)
+78.5%
+[L577] mrz (PyPI) Pure Parser None
+[L578] (String
+[L579] input)
+[L580] TD1, TD2,
+TD3
+[L582] Strict Spec
+[L583] Mathematical
+
+[L584] Engine
+[L585] < 1 ms N/A (String
+[L586] validator)
+100%
+[L588] 2.4.2 Mathematical Formulation of ICAO Doc 9303 Checksum Engine
+[L589] The ICAO 9303 Part 3 standard establishes a modulo-10 weighted sum
+algorithm with weights cycle
+[L590] applied to alphanumeric character values:
+[L591]
+
+[L593] 2.4.3 Aadhaar Secure QR Oﬄine Cryptographic Veriﬁcation
+[L594] Aadhaar Secure QR codes (V2/V3) encode compressed binary
+payloads containing a 2048-bit RSA digital
+[L595] signature issued by UIDAI and an embedded ISO/IEC 15444-1 JPEG
+2000 ( .jp2 ) facial photograph.
+[L596] +------------------------------------------------------------------------------------------------
+---------------+
+[L597] | AADHAAR SECURE QR OFFLINE DECRYPTION & PKI PIPELINE
+|
+[L599] | [Document Image Matrix] -> [zxing-cpp (v2.2+)] -> [Extract Raw
+Binary Bytes] |
+| |
+| v
+[L602] | [Decompress via zlib Deﬂate]
+| |
+| v
+[L605] | +--------------------------------------------+
+[L606] | | Binary Payload Splitting |
+[L607] | | - Demographic Data: Payload[0 : N-256] |
+[L608] | | - RSA Digital Signature: Payload[N-256 : N]|
+[L609] | +--------------------------------------------+
+| |
+| v
+[L612] | [Verify Signature via OpenSSL PKCS#1 v1.5]
+[L613] | (Using Local UIDAI Root Public Certiﬁcate)
+| |
+[L615] | +------------------------------+-------------------------------+
+| | |
+[L617] | [Signature VALID] [Signature INVALID]
+| | |
+| v v
+[L620] | [Parse Demographics & JP2000 Photo] [TRIGGER CRITICAL RED
+
+ MRZ Winner: OmniMRZ + ICAO Doc 9303 Modulo-10 7-3-1
+
+ALERT]
+[L621] | - Name, DOB, Gender, Care-Of, Address - Forged / Manipulated QR
+[L622] | - Decompress JP2000 > 1:1 Live Face Match - Impound Credential
+[L623] +------------------------------------------------------------------------------------------------
+---------------+
+[L624] 2.4.4 Architectural Verdict: Module 4
+[L625] 
+Checksum Validator
+[L626] 
+Cryptographic Veriﬁer + JP2000 Face
+[L627] Decoder
+[L628] 2.5 Module 5: Mobile Client & Oﬄine Edge Framework
+[L629] 2.5.1 Framework Evaluation: Flutter vs React Native / Expo
+[L630] 
+[L631] W = [7, 3, 1]
+[L632] Math input error
+
+ Barcode/QR Winner: zxing-cpp (v2.2+) + UIDAI RSA-2048
+
+ Winner: Flutter (v3.24+ / 2026)
+
+[L633] <IMAGE FOR PAGE: 9 / 23>
+
+CESIMG_6
+
+[L634] <PARSED TEXT FOR PAGE: 10 / 23>
+
+[L635] Direct C++ Bindings via Dart FFI ( dart:ﬃ ): Enables zero-copy, direct
+memory sharing between
+[L636] camera frames, OpenCV Mobile preprocessing, and ONNX Runtime
+Mobile inference.
+[L637] Impeller GPU Rendering Engine: Delivers locked 60–120 FPS rendering
+of real-time bounding boxes and
+[L638] forensic heatmaps without JavaScript garbage collection pauses.
+[L639] Encrypted Storage: Drift ORM + SQLCipher 4 (256-bit AES-CBC with
+HMAC-SHA512) backed by
+[L640] hardware TEE/Android Keystore via ﬂutter_secure_storage .
+[L641] Document Rectiﬁcation: Google ML Kit Document Scanner API with
+fallback to embedded OpenCV
+[L642] C++ perspective warp.
+[L643] Outbox Synchronization: Native Android WorkManager with
+exponential backoﬀ and idempotency UUID
+keys.
+[L645] 
+WatermelonDB).
+[L646] 3. Exact Hardware, Library Versions & Runtime Speciﬁcations
+[L647] 3.1 Pinned Requirements Speciﬁcation
+[L648] #
+==============================================
+================================
+[L649] # SIH26188 SSB BORDER SCREENING PLATFORM - PINNED RUNTIME
+
+ Runner-Up: React Native / Expo (Fabric + TurboModules +
+
+ENVIRONMENT
+[L650] # Target OS: Ubuntu 22.04 LTS / Debian 12 (Linux x86_64 & aarch64
+Jetson)
+[L651] # Python Runtime: Python 3.11.9 (Strictly Pinned)
+[L652] #
+==============================================
+================================
+[L653] # Core Deep Learning & Tensor Runtimes
+[L654] torch =2.3.1+cu121; sys_platform = 'linux'
+[L655] torchvision =0.18.1+cu121; sys_platform = 'linux'
+[L656] onnx =1.16.1
+[L657] onnxruntime-gpu =1.19.0; sys_platform = 'linux'
+[L658] onnxruntime =1.19.0; sys_platform = 'darwin'
+[L659] # PaddlePaddle Multilingual OCR Ecosystem
+[L660] paddlepaddle-gpu =3.0.0b2; sys_platform = 'linux' and
+platform_machine = 'x86_64'
+[L661] paddleocr =2.9.1
+[L662] # Computer Vision, Transforms & Image IO
+[L663] opencv-python-headless =4.10.0.84
+[L664] Pillow =10.4.0
+[L665] scikit-image =0.24.0
+[L666] scipy =1.13.1
+[L667] albumentations =1.4.14
+[L668] einops =0.8.0
+[L669] timm =1.0.7
+[L670] # Biometrics & Facial Analysis
+[L671] insightface =0.7.3
+[L672] # Barcode, QR, MRZ & Cryptography
+[L673] zxing-cpp =2.2.2
+[L674] mrz =0.8.2
+[L675] qreader =0.1.7
+[L676] cryptography =43.0.1
+[L677] pyOpenSSL =24.2.1
+[L678] piexif =1.1.3
+[L679] # Asynchronous API Backend & WebSockets
+[L680] fastapi =0.115.0
+[L681] uvicorn[standard] =0.30.6
+[L682] pydantic =2.8.2
+[L683] pydantic-settings =2.4.0
+[L684] asyncpg =0.29.0
+[L685] sqlalchemy[asyncio] =2.0.34
+[L686] redis =5.0.8
+[L687] celery =5.4.0
+[L688] python-multipart =0.0.9
+
+[L689] # Quality-Gate VLM & Transformer Inference (Optional Asynchronous
+Fallback)
+[L690] transformers =4.49.0
+[L691] accelerate =1.4.0
+[L692] autoawq =0.2.8; sys_platform = 'linux'
+[L693] vllm =0.7.2; sys_platform = 'linux'
+[L694] # Utilities & Scientiﬁc Tooling
+[L695] numpy =1.26.4
+[L696] faker =26.0.0
+[L697] cairosvg =2.7.1
+[L698] segno =1.6.1
+
+[L699] <IMAGE FOR PAGE: 10 / 23>
+
+CESIMG_7
+
+[L700] <PARSED TEXT FOR PAGE: 11 / 23>
+
+[L701] 3.2 Pre-trained Weights & Checkpoints Repository
+[L702] Sub-Module /
+[L703] Target Task Model Identiﬁer Native Weights Format ONNX Exported
+Artifact
+[L704] Document Text
+[L705] Detection
+[L706] ch_PP-OCRv4_det Paddle Inference models/ocr/ppocrv4_det.onnx
+[L707] Hindi/Devanagari
+OCR
+[L709] devanagari_PP-OCRv4_rec Paddle Inference
+models/ocr/ppocrv4_rec_devanagari.onnx
+[L710] English / Latin
+OCR
+[L712] en_PP-OCRv4_rec Paddle Inference models/ocr/ppocrv4_rec_en.onnx
+[L713] Document
+[L714] Structure /
+[L715] Tables
+[L716] SLANet_mobile_v2.0 Paddle Inference
+models/ocr/ppstructure_slanet.onnx
+[L717] MRZ-Speciﬁc
+[L718] OCR-B Model
+[L719] omnimrz-ppocr-v4 ONNX FP16 models/mrz/omnimrz_v4.onnx
+[L720] Face Detection &
+[L721] Alignment
+[L722] scrfd_10g_bnkps ONNX FP32/FP16
+models/biometrics/scrfd_10g_bnkps.onnx
+[L723] Face Biometric
+[L724] Embedding
+[L725] adaface_ir100_glint360k PyTorch StateDict
+
+models/biometrics/adaface_ir100_fp16.o
+[L726] Passive FAS
+[L727] (Scale 2.7x)
+[L728] 2.7_80x80_MiniFASNetV2 PyTorch StateDict
+models/biometrics/fas_minifasnetv2_2.7
+[L729] Passive FAS
+[L730] (Scale 4.0x)
+[L731] 4_0_0_80x80_MiniFASNetV1 |
+[L732] PyTorch StateDict
+[L733] models/biometrics/fas_minifasnetv1_4.0.onnx 2.1 MB
+[L734] Text Tampering
+[L735] Detection
+[L736] dtd_doctamper_r50 PyTorch StateDict
+models/forensics/dtd_doctamper_fp16.on
+[L737] Photo Splicing &
+[L738] Forensics
+[L739] trufor_general_v1 PyTorch StateDict models/forensics/trufor_fp16.onnx
+[L740] Quality-Gate
+[L741] VLM (Fallback)
+[L742] Qwen2.5-VL-3B-Instruct AWQ INT4 GGUF
+models/vlm/qwen2.5_vl_3b_awq/
+[L743] UIDAI Root PKI
+[L744] Certiﬁcate
+[L745] uidai_auth_sign_2026 X.509 PEM/CER certs/uidai_auth_sign_2026.pem
+[L746] 3.3 Hardware Memory Sizing & VRAM Allocation Breakdown
+[L747] Target Edge Hardware:
+[L748] Standard Checkpoint Appliance: Intel Core i7-13700H / 32 GB DDR5
+RAM / NVIDIA GeForce RTX 4060 (8
+[L749] GB VRAM).
+[L750] Rugged Tactical Edge: NVIDIA Jetson AGX Orin / Orin NX (16 GB / 32
+GB Uniﬁed LPDDR5 Memory).
+
+[L751] <IMAGE FOR PAGE: 11 / 23>
+
+CESIMG_8
+
+[L752] <PARSED TEXT FOR PAGE: 12 / 23>
+
+[L753] +------------------------------------------------------------------------------------------------
+---------------+
+[L754] | EDGE VRAM ALLOCATION BUDGET ( = 5.0 GB)
+|
+[L756] | [PP-OCRv4 + PP-Structure: 850 MB] ────┐
+[L757] | [OmniMRZ OCR-B Engine: 180 MB] ────┤
+[L758] | [SCRFD-10GF Face Detector: 35 MB] ────┤
+[L759] | [AdaFace-ResNet100: 249 MB] ────┼───> [TOTAL ACTIVE MODEL
+FOOTPRINT: 1,888 MB (~1.89 GB)]
+
+[L760] | [MiniFASNet Dual FAS: 24 MB] ────┤
+[L761] | [DocTamper DTD ResNet-50: 360 MB] ────┤
+[L762] | [TruFor RGB + Noiseprint: 190 MB] ────┘
+|
+[L764] | + CUDA Context & PyTorch Scratchpad Buﬀers: 1,200 MB (~1.20 GB)
+[L765] | + Shared Intermediate TensorRT Arenas: 1,868 MB (~1.87 GB)
+[L766] |
+==============================================
+==============================================
+=================
+[L767] | TOTAL ALLOCATED
+The ﬁle is too long and its contents have been truncated.
+
+Iska solution sirf OCR ko better banana nahi hai. OCR ko ye batana hi
+nahi aata ki 1994 document par asli tha ya kisi ne 1984 → 1994 modify kiya.
+Isliye system ko OCR + independent trusted source + forensic tamper
+detection combine karna padega.
+
+Tumhare report mein exactly isi problem ke liye DocTamper + TruFor +
+adaptive calibration proposed hai.
+
+Example: 1984 → 1994
+
+Suppose original document:
+
+DOB: 12/05/1984
+
+Attacker physically/digitally change karta hai:
+
+DOB: 12/05/1994
+
+Ab system kuch aise kaam karega:
+
+1. OCR kya karega?
+
+PP-OCRv4 image se simply extract karega:
+
+DOB = 12/05/1994
+
+Bas. OCR bolega:
+
+"Mujhe 1994 dikh raha hai."
+
+Because OCR ka kaam read karna hai, historical truth discover karna nahi.
+
+2. Forensic model image ko inspect karega
+
+Yahan DocTamper DTD ka role aata hai.
+
+Ye document ke tiny regions ko analyse karega aur dekhega ki:
+
+character ke around texture inconsistent hai?
+
+font/anti-aliasing diﬀerent hai?
+
+DCT/frequency pattern suspicious hai?
+
+surrounding pixels ke saath digit ka compression behaviour match karta
+hai?
+
+Report speciﬁcally kehti hai ki DocTamper character-level kerning
+disturbances aur font anti-aliasing mismatches detect karne ke liye use
+hota hai.
+
+So theoretically:
+
+DOB: 12/05/1994
+          ↑↑
+       suspicious region
+
+System bolega:
+
+OCR: 1994
+Forensic analysis: HIGH TAMPER PROBABILITY
+
+3. TruFor second independent evidence dega
+
+TruFor RGB image + Noiseprint++ ke through document ke
+sensor/compression residuals analyse karta hai.
+
+Iska kaam especially photo splicing / manipulation detect karna hai aur
+reliability map generate karna hai.
+
+So:
+
+OCR              → "1994"
+DocTamper        → suspicious digit region
+TruFor           → suspicious manipulation region
+
+Ab conﬁdence considerably stronger ho jaata hai.
+
+4. Sabse powerful part: trusted source se cross-
+
+check
+
+Yahan system actually determine kar sakta hai ki 1994 galat hai.
+
+For example, passport mein MRZ bhi hai.
+
+Front page:
+
+DOB: 12/05/1994
+
+MRZ:
+
+... 12/05/1984 ...
+
+Then:
+
+Visual OCR DOB  = 1994
+MRZ DOB         = 1984
+                  ↓
+             MISMATCH
+                  ↓
+       SUSPICIOUS DOCUMENT
+
+Passport MRZ ICAO-standard machine-readable data provide karta hai, aur
+report MRZ ke liye dedicated OmniMRZ + ICAO checksum validation use karti
+hai.
+
+Similarly Aadhaar ke case mein report ke architecture mein Secure QR ki
+cryptographic veriﬁcation hai. QR ke signed payload se demographic
+information nikali ja sakti hai aur signature locally verify ki ja sakti hai.
+
+Then:
+
+Printed DOB      = 1994
+Secure QR DOB    = 1984
+                  ↓
+           DATA MISMATCH
+                  ↓
+            HIGH RISK
+
+Yahan system ke paas genuinely independent evidence hai.
+
+Toh complete pipeline ye hai
+
+DOCUMENT IMAGE
+                       │
+          ┌────────────┴────────────┐
+          ↓                         ↓
+        OCR                    QR / MRZ
+
+          │                         │
+      DOB = 1994              DOB = 1984
+          │                         │
+          └────────────┬────────────┘
+                       ↓
+                 CROSS-CHECK
+                       │
+                  DOB MISMATCH
+                       │
+                       +
+                       │
+              DOCUMENT FORENSICS
+                       │
+          ┌────────────┴────────────┐
+          ↓                         ↓
+      DocTamper                   TruFor
+          │                         │
+          └────────────┬────────────┘
+                       ↓
+              TAMPER SCORE HIGH
+                       │
+                       ↓
+                  SUSPICIOUS
+                       │
+                       ↓
+             Human Officer Review
+
+Ek important distinction
+
+Forensic model akela ye nahi bolta:
+
+"Original DOB 1984 tha."
+
+Wo primarily bolta hai:
+
+"1994 wale region mein manipulation ke strong signs hain."
+
+Original value 1984 tab conﬁdently pata chalegi jab koi trusted
+independent source ho
+, jaise MRZ, cryptographically signed QR, authoritative database, etc.
+
+Ye distinction tumhare project ke liye bahut important hai. Warna
+presentation mein koi judge seedha pooch dega:
+
+“How does your AI know that 1984 was the original value?”
+
+Aur phir poora magical-AI curtain gir jayega. 
+
+Tumhare report ka core idea actually isi liye multi-modal veriﬁcation hai:
+OCR alone nahi, balki OCR + trusted machine-readable data +
+document forensics + biometric veriﬁcation. Report mein micro-
+tampering ke case mein forged area sirf 0.27%–2.5% document area ho
+sakta hai, which is exactly why normal whole-document classiﬁcation
+insuﬃcient hai.
+
+Short version:
+OCR tells us what is written.
+Forensics tells us whether that region looks manipulated.
+MRZ/QR/trusted records tell us what the value should be.
+Fusion of all three gives the screening decision.
+
+iska solution kya hai
+
+{"paths":["ﬁles"],"query":"search"}
+
+{"path":"/ﬁles/search","args":{"search_query":[{"q":"fake stamp forgery
+detection counterfeit rubber stamps laser transferred ink impressions stamp
+detection solution"},{"q":"stamp forgery document forensics TruFor
+DocTamper stamp
+detection"}],"scope":{"surfaces":["conversation"]},"top_k":5}}
+
+Fake stamp ka solution bhi “OCR se stamp padh lo” nahi hai. Stamp
+ko authenticate karna padega, sirf recognize nahi.
+
+Tumhare report mein fake stamps ko explicit threat maana gaya hai,
+especially counterfeit rubber stamps aur laser-transferred ink impressions.
+Lekin ek important point: report mein stamp ke liye dedicated stamp-
+authentication model specify nahi kiya gaya hai. Isliye yahan
+architecture mein ek extra layer add karni padegi. Human civilization
+survives another module. 
+
+Solution: Stamp Authentication Pipeline
+
+Suppose genuine stamp hai:
+
+SSB CHECK POST
+JAIGAON
+DATE: 22-08-2026
+
+Attacker visually similar fake stamp laga deta hai.
+
+System:
+
+Document
+   ↓
+Stamp Region Detection
+   ↓
+┌──────────────────────────────┐
+│ 1. Stamp appearance analysis │
+│ 2. Stamp text/OCR             │
+│ 3. Template comparison        │
+│ 4. Forensic analysis          │
+│ 5. Context / consistency      │
+└──────────────┬───────────────┘
+               ↓
+        Stamp Risk Score
+               ↓
+        Genuine / Suspicious
+
+1. Stamp region detect karo
+
+Pehle document mein identify karo:
+
+“Yahan stamp hai.”
+
+Computer vision segmentation/detection se circular/rectangular stamp region
+isolate hoga.
+
+Example:
+
+Passport page
+────────────────────────
+│                      │
+│   NAME: SPARSH       │
+│   DOB: 12/05/2005    │
+│                      │
+│       ┌─────────┐    │
+│       │  STAMP  │ ← detect
+│       └─────────┘    │
+────────────────────────
+
+2. OCR only supporting evidence hai
+
+Stamp ka text OCR se niklega:
+
+OCR:
+"JAIGAON CHECK POST"
+"22-08-2026"
+
+But OCR ye prove nahi karta ki stamp genuine hai.
+
+Exactly tumhare screenshot ka point:
+
+Fake stamp
+     ↓
+Looks visually believable
+     ↓
+OCR reads it perfectly
+     ↓
+Still fake
+
+3. Authorized stamp template se comparison
+
+From my side: Har authorized checkpoint/oﬃce ke stamps ke reference
+templates ka oﬄine registry maintain karo.
+
+For example:
+
+Stamp Registry
+
+JAIGAON_CHECKPOST
+├── official geometry
+├── official text layout
+├── logo/emblem pattern
+├── expected dimensions
+├── authorized variants
+└── valid date/format rules
+
+Ab scanned stamp ko reference template ke saath compare karenge:
+
+Scanned Stamp
+      ↓
+Feature Extraction
+      ↓
+Similarity with Authorized Template
+      ↓
+94% similarity
+
+      ↓
+PASS
+
+Agar fake stamp mein:
+
+font spacing different
+circle geometry different
+logo distorted
+text alignment different
+
+toh similarity low ho jayegi.
+
+4. Forensic analysis
+
+Yahan tumhare existing DocTamper + TruFor useful ho sakte hain.
+
+Report ka existing forensic architecture:
+
+DocTamper → text/digit-level manipulation
+
+TruFor → image splicing / manipulation + reliability map
+
+fusion → tampering heatmap
+
+Report explicitly DocTamper ko text/digit forensics aur TruFor ko photo-
+splicing/forensic analysis ke liye use karti hai.
+
+Stamp ke case mein:
+
+Stamp Region
+     ↓
+DocTamper ──→ unusual text/edge/frequency patterns
+     +
+TruFor ─────→ suspicious compositing/residual patterns
+     ↓
+Forensic evidence
+
+But: ye models alone "this is an unauthorized SSB stamp" prove nahi
+karenge. Ye sirf manipulation evidence denge. Ye distinction presentation
+mein zaroor rakhna.
+
+5. Context consistency check
+
+Ye actually kaaﬁ powerful hai.
+
+Suppose:
+
+Stamp:
+JAIGAON
+
+22-08-2026
+
+But document/MRZ/other records indicate:
+
+Entry location: Sonauli
+Entry date: 18-08-2026
+
+Then:
+
+Stamp says       → Jaigaon, 22 Aug
+Trusted evidence → Sonauli, 18 Aug
+
+               INCONSISTENCY
+
+So stamp authenticity sirf visual problem nahi hai. Contextual validation
+bhi chahiye.
+
+Final system
+
+Tumhara architecture roughly:
+
+DOCUMENT
+                    │
+          ┌─────────┴─────────┐
+          ↓                   ↓
+        OCR                MRZ / QR
+          │                   │
+          └─────────┬─────────┘
+                    ↓
+             FIELD VALIDATION
+                    │
+                    ├───────────────┐
+                    ↓               ↓
+             STAMP DETECTOR    DOCUMENT FORENSICS
+                    │               │
+                    ↓               ↓
+             STAMP ANALYSIS   DocTamper + TruFor
+                    │               │
+        ┌───────────┼───────────────┘
+        ↓           ↓
+   Template      Context
+   Matching      Validation
+        │           │
+        └─────┬─────┘
+              ↓
+        STAMP RISK SCORE
+
+              ↓
+       ┌──────┴───────┐
+       ↓              ↓
+    LOW RISK       HIGH RISK
+       ↓              ↓
+   CLEAR            ALERT
+
+Sabse important correction
+
+Stamp ke liye tumhare current report mein ek gap hai.
+
+Report ka existing DocTamper + TruFor architecture document
+manipulation detect karne ke liye strong hai, aur uska fused tamper map bhi
+deﬁned hai.
+
+Lekin:
+
+“Is stamp ko authorized SSB stamp ke against authenticate kaise
+karenge?”
+
+iska dedicated answer report mein abhi nahi hai.
+
+From my side: Iske liye architecture mein Stamp Authentication Module
+add karo:
+
+Aur iska output simple:
+
+STAMP STATUS: SUSPICIOUS
+Confidence: 94%
+Reasons:
+• Template mismatch
+• Abnormal ink/compositing pattern
+• Date inconsistent with trusted record
+
+Ye approach judge ke saamne “hum OCR kar rahe hain” se kaaﬁ zyada
+defensible hai.
+
+Qwen2.5-VL-3B-Instruct
+
+why arent we using this as main model
+
+search("Qwen2.5-VL-3B-Instruct\n\nwhy arent we using this as main model")
+
+fast|Qwen2.5-VL-3B-Instruct oﬃcial model card OCR document understanding
+fast|Qwen2.5-VL 3B document understanding OCR benchmark oﬃcial
+
+Actually, Qwen2.5-VL-3B ko main model banana technically possible
+
+hai, and tumhara question valid hai. The report itself puts it as the quality-
+gate fallback, not the primary OCR engine.
+
+But there is an important distinction:
+
+Qwen is a better general document-understanding model. PP-OCR
+is a better deterministic ﬁrst-pass extraction engine.
+
+Why not Qwen as the main model?
+
+Requirement
+
+PP-OCRv4
+
+Qwen2.5-VL-3B
+
+Raw OCR
+
+ Excellent
+
+Document understanding
+
+ Limited
+
+ Excellent
+
+ Excellent
+
+Structured extraction
+
+Deterministic output
+
+Tiny digit alteration
+
+Latency
+
+VRAM
+
+Oﬄine edge
+
+Reasoning
+
+ + forensic
+
+model
+
+~45 ms GPU
+
+~280 ms INT4 in your
+report
+
+~0.8 GB
+
+~3.8 GB
+
+ Excellent
+
+ Possible
+
+Hallucination risk
+
+Very low
+
+Higher
+
+Suitable for every
+document
+
+Your report's benchmark speciﬁcally gives PP-OCRv4 + PP-StructureV2 45
+ms GPU / 0.8 GB VRAM, while Qwen2.5-VL-3B is listed at 280 ms INT4 /
+3.8 GB VRAM.
+
+And Qwen's own documentation conﬁrms that 3B is designed for edge AI and
+supports document understanding, localization and structured outputs.
+
+But here's where I would change our architecture
+
+I wouldn't completely demote Qwen.
+
+I'd make it the reasoning / semantic veriﬁcation layer, rather than the
+raw OCR engine.
+
+Something like:
+
+DOCUMENT
+                    │
+                    ▼
+          ┌───────────────────┐
+          │ PP-OCRv4          │
+          │ FAST EXTRACTION   │
+          │ ~45 ms GPU        │
+          └─────────┬─────────┘
+                    │
+             Confidence?
+             /          \
+           HIGH          LOW
+            │             │
+            │             ▼
+            │      Qwen2.5-VL-3B
+            │      SEMANTIC FALLBACK
+            │             │
+            └──────┬──────┘
+                   ▼
+        ┌──────────────────────┐
+        │ MRZ / QR VALIDATION  │
+        │ + DOCUMENT FORENSICS │
+        │ + BIOMETRICS         │
+        └──────────┬───────────┘
+                   ▼
+             FINAL DECISION
+
+This is actually what your report is trying to achieve with the Two-Tier
+Intelligent OCR Router. PP-OCR is the fast deterministic layer, and Qwen
+gets invoked when OCR conﬁdence is poor.
+
+Why this architecture is stronger
+
+Suppose document is clean:
+
+Passport
+    ↓
+PP-OCR
+    ↓
+confidence = 0.97
+    ↓
+DONE
+
+Why waste ~280 ms and ~3.8 GB VRAM on a VLM? Humanity already has
+enough unnecessary computational expenditure.
+
+But if:
+
+Passport
+    ↓
+PP-OCR
+    ↓
+confidence = 0.61
+    ↓
+Qwen2.5-VL
+    ↓
+"Likely DOB field = 12/05/1994"
+
+then Qwen earns its keep.
+
+And there's an even bigger reason
+
+Qwen should NOT be responsible for deciding whether a document is
+genuine.
+
+Imagine:
+
+Image says: 1994
+
+Qwen can reason:
+
+"The DOB appears to be 1994."
+
+But it doesn't magically know:
+
+"The original DOB was 1984 and somebody altered it."
+
+For that you need independent evidence.
+
+Your report's architecture already separates these jobs:
+
+Qwen
+
+What does this document appear to say?
+
+MRZ / Secure QR
+
+What machine-readable / cryptographically veriﬁable information
+does it contain?
+
+DocTamper
+
+Does this text region look manipulated?
+
+TruFor
+
+Does the image contain forensic evidence of manipulation/splicing?
+
+AdaFace + FAS
+
+Does the person match the document and are they live?
+
+That separation is much more defensible.
+
+But I would make one change to the report
+
+The report currently makes it sound like:
+
+PP-OCR = main
+
+>
+
+Qwen = fallback
+
+I'd phrase the architecture more accurately as:
+
+PP-OCR is the primary extraction engine, while Qwen2.5-VL-3B is
+the semantic document-understanding and quality-gate engine.
+
+Because Qwen's capabilities are broader than "fallback OCR". Its oﬃcial
+model card speciﬁcally describes image text/layout understanding, visual
+localization and structured outputs.
+
+And the benchmark numbers are actually quite good: Qwen2.5-VL-3B reports
+93.9 on DocVQA in its model card.
+
+So my verdict:
+
+Don't replace PP-OCR with Qwen.
+
+Use:
+
+rather than:
+
+For this particular SIH problem, specialized fast models + Qwen as the
+intelligent layer is stronger than trying to make one 3B VLM do OCR,
+tamper detection, MRZ validation, identity veriﬁcation and forensic analysis.
+One model doing everything sounds wonderfully futuristic right until the ﬁrst
+fake passport arrives. 
+
+whats our appraoch for this
+
+{"paths":["ﬁles"],"query":"search"}
+
+{"path":"/ﬁles/search","args":{"search_query":[{"q":"3 parallel streams OCR
+biometric forensics cross validation risk scoring green amber red
+architecture"},{"q":"risk scoring Green Amber Red auto-clear review alert
+fusion document screening"},{"q":"end-to-end processing latency parallel
+streams OCR biometric
+forensics"}],"scope":{"surfaces":["conversation"],"ﬁle_refs":[{"ﬁle_id":"ﬁle_00
+000000503482118d10551448c316ed"}]},"top_k":5}}
+
+Our approach is a 3-stream parallel veriﬁcation system, not one
+giant AI model. The document + live face enters once, preprocessing
+happens once, then OCR, biometrics, and forensics run in parallel. Their
+outputs are fused into a single risk score. This matches the architecture in
+your report.
+
+1. Input
+
+DOCUMENT IMAGE + LIVE FACE
+             ↓
+       Preprocessing
+             ↓
+       ┌─────┼─────┐
+       ↓     ↓     ↓
+
+We rectify/crop the document, normalize the image, detect the face, etc.
+
+Then three independent streams start simultaneously.
+
+2. Stream A: OCR + identity ﬁelds
+
+STREAM A
+   ↓
+PP-OCRv4
+   ↓
+Name / DOB / Passport No. / etc.
+   +
+OmniMRZ
+   +
+QR / RSA verification
+
+This answers:
+
+"Document par kya information likhi hai, aur machine-
+readable/cryptographic data kya bol raha hai?"
+
+For passport, MRZ checksum gives another independent validation layer. For
+supported Aadhaar QR, the architecture veriﬁes the local cryptographic
+signature.
+
+And this is where we can put Qwen2.5-VL-3B as the quality-
+gate/semantic fallback, rather than making it process every document.
+The report explicitly ranks it that way.
+
+3. Stream B: Biometrics
+
+STREAM B
+   ↓
+SCRFD
+
+   ↓
+Face alignment
+   ↓
+AdaFace
+   ↓
+Face similarity
+   +
+MiniFAS
+   ↓
+Liveness
+
+This answers two separate questions:
+
+"Kya document photo aur live person same person hain?"
+
+and
+
+"Kya saamne actual person hai, ya photo/screen/mask attack?"
+
+Report's selected stack is SCRFD + AdaFace-R100 + MiniFASNet.
+
+4. Stream C: Forensics
+
+STREAM C
+   ↓
+DocTamper
+   +
+TruFor
+   ↓
+Tamper heatmap
+   ↓
+DocForge calibration
+
+This answers:
+
+"Document physically/digitally manipulate hua hai kya?"
+
+For example:
+
+DOB: 1984 → 1994
+             ↑
+       suspicious region
+
+DocTamper focuses on text/digit manipulation while TruFor provides broader
+forensic/splicing evidence. The report fuses their maps and applies adaptive
+calibration.
+
+5. Then comes the important part: Cross-
+validation
+
+Ye actual brain of our architecture hai.
+
+Imagine:
+
+OCR:
+DOB = 1994
+
+MRZ:
+DOB = 1984
+
+Forensics:
+DOB region suspicious
+
+Face:
+MATCH = 0.96
+
+System shouldn't simply say:
+
+"Face match high hai, GREEN."
+
+Instead:
+
+ALL EVIDENCE
+                         ↓
+        ┌────────────────┼────────────────┐
+        ↓                ↓                ↓
+     OCR/MRZ          BIOMETRIC       FORENSICS
+        │                │                │
+     mismatch          match        tamper high
+        └────────────────┼────────────────┘
+                         ↓
+                  CROSS-VALIDATION
+                         ↓
+                   RISK ENGINE
+
+This is why the report calls it a multi-factor Bayesian risk scoring &
+explainability engine.
+
+6. Risk score
+
+Then every signal contributes to a ﬁnal score:
+
+For example:
+
+Risk = 12
+→ GREEN
+→ Auto-clear
+
+Risk = 48
+→ AMBER
+→ Secondary review
+
+Risk = 87
+→ RED
+→ Critical alert
+
+Your report deﬁnes:
+
+GREEN: 0–30 → Auto-Clear
+
+AMBER: 31–69 → Secondary Review
+
+RED: 70–100 → Critical Detain Alert
+
+The key thing: we don't "average" the models
+
+This is important.
+
+Suppose:
+
+OCR          = OK
+Face         = OK
+Liveness     = OK
+Forensics    = VERY BAD
+MRZ          = MISMATCH
+
+A simple average could accidentally produce a medium score.
+
+We shouldn't do that.
+
+Certain signals should be hard rules / high-severity overrides.
+
+Example:
+
+Cryptographic QR signature INVALID
+              ↓
+         RED ALERT
+
+The report already speciﬁes corrupted Aadhaar signature → red forgery alert.
+
+Similarly:
+
+MRZ checksum invalid
+        ↓
+strong suspicion
+
+while:
+
+Face quality poor
+        ↓
+AMBER / retry
+
+So the risk engine isn't just:
+
+It's more like:
+
+That's much more defensible.
+
+And where does Qwen ﬁt?
+
+With the architecture we've now discussed, I'd update the diagram slightly:
+
+DOCUMENT + LIVE FACE
+                              ↓
+                        PREPROCESSING
+                              ↓
+             ┌────────────────┼────────────────┐
+             ↓                ↓                ↓
+       STREAM A           STREAM B           STREAM C
+       OCR / DATA         BIOMETRIC          FORENSICS
+             │                │                │
+        PP-OCRv4          SCRFD              DocTamper
+        OmniMRZ           AdaFace             TruFor
+        QR/RSA            MiniFAS             DocForge
+             │
+        Low confidence?
+             ↓
+       Qwen2.5-VL-3B
+       semantic fallback
+             │
+             └──────────────┐
+
+                            ↓
+                    CROSS-VALIDATION
+                            ↓
+                     RULE ENGINE
+                            ↓
+                      RISK SCORING
+                            ↓
+               ┌────────────┼────────────┐
+               ↓            ↓            ↓
+             GREEN        AMBER         RED
+             CLEAR         REVIEW       ALERT
+
+This is the architecture I would actually build.
+
+And there's a very nice SIH demo hidden inside it: your report already
+proposes a genuine passport clearing GREEN, a DOB-altered Aadhaar
+producing a RED alert with the suspicious DOB highlighted, and a tamper
+heatmap displayed to the oﬃcer.
+
+So the app isn't just saying "Fake!" like some gloriﬁed CAPTCHA.
+
+It can say:
+
+ RED — High-risk document
+
+Reason 1: DOB mismatch between printed ﬁeld and trusted machine-
+readable data
+Reason 2: Text-region tampering detected
+Reason 3: Forensic conﬁdence 94.2%
+Face: Matched
+Liveness: Passed
+
+That explainability layer is what makes the three models feel like one
+actual screening system rather than three unrelated AI demos duct-taped
+together.
+
+i have macbook air m4 256 gb 16 gb ram
+its good too right?
+
+Haan, tumhara M4 MacBook Air 16 GB RAM development/prototyping
+ke liye good hai, but RTX 4060 8 GB machine ka full replacement
+
+nahi hai. Main bottleneck GPU workloads mein aayega.
+
+Tumhare project ke context mein:
+
+Workload
+
+M4 Air 16 GB
+
+RTX 4060 8 GB
+
+FastAPI/backend
+
+Next.js dashboard
+
+PostgreSQL/Redis/Docker
+
+OCR development/testing
+
+PP-OCR inference
+
+Qwen2.5-VL-3B
+
+DocTamper
+
+TruFor
+
+AdaFace
+
+ Excellent
+
+ Excellent
+
+ Good
+
+ Good
+
+ Fine
+
+ Excellent
+
+ Excellent
+
+ Good
+
+ Excellent
+
+ Excellent
+
+ Possible, slower
+
+ Better
+
+ Possible
+
+ Better
+
+ Possible, slower
+
+ Better
+
+ Fine for
+inference
+
+ Excellent
+
+Model ﬁne-tuning
+
+ Not ideal
+
+ Much better
+
+Full 3-stream parallel inference
+
+ Limited
+
+ Target hardware
+
+16 GB memory
+
+ Tight with
+
+everything
+
+ 32 GB system RAM
+
+Portability
+
+ Excellent
+
+ Laptop-dependent
+
+Tumhare case mein important distinction
+
+Report ka RTX 4060 + i7-13700H + 32 GB target actually
+deployment/reference edge appliance ke liye hai, not necessarily "every
+developer must own this exact machine." The architecture explicitly targets
+an air-gapped edge appliance and has the inference streams running there.
+
+Tum M4 Air par comfortably:
+
+Frontend
+   ↓
+FastAPI
+   ↓
+OCR
+   ↓
+MRZ / QR
+   ↓
+Forensics inference
+
+   ↓
+Risk engine
+   ↓
+Dashboard
+
+develop aur test kar sakte ho.
+
+But ek catch hai
+
+16 GB uniﬁed memory + 256 GB SSD means full local stack mein
+discipline rakhna padega.
+
+Especially agar simultaneously:
+
+Docker
++ PostgreSQL
++ Redis
++ FastAPI
++ Next.js
++ PP-OCR
++ Qwen 3B
++ DocTamper
++ TruFor
++ AdaFace
+
+chalaoge, toh machine bolegi:
+
+"Tumne mujhe laptop samjha, server farm nahi." 
+
+Qwen/forensics models ko on-demand load karna better hoga.
+
+Best development strategy for you
+
+M4 Air:
+
+frontend development
+
+backend
+
+orchestration
+
+OCR
+
+MRZ/QR
+
+risk engine
+
+UI
+
+database
+
+model integration
+
+small inference tests
+
+complete end-to-end demo
+
+RTX 4060 machine/cloud GPU:
+
+model ﬁne-tuning
+
+heavy benchmarking
+
+parallel 3-stream inference
+
+performance optimization
+
+ﬁnal latency testing
+
+Aur SIH demo ke liye, agar tumhare paas actual RTX 4060 machine
+available hai, use ﬁnal deployment machine banana much safer hai.
+
+So M4 Air is absolutely good enough to build the project. It is just not
+the hardware I would claim as the ﬁnal 3-stream production/edge
+target. The report's own MVP architecture expects the full local stack and
+gives the RTX 4060-class machine as the checkpoint target.
+
+only devnagri not tamil wgaera?
+
+Nahi, sirf Devanagari nahi. Agar hum India-focused identity documents ko
+target kar rahe hain, toh OCR ko multiple Indian scripts handle karne ke
+liye design karna better hai.
+
+Lekin screenshot mein “Hindi + English” speciﬁcally likhne ka reason ye ho
+sakta hai ki current MVP mein hum Hindi/Devanagari + English ko
+primary scope rakh rahe hain. Iska matlab ye nahi ki Tamil, Bengali, Telugu
+etc. impossible hain.
+
+Better way to deﬁne our OCR scope
+
+MVP:
+
+ Devanagari: Hindi, Nepali-related Devanagari text
+
+ Latin/English
+
+MRZ: special OCR-B handling separately
+
+Phase 2 / extended multilingual support:
+
+Tamil
+
+Telugu
+
+Bengali
+
+Gujarati
+
+Kannada
+
+Malayalam
+
+Punjabi/Gurmukhi
+
+Odia
+
+Assamese
+
+Marathi etc. where Devanagari applies
+
+Actually, Nepal ke context mein Devanagari especially important hai,
+because Nepali documents can use Devanagari. And your project speciﬁcally
+targets India-Nepal and India-Bhutan border documents.
+
+Ek important distinction
+
+Hum "Hindi OCR" nahi bolna chahiye.
+
+Better:
+
+Multilingual OCR with Devanagari + Latin script support
+
+Because OCR model script recognize karta hai, language nahi. Same
+Devanagari OCR Marathi/Nepali/Hindi text ko process kar sakta hai,
+depending on model/training.
+
+And passport MRZ ko normal multilingual OCR se treat nahi karna chahiye.
+MRZ is a separate ICAO OCR-B pipeline, which your report already
+separates through OmniMRZ + ICAO validation.
+
+So architecture mein main wording ye rakhunga:
+
+Primary OCR: Devanagari + Latin multilingual OCR; dedicated
+ICAO OCR-B engine for passport MRZ; extensible to additional
+Indian scripts.
+
+Ye “Hindi + English only” se technically zyada accurate hai, aur judge ke
+saamne bhi better sound karega.
+
+toh iske liya hm kya krenge
+
+Iske liye hum normal OCR ko MRZ par use nahi karenge. Dedicated
+MRZ pipeline rakhenge: OmniMRZ → ICAO 9303 parser → checksum
+validation. Tumhare report mein bhi ye exact architecture selected hai.
+
+Flow simple rakho:
+
+Passport Image
+      ↓
+Document preprocessing
+      ↓
+MRZ region detection / crop
+      ↓
+     OmniMRZ
+      ↓
+OCR-B characters
+      ↓
+ICAO 9303 parser
+      ↓
+Field extraction
+      ↓
+7-3-1 Checksum Validation
+      ↓
+Cross-check with visible passport fields
+      ↓
+VALID / MISMATCH / SUSPICIOUS
+
+Example
+
+MRZ mein agar OCR galti se:
+
+O → 0
+I → 1
+B → 8
+
+kar deta hai, toh hum blindly us value ko accept nahi karenge.
+
+ICAO MRZ mein check digits hote hain. Passport number, DOB, expiry etc.
+ke corresponding check digits calculate karke verify karenge.
+
+For example conceptually:
+
+Extracted:
+DOB = 900101
+
+       ↓
+ICAO 7-3-1 validation
+
+       ↓
+
+Checksum ✓
+→ DOB extraction internally consistent
+
+Agar:
+
+DOB = 900101
+Checksum ✗
+
+then:
+
+ MRZ parsing error / suspicious MRZ
+
+Report speciﬁcally ICAO Doc 9303 Modulo-10 7-3-1 checksum engine
+deﬁne karti hai, including TD1/TD2/TD3 formats.
+
+Aur visible passport se cross-check
+
+Ye aur important hai:
+
+VISIBLE PAGE
+Name: RAHUL KUMAR
+DOB: 01/01/1990
+Passport No: A1234567
+
+               CROSS CHECK
+
+MRZ
+Name: RAHUL KUMAR
+DOB: 01/01/1990
+Passport No: A1234567
+
+             ↓
+
+Everything consistent
+→ LOW RISK
+
+But:
+
+VISIBLE DOB = 01/01/1994
+MRZ DOB     = 01/01/1984
+                    ↓
+                MISMATCH
+                    ↓
+             FORENSIC CHECK
+                    ↓
+             Risk increases
+
+Yahi hamare architecture ka important advantage hai: MRZ ko sirf
+OCR output nahi maana jaata. It becomes an independent consistency
+check.
+
+So ﬁnal decision
+
+Humare project mein:
+
+Normal document text: PP-OCRv4
+
+Low-conﬁdence/complex document understanding: Qwen2.5-VL-3B
+quality gate
+
+Passport MRZ: OmniMRZ
+
+MRZ correctness: ICAO 9303 + 7-3-1 checksum
+
+Visible ﬁeld 
+
+ MRZ: cross-ﬁeld validation
+
+Tampering: DocTamper + TruFor
+
+Report bhi MVP ke liye PP-OCRv4 + OmniMRZ + full ICAO checksum
+engine specify karti hai.
+
+So basically MRZ ke liye Qwen ya normal OCR ko force nahi karna hai.
+Dedicated specialist pipeline. That's exactly the kind of boring specialized
+engineering that beats throwing one fashionable VLM at everything. 
+
+hmlog mobile as camera use krenge n?
+
+Haan, exactly. 
+
+ Camera ke liye hum mobile/Android ﬁeld app use
+
+karenge. Tumhare report ke architecture mein bhi Flutter mobile patrol
+client diya hua hai, jo camera se document capture karega.
+
+Practical ﬂow:
+
+id="z2p3xk"
+Officer ka Android Phone / Rugged Tablet
+              │
+              ▼
+          Camera Capture
+              │
+              ▼
+       Image Quality Check
+       ├── Blur?
+       ├── Glare?
+       ├── Skew?
+       └── Document properly visible?
+              │
+              ▼
+          Preprocessing
+              │
+              ▼
+       Local Network / USB?
+              │
+              ▼
+       Edge AI Workstation
+              │
+       ┌──────┼─────────┐
+       ▼      ▼         ▼
+      OCR   Face     Forensics
+       │      │         │
+       └──────┼─────────┘
+              ▼
+       Cross Validation
+              ▼
+         Risk Score
+              ▼
+         /   / 
+
+Mobile ka main kaam kya hai?
+
+Mobile AI ka main processing machine nahi hoga.
+
+Mobile mainly:
+
+ Document capture
+
+ Blur/glare/quality check
+
+ Document boundary detection + perspective correction
+
+ Live face capture
+
+ Local encrypted temporary storage
+
+ Edge workstation ko data bhejna
+
+ Oﬃcer ko result/status dikhana
+
+Report speciﬁcally mobile client mein OpenCV + camera preprocessing,
+encrypted local storage aur background outbox sync deﬁne karti hai.
+
+Important: Internet ki zarurat nahi
+
+Architecture air-gapped/oﬄine-ﬁrst hai.
+
+Phone
+  │
+  │ Local Wi-Fi
+  ▼
+RTX 4060 Edge PC
+  │
+  ├── OCR
+  ├── MRZ
+  ├── Qwen fallback
+  ├── Forensics
+  ├── Biometrics
+  └── Risk Engine
+
+Report ka intended deployment bhi 100% oﬄine air-gapped Docker stack
+hai, with the mobile device connecting through a local network.
+
+So tumhara M4 MacBook development machine ho sakta hai,
+Android phone camera/client ho sakta hai, aur RTX 4060 PC actual
+edge-AI inference machine. Ye separation architecture ko kaaﬁ clean
+rakhta hai.
+
+so like how will we connect the phone and laptop
+
+Simple: phone aur laptop same local Wi-Fi network par connect
+honge. Internet ki zarurat nahi hai. 
+
+Tumhare demo mein laptop khud Wi-Fi hotspot/router ban jayega.
+
+Exact setup
+
+id="5p2zqk"
+                MacBook / Edge Machine
+                    │
+             Creates Hotspot
+                    │
+             SSID: SSB_SECURE_GATEWAY
+                    │
+              ┌─────┴─────┐
+              │ Local Wi-Fi
+              │ 192.168.1.x
+              ▼
+               Phone
+
+Phone hotspot create nahi karega. Laptop hotspot create karega,
+because laptop par tumhara FastAPI server running hoga.
+
+Step-by-step
+
+1. Laptop par:
+
+id="d4q2w6"
+FastAPI server
+     ↓
+0.0.0.0:8000
+
+Meaning server sirf localhost (127.0.0.1) par locked nahi hai, local network
+se bhi accessible hai.
+
+2. MacBook hotspot create karega:
+
+id="k9f3xe"
+Wi-Fi Name:
+SSB_SECURE_GATEWAY
+
+Password:
+********
+
+3. Phone us Wi-Fi se connect karega.
+
+Phone ko maan lo IP mila:
+
+id="7l0h4q"
+192.168.1.101
+
+MacBook ka local IP:
+
+id="r5z1nc"
+192.168.1.100
+
+4. Flutter app API ko call karegi:
+
+id="e4h2ka"
+http://192.168.1.100:8000/api/v1/screen
+
+So:
+
+id="6p8j3m"
+
+ Phone
+
+   │
+   │ POST /api/v1/screen
+   │
+   │ document image + live face
+   ▼
+
+ MacBook
+
+   │
+   ├── PP-OCR
+
+   ├── OmniMRZ
+   ├── Qwen fallback
+   ├── DocTamper
+   ├── TruFor
+   ├── AdaFace
+   └── Risk Engine
+   │
+   ▼
+
+ Phone
+
+   │
+   └──   GREEN /   AMBER /   RED
+
+Internet completely unnecessary
+
+id="l0z8tj"
+
+ Phone ───── Local Wi-Fi ─────   Laptop
+
+                                  │
+                                  ├── AI models
+                                  ├── Database
+                                  └── API
+
+                   Internet
+
+Ye air-gapped concept ke compatible hai because data public internet par
+nahi ja raha. Tumhare report mein bhi demo ke liye laptop ko local Wi-Fi
+hotspot banane aur Flutter tablet ko local IP se API access karne ka exact
+idea diya hai.
+
+And for your actual project
+
+Tumhare paas MacBook Air M4 hai, toh development/demo ke liye:
+
+ Android Phone
+
+       ↓
+   Local Wi-Fi
+       ↓
+
+ M4 MacBook
+
+       ↓
+  Docker / FastAPI
+       ↓
+    AI Pipeline
+
+One caveat: agar ﬁnal deployment mein RTX 4060 edge PC use karte ho,
+toh hotspot RTX machine create karegi instead. Phone ko bas us network se
+
+connect karna hoga.
+
+So network architecture mein phone ko AI machine se directly cable se
+connect karne ki koi requirement nahi hai. Local LAN is enough.
+
+macbook hotspot create kr skta hai?
+
+Haan, but ek important catch hai: MacBook normally Wi-Fi
+hotspot/router ki tarah Wi-Fi connection share nahi kar sakta in the
+simple way we were imagining.
+
+macOS ka Internet Sharing feature primarily ek existing internet
+connection ko doosre interface par share karta hai. For example:
+
+Ethernet/USB internet
+        ↓
+     MacBook
+        ↓
+     Wi-Fi
+        ↓
+      Phone
+
+Lekin humare desired setup mein:
+
+MacBook
+   ↓
+Wi-Fi hotspot
+   ↓
+Phone
+
+without an upstream internet/network connection, MacBook ko normal Wi-
+Fi access point ki tarah use karna reliable assumption nahi hai.
+
+Better setup for our project
+
+Option 1: Dedicated Wi-Fi router 
+
+Local Router
+             /           \
+            ↓             ↓
+         Android        Mac/RTX PC
+                         ↓
+                    FastAPI :8000
+
+Router ko internet se connect karne ki zarurat nahi. Bas local LAN create
+kare.
+
+Option 2: Android phone hotspot
+
+Phone hotspot:
+
+ Phone hotspot
+
+      │
+      └────   MacBook / RTX PC
+
+But agar same phone camera + hotspot use kar rahe ho, networking
+possible hai, but demo architecture ke liye dedicated router cleaner hai.
+
+Option 3: USB cable / USB tethering
+
+Possible, but ﬁeld-demo ke liye unnecessarily cable circus ban jayega.
+Humanity has suﬀered enough from USB-C orientation.
+
+Mere recommendation
+
+For your SIH demo:
+
+₹1k–₹2k ka basic Wi-Fi router + no internet connection
+
+Use it as a private local LAN.
+
+ SSB LOCAL NETWORK
+
+                        │
+             ┌──────────┴──────────┐
+             │                     │
+            Phone               RTX PC
+        Camera App             AI Server
+                                  │
+                           FastAPI + Models
+
+No public internet, no cloud, no dependency on venue Wi-Fi.
+
+Aur tumhare M4 MacBook par development ke liye router ki zarurat
+bhi nahi initially. Final multi-device demo ke liye dedicated local router
+sabse reliable approach hai.
+
+abhi hmhe internel round clear krna h so cant have wiﬁ router for that
+
+Haan, abhi router kharidne ki bilkul zarurat nahi hai. Internal round ke
+liye hum hardware purchase ko avoid kar sakte hain. 
+
+Abhi development/demo setup
+
+Tumhare paas:
+
+ Android phone
+
+      │
+      │ USB cable / local connection
+      │
+      ▼
+
+ M4 MacBook
+
+      │
+      ├── FastAPI
+      ├── OCR
+      ├── MRZ
+      ├── Forensics
+      ├── Biometrics
+      └── Risk Engine
+
+Internal round mein humein actual wireless ﬁeld deployment prove
+karna necessary nahi hai. Humein primarily working end-to-end
+screening workﬂow prove karna hai.
+
+Phone   MacBook ke liye abhi best option
+
+USB connection use kar sakte ho for development/testing.
+
+Ya aur simple:
+
+ Phone Camera
+
+      ↓
+Capture image
+      ↓
+Send to API
+      ↓
+
+ MacBook
+
+      ↓
+AI pipeline
+      ↓
+Result
+
+Agar Flutter app ko actual phone par run karke API call karni hai, toh
+MacBook aur phone ko same temporary network par connect karne ke
+options later handle kar lenge. Internal round ke liye dedicated router ki
+dependency architecture mein mat daalo.
+
+Architecture ko bhi aise present karo
+
+Production / ﬁnal deployment:
+
+ Field Device
+
+      ↓
+
+ Private Local LAN
+
+      ↓
+
+ Edge AI Appliance
+
+Current Internal Round:
+
+ Test Device
+
+      ↓
+
+ Developer Machine
+
+      ↓
+Localhost / development connection
+
+So ₹1–2k router abhi mat lo. Pehle software pipeline ko solid karo. Agar
+internal round clear hota hai, tab ﬁnal demo hardware/network setup ko
+properly build karenge.
+
+Aur ek important thing: router ko architecture ka core component mat
+banao. Core is:
+
+Network sirf in components ko connect karne ka transport layer hai.
+
+i will let an ai research and decide the best approach for us
+
+Haan, ye better approach hai. Especially abhi jab hum architecture ke
+several assumptions validate kar rahe hain, ek dedicated research pass se
+hardware/network/model choices ko independently challenge karwana
+sensible hai.
+
+AI ko bas “best approach batao” mat bolna. Usse speciﬁcally force karo ki:
+
+Current architecture audit kare
+
+MacBook M4 16 GB vs RTX 4060 8 GB realistically benchmark/assess
+kare
+
+Phone → edge machine connectivity ke best options compare kare,
+without assuming router purchase
+
+Oﬄine/air-gapped requirement ko preserve kare
+
+Qwen2.5-VL-3B vs PP-OCRv4 ko re-evaluate kare
+
+MRZ, QR, OCR, forensics, biometrics ko one model vs specialist models
+
+ke against compare kare
+
+Internal SIH round MVP aur ﬁnal deployment architecture ko
+separately optimize kare
+
+Latency, RAM/VRAM, accuracy, implementation diﬃculty aur demo
+reliability ke basis par trade-oﬀs de
+
+Existing report ke claims ko blindly accept na kare
+
+End mein one recommended architecture de, with reasons and
+rejected alternatives.
+
+Most importantly, tell it:
+
+“Do not optimize for theoretical SOTA alone. Optimize for a
+student team that must build a reliable oﬄine SIH MVP under
+time, hardware and integration constraints.”
+
+That last line matters a lot. Otherwise AI research agents love recommending
+a 14-model architecture that requires a datacenter, three PhDs and a small
+sacriﬁce to NVIDIA. 
+
+And I'd give it our current report + the questions we've uncovered,
+especially:
+
+Qwen2.5-VL-3B's role
+
+multilingual OCR scope
+
+dedicated MRZ pipeline
+
+fake stamp authentication gap
+
+mobile camera architecture
+
+local connectivity without buying a router
+
+M4 Air as development machine
+
+RTX 4060 as possible ﬁnal edge target
+
+3-stream parallel architecture
+
+risk scoring / cross-validation
+
+That will make the research much more useful than asking it to start from a
+blank page.
+
+

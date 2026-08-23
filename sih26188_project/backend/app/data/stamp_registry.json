@@ -1,0 +1,38 @@
+{
+  "JAIGAON_SSB_ENTRY_V1": {
+    "checkpost_id": "SSB-WB-JAI-01",
+    "location": "Jaigaon, West Bengal (Indo-Bhutan Border)",
+    "geometry": "circle",
+    "outer_diameter_mm": 38.0,
+    "authorized_ink_colors": [
+      "purple",
+      "violet",
+      "blue"
+    ],
+    "reference_template_path": "templates/stamps/jaigaon_entry_v1.png",
+    "text_layout": {
+      "header": "SSB CHECK POST JAIGAON",
+      "subtext": "IMMIGRATION CLEARANCE",
+      "date_format": "DD-MM-YYYY"
+    }
+  },
+  "SONAULI_SSB_TRANSIT_V1": {
+    "checkpost_id": "SSB-UP-SON-02",
+    "location": "Sonauli, Maharajganj, UP (Indo-Nepal Border)",
+    "geometry": "rectangle",
+    "dimensions_mm": [
+      45.0,
+      25.0
+    ],
+    "authorized_ink_colors": [
+      "blue",
+      "black"
+    ],
+    "reference_template_path": "templates/stamps/sonauli_transit_v1.png",
+    "text_layout": {
+      "header": "SSB IMMIGRATION SONAULI",
+      "subtext": "TRANSIT PERMIT",
+      "date_format": "DD/MM/YYYY"
+    }
+  }
+}

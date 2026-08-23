@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # 1. FastAPI Screening Engine Orchestrator
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: sih26188_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - HOST=0.0.0.0
+      - PORT=8000
+      - SIH_MODELS_DIR=/models
+      - DATABASE_URL=postgresql://sih_user:sih_secure_pass@postgres:5432/sih26188
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - /Volumes/issparsh/sih26188_models:/models:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - sih_internal_net
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:8000/health\")' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # ---------------------------------------------------------------------------
+  # 2. PostgreSQL 16 with pgvector (High-Risk Watchlist & Audit Trail)
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: sih26188_postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: sih_user
+      POSTGRES_PASSWORD: sih_secure_pass
+      POSTGRES_DB: sih26188
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - sih_internal_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sih_user -d sih26188"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # 3. Redis 7 High-Throughput Token & Session Cache
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: sih26188_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - sih_internal_net
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  sih_internal_net:
+    driver: bridge
