@@ -7,40 +7,65 @@ interface StampIntroScreenProps {
 }
 
 export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroScreenProps) {
+  const [isReady, setIsReady] = useState(false);
   const [descending, setDescending] = useState(false);
   const [impacted, setImpacted] = useState(false);
   const [sheenExit, setSheenExit] = useState(false);
   const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
-    // 1. Slow, deliberate 3D descent begins at 300ms
-    const descendTimer = setTimeout(() => {
-      setDescending(true);
-    }, 300);
+    let isMounted = true;
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
-    // 2. Heavy Stamp Impact slams down at 1800ms (dramatic slow-mo weight & depth)
-    const impactTimer = setTimeout(() => {
-      setDescending(false);
-      setImpacted(true);
-    }, 1800);
+    // Ensure DOM, fonts, and GPU webview are fully painted before starting countdown
+    const initAnimation = async () => {
+      try {
+        if (typeof document !== 'undefined' && document.fonts) {
+          await document.fonts.ready;
+        }
+      } catch {}
 
-    // 3. Luxurious Sheen Sweep & Fadeout Transition begins at 4800ms (3.0s majestic display hold)
-    const exitTimer = setTimeout(() => {
-      setSheenExit(true);
-      setExiting(true);
-      if (onTransitionStart) onTransitionStart();
-    }, 4800);
+      // Dual rAF ensures first visual frame is committed to display buffer
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (!isMounted) return;
+          setIsReady(true);
 
-    // 4. Complete unmount and reveal workstation at 5800ms
-    const completeTimer = setTimeout(() => {
-      onComplete();
-    }, 5800);
+          // 1. Slow, deliberate 3D descent begins at 250ms after visual stabilization
+          timers.push(setTimeout(() => {
+            if (isMounted) setDescending(true);
+          }, 250));
+
+          // 2. Heavy Stamp Impact slams down at 1800ms
+          timers.push(setTimeout(() => {
+            if (isMounted) {
+              setDescending(false);
+              setImpacted(true);
+            }
+          }, 1800));
+
+          // 3. Luxurious Sheen Sweep & Fadeout Transition begins at 4800ms
+          timers.push(setTimeout(() => {
+            if (isMounted) {
+              setSheenExit(true);
+              setExiting(true);
+              if (onTransitionStart) onTransitionStart();
+            }
+          }, 4800));
+
+          // 4. Complete unmount and reveal workstation at 5800ms
+          timers.push(setTimeout(() => {
+            if (isMounted) onComplete();
+          }, 5800));
+        });
+      });
+    };
+
+    initAnimation();
 
     return () => {
-      clearTimeout(descendTimer);
-      clearTimeout(impactTimer);
-      clearTimeout(exitTimer);
-      clearTimeout(completeTimer);
+      isMounted = false;
+      timers.forEach(clearTimeout);
     };
   }, [onTransitionStart, onComplete]);
 
@@ -57,6 +82,7 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
       className={`stamp-splash-overlay fixed inset-0 z-[99999] flex flex-col items-center justify-center select-none cursor-pointer ${
         exiting ? 'exiting' : ''
       }`}
+      style={{ opacity: isReady ? 1 : 0.99 }}
     >
       {/* Radiant Sunburst Rays */}
       <svg
