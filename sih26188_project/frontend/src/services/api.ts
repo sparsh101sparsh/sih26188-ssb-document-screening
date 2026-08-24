@@ -260,4 +260,54 @@ export async function getCompanionVerdict(sequenceId?: number): Promise<Companio
   }
 }
 
+/**
+ * Fetch real-time status and diagnostics of all AI/ML models
+ */
+export async function fetchModelsStatus(): Promise<import('../types/api').ModelsStatusResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/status`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch model diagnostics: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+/**
+ * Start and initialize a specific AI model on the Edge Gateway
+ */
+export async function startModel(modelId: string): Promise<import('../types/api').ModelStartResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/${modelId}/start`, {
+    method: 'POST',
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to start model ${modelId}: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+/**
+ * Run a live self-test benchmark on a specific AI model
+ */
+export async function testModel(modelId: string): Promise<import('../types/api').ModelTestResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/${modelId}/test`, {
+    method: 'POST',
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to benchmark model ${modelId}: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+/**
+ * Start and benchmark all AI models in parallel
+ */
+export async function startAllModels(): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/start-all`, {
+    method: 'POST',
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to start all models: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
 

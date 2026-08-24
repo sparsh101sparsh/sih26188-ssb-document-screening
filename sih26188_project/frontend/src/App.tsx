@@ -13,6 +13,7 @@ import { AuditCertificateModal } from './components/AuditCertificateModal';
 import { RawJsonViewerModal } from './components/RawJsonViewerModal';
 import { ConnectModal } from './components/ConnectModal';
 import { SecurityProtocolsModal } from './components/SecurityProtocolsModal';
+import { ModelDiagnosticsModal } from './components/ModelDiagnosticsModal';
 import { ScreenReaderEngine } from './components/ScreenReaderEngine';
 import { StampIntroScreen } from './components/StampIntroScreen';
 
@@ -61,6 +62,7 @@ export function App() {
   const [isJsonModalOpen, setIsJsonModalOpen] = useState(false);
   const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
+  const [isModelsModalOpen, setIsModelsModalOpen] = useState(false);
   const [isScreenReaderActive, setIsScreenReaderActive] = useState(false);
   const [appLang, setAppLang] = useState<'en' | 'hi'>('en');
   const [showIntro, setShowIntro] = useState(true);
@@ -337,6 +339,7 @@ export function App() {
           onOpenAuditModal={() => setIsAuditModalOpen(true)}
           onOpenJsonModal={() => setIsJsonModalOpen(true)}
           onOpenConnectModal={() => setIsConnectModalOpen(true)}
+          onOpenModelsModal={() => setIsModelsModalOpen(true)}
           onOpenSecurityProtocols={() => setIsSecurityModalOpen(true)}
         />
 
@@ -562,6 +565,11 @@ export function App() {
         <SecurityProtocolsModal
           isOpen={isSecurityModalOpen}
           onClose={() => setIsSecurityModalOpen(false)}
+        />
+
+        <ModelDiagnosticsModal
+          isOpen={isModelsModalOpen}
+          onClose={() => setIsModelsModalOpen(false)}
         />
 
         {/* 9. Interactive Voice Screen Reader Engine */}

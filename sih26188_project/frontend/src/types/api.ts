@@ -262,23 +262,50 @@ export interface DevicesResponse {
   last_active_device?: ConnectedClient | null;
 }
 
-export interface CompanionCapturePayload {
-  device_id: string;
-  capture_type: 'document' | 'selfie' | 'face' | 'traveler_live';
-  image_data: string;
-  checkpoint_id?: string;
-  timestamp: string;
-  filename?: string;
+export interface ModelStatusItem {
+  id: string;
+  name: string;
+  category: string;
+  task: string;
+  architecture: string;
+  framework: string;
+  input_tensor: string;
+  output_tensor: string;
+  weight_file: string;
+  status: 'ONLINE' | 'STANDBY' | 'OFFLINE' | 'INITIALIZING';
+  is_loaded: boolean;
+  latency_ms: number;
+  device: string;
+  last_checked: string;
 }
 
-export interface CompanionLatestResponse {
-  has_capture: boolean;
-  sequence_id: number;
-  image_data?: string | null;
-  capture_type?: string | null;
-  device_id?: string | null;
-  checkpoint_id?: string | null;
-  timestamp?: string | null;
-  filename?: string | null;
+export interface ModelsStatusResponse {
+  status: string;
+  total_models: number;
+  online_models: number;
+  all_online: boolean;
+  hardware_acceleration: string;
+  execution_providers: string[];
+  models: ModelStatusItem[];
+  timestamp: string;
+}
+
+export interface ModelStartResponse {
+  status: string;
+  model_id: string;
+  name: string;
+  connection_state: string;
+  warmup_latency_ms: number;
+  message: string;
+  timestamp: string;
+}
+
+export interface ModelTestResponse {
+  status: string;
+  model_id: string;
+  name: string;
+  test_verdict: string;
+  benchmark_latency_ms: number;
+  timestamp: string;
 }
 

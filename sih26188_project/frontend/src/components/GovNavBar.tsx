@@ -10,6 +10,7 @@ import {
   ChevronDown,
   Layers,
   Lock,
+  Cpu,
 } from 'lucide-react';
 
 export type NavTab = 'home' | 'scan' | 'results' | 'audit' | 'sync' | 'help';
@@ -21,6 +22,7 @@ interface GovNavBarProps {
   onOpenAuditModal: () => void;
   onOpenJsonModal: () => void;
   onOpenConnectModal: () => void;
+  onOpenModelsModal?: () => void;
   onOpenSecurityProtocols?: () => void;
 }
 
@@ -31,6 +33,7 @@ export const GovNavBar: React.FC<GovNavBarProps> = ({
   onOpenAuditModal,
   onOpenJsonModal,
   onOpenConnectModal,
+  onOpenModelsModal,
   onOpenSecurityProtocols,
 }) => {
   return (
@@ -79,7 +82,17 @@ export const GovNavBar: React.FC<GovNavBarProps> = ({
             )}
           </button>
 
-          {/* 4. Audit & Certificate */}
+          {/* 4. AI Models & Diagnostics (Settings) */}
+          <button
+            onClick={() => onOpenModelsModal && onOpenModelsModal()}
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200/90 border border-slate-300 transition-all cursor-pointer shadow-2xs"
+            title="Open Neural Model Diagnostics & Enclave Settings"
+          >
+            <Cpu className="w-3.5 h-3.5 text-blue-600" />
+            <span>AI Model Diagnostics</span>
+          </button>
+
+          {/* 5. Audit & Certificate */}
           <button
             onClick={onOpenAuditModal}
             className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-all cursor-pointer"
@@ -88,7 +101,7 @@ export const GovNavBar: React.FC<GovNavBarProps> = ({
             <span>Audit Certificate</span>
           </button>
 
-          {/* 5. Raw JSON Telemetry */}
+          {/* 6. Raw JSON Telemetry */}
           <button
             onClick={onOpenJsonModal}
             className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-all cursor-pointer"
@@ -97,7 +110,7 @@ export const GovNavBar: React.FC<GovNavBarProps> = ({
             <span>Raw Telemetry</span>
           </button>
 
-          {/* 6. Companion Live Sync */}
+          {/* 7. Companion Live Sync */}
           <button
             onClick={onOpenConnectModal}
             className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-all cursor-pointer"
@@ -106,7 +119,7 @@ export const GovNavBar: React.FC<GovNavBarProps> = ({
             <span>Companion Sync</span>
           </button>
 
-          {/* 7. Help & Guidelines */}
+          {/* 8. Help & Guidelines */}
           <button
             onClick={() => onTabChange('help')}
             className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
@@ -124,12 +137,12 @@ export const GovNavBar: React.FC<GovNavBarProps> = ({
         <div className="hidden md:flex items-center space-x-2 py-1.5">
           <button
             type="button"
-            onClick={() => onOpenSecurityProtocols && onOpenSecurityProtocols()}
-            className="text-[10.5px] font-mono font-bold bg-amber-50 hover:bg-amber-100/80 text-amber-900 border border-amber-300 px-3 py-1 rounded-md shadow-2xs transition-all flex items-center space-x-1.5 cursor-pointer"
-            title="View Security & DPDP Compliance Enclave"
+            onClick={() => onOpenModelsModal && onOpenModelsModal()}
+            className="text-[10.5px] font-mono font-bold bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-300 px-3 py-1 rounded-md shadow-2xs transition-all flex items-center space-x-1.5 cursor-pointer"
+            title="Configure AI Models & Diagnostics"
           >
-            <Lock className="w-3 h-3 text-amber-700" />
-            <span>AIR-GAPPED DEFENSE WORKSTATION v2.4</span>
+            <Cpu className="w-3 h-3 text-blue-700" />
+            <span>NEURAL ENCLAVE ACTIVE</span>
           </button>
         </div>
       </div>
