@@ -105,23 +105,82 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showServerConfigDialog() {
-        val input = EditText(this).apply {
-            setText(apiService.getServerUrl())
-            hint = "http://192.168.1.100:8000"
+        val dialogView = layoutInflater.inflate(R.layout.dialog_connection_guide, null)
+        val editGateway = dialogView.findViewById<EditText>(R.id.editGatewayUrl)
+        val btnTestPing = dialogView.findViewById<Button>(R.id.btnTestPing)
+        val presetUsb = dialogView.findViewById<View>(R.id.presetUsb)
+        val presetWifi = dialogView.findViewById<View>(R.id.presetWifi)
+        val presetEmulator = dialogView.findViewById<View>(R.id.presetEmulator)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnSave = dialogView.findViewById<Button>(R.id.btnSaveConnect)
+
+        editGateway.setText(apiService.getServerUrl())
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        // 1-Tap Preset Handlers
+        presetUsb.setOnClickListener {
+            editGateway.setText("http://127.0.0.1:8000")
+            Toast.makeText(this, "Preset applied: USB ADB Reverse (127.0.0.1:8000)", Toast.LENGTH_SHORT).show()
         }
-        AlertDialog.Builder(this)
-            .setTitle("Desktop Gateway Configuration")
-            .setMessage("Enter Edge Gateway IP / Host URL:")
-            .setView(input)
-            .setPositiveButton("Connect") { _, _ ->
-                val newUrl = input.text.toString().trim()
-                if (newUrl.isNotEmpty()) {
-                    apiService.setServerUrl(newUrl, this)
-                    Toast.makeText(this, "Target Gateway updated: $newUrl", Toast.LENGTH_SHORT).show()
+
+        presetWifi.setOnClickListener {
+            editGateway.setText("http://172.16.6.187:8000")
+            Toast.makeText(this, "Preset applied: Local Wi-Fi (172.16.6.187:8000)", Toast.LENGTH_SHORT).show()
+        }
+
+        presetEmulator.setOnClickListener {
+            editGateway.setText("http://10.0.2.2:8000")
+            Toast.makeText(this, "Preset applied: Android Emulator Loopback (10.0.2.2:8000)", Toast.LENGTH_SHORT).show()
+        }
+
+        // Live Ping Test
+        btnTestPing.setOnClickListener {
+            val targetUrl = editGateway.text.toString().trim()
+            if (targetUrl.isEmpty()) return@setOnClickListener
+
+            btnTestPing.isEnabled = false
+            btnTestPing.text = "..."
+
+            scope.launch {
+                val tempService = CompanionApiService(this@MainActivity)
+                tempService.setServerUrl(targetUrl, this@MainActivity)
+                val isOnline = tempService.checkConnection(this@MainActivity)
+
+                withContext(Dispatchers.Main) {
+                    btnTestPing.isEnabled = true
+                    btnTestPing.text = "PING"
+                    if (isOnline) {
+                        Toast.makeText(this@MainActivity, "🟢 SUCCESS: Gateway $targetUrl is ONLINE!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@MainActivity, "🔴 UNREACHABLE: Cannot connect to $targetUrl", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
-            .setNegativeButton("Cancel", null)
-            .show()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnSave.setOnClickListener {
+            val newUrl = editGateway.text.toString().trim()
+            if (newUrl.isNotEmpty()) {
+                apiService.setServerUrl(newUrl, this)
+                Toast.makeText(this, "Target Gateway updated: $newUrl", Toast.LENGTH_SHORT).show()
+                scope.launch {
+                    val isOnline = apiService.checkConnection(this@MainActivity)
+                    withContext(Dispatchers.Main) {
+                        updateConnectionStatus(isOnline)
+                    }
+                }
+            }
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun setupCameraModeToggle() {
