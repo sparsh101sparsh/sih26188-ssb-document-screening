@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Sashastra Seema Bal — Sovereign Border Document Screening & Biometric Terminal
-Desktop Application Master Launcher
-Starts the air-gapped Edge AI backend (FastAPI) and launches the native Electron Desktop Window.
+Tauri / Desktop Master Launcher
+Starts the air-gapped Edge AI backend (FastAPI) and launches the native high-performance Tauri Desktop Application.
 """
 
 import os
@@ -15,6 +15,8 @@ import urllib.request
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
 FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
+TAURI_RELEASE = os.path.join(PROJECT_ROOT, "src-tauri", "target", "release", "ssb-screening")
+TAURI_DEBUG = os.path.join(PROJECT_ROOT, "src-tauri", "target", "debug", "ssb-screening")
 
 def is_backend_running(port=8000):
     try:
@@ -25,7 +27,7 @@ def is_backend_running(port=8000):
 
 def main():
     print("=" * 70)
-    print("  SASHASTRA SEEMA BAL — SOVEREIGN IMMIGRATION & SCREENING DESKTOP")
+    print("  SASHASTRA SEEMA BAL — SOVEREIGN TAURI DESKTOP ENCLAVE")
     print("  Ministry of Home Affairs • Government of India")
     print("=" * 70)
 
@@ -53,14 +55,23 @@ def main():
     else:
         print("[✓] Detected active Edge AI Backend on port 8000.")
 
-    # Launch Electron Desktop App
-    print("\n[*] Launching SSB Native Desktop Terminal Window...")
+    # Determine Desktop GUI executable
+    desktop_bin = None
+    if os.path.exists(TAURI_RELEASE):
+        desktop_bin = TAURI_RELEASE
+        print(f"\n[*] Launching High-Performance Tauri Native App: {TAURI_RELEASE} (12 MB)")
+    elif os.path.exists(TAURI_DEBUG):
+        desktop_bin = TAURI_DEBUG
+        print(f"\n[*] Launching Tauri App: {TAURI_DEBUG}")
+
     try:
-        electron_proc = subprocess.Popen(
-            ["npx", "electron", "."],
-            cwd=FRONTEND_DIR
-        )
-        electron_proc.wait()
+        if desktop_bin:
+            gui_proc = subprocess.Popen([desktop_bin])
+            gui_proc.wait()
+        else:
+            print("\n[*] Launching Electron Desktop GUI fallback...")
+            gui_proc = subprocess.Popen(["npx", "electron", "."], cwd=FRONTEND_DIR)
+            gui_proc.wait()
     except KeyboardInterrupt:
         pass
     finally:
