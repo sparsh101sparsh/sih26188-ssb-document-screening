@@ -15,6 +15,7 @@ import urllib.request
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
 FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
+TAURI_APP_BUNDLE = os.path.join(PROJECT_ROOT, "src-tauri", "target", "release", "bundle", "macos", "SSB Screening.app")
 TAURI_RELEASE = os.path.join(PROJECT_ROOT, "src-tauri", "target", "release", "ssb-screening")
 TAURI_DEBUG = os.path.join(PROJECT_ROOT, "src-tauri", "target", "debug", "ssb-screening")
 
@@ -56,21 +57,24 @@ def main():
         print("[✓] Detected active Edge AI Backend on port 8000.")
 
     # Determine Desktop GUI executable
-    desktop_bin = None
-    if os.path.exists(TAURI_RELEASE):
-        desktop_bin = TAURI_RELEASE
-        print(f"\n[*] Launching High-Performance Tauri Native App: {TAURI_RELEASE} (12 MB)")
-    elif os.path.exists(TAURI_DEBUG):
-        desktop_bin = TAURI_DEBUG
-        print(f"\n[*] Launching Tauri App: {TAURI_DEBUG}")
+    desktop_app = None
+    if os.path.exists(TAURI_APP_BUNDLE):
+        desktop_app = TAURI_APP_BUNDLE
+        print(f"\n[*] Launching Bundled Tauri macOS App: {TAURI_APP_BUNDLE}")
+    elif os.path.exists(TAURI_RELEASE):
+        desktop_app = TAURI_RELEASE
+        print(f"\n[*] Launching High-Performance Tauri Native App: {TAURI_RELEASE}")
 
     try:
-        if desktop_bin:
-            gui_proc = subprocess.Popen([desktop_bin])
+        if desktop_app and desktop_app.endswith(".app"):
+            gui_proc = subprocess.Popen(["open", "-W", desktop_app])
+            gui_proc.wait()
+        elif desktop_app:
+            gui_proc = subprocess.Popen([desktop_app])
             gui_proc.wait()
         else:
-            print("\n[*] Launching Electron Desktop GUI fallback...")
-            gui_proc = subprocess.Popen(["npx", "electron", "."], cwd=FRONTEND_DIR)
+            print("\n[*] Launching Desktop GUI fallback...")
+            gui_proc = subprocess.Popen(["npm", "run", "desktop"], cwd=FRONTEND_DIR)
             gui_proc.wait()
     except KeyboardInterrupt:
         pass
