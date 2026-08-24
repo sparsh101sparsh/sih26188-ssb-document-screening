@@ -10,6 +10,7 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
   const [isReady, setIsReady] = useState(false);
   const [descending, setDescending] = useState(false);
   const [impacted, setImpacted] = useState(false);
+  const [showDelayedLoader, setShowDelayedLoader] = useState(false);
   const [sheenExit, setSheenExit] = useState(false);
   const [exiting, setExiting] = useState(false);
 
@@ -44,19 +45,26 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
             }
           }, 1700));
 
-          // 3. Luxurious Sheen Sweep & Fadeout Transition begins at 4600ms (3.0s majestic display hold)
+          // 3. ONLY if after desired animation time (4200ms) screen is still waiting, show circular loader
+          timers.push(setTimeout(() => {
+            if (isMounted && !sheenExit && !exiting) {
+              setShowDelayedLoader(true);
+            }
+          }, 4200));
+
+          // 4. Sheen Sweep & Fadeout Transition at 4800ms
           timers.push(setTimeout(() => {
             if (isMounted) {
               setSheenExit(true);
               setExiting(true);
               if (onTransitionStart) onTransitionStart();
             }
-          }, 4600));
+          }, 4800));
 
-          // 4. Complete unmount and reveal workstation at 5400ms
+          // 5. Complete unmount and reveal workstation at 5600ms
           timers.push(setTimeout(() => {
             if (isMounted) onComplete();
-          }, 5400));
+          }, 5600));
         });
       });
     };
@@ -129,6 +137,21 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
         <h1 className="stamp-title">SASHASTRA SEEMA BAL</h1>
         <p className="stamp-motto">सशस्त्र सीमा बल • सेवा • सुरक्षा • बन्धुत्व</p>
         <div className="stamp-badge">OFFICIAL DEFENSE & IMMIGRATION SCREENING TERMINAL</div>
+
+        {/* Circular Round Defense Loading Spinner — only visible if workspace still loading after desired animation time */}
+        {showDelayedLoader && (
+          <div className="mt-6 flex flex-col items-center justify-center transition-all duration-500 ease-out">
+            <div className="relative flex items-center justify-center w-8 h-8">
+              {/* Outer spinning gold halo */}
+              <div className="absolute inset-0 rounded-full border-2 border-[#D4AF37]/25 border-t-[#FFDF73] border-r-[#FDE68A] animate-spin shadow-[0_0_16px_rgba(255,223,115,0.5)]" />
+              {/* Inner pulsing radar core */}
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FFDF73] shadow-[0_0_8px_#FFDF73] animate-pulse" />
+            </div>
+            <span className="text-[10.5sp] font-mono text-[#FDE68A] tracking-wider uppercase font-semibold mt-2.5 opacity-90 text-[10px]">
+              Initializing Workspace Enclave...
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Slow-Motion 6.0s Keyframes */}
