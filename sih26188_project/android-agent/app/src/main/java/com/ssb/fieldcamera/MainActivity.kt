@@ -31,6 +31,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var outboxCount: TextView
     private lateinit var modeSelfie: TextView
     private lateinit var modeDocument: TextView
+    private lateinit var verdictBanner: LinearLayout
+    private lateinit var verdictTitle: TextView
+    private lateinit var verdictDetails: TextView
 
     private lateinit var cameraExecutor: ExecutorService
     private var imageCapture: ImageCapture? = null
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var apiService: CompanionApiService
     private lateinit var outboxManager: OutboxManager
     private var lastUploadedSeq: Int = 0
+    private var lastHandledVerdictSeq: Int = 0
 
     private enum class CaptureMode {
         SELFIE, DOCUMENT
@@ -75,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         window.decorView.postDelayed({
             startConnectionCheck()
             startOutboxSync()
+            startVerdictListener()
         }, 1500)
     }
 
@@ -87,6 +92,9 @@ class MainActivity : AppCompatActivity() {
         outboxCount = findViewById(R.id.outboxCount)
         modeSelfie = findViewById(R.id.modeSelfie)
         modeDocument = findViewById(R.id.modeDocument)
+        verdictBanner = findViewById(R.id.verdictBanner)
+        verdictTitle = findViewById(R.id.verdictTitle)
+        verdictDetails = findViewById(R.id.verdictDetails)
     }
 
 
@@ -310,6 +318,49 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun startVerdictListener() {
+        scope.launch {
+            while (isActive) {
+                try {
+                    val verdictRes = apiService.fetchLatestVerdict()
+                    if (verdictRes.hasVerdict && verdictRes.sequenceId > lastHandledVerdictSeq) {
+                        lastHandledVerdictSeq = verdictRes.sequenceId
+                        withContext(Dispatchers.Main) {
+                            showLiveVerdictHUD(verdictRes)
+                        }
+                    }
+                } catch (_: Exception) {}
+                delay(2000)
+            }
+        }
+    }
+
+    private fun showLiveVerdictHUD(res: VerdictResult) {
+        val colorRes = when (res.riskLevel.uppercase()) {
+            "RED" -> R.color.status_red
+            "AMBER" -> R.color.status_orange
+            else -> R.color.status_green
+        }
+
+        verdictTitle.text = res.verdict
+        verdictTitle.setTextColor(getColor(colorRes))
+        verdictDetails.text = res.details.ifEmpty { "Threat Score: ${String.format("%.1f", res.riskScore)}/100" }
+
+        verdictBanner.alpha = 0f
+        verdictBanner.visibility = View.VISIBLE
+        verdictBanner.animate().alpha(1f).translationY(0f).setDuration(400).start()
+        verdictBanner.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
+
+        scope.launch {
+            delay(7000)
+            withContext(Dispatchers.Main) {
+                verdictBanner.animate().alpha(0f).setDuration(400).withEndAction {
+                    verdictBanner.visibility = View.GONE
+                }.start()
+            }
+        }
+    }
 
     private fun updateOutboxCount(count: Int = 0) {
         if (count > 0) {
