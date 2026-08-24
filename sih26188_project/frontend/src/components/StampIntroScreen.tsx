@@ -10,6 +10,8 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
   const [isReady, setIsReady] = useState(false);
   const [descending, setDescending] = useState(false);
   const [impacted, setImpacted] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [loadingStatus, setLoadingStatus] = useState('INITIALIZING AIR-GAPPED DEFENSE WORKSPACE...');
   const [sheenExit, setSheenExit] = useState(false);
   const [exiting, setExiting] = useState(false);
 
@@ -31,32 +33,51 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
           if (!isMounted) return;
           setIsReady(true);
 
-          // 1. Slow, deliberate 3D descent begins at 250ms after visual stabilization
+          // 1. Slow, deliberate 3D descent begins at 200ms
           timers.push(setTimeout(() => {
             if (isMounted) setDescending(true);
-          }, 250));
+          }, 200));
 
-          // 2. Heavy Stamp Impact slams down at 1800ms
+          // 2. Heavy Stamp Impact slams down at 1700ms
           timers.push(setTimeout(() => {
             if (isMounted) {
               setDescending(false);
               setImpacted(true);
+              setLoadingProgress(25);
+              setLoadingStatus('CALIBRATING NEURAL MODELS (SCRFD • ADAFACE • PP-OCR)...');
             }
-          }, 1800));
+          }, 1700));
 
-          // 3. Luxurious Sheen Sweep & Fadeout Transition begins at 4800ms
+          // 3. Progress Step 2 at 2800ms
           timers.push(setTimeout(() => {
             if (isMounted) {
+              setLoadingProgress(65);
+              setLoadingStatus('SECURING BIOMETRIC & VERHOEFF AUDIT ENCLAVE...');
+            }
+          }, 2800));
+
+          // 4. Progress Step 3 at 3900ms
+          timers.push(setTimeout(() => {
+            if (isMounted) {
+              setLoadingProgress(95);
+              setLoadingStatus('WORKSTATION READY • INITIALIZING TERMINAL...');
+            }
+          }, 3900));
+
+          // 5. Luxurious Sheen Sweep & Fadeout Transition begins at 4800ms
+          timers.push(setTimeout(() => {
+            if (isMounted) {
+              setLoadingProgress(100);
               setSheenExit(true);
               setExiting(true);
               if (onTransitionStart) onTransitionStart();
             }
           }, 4800));
 
-          // 4. Complete unmount and reveal workstation at 5800ms
+          // 6. Complete unmount and reveal workstation at 5700ms
           timers.push(setTimeout(() => {
             if (isMounted) onComplete();
-          }, 5800));
+          }, 5700));
         });
       });
     };
@@ -70,6 +91,7 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
   }, [onTransitionStart, onComplete]);
 
   const handleSkip = () => {
+    setLoadingProgress(100);
     setSheenExit(true);
     setExiting(true);
     if (onTransitionStart) onTransitionStart();
@@ -129,6 +151,24 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
         <h1 className="stamp-title">SASHASTRA SEEMA BAL</h1>
         <p className="stamp-motto">सशस्त्र सीमा बल • सेवा • सुरक्षा • बन्धुत्व</p>
         <div className="stamp-badge">OFFICIAL DEFENSE & IMMIGRATION SCREENING TERMINAL</div>
+
+        {/* Dynamic Defense Loading Telemetry Bar */}
+        <div className="mt-5 flex flex-col items-center w-72 max-w-xs mx-auto">
+          <div className="w-full bg-[#0B1E3B] h-1.5 rounded-full overflow-hidden border border-[#D4AF37]/30 shadow-[0_0_12px_rgba(212,175,55,0.25)] relative">
+            <div
+              className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFDF73] to-[#F3CE63] rounded-full transition-all duration-700 ease-out relative"
+              style={{ width: `${Math.max(loadingProgress, impacted ? 15 : 0)}%` }}
+            >
+              <div className="absolute inset-0 bg-white/30 animate-pulse" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-2 mt-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#FFDF73] animate-ping" />
+            <span className="text-[10px] font-mono text-[#FDE68A] tracking-wider uppercase font-semibold">
+              {loadingStatus}
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* Slow-Motion 6.0s Keyframes */}
