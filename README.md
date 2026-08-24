@@ -124,20 +124,24 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ---
 
-### 2. 💻 Desktop Web Terminal Setup
+### 2. 🖥️ Native Standalone Desktop Application (Electron) & Web Terminal
 ```bash
-cd sih26188_project/frontend
+cd sih26188_project
 
-# Install dependencies
-npm install
+# Launch standalone Desktop App + Backend automatically:
+./launch_desktop.sh
+# or
+python3 launch_desktop.py
 
-# Start development server on port 3000
+# Or run the Desktop Application via npm:
+cd frontend
+npm run desktop
+
+# Or run in Web Browser mode on port 3000:
 npm run dev
-
-# Or build production bundle
-npm run build
 ```
-Access the application in your browser: 👉 `http://localhost:3000`
+- **Desktop Window**: Launches native 1440×940 border workstation window with hardware acceleration and defense menus.
+- **Web Browser Access**: 👉 `http://localhost:3000`
 
 ---
 
