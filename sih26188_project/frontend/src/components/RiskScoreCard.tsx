@@ -22,10 +22,10 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
 
   const strokeColor =
     risk_level === 'GREEN'
-      ? '#10B981'
+      ? 'var(--green)'
       : risk_level === 'AMBER'
-      ? '#F59E0B'
-      : '#EF4444';
+      ? 'var(--orange)'
+      : 'var(--red)';
 
   const copyHash = () => {
     if (!audit_hash) return;
@@ -36,7 +36,7 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
 
   return (
     <div
-      className="bg-surface border border-line rounded-card p-4 flex flex-col justify-between shadow-card"
+      className="flex flex-col justify-between rounded-card bg-surface p-4 shadow-card"
     >
       <div className="flex items-center justify-between border-b border-line pb-2.5 mb-3">
         <div className="flex items-center space-x-2">
@@ -110,18 +110,18 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
 
           {showFormula && (
             <p className="text-[10px] text-ink-2 bg-surface p-1.5 rounded-control mb-2 border border-line font-mono">
-              Λ_post = Λ₀ + Σ ΔΛᵢ · Score = 100 / (1 + exp(−L_post))
+              Calibrated Risk Score = Baseline Risk + Σ Security Check Risk Factors (0 - 100)
             </p>
           )}
 
           {score_breakdown ? (
             <div className="space-y-1 font-mono text-[11px]">
               {([
-                ['Base Checkpoint Baseline', score_breakdown.base_prior_log_odds],
-                ['Ink / Substrate Tamper Impact', score_breakdown.tamper_log_odds_delta],
-                ['Face Match / Liveness Impact', score_breakdown.face_log_odds_delta],
-                ['Cross-Verification Mismatch', score_breakdown.cross_val_log_odds_delta],
-                ['Border Stamp Irregularity', score_breakdown.stamp_log_odds_delta],
+                ['Baseline Risk Factor', score_breakdown.base_prior_log_odds],
+                ['Tamper Check Risk Factor', score_breakdown.tamper_log_odds_delta],
+                ['Face Match / Liveness Risk Factor', score_breakdown.face_log_odds_delta],
+                ['Cross-Verification Risk Factor', score_breakdown.cross_val_log_odds_delta],
+                ['Border Stamp Risk Factor', score_breakdown.stamp_log_odds_delta],
               ] as [string, number][]).map(([label, val]) => (
                 <div key={label} className="flex justify-between text-ink-2">
                   <span>{label}:</span>
@@ -131,7 +131,7 @@ export const RiskScoreCard: React.FC<RiskScoreCardProps> = ({ assessment }) => {
                 </div>
               ))}
               <div className="border-t border-line pt-1 flex justify-between font-bold text-ink">
-                <span>Calibrated Threat Risk:</span>
+                <span>Calibrated Operational Risk:</span>
                 <span className="text-accent">
                   {(score_breakdown.raw_posterior_probability * 100).toFixed(1)}%
                 </span>

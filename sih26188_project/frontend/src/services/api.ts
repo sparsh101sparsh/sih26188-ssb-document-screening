@@ -5,7 +5,10 @@
 
 import { DocumentInspectResponse } from '../types/api';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+export const API_BASE_URL: string =
+  (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_BASE_URL) ||
+  ((globalThis as any)?.process?.env?.VITE_API_BASE_URL) ||
+  'http://localhost:8000';
 
 export interface HealthStatus {
   online: boolean;
@@ -61,7 +64,7 @@ export async function checkBackendHealth(): Promise<HealthStatus> {
     return {
       online: false,
       latencyMs: latency,
-      message: err.name === 'AbortError' ? 'Connection timed out' : 'Backend offline (localhost:8000 unreachable)',
+      message: err.name === 'AbortError' ? 'Connection timed out' : `Backend offline (${API_BASE_URL} unreachable)`,
     };
   }
 }
@@ -73,16 +76,19 @@ export async function inspectDocument(
   docFile: File | Blob,
   livePhotoFile?: File | Blob | null,
   checkpointId = 'SSB-WB-JAI-01',
-  transitDate = new Date().toISOString().split('T')[0]
+  officerId = 'OFFICER-7482'
 ): Promise<DocumentInspectResponse> {
   const formData = new FormData();
-  formData.append('document_image', docFile, 'document.jpg');
+  formData.append('document_file', docFile, (docFile as File).name || 'document.jpg');
+  formData.append('document_image', docFile, (docFile as File).name || 'document.jpg');
 
   if (livePhotoFile) {
-    formData.append('live_face_image', livePhotoFile, 'live_face.jpg');
+    formData.append('live_photo_file', livePhotoFile, (livePhotoFile as File).name || 'live_face.jpg');
+    formData.append('live_face_image', livePhotoFile, (livePhotoFile as File).name || 'live_face.jpg');
   }
-  formData.append('declared_checkpost', checkpointId);
-  formData.append('declared_transit_date', transitDate);
+
+  formData.append('checkpoint_id', checkpointId);
+  formData.append('officer_id', officerId);
 
   const response = await fetch(`${API_BASE_URL}/api/v1/scan/inspect`, {
     method: 'POST',
@@ -91,9 +97,167 @@ export async function inspectDocument(
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Screening request failed (HTTP ${response.status}): ${errorText || response.statusText}`);
+    throw new Error(`Inference engine error (HTTP ${response.status}): ${errorText}`);
   }
 
-  const result: DocumentInspectResponse = await response.json();
-  return result;
+  return response.json();
 }
+
+/**
+ * Post screening verdict to Edge Gateway so Android field units receive live alerts
+ */
+export async function postScreeningVerdict(
+  sequenceId: number,
+  verdict: string,
+  riskLevel: string,
+  riskScore: number,
+  details: string
+): Promise<void> {
+  try {
+    await fetch(`${API_BASE_URL}/api/v1/companion/verdict`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sequence_id: sequenceId,
+        verdict,
+        risk_level: riskLevel,
+        risk_score: riskScore,
+        details,
+      }),
+    });
+  } catch (err) {
+    console.warn('Failed to sync verdict to companion:', err);
+  }
+}
+
+/**
+ * Clear companion camera capture buffer
+ */
+export async function clearCompanionCapture(): Promise<void> {
+  try {
+    await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
+      method: 'POST',
+    });
+  } catch (err) {
+    console.warn('Failed to clear companion capture:', err);
+  }
+}
+
+export interface CompanionInfoResponse {
+  status: string;
+  primary_ip: string;
+  local_ips: string[];
+  port: number;
+  gateway_url: string;
+  emulator_url: string;
+  adb_command: string;
+  active_devices_count: number;
+  devices: Array<{
+    client_ip: string;
+    user_agent?: string;
+    checkpoint_id?: string;
+    last_seen: string;
+    last_endpoint: string;
+    total_requests: number;
+    latency_ms?: number;
+    status: string;
+  }>;
+  checkpoint_id: string;
+  timestamp: number;
+}
+
+/**
+ * Fetch Edge Gateway Companion Pairing & Network Info
+ */
+export async function getCompanionInfo(): Promise<CompanionInfoResponse | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/companion/info`);
+    if (res.ok) {
+      return res.json();
+    }
+    return null;
+  } catch (err) {
+    console.warn('Failed to fetch companion info:', err);
+    return null;
+  }
+}
+
+/**
+ * Trigger simulated field capture upload for testing
+ */
+export async function simulateCompanionUpload(
+  captureType: 'document' | 'selfie',
+  deviceId = 'Android-Pixel-7 (Field Unit #01)',
+  checkpointId = 'SSB-WB-JAI-01'
+): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/companion/simulate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      capture_type: captureType,
+      device_id: deviceId,
+      checkpoint_id: checkpointId,
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`Simulation failed: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+export interface CompanionCaptureState {
+  has_capture: boolean;
+  sequence_id: number;
+  capture_type: 'selfie' | 'document' | 'traveler_live' | string;
+  device_id: string;
+  checkpoint_id: string;
+  image_data?: string | null;
+  filename?: string | null;
+  timestamp?: number;
+}
+
+/**
+ * Poll latest companion camera capture from Edge Gateway
+ */
+export async function getLatestCompanionCapture(): Promise<CompanionCaptureState | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/companion/latest`);
+    if (res.ok) {
+      return res.json();
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+}
+
+export interface CompanionVerdictResponse {
+  has_verdict?: boolean;
+  sequence_id: number;
+  verdict: string;
+  risk_level: string;
+  risk_score: number;
+  details: string;
+  timestamp?: number;
+}
+
+/**
+ * Fetch latest screening verdict or verdict for a specific sequence ID
+ */
+export async function getCompanionVerdict(sequenceId?: number): Promise<CompanionVerdictResponse | null> {
+  try {
+    const endpoint =
+      sequenceId !== undefined && sequenceId !== null
+        ? `${API_BASE_URL}/api/v1/companion/result/${sequenceId}`
+        : `${API_BASE_URL}/api/v1/companion/verdict`;
+    const res = await fetch(endpoint);
+    if (res.ok) {
+      return res.json();
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+}
+
+

@@ -8,10 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* Obsidian Precision Design Tokens */
+        /* Sovereign Defense & Government Gold tokens */
         page: 'var(--page)',
         canvas: 'var(--canvas)',
         surface: 'var(--surface)',
+        'surface-elevated': 'var(--surface-elevated)',
         inset: 'var(--inset)',
         field: 'var(--field)',
         hover: 'var(--hover)',
@@ -21,12 +22,31 @@ export default {
         'ink-3': 'var(--ink-3)',
         line: 'var(--line)',
         'line-strong': 'var(--line-strong)',
+        'line-gold': 'var(--line-gold)',
+        
+        /* Gold Accent Tokens */
         accent: 'var(--accent)',
         'accent-hover': 'var(--accent-hover)',
         'accent-ink': 'var(--accent-ink)',
         'accent-tint': 'var(--accent-tint)',
-        'brand-purple': 'var(--brand-purple)',
-        'brand-purple-dark': 'var(--brand-purple-dark)',
+        gold: {
+          light: '#FFF3B8',
+          bright: '#F3CE63',
+          DEFAULT: '#C5962B',
+          dark: '#8D6412',
+          deep: '#5C4008',
+        },
+        navy: {
+          deep: '#020814',
+          midnight: '#061022',
+          base: '#0B1D3A',
+          card: '#0D254F',
+          surface: '#102B59',
+          royal: '#07325F',
+          highlight: '#0B4278',
+        },
+
+        /* Status Verdict Tokens */
         green: 'var(--green)',
         'green-bg': 'var(--green-bg)',
         'green-tint': 'var(--green-tint)',
@@ -39,20 +59,11 @@ export default {
         'red-bg': 'var(--red-bg)',
         'red-tint': 'var(--red-tint)',
         'red-border': 'var(--red-border)',
-
-        /* Canonical Obsidian Stack */
-        obsidian: {
-          canvas: '#090A0F',
-          panel: '#0E121A',
-          card: '#141A24',
-          raised: '#1B2230',
-          overlay: '#222B3D',
-          inset: '#0D1117',
-        },
       },
       fontFamily: {
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['"Cinzel"', 'Georgia', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       borderRadius: {
         chip: 'var(--radius-chip)',
@@ -62,6 +73,8 @@ export default {
       },
       boxShadow: {
         hairline: 'var(--shadow-hairline)',
+        gold: '0 0 0 1px rgba(212, 175, 55, 0.28), 0 4px 20px rgba(0, 0, 0, 0.45)',
+        'gold-glow': '0 0 25px rgba(226, 184, 66, 0.35)',
         btn: 'var(--shadow-btn)',
         card: 'var(--shadow-card)',
         raised: 'var(--shadow-raised)',
@@ -78,6 +91,9 @@ export default {
         'pop-out': 'pop-out 160ms var(--ease-out-strong) both',
         'fade-up': 'fade-up 220ms var(--ease-out-strong) both',
         'fade-in': 'fade-in 180ms ease-out both',
+        'stream-in': 'stream-in 280ms var(--ease-out-strong) both',
+        'radar-sweep': 'radar-sweep 3.5s linear infinite',
+        'gold-shimmer': 'gold-shimmer 2.5s ease-in-out infinite',
       },
       keyframes: {
         'pop-in': {
@@ -96,6 +112,14 @@ export default {
           from: { opacity: '0' },
           to: { opacity: '1' },
         },
+        'radar-sweep': {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+        'gold-shimmer': {
+          '0%, 100%': { opacity: '0.85', filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.4))' },
+          '50%': { opacity: '1.0', filter: 'drop-shadow(0 0 20px rgba(255,223,109,0.8))' },
+        }
       },
     },
   },

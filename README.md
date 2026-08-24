@@ -1,213 +1,184 @@
-# 🛡️ Sashastra Seema Bal (SSB) — AI-Based Fake Identity & Document Screening System (SIH26188)
+# 🛡️ Sashastra Seema Bal (SSB) — AI-Powered Border Document Screening & Biometric Verification System
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![React 19](https://img.shields.io/badge/React-19-61dafb.svg)](https://react.dev/)
-[![Tauri 2.0](https://img.shields.io/badge/Tauri-2.0-FFC131.svg)](https://tauri.app/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688.svg)](https://fastapi.tiangolo.com/)
 [![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-1.20%2B-005CED.svg)](https://onnxruntime.ai/)
+[![Android API 34](https://img.shields.io/badge/Android-API_34-3DDC84.svg)](https://developer.android.com/)
+[![DPDP Act 2023](https://img.shields.io/badge/Compliance-DPDP_Act_2023-emerald.svg)](https://www.meity.gov.in/)
 
 **Smart India Hackathon 2026 Problem Statement SIH26188**  
-*Ministry of Home Affairs (MHA) · Sashastra Seema Bal (SSB)*  
-**Air-Gapped Multi-Modal Defense-Grade Border Credential & Biometric Inspection System**
+*Ministry of Home Affairs (MHA) • Sashastra Seema Bal (SSB)*  
+**Air-Gapped Sovereign Multi-Modal Defense-Grade Border Credential & Biometric Inspection Workstation**
 
 ---
 
-## 📌 Overview
+## 📌 Executive Summary
 
-The **SSB AI-Based Fake Identity & Document Screening System** is an air-gapped, multi-stream identity verification and document forensic engine designed for rugged border checkposts (Indo-Nepal & Indo-Bhutan frontiers, e.g., Sonauli, Jaigaon, Raxaul, Panitanki).
+The **SSB AI-Powered Border Document Screening System** is an air-gapped, multi-stream identity verification and document forensics platform engineered specifically for rugged Indo-Nepal and Indo-Bhutan border checkposts (e.g., *Jaigaon / Phuentsholing, Sonauli, Raxaul, Panitanki*).
 
-### 🚀 Key Capabilities
-1. **Multi-Modal Document Intake**: High-accuracy extraction across Passports (ICAO Doc 9303), Aadhaar PVC/Cards, Voter IDs, Bhutan Citizenship Identity Cards (CID), and Transit Permits.
-2. **3-Stream Neural Pipeline**:
-   - **Stream 1 (OCR & Cryptographic Check)**: Multilingual PP-OCRv4 + ICAO Modulo-10 (7-3-1 weighting) Checksum + UIDAI RSA-2048 PKI signature verification.
-   - **Stream 2 (Biometrics & Anti-Spoofing)**: AdaFace 512D Cosine Embedder + MiniFASNetV2 Fourier Liveness & 2D replay attack detection + Apparent Age Estimation.
-   - **Stream 3 (Forensic Tampering Localization)**: DocTamper ResNet-50 pixel-level splice detection + Error Level Analysis (ELA) + JPEG Quantization Table (DQT) anomaly inspection.
-   - **Stream 4 (Border Transit Stamp Verification)**: 4-Stage SSB Registry Stamp template matcher (ORB Keypoints + SSIM Correlation + Context/Date Consistency).
-3. **8-Point Cross-Validation Matrix**: Real-time cross-stream contradiction detection (e.g. Visual DOB vs MRZ DOB, Photo Splicing vs Substrate ELA).
-4. **Deterministic Hard Tripwires**: Instantaneous RED detention mandates on digital signature breaches or checksum failures.
-5. **Defense-Grade UI (Beautiful-UI)**: Dark-theme surface system with interactive discrepancy matrices (`DiffTable`), cross-validation filters (`FilterTable`), and human-in-the-loop authorization (`ApprovalCard`).
-6. **Air-Gapped & Zero-Cloud**: 100% offline edge processing with deterministic SHA-256 tamper-evident audit hashing.
+The system integrates an **Edge AI Neural Inference Engine**, an **Official Government UIDAI-Themed Desktop Terminal**, and a **Mobile Field Companion Android App** to deliver sub-second tamper detection, 1:1 facial biometric matching, optical character recognition (OCR), and cryptographic validation with zero cloud dependency.
 
 ---
 
-## 💻 System Architecture
+## 🏛️ System Architecture
 
 ```
-                                  ┌───────────────────────────────┐
-                                  │   Document Scan + Live Selfie │
-                                  └───────────────┬───────────────┘
-                                                  │
-                                  ┌───────────────▼───────────────┐
-                                  │    FastAPI Edge AI Server     │
-                                  │ (CoreML / CUDA / DirectML / CPU│
-                                  └───────┬───────────────┬───────┘
-                     ┌────────────────────┼───────────────┴───────────────────┐
-                     │                    │                                   │
-          ┌──────────▼──────────┐ ┌───────▼─────────┐             ┌───────────▼───────────┐
-          │  Stream 1: OCR/MRZ  │ │ Stream 2: Face  │             │ Stream 3: Forensics   │
-          │ • PP-OCRv4 Multi    │ │ • AdaFace 512D  │             │ • DocTamper ResNet-50 │
-          │ • ICAO Modulo-10    │ │ • MiniFASNet FAS│             │ • ELA & DQT Analysis  │
-          │ • UIDAI RSA-2048    │ │ • Apparent Age  │             │ • Stamp Matcher (ORB) │
-          └──────────┬──────────┘ └───────┬─────────┘             └───────────┬───────────┘
-                     │                    │                                   │
-                     └────────────────────┼───────────────────────────────────┘
-                                          │
-                                  ┌───────▼─────────┐
-                                  │ Cross-Validation│
-                                  │  & Risk Engine  │
-                                  └───────┬─────────┘
-                                          │
-                           ┌──────────────┴──────────────┐
-                           │                             │
-                 ┌─────────▼───────────┐       ┌─────────▼───────────┐
-                 │  Tauri Desktop App  │       │ Android Field Client│
-                 │ (macOS / Windows)   │       │ (USB / Hotspot)     │
-                 └─────────────────────┘       └─────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 FIELD CAPTURE & INGESTION                               │
+├──────────────────────────────────────────┬─────────────────────────────────────────────┤
+│         📱 Android Field Companion       │         💻 Desktop Screening Terminal       │
+│  (CameraX, Offline Outbox, WiFi Sync)    │    (UIDAI Light-Theme, Screen Reader)       │
+└────────────────────┬─────────────────────┴──────────────────────┬──────────────────────┘
+                     │                                            │
+                     └─────────────────────┬──────────────────────┘
+                                           │ Multipart / REST / WebSocket
+                                           ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                        FASTAPI MULTI-STREAM EDGE AI ENGINE                             │
+│                  (CoreML / CUDA / DirectML / CPU — Air-Gapped)                         │
+├──────────────────────┬───────────────────────┬───────────────────┬─────────────────────┤
+│ 1. Optical & Crypto  │ 2. Biometric Engine   │ 3. Forensic Layer │ 4. Border Registry  │
+│  • PP-OCRv4 Multi    │  • SCRFD Face Detect  │  • ELA Heatmaps   │  • ORB Stamp Match  │
+│  • ICAO 9303 Modulo10│  • Umeyama Alignment  │  • DQT Quant Error│  • SSIM Correlation │
+│  • UIDAI RSA-2048 PKI│  • AdaFace 512-D Unit │  • Splice Detect  │  • Transit Validity │
+└──────────────────────┴───────────┬───────────┴───────────────────┴─────────────────────┘
+                                   │
+                                   ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│               CROSS-STREAM CONSISTENCY GUARDS & BAYESIAN RISK ENGINE                   │
+│   • 8-Point Cross-Validation Matrix (Visual DOB vs MRZ vs QR Demographics)            │
+│   • Deterministic Hard Tripwires (Immediate Detention on Cryptographic Breach)         │
+│   • SHA-256 Tamper-Evident Defense Audit Certificate (DPDP Act 2023 Zero-Retention)    │
+└──────────────────────────────────┬─────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                     DECISION CONSOLE & OFFICIAL OUTPUTS                                │
+│   [ AUTO-CLEAR: Approved ]    [ SECONDARY: Manual Hold ]    [ INTERDICTION: Detain ]   │
+└────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🛠️ Installation & Setup Guide
+## 🧠 Neural Models & Forensics Matrix
 
-### 1. Prerequisites (macOS & Windows)
-
-- **Node.js**: `v18.0.0+` or `v20.0.0+` (LTS recommended)
-- **Python**: `3.10` or `3.11` (Python 3.11 recommended)
-- **Rust & Cargo**: Latest stable toolchain (required for Tauri desktop build)
-- **Git**
+| Forensic Pillar | Model / Algorithm | Resolution / Format | Latency | Purpose |
+| :--- | :--- | :--- | :--- | :--- |
+| **Face Detection & Alignment** | `InsightFace SCRFD-10GF` | Dynamic / 112×112 crop | 14 ms | Auto-localizes face on full IDs, extracts 5 landmarks, and performs Umeyama affine alignment. |
+| **1:1 Face Embedder** | `AdaFace-ResNet100` | 112×112×3 RGB | 28 ms | Quality-adaptive 512-D unit embedding extraction with cosine similarity against live selfie. |
+| **Multilingual OCR** | `PP-OCRv4 Multilingual` | 24-bit RGB (300+ DPI) | 45 ms | High-accuracy textual extraction in English, Devanagari, and Bengali scripts. |
+| **MRZ Checksum Parser** | `ICAO Doc 9303 (7-3-1)` | TD1 / TD2 / TD3 format | < 1 ms | Validates Modulo-10 check digits (CD1, CD2, CD3, composite checksum). |
+| **PKI Signature Guard** | `RSA-2048 / ECDSA-P256`| ASN.1 / X.509 DER | 2 ms | Verifies digital cryptographic signatures on Aadhaar and e-Passport QR payloads. |
+| **Error Level Analysis** | `Adaptive ELA + DQT` | Dual-canvas heatmap | 18 ms | Highlights image compression anomalies, localized pixel splices, and digital alterations. |
+| **Border Transit Stamp** | `ORB Keypoints + SSIM` | Multi-angle template | 22 ms | Matches physical SSB checkpoint entry/exit stamps against the national registry. |
 
 ---
 
-### 🍏 Setup on macOS (Apple Silicon M1/M2/M3/M4 & Intel)
+## ✨ Key Platform Features
 
-#### Step 1: Clone Repository
+### 1. 🇮🇳 Official UIDAI / Aadhaar Design System
+- **Government Aesthetics**: Clean white/slate cards (`#F8FAFC`, `#FFFFFF`), deep navy typography (`#0F172A`), official Indian tricolor bar, and authentic SSB insignia.
+- **Accessibility Engine**: Built-in **Web Speech API Screen Reader** with rate/volume controls, hover/focus narration, and high-contrast font scaling (`A-`, `A`, `A+`).
+- **Security Protocols Modal**: Comprehensive documentation of air-gapped cryptographic hashing, SHA-256 ledgers, and DPDP Act 2023 zero-retention architecture.
+
+### 2. 📱 Android Field Screening Companion
+- **CameraX Dual-Mode Viewfinder**: Front camera for **Biometric Selfie** and rear camera with bounding box for **Passport / Document Capture**.
+- **Cinematic Stamp Intro**: 6.0-second slow-motion official stamp slam with triple expanding golden shockwaves and haptic feedback.
+- **Zero-Drop Outbox**: Offline queueing engine that automatically synchronizes field photos to the desktop terminal when in Wi-Fi / Hotspot range.
+
+### 3. 🛡️ Human-In-The-Loop Decision Console
+- Direct officer interdiction actions:
+  - **`AUTO_CLEAR`**: Fast-path entry permit authorized.
+  - **`SECONDARY_INSPECTION`**: Counter 2 physical inspection mandate.
+  - **`DETAIN_AND_INTERDICT`**: Detention order issued under Section 14 Foreigners Act.
+- Generates official, print-ready **Border Security Screening Audit Certificates**.
+
+---
+
+## 🚀 Quick Start Guide
+
+### Prerequisites
+- **Python**: `3.10` or `3.11`
+- **Node.js**: `v18.0.0+` or `v20.0.0+`
+- **Java**: OpenJDK 21 (for Android build)
+- **Android SDK**: API 34+ (for Android emulator/device testing)
+
+---
+
+### 1. 🖥️ Backend Edge AI Server Setup
 ```bash
-git clone https://github.com/sparsh101sparsh/sih26188-ssb-document-screening.git
-cd sih26188-ssb-document-screening/sih26188_project
-```
+cd sih26188_project/backend
 
-#### Step 2: Backend Setup
-```bash
-cd backend
+# Create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
-pip install --upgrade pip
+
+# Install dependencies
 pip install -r requirements.txt
 
-# Run Unit & Integration Tests (121 tests)
-pytest tests/
+# Start FastAPI Edge Server on port 8000
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
-
-#### Step 3: Frontend Setup
-```bash
-cd ../frontend
-npm install
-npm run build
-```
-
-#### Step 4: Launching the System
-- **Option A (Web Dashboard Live Dev)**:
-  ```bash
-  # Terminal 1: Backend
-  cd backend && source .venv/bin/activate
-  uvicorn app.main:app --port 8000 --reload
-
-  # Terminal 2: Frontend
-  cd frontend
-  npm run dev
-  # Open http://localhost:3000 in your browser
-  ```
-
-- **Option B (Native Desktop App via Tauri)**:
-  ```bash
-  # Ensure Rust is installed (curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh)
-  cargo install tauri-cli
-  cargo tauri dev
-  ```
 
 ---
 
-### 🪟 Setup on Windows (Windows 10 / 11)
+### 2. 💻 Desktop Web Terminal Setup
+```bash
+cd sih26188_project/frontend
 
-#### Step 1: Install Build Tools
-1. Install [Visual Studio C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (Check *Desktop development with C++*).
-2. Install [Rust for Windows](https://rustup.rs/).
-3. Install [Node.js](https://nodejs.org/) & [Python 3.11](https://www.python.org/).
-
-#### Step 2: Clone Repository
-```powershell
-git clone https://github.com/sparsh101sparsh/sih26188-ssb-document-screening.git
-cd sih26188-ssb-document-screening\sih26188_project
-```
-
-#### Step 3: Backend Setup
-```powershell
-cd backend
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-
-# Run Verification Tests
-pytest tests/
-```
-
-#### Step 4: Frontend Setup
-```powershell
-cd ..\frontend
+# Install dependencies
 npm install
-npm run build
-```
 
-#### Step 5: Launching the System
-```powershell
-# Terminal 1: Backend Server
-cd backend
-.venv\Scripts\Activate.ps1
-uvicorn app.main:app --port 8000 --host 127.0.0.1 --reload
-
-# Terminal 2: Desktop App or Web Dev
-cd ..\frontend
+# Start development server on port 3000
 npm run dev
-# Or launch desktop application:
-cargo tauri dev
+
+# Or build production bundle
+npm run build
 ```
+Access the application in your browser: 👉 `http://localhost:3000`
 
 ---
 
-## 🧪 Testing & Verification
-
-Run the full adversarial test suite covering all 4 inspection streams, cross-validation rules, and deterministic tripwires:
-
+### 3. 📱 Android Field Companion Setup
 ```bash
-cd backend
-pytest tests/ -v
+cd sih26188_project/android-agent
+
+# Build Debug APK
+./gradlew assembleDebug
+
+# Install on connected device or emulator
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+
+# Grant camera permissions & launch
+adb shell pm grant com.ssb.fieldcamera android.permission.CAMERA
+adb shell am start -n com.ssb.fieldcamera/.MainActivity
 ```
 
-**Test Coverage Summary:**
-- `test_api_health.py`: Edge server health, provider configuration, memory stats.
-- `test_biometrics.py`: AdaFace cosine similarity, MiniFASNet Fourier liveness anti-spoofing.
-- `test_cross_validation.py`: 8-point rule engine, contradiction detection, severity weights.
-- `test_e2e_pipeline.py`: Full multi-modal document & biometric inspection flow.
-- `test_forensics.py`: DocTamper pixel-level localization, ELA substrate analysis, stamp matching.
-- `test_mrz_checksum.py`: ICAO Doc 9303 Modulo-10 7-3-1 check digit algorithms.
-- `test_risk_engine.py`: Bayesian prior updating, deterministic tripwires, audit hash integrity.
+---
+
+## 📡 API Endpoints Reference
+
+| Endpoint | Method | Payload | Description |
+| :--- | :--- | :--- | :--- |
+| `/api/v1/inspect` | `POST` | `multipart/form-data` (doc, selfie, checkpoint_id) | Executes 4-stream neural inspection and returns full risk score & forensic telemetry. |
+| `/api/v1/scan` | `POST` | `multipart/form-data` (doc, checkpoint_id) | Optical-only document scan (OCR, MRZ check digit validation, substrate ELA). |
+| `/api/v1/companion/pair` | `POST` | `{ pairing_code, station_id }` | Pairs Android Field Companion with desktop workstation. |
+| `/api/v1/companion/upload`| `POST` | `multipart/form-data` (photo, mode, timestamp) | Ingests live field captures from mobile companion into the desktop screening queue. |
+| `/api/v1/companion/poll` | `GET` | `?station_id=...` | Desktop polling endpoint for incoming mobile streams. |
 
 ---
 
-## 📱 Rugged Android Field Client
+## 🔒 Defense Compliance & Security Protocols
 
-For border patrol guards operating in offline Terai checkpoints, reference the authoritative mobile integration prompt:
-- **Master Mobile Guide**: [`docs/ANDROID_STUDIO_MASTER_PROMPT.md`](docs/ANDROID_STUDIO_MASTER_PROMPT.md)
-- **Supported Connectivity Modes**:
-  1. `USB Reverse Tethering` (`adb reverse tcp:8000 tcp:8000`)
-  2. `Air-Gapped Wi-Fi AP` (`http://192.168.2.1:8000`)
-  3. `Offline Transactional Outbox` (SQLCipher + WorkManager sync)
+1. **Air-Gapped Operation**: System operates 100% locally with zero external internet dependencies or third-party telemetry.
+2. **DPDP Act 2023 Compliance**: Ingested biometric photos and identity documents are processed strictly in volatile memory and purged upon session termination.
+3. **Tamper-Evident Ledger**: Every inspection verdict produces a deterministic **SHA-256 cryptographic audit digest** for national security evidentiary records.
 
 ---
 
-## 📄 License & Attribution
-
-Developed for **Smart India Hackathon 2026 (SIH26188)** under the Ministry of Home Affairs (MHA) & Sashastra Seema Bal (SSB).  
-Released under the **MIT License**.
+## 👥 Contributors & Acknowledgements
+- **Ministry of Home Affairs (MHA)** • Government of India
+- **Sashastra Seema Bal (SSB)**
+- **Smart India Hackathon 2026** — Problem Statement SIH26188

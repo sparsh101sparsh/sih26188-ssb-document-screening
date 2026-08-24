@@ -29104,8 +29104,34 @@ var InspectionPipelineTrace = ({
   ] });
 };
 
-// tests/primitives_adversarial.test.tsx
+// src/components/ui/ThemeToggle.tsx
+var import_react8 = __toESM(require_react(), 1);
 var import_jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
+
+// src/components/ui/LoadingState.tsx
+var import_react9 = __toESM(require_react(), 1);
+var import_jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
+var chevron = Array.from({ length: 9 }, (_, i) => {
+  const r = Math.floor(i / 3);
+  const c = i % 3;
+  return (c + Math.abs(r - 1)) * 90;
+});
+
+// src/components/ui/ThinkingState.tsx
+var import_react10 = __toESM(require_react(), 1);
+var import_jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
+
+// src/components/ui/ContextCards.tsx
+var import_jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
+
+// src/components/ui/ExtractedRecords.tsx
+var import_jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
+
+// src/components/ui/InsightStrip.tsx
+var import_jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
+
+// tests/primitives_adversarial.test.tsx
+var import_jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
 var totalTests = 0;
 var passedTests = 0;
 var failedTests = 0;
@@ -29124,7 +29150,7 @@ function runTest(suite, name, fn) {
 }
 console.log("\n--- 1. Testing DiffTable ---");
 runTest("DiffTable", "Default rendering without props", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, {}));
   import_strict.default.ok(html.includes("Field Discrepancy Matrix"));
   import_strict.default.ok(html.includes("Date of Birth"));
   import_strict.default.ok(html.includes("P98421034"));
@@ -29170,7 +29196,7 @@ runTest("DiffTable", "Unicode handling: Devanagari, Nepali, Bengali, Nastaliq, C
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Unicode Discrepancy Matrix", rows: unicodeRows })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Unicode Discrepancy Matrix", rows: unicodeRows })
   );
   import_strict.default.ok(html.includes("\u0906\u0928\u0928\u094D\u0926 \u0915\u0941\u092E\u093E\u0930 \u0936\u0930\u094D\u092E\u093E"));
   import_strict.default.ok(html.includes("\u0930\u093E\u092E \u092A\u094D\u0930\u0938\u093E\u0926 \u0905\u0927\u093F\u0915\u093E\u0930\u0940"));
@@ -29199,7 +29225,7 @@ runTest("DiffTable", "Special characters, HTML injection & boundary strings", ()
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Security & Injection Test", rows: maliciousRows })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Security & Injection Test", rows: maliciousRows })
   );
   import_strict.default.ok(!html.includes("<script>alert"));
   import_strict.default.ok(html.includes("&lt;script&gt;alert"));
@@ -29225,7 +29251,7 @@ runTest("DiffTable", "Empty string fields and missing values", () => {
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Empty Matrix", rows: emptyRows })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Empty Matrix", rows: emptyRows })
   );
   import_strict.default.ok(html.includes("\u2014"));
   import_strict.default.ok(html.includes("1 Discrepancy Found"));
@@ -29240,7 +29266,7 @@ runTest("DiffTable", "All-Match state (0 mismatches)", () => {
     isMatch: true
   }));
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "100% Match Table", rows: matchRows })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "100% Match Table", rows: matchRows })
   );
   import_strict.default.ok(html.includes("100% Cross-Stream Consistency"));
   import_strict.default.ok(html.includes("10 verified \xB7 0 mismatches"));
@@ -29258,7 +29284,7 @@ runTest("DiffTable", "All-Mismatch state (100% mismatches)", () => {
     details: `Cryptographic hash validation failed for field ${i + 1}`
   }));
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "100% Tampered Table", rows: mismatchRows })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "100% Tampered Table", rows: mismatchRows })
   );
   import_strict.default.ok(html.includes("10 Discrepancies Found"));
   import_strict.default.ok(html.includes("0 verified \xB7 10 mismatches"));
@@ -29296,7 +29322,7 @@ runTest("DiffTable", "Support for items prop contract from PROJECT.md", () => {
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(DiffTable, { title: "Items Format Contract", items })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(DiffTable, { title: "Items Format Contract", items })
   );
   import_strict.default.ok(html.includes("Passport Number"));
   import_strict.default.ok(html.includes("Date of Expiry"));
@@ -29304,7 +29330,7 @@ runTest("DiffTable", "Support for items prop contract from PROJECT.md", () => {
 });
 console.log("\n--- 2. Testing FilterTable ---");
 runTest("FilterTable", "Default rendering without props", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, {}));
   import_strict.default.ok(html.includes("Multi-Stream Cross-Validation Rules"));
   import_strict.default.ok(html.includes("CV-01"));
   import_strict.default.ok(html.includes("8 active guards"));
@@ -29312,7 +29338,7 @@ runTest("FilterTable", "Default rendering without props", () => {
   import_strict.default.ok(html.includes("Violations"));
 });
 runTest("FilterTable", "Zero rules empty array", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { rows: [] }));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { rows: [] }));
   import_strict.default.ok(typeof html === "string");
 });
 runTest("FilterTable", "Stress test: 50 rules with high density and all statuses", () => {
@@ -29331,7 +29357,7 @@ runTest("FilterTable", "Stress test: 50 rules with high density and all statuses
     details: `Deep telemetry breakdown for RULE-${i + 1}: Checksum verified on node cluster worker #${i % 5 + 1}.`
   }));
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { title: "60-Guard Comprehensive Filter Matrix", rows: largeRules })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { title: "60-Guard Comprehensive Filter Matrix", rows: largeRules })
   );
   import_strict.default.ok(html.includes("60-Guard Comprehensive Filter Matrix"));
   import_strict.default.ok(html.includes("60 active guards"));
@@ -29358,7 +29384,7 @@ runTest("FilterTable", "Rules with long multiline details & Unicode telemetry", 
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { title: "Multiline Test", rows: multilineRows })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { title: "Multiline Test", rows: multilineRows })
   );
   import_strict.default.ok(html.includes("\u092C\u0939\u0941\u092D\u093E\u0937\u0940 \u0938\u0924\u094D\u092F\u093E\u092A\u0928 \u0928\u093F\u092F\u092E"));
   import_strict.default.ok(html.includes("CV-ML-01"));
@@ -29386,7 +29412,7 @@ runTest("FilterTable", "Support for rules prop contract from PROJECT.md", () => 
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FilterTable, { title: "Rules Format Contract", rules })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FilterTable, { title: "Rules Format Contract", rules })
   );
   import_strict.default.ok(html.includes("MRZ Check Digit 1"));
   import_strict.default.ok(html.includes("Face Match Cosine"));
@@ -29395,7 +29421,7 @@ runTest("FilterTable", "Support for rules prop contract from PROJECT.md", () => 
 });
 console.log("\n--- 3. Testing ApprovalCard ---");
 runTest("ApprovalCard", "Default rendering without props", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, {}));
   import_strict.default.ok(html.includes("Human-In-The-Loop Officer Authorization"));
   import_strict.default.ok(html.includes("Clear Traveler"));
   import_strict.default.ok(html.includes("Secondary Hold"));
@@ -29404,21 +29430,21 @@ runTest("ApprovalCard", "Default rendering without props", () => {
 });
 runTest("ApprovalCard", "Risk Level GREEN -> Defaults to Auto Clear", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskLevel: "GREEN", riskScore: 14.2 })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskLevel: "GREEN", riskScore: 14.2 })
   );
   import_strict.default.ok(html.includes("Clear Traveler"));
   import_strict.default.ok(html.includes("border-green"));
 });
 runTest("ApprovalCard", "Risk Level AMBER -> Defaults to Secondary Hold", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskLevel: "AMBER", riskScore: 52.8 })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskLevel: "AMBER", riskScore: 52.8 })
   );
   import_strict.default.ok(html.includes("Secondary Hold"));
   import_strict.default.ok(html.includes("border-orange"));
 });
 runTest("ApprovalCard", "Risk Level RED -> Defaults to Interdiction Order", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskLevel: "RED", riskScore: 96.4 })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskLevel: "RED", riskScore: 96.4 })
   );
   import_strict.default.ok(html.includes("Interdiction Order"));
   import_strict.default.ok(html.includes("border-red"));
@@ -29427,14 +29453,14 @@ runTest("ApprovalCard", "Extreme Risk Scores: 0, 100, 99.9999, negative, NaN", (
   const scores = [0, 100, 99.9999, -5.5, 1e3];
   for (const score of scores) {
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { riskScore: score, riskLevel: "RED" })
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { riskScore: score, riskLevel: "RED" })
     );
     import_strict.default.ok(typeof html === "string");
     import_strict.default.ok(html.includes("Commit Decision"));
   }
 });
 runTest("ApprovalCard", "Closed state (isOpen=false)", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { isOpen: false }));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { isOpen: false }));
   import_strict.default.ok(html.includes("Open Officer Authorization"));
   import_strict.default.ok(!html.includes("Human-In-The-Loop Officer Authorization"));
 });
@@ -29453,12 +29479,12 @@ runTest("ApprovalCard", "Callback execution on submit", () => {
       decisionNotes = notes;
     }
   };
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ApprovalCard, { ...props }));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ApprovalCard, { ...props }));
   import_strict.default.ok(html.includes("Commit Decision"));
 });
 console.log("\n--- 4. Testing ToolChips & Pipeline Trace ---");
 runTest("ToolChips", "Default rendering", () => {
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ToolChips, {}));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ToolChips, {}));
   import_strict.default.ok(html.includes("Text &amp; QR") || html.includes("Text & QR"));
   import_strict.default.ok(html.includes("Tamper Inspector"));
   import_strict.default.ok(html.includes("Face Matcher"));
@@ -29503,7 +29529,7 @@ runTest("ToolChips", "All status permutations & extreme latencies/confidences", 
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ToolChips, { telemetry: telemetryData, title: "Telemetry Extreme Bounds" })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ToolChips, { telemetry: telemetryData, title: "Telemetry Extreme Bounds" })
   );
   import_strict.default.ok(html.includes("Telemetry Extreme Bounds"));
   import_strict.default.ok(html.includes("0%"));
@@ -29520,7 +29546,7 @@ runTest("ToolChips", "Tensor Diff Chips with zero and negative changes", () => {
     { file: 'special_chars_<>&".json', add: 5, del: 2 }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ToolChips, { diffs })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(ToolChips, { diffs })
   );
   import_strict.default.ok(html.includes("empty_tensor.bin"));
   import_strict.default.ok(html.includes("huge_weights.onnx"));
@@ -29532,7 +29558,7 @@ runTest("InspectionPipelineTrace", "Default rendering with steps", () => {
     { id: "1", name: "PP-OCRv4 Multilingual Extraction", category: "OCR", status: "completed", latencyMs: 28 },
     { id: "2", name: "DocTamper ResNet-50 Splicing Localizer", category: "FORENSICS", status: "failed", latencyMs: 110 }
   ];
-  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime10.jsx)(InspectionPipelineTrace, { steps, totalLatencyMs: 138 }));
+  const html = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime16.jsx)(InspectionPipelineTrace, { steps, totalLatencyMs: 138 }));
   import_strict.default.ok(html.includes("PP-OCRv4 Multilingual Extraction"));
   import_strict.default.ok(html.includes("DocTamper ResNet-50 Splicing Localizer"));
   import_strict.default.ok(html.includes("3-Stream Neural Pipeline Trace"));
@@ -29543,7 +29569,7 @@ runTest("SegmentedControl", "Normal string options array", () => {
   const options = ["Document", "Face Capture", "History", "Diagnostics"];
   let selected = "Document";
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
       SegmentedControl,
       {
         options,
@@ -29564,17 +29590,17 @@ runTest("SegmentedControl", "Object options with custom icons and badges", () =>
       id: "fast",
       label: "Fast Scan (M4)",
       badge: "28ms",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { "data-testid": "bolt-icon", children: "\u26A1" })
+      icon: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { "data-testid": "bolt-icon", children: "\u26A1" })
     },
     {
       id: "deep",
       label: "Deep Forensic (RTX)",
       badge: "98%",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { "data-testid": "shield-icon", children: "\u{1F6E1}\uFE0F" })
+      icon: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { "data-testid": "shield-icon", children: "\u{1F6E1}\uFE0F" })
     }
   ];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
       SegmentedControl,
       {
         options,
@@ -29595,7 +29621,7 @@ runTest("SegmentedControl", "Object options with custom icons and badges", () =>
 runTest("SegmentedControl", "Out-of-bounds value (non-existent tab)", () => {
   const options = ["Tab 1", "Tab 2", "Tab 3"];
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
       SegmentedControl,
       {
         options,
@@ -29612,7 +29638,7 @@ runTest("SegmentedControl", "Out-of-bounds value (non-existent tab)", () => {
 });
 runTest("SegmentedControl", "Empty options array", () => {
   const html = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(SegmentedControl, { options: [], value: "", onChange: () => {
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(SegmentedControl, { options: [], value: "", onChange: () => {
     } })
   );
   import_strict.default.ok(html.includes('role="tablist"'));
@@ -29630,7 +29656,7 @@ runTest("StatusPill", "All 8 Tone Variants + Invalid Fallback", () => {
   ];
   for (const tone of tones2) {
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(StatusPill, { tone, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(StatusPill, { tone, children: [
         tone.toUpperCase(),
         " BADGE"
       ] })
@@ -29638,17 +29664,17 @@ runTest("StatusPill", "All 8 Tone Variants + Invalid Fallback", () => {
     import_strict.default.ok(html.includes(`${tone.toUpperCase()} BADGE`));
   }
   const fallbackHtml = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(StatusPill, { tone: "invalid_tone", children: "FALLBACK BADGE" })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(StatusPill, { tone: "invalid_tone", children: "FALLBACK BADGE" })
   );
   import_strict.default.ok(fallbackHtml.includes("FALLBACK BADGE"));
 });
 runTest("StatusPill", "Sizes, Dot toggle, Pulse animation, Unicode", () => {
   const htmlSm = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(StatusPill, { size: "sm", dot: false, pulse: false, children: "Small No Dot" })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(StatusPill, { size: "sm", dot: false, pulse: false, children: "Small No Dot" })
   );
   import_strict.default.ok(htmlSm.includes("text-[11px]"));
   const htmlLg = import_server.default.renderToStaticMarkup(
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(StatusPill, { size: "lg", tone: "red", pulse: true, children: "\u{1F534} \u091A\u0947\u0924\u093E\u0935\u0928\u0940 (Devanagari Alert) \u26A0\uFE0F" })
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(StatusPill, { size: "lg", tone: "red", pulse: true, children: "\u{1F534} \u091A\u0947\u0924\u093E\u0935\u0928\u0940 (Devanagari Alert) \u26A0\uFE0F" })
   );
   import_strict.default.ok(htmlLg.includes("animate-pulse"));
   import_strict.default.ok(htmlLg.includes("\u091A\u0947\u0924\u093E\u0935\u0928\u0940"));

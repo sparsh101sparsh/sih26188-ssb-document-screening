@@ -108,7 +108,7 @@ export const ForensicsViewer: React.FC<ForensicsViewerProps> = ({
 
       ctx.fillStyle = stamp.verdict === 'AUTHENTIC' ? '#10B981' : '#F59E0B';
       ctx.fillRect(sx1, Math.max(0, sy1 - 20), 120, 20);
-      ctx.fillStyle = '#030B14';
+      ctx.fillStyle = '#FFFFFF';
       ctx.font = 'bold 10px sans-serif';
       ctx.fillText(`STAMP: ${stamp.verdict}`, sx1 + 4, Math.max(14, sy1 - 5));
       ctx.restore();
@@ -237,7 +237,7 @@ export const ForensicsViewer: React.FC<ForensicsViewerProps> = ({
           >
             <div className="flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card">
               <span className="text-[10px] font-mono text-ink-3 uppercase mb-1">
-                Raw 300 DPI Document
+                High-Res Document Scan
               </span>
               <img
                 src={sanitizedDocUrl}
@@ -248,7 +248,7 @@ export const ForensicsViewer: React.FC<ForensicsViewerProps> = ({
 
             <div className="flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card">
               <span className="text-[10px] font-mono text-ink-3 uppercase mb-1">
-                Tamper & Splicing Heatmap
+                Tamper Check Heatmap
               </span>
               {sanitizedHeatmapUrl ? (
                 <img
@@ -284,7 +284,7 @@ export const ForensicsViewer: React.FC<ForensicsViewerProps> = ({
             <span className="w-2 h-2 rounded-full bg-accent" /> 0.00 (Clean)
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-green" /> 0.18 (Tau Adaptive)
+            <span className="w-2 h-2 rounded-full bg-green" /> 0.18 (Tamper Threshold)
           </span>
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-red" /> 1.00 (Critical Forgery)

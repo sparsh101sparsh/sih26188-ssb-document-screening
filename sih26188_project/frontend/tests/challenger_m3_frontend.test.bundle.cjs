@@ -1454,7 +1454,7 @@ var require_react = __commonJS({
 var require_react_dom_production = __commonJS({
   "node_modules/react-dom/cjs/react-dom.production.js"(exports2) {
     "use strict";
-    var React2 = require_react();
+    var React3 = require_react();
     function formatProdErrorMessage(code) {
       var url = "https://react.dev/errors/" + code;
       if (1 < arguments.length) {
@@ -1494,7 +1494,7 @@ var require_react_dom_production = __commonJS({
         implementation
       };
     }
-    var ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     function getCrossOriginStringAs(as, input) {
       if ("font" === as) return "";
       if ("string" === typeof input)
@@ -1648,7 +1648,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React2 = require_react(), Internals = {
+      var React3 = require_react(), Internals = {
         d: {
           f: noop,
           r: function() {
@@ -1666,7 +1666,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -1873,7 +1873,7 @@ var require_react_dom = __commonJS({
 var require_react_dom_server_legacy_node_production = __commonJS({
   "node_modules/react-dom/cjs/react-dom-server-legacy.node.production.js"(exports2) {
     "use strict";
-    var React2 = require_react();
+    var React3 = require_react();
     var ReactDOM = require_react_dom();
     var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element");
     var REACT_PORTAL_TYPE = Symbol.for("react.portal");
@@ -2073,7 +2073,7 @@ var require_react_dom_server_legacy_node_production = __commonJS({
     function sanitizeURL(url) {
       return isJavaScriptProtocol.test("" + url) ? "javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')" : url;
     }
-    var ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var sharedNotPendingObject = {
       pending: false,
@@ -2434,7 +2434,7 @@ var require_react_dom_server_legacy_node_production = __commonJS({
     }
     function flattenOptionChildren(children) {
       var content = "";
-      React2.Children.forEach(children, function(child) {
+      React3.Children.forEach(children, function(child) {
         null != child && (content += child);
       });
       return content;
@@ -6814,7 +6814,7 @@ var require_react_dom_server_node_production = __commonJS({
     var util = require("util");
     var crypto = require("crypto");
     var async_hooks = require("async_hooks");
-    var React2 = require_react();
+    var React3 = require_react();
     var ReactDOM = require_react_dom();
     var stream = require("stream");
     var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element");
@@ -7041,7 +7041,7 @@ var require_react_dom_server_node_production = __commonJS({
     function sanitizeURL(url) {
       return isJavaScriptProtocol.test("" + url) ? "javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')" : url;
     }
-    var ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+    var ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
     var sharedNotPendingObject = {
       pending: false,
@@ -7617,7 +7617,7 @@ var require_react_dom_server_node_production = __commonJS({
     }
     function flattenOptionChildren(children) {
       var content = "";
-      React2.Children.forEach(children, function(child) {
+      React3.Children.forEach(children, function(child) {
         null != child && (content += child);
       });
       return content;
@@ -12121,7 +12121,7 @@ var require_react_dom_server_node_production = __commonJS({
       };
     }
     function ensureCorrectIsomorphicReactVersion() {
-      var isomorphicReactPackageVersion = React2.version;
+      var isomorphicReactPackageVersion = React3.version;
       if ("19.2.8" !== isomorphicReactPackageVersion)
         throw Error(
           'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.8\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -13655,7 +13655,7 @@ var require_react_dom_server_legacy_node_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React2.Children.forEach(children, function(child) {
+        React3.Children.forEach(children, function(child) {
           null != child && (content += child, didWarnInvalidOptionChildren || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || (didWarnInvalidOptionChildren = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           )));
@@ -18710,7 +18710,7 @@ var require_react_dom_server_legacy_node_development = __commonJS({
           );
         return result;
       }
-      var React2 = require_react(), ReactDOM = require_react_dom(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
+      var React3 = require_react(), ReactDOM = require_react_dom(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
         "^[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), illegalAttributeNameCache = {}, validatedAttributeNameCache = {}, unitlessNumbers = new Set(
         "animationIterationCount aspectRatio borderImageOutset borderImageSlice borderImageWidth boxFlex boxFlexGroup boxOrdinalGroup columnCount columns flex flexGrow flexPositive flexShrink flexNegative flexOrder gridArea gridRow gridRowEnd gridRowSpan gridRowStart gridColumn gridColumnEnd gridColumnSpan gridColumnStart fontWeight lineClamp lineHeight opacity order orphans scale tabSize widows zIndex zoom fillOpacity floodOpacity stopOpacity strokeDasharray strokeDashoffset strokeMiterlimit strokeOpacity strokeWidth MozAnimationIterationCount MozBoxFlex MozBoxFlexGroup MozLineClamp msAnimationIterationCount msFlex msZoom msFlexGrow msFlexNegative msFlexOrder msFlexPositive msFlexShrink msGridColumn msGridColumnSpan msGridRow msGridRowSpan WebkitAnimationIterationCount WebkitBoxFlex WebKitBoxFlexGroup WebkitBoxOrdinalGroup WebkitColumnCount WebkitColumns WebkitFlex WebkitFlexGrow WebkitFlexPositive WebkitFlexShrink WebkitLineClamp".split(
@@ -19358,7 +19358,7 @@ var require_react_dom_server_legacy_node_development = __commonJS({
         "^(aria)-[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), rARIACamel = RegExp(
         "^(aria)[A-Z][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
-      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -20934,7 +20934,7 @@ var require_react_dom_server_node_development = __commonJS({
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React2.Children.forEach(children, function(child) {
+        React3.Children.forEach(children, function(child) {
           null != child && (content += child, didWarnInvalidOptionChildren || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || (didWarnInvalidOptionChildren = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           )));
@@ -26030,7 +26030,7 @@ var require_react_dom_server_node_development = __commonJS({
         };
       }
       function ensureCorrectIsomorphicReactVersion() {
-        var isomorphicReactPackageVersion = React2.version;
+        var isomorphicReactPackageVersion = React3.version;
         if ("19.2.8" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.8\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -26140,7 +26140,7 @@ var require_react_dom_server_node_development = __commonJS({
           }
         };
       }
-      var util = require("util"), crypto = require("crypto"), async_hooks = require("async_hooks"), React2 = require_react(), ReactDOM = require_react_dom(), stream = require("stream"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), scheduleMicrotask = queueMicrotask, currentView = null, writtenBytes = 0, destinationHasCapacity$1 = true, textEncoder = new util.TextEncoder(), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
+      var util = require("util"), crypto = require("crypto"), async_hooks = require("async_hooks"), React3 = require_react(), ReactDOM = require_react_dom(), stream = require("stream"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_SCOPE_TYPE = Symbol.for("react.scope"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = Symbol.for("react.legacy_hidden"), REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, isArrayImpl = Array.isArray, jsxPropsParents = /* @__PURE__ */ new WeakMap(), jsxChildrenParents = /* @__PURE__ */ new WeakMap(), CLIENT_REFERENCE_TAG = Symbol.for("react.client.reference"), scheduleMicrotask = queueMicrotask, currentView = null, writtenBytes = 0, destinationHasCapacity$1 = true, textEncoder = new util.TextEncoder(), assign = Object.assign, hasOwnProperty = Object.prototype.hasOwnProperty, VALID_ATTRIBUTE_NAME_REGEX = RegExp(
         "^[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), illegalAttributeNameCache = {}, validatedAttributeNameCache = {}, unitlessNumbers = new Set(
         "animationIterationCount aspectRatio borderImageOutset borderImageSlice borderImageWidth boxFlex boxFlexGroup boxOrdinalGroup columnCount columns flex flexGrow flexPositive flexShrink flexNegative flexOrder gridArea gridRow gridRowEnd gridRowSpan gridRowStart gridColumn gridColumnEnd gridColumnSpan gridColumnStart fontWeight lineClamp lineHeight opacity order orphans scale tabSize widows zIndex zoom fillOpacity floodOpacity stopOpacity strokeDasharray strokeDashoffset strokeMiterlimit strokeOpacity strokeWidth MozAnimationIterationCount MozBoxFlex MozBoxFlexGroup MozLineClamp msAnimationIterationCount msFlex msZoom msFlexGrow msFlexNegative msFlexOrder msFlexPositive msFlexShrink msGridColumn msGridColumnSpan msGridRow msGridRowSpan WebkitAnimationIterationCount WebkitBoxFlex WebKitBoxFlexGroup WebkitBoxOrdinalGroup WebkitColumnCount WebkitColumns WebkitFlex WebkitFlexGrow WebkitFlexPositive WebkitFlexShrink WebkitLineClamp".split(
@@ -26788,7 +26788,7 @@ var require_react_dom_server_node_development = __commonJS({
         "^(aria)-[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), rARIACamel = RegExp(
         "^(aria)[A-Z][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
-      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      ), badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/, msPattern$1 = /^-ms-/, hyphenPattern = /-(.)/g, badStyleValueWithSemicolonPattern = /;\s*$/, warnedStyleNames = {}, warnedStyleValues = {}, warnedForNaNValue = false, warnedForInfinityValue = false, matchHtmlRegExp = /["'&<>]/, uppercasePattern = /([A-Z])/g, msPattern = /^ms-/, isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -27918,18 +27918,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React2 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React2.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React3 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React2 = {
+      React3 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React2.react_stack_bottom_frame.bind(
-        React2,
+      var unknownOwnerDebugStack = React3.react_stack_bottom_frame.bind(
+        React3,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -27980,7 +27980,7 @@ var import_node_fs = __toESM(require("node:fs"), 1);
 var import_node_path = __toESM(require("node:path"), 1);
 
 // src/components/Header.tsx
-var import_react3 = __toESM(require_react(), 1);
+var import_react5 = __toESM(require_react(), 1);
 
 // node_modules/lucide-react/dist/esm/createLucideIcon.js
 var import_react2 = __toESM(require_react(), 1);
@@ -28053,23 +28053,87 @@ var createLucideIcon = (iconName, iconNode) => {
   return Component;
 };
 
-// node_modules/lucide-react/dist/esm/icons/clock.js
+// node_modules/lucide-react/dist/esm/icons/activity.js
 var __iconNode = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
+  [
+    "path",
+    {
+      d: "M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2",
+      key: "169zse"
+    }
+  ]
 ];
-var Clock = createLucideIcon("Clock", __iconNode);
+var Activity = createLucideIcon("Activity", __iconNode);
+
+// node_modules/lucide-react/dist/esm/icons/check.js
+var __iconNode2 = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+var Check = createLucideIcon("Check", __iconNode2);
+
+// node_modules/lucide-react/dist/esm/icons/circle-check.js
+var __iconNode3 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+var CircleCheck = createLucideIcon("CircleCheck", __iconNode3);
+
+// node_modules/lucide-react/dist/esm/icons/circle-help.js
+var __iconNode4 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
+  ["path", { d: "M12 17h.01", key: "p32p05" }]
+];
+var CircleHelp = createLucideIcon("CircleHelp", __iconNode4);
+
+// node_modules/lucide-react/dist/esm/icons/copy.js
+var __iconNode5 = [
+  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+];
+var Copy = createLucideIcon("Copy", __iconNode5);
+
+// node_modules/lucide-react/dist/esm/icons/cpu.js
+var __iconNode6 = [
+  ["rect", { width: "16", height: "16", x: "4", y: "4", rx: "2", key: "14l7u7" }],
+  ["rect", { width: "6", height: "6", x: "9", y: "9", rx: "1", key: "5aljv4" }],
+  ["path", { d: "M15 2v2", key: "13l42r" }],
+  ["path", { d: "M15 20v2", key: "15mkzm" }],
+  ["path", { d: "M2 15h2", key: "1gxd5l" }],
+  ["path", { d: "M2 9h2", key: "1bbxkp" }],
+  ["path", { d: "M20 15h2", key: "19e6y8" }],
+  ["path", { d: "M20 9h2", key: "19tzq7" }],
+  ["path", { d: "M9 2v2", key: "165o2o" }],
+  ["path", { d: "M9 20v2", key: "i2bqo8" }]
+];
+var Cpu = createLucideIcon("Cpu", __iconNode6);
 
 // node_modules/lucide-react/dist/esm/icons/database.js
-var __iconNode2 = [
+var __iconNode7 = [
   ["ellipse", { cx: "12", cy: "5", rx: "9", ry: "3", key: "msslwz" }],
   ["path", { d: "M3 5V19A9 3 0 0 0 21 19V5", key: "1wlel7" }],
   ["path", { d: "M3 12A9 3 0 0 0 21 12", key: "mv7ke4" }]
 ];
-var Database = createLucideIcon("Database", __iconNode2);
+var Database = createLucideIcon("Database", __iconNode7);
+
+// node_modules/lucide-react/dist/esm/icons/file-text.js
+var __iconNode8 = [
+  ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z", key: "1rqfz7" }],
+  ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4", key: "tnqrlb" }],
+  ["path", { d: "M10 9H8", key: "b1mrlr" }],
+  ["path", { d: "M16 13H8", key: "t4e002" }],
+  ["path", { d: "M16 17H8", key: "z1uh3a" }]
+];
+var FileText = createLucideIcon("FileText", __iconNode8);
+
+// node_modules/lucide-react/dist/esm/icons/globe.js
+var __iconNode9 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
+  ["path", { d: "M2 12h20", key: "9i4pu4" }]
+];
+var Globe = createLucideIcon("Globe", __iconNode9);
 
 // node_modules/lucide-react/dist/esm/icons/map-pin.js
-var __iconNode3 = [
+var __iconNode10 = [
   [
     "path",
     {
@@ -28079,19 +28143,59 @@ var __iconNode3 = [
   ],
   ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-var MapPin = createLucideIcon("MapPin", __iconNode3);
+var MapPin = createLucideIcon("MapPin", __iconNode10);
+
+// node_modules/lucide-react/dist/esm/icons/qr-code.js
+var __iconNode11 = [
+  ["rect", { width: "5", height: "5", x: "3", y: "3", rx: "1", key: "1tu5fj" }],
+  ["rect", { width: "5", height: "5", x: "16", y: "3", rx: "1", key: "1v8r4q" }],
+  ["rect", { width: "5", height: "5", x: "3", y: "16", rx: "1", key: "1x03jg" }],
+  ["path", { d: "M21 16h-3a2 2 0 0 0-2 2v3", key: "177gqh" }],
+  ["path", { d: "M21 21v.01", key: "ents32" }],
+  ["path", { d: "M12 7v3a2 2 0 0 1-2 2H7", key: "8crl2c" }],
+  ["path", { d: "M3 12h.01", key: "nlz23k" }],
+  ["path", { d: "M12 3h.01", key: "n36tog" }],
+  ["path", { d: "M12 16v.01", key: "133mhm" }],
+  ["path", { d: "M16 12h1", key: "1slzba" }],
+  ["path", { d: "M21 12v.01", key: "1lwtk9" }],
+  ["path", { d: "M12 21v-1", key: "1880an" }]
+];
+var QrCode = createLucideIcon("QrCode", __iconNode11);
+
+// node_modules/lucide-react/dist/esm/icons/radio.js
+var __iconNode12 = [
+  ["path", { d: "M4.9 19.1C1 15.2 1 8.8 4.9 4.9", key: "1vaf9d" }],
+  ["path", { d: "M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5", key: "u1ii0m" }],
+  ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }],
+  ["path", { d: "M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5", key: "1j5fej" }],
+  ["path", { d: "M19.1 4.9C23 8.8 23 15.1 19.1 19", key: "10b0cb" }]
+];
+var Radio = createLucideIcon("Radio", __iconNode12);
 
 // node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode4 = [
+var __iconNode13 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("RefreshCw", __iconNode4);
+var RefreshCw = createLucideIcon("RefreshCw", __iconNode13);
+
+// node_modules/lucide-react/dist/esm/icons/shield-check.js
+var __iconNode14 = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+var ShieldCheck = createLucideIcon("ShieldCheck", __iconNode14);
 
 // node_modules/lucide-react/dist/esm/icons/shield.js
-var __iconNode5 = [
+var __iconNode15 = [
   [
     "path",
     {
@@ -28100,14 +28204,71 @@ var __iconNode5 = [
     }
   ]
 ];
-var Shield = createLucideIcon("Shield", __iconNode5);
+var Shield = createLucideIcon("Shield", __iconNode15);
 
 // node_modules/lucide-react/dist/esm/icons/smartphone.js
-var __iconNode6 = [
+var __iconNode16 = [
   ["rect", { width: "14", height: "20", x: "5", y: "2", rx: "2", ry: "2", key: "1yt0o3" }],
   ["path", { d: "M12 18h.01", key: "mhygvu" }]
 ];
-var Smartphone = createLucideIcon("Smartphone", __iconNode6);
+var Smartphone = createLucideIcon("Smartphone", __iconNode16);
+
+// node_modules/lucide-react/dist/esm/icons/trash-2.js
+var __iconNode17 = [
+  ["path", { d: "M3 6h18", key: "d0wm0j" }],
+  ["path", { d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6", key: "4alrt4" }],
+  ["path", { d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2", key: "v07s0e" }],
+  ["line", { x1: "10", x2: "10", y1: "11", y2: "17", key: "1uufr5" }],
+  ["line", { x1: "14", x2: "14", y1: "11", y2: "17", key: "xtxkd" }]
+];
+var Trash2 = createLucideIcon("Trash2", __iconNode17);
+
+// node_modules/lucide-react/dist/esm/icons/usb.js
+var __iconNode18 = [
+  ["circle", { cx: "10", cy: "7", r: "1", key: "dypaad" }],
+  ["circle", { cx: "4", cy: "20", r: "1", key: "22iqad" }],
+  ["path", { d: "M4.7 19.3 19 5", key: "1enqfc" }],
+  ["path", { d: "m21 3-3 1 2 2Z", key: "d3ov82" }],
+  ["path", { d: "M9.26 7.68 5 12l2 5", key: "1esawj" }],
+  ["path", { d: "m10 14 5 2 3.5-3.5", key: "v8oal5" }],
+  ["path", { d: "m18 12 1-1 1 1-1 1Z", key: "1bh22v" }]
+];
+var Usb = createLucideIcon("Usb", __iconNode18);
+
+// node_modules/lucide-react/dist/esm/icons/user.js
+var __iconNode19 = [
+  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
+  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
+];
+var User = createLucideIcon("User", __iconNode19);
+
+// node_modules/lucide-react/dist/esm/icons/wifi.js
+var __iconNode20 = [
+  ["path", { d: "M12 20h.01", key: "zekei9" }],
+  ["path", { d: "M2 8.82a15 15 0 0 1 20 0", key: "dnpr2z" }],
+  ["path", { d: "M5 12.859a10 10 0 0 1 14 0", key: "1x1e6c" }],
+  ["path", { d: "M8.5 16.429a5 5 0 0 1 7 0", key: "1bycff" }]
+];
+var Wifi = createLucideIcon("Wifi", __iconNode20);
+
+// node_modules/lucide-react/dist/esm/icons/x.js
+var __iconNode21 = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+];
+var X = createLucideIcon("X", __iconNode21);
+
+// node_modules/lucide-react/dist/esm/icons/zap.js
+var __iconNode22 = [
+  [
+    "path",
+    {
+      d: "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
+      key: "1xq2db"
+    }
+  ]
+];
+var Zap = createLucideIcon("Zap", __iconNode22);
 
 // src/types/api.ts
 var CHECKPOINTS = [
@@ -28118,8 +28279,962 @@ var CHECKPOINTS = [
   { id: "SSB-BH-JOG-01", name: "Jogbani / Biratnagar", state: "Bihar", border: "Indo-Nepal", code: "JOG" }
 ];
 
-// src/components/Header.tsx
+// src/components/ui/ThemeToggle.tsx
+var import_react3 = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
+function ThemeToggle() {
+  const [dark, setDark] = (0, import_react3.useState)(null);
+  (0, import_react3.useEffect)(() => {
+    try {
+      setDark(localStorage.getItem("bui-theme") !== "light");
+    } catch {
+      setDark(document.documentElement.classList.contains("dark"));
+    }
+  }, []);
+  function apply(next) {
+    if (next === dark) return;
+    setDark(next);
+    const root = document.documentElement;
+    root.classList.add("theme-switching");
+    root.classList.toggle("dark", next);
+    requestAnimationFrame(
+      () => requestAnimationFrame(() => root.classList.remove("theme-switching"))
+    );
+    try {
+      localStorage.setItem("bui-theme", next ? "dark" : "light");
+    } catch {
+    }
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "relative inline-grid h-9 grid-cols-2 items-center rounded-full bg-field p-0.5 shadow-hairline", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "span",
+      {
+        "aria-hidden": true,
+        className: "absolute inset-y-0.5 left-0.5 w-8 rounded-full bg-surface shadow-btn transition-transform duration-200",
+        style: {
+          transform: dark ? "translateX(32px)" : "translateX(0)",
+          transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)",
+          opacity: dark === null ? 0 : 1
+        }
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "button",
+      {
+        type: "button",
+        "aria-label": "Light mode",
+        onClick: () => apply(false),
+        className: `relative z-10 flex size-8 items-center justify-center rounded-full transition-colors duration-150 ${dark ? "text-ink-3 hover:text-ink-2" : "text-ink"}`,
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.5", strokeLinecap: "round", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", { cx: "12", cy: "12", r: "4", fill: "currentColor", stroke: "none" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" })
+        ] })
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      "button",
+      {
+        type: "button",
+        "aria-label": "Dark mode",
+        onClick: () => apply(true),
+        className: `relative z-10 flex size-8 items-center justify-center rounded-full transition-colors duration-150 ${dark ? "text-ink" : "text-ink-3 hover:text-ink-2"}`,
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" }) })
+      }
+    )
+  ] });
+}
+
+// src/components/ConnectModal.tsx
+var import_react4 = __toESM(require_react(), 1);
+
+// src/services/api.ts
+var import_meta = {};
+var API_BASE_URL = typeof import_meta !== "undefined" && import_meta.env?.VITE_API_BASE_URL || globalThis?.process?.env?.VITE_API_BASE_URL || "http://localhost:8000";
+async function clearCompanionCapture() {
+  try {
+    await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
+      method: "POST"
+    });
+  } catch (err) {
+    console.warn("Failed to clear companion capture:", err);
+  }
+}
+async function getCompanionInfo() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/companion/info`);
+    if (res.ok) {
+      return res.json();
+    }
+    return null;
+  } catch (err) {
+    console.warn("Failed to fetch companion info:", err);
+    return null;
+  }
+}
+async function simulateCompanionUpload(captureType, deviceId = "Android-Pixel-7 (Field Unit #01)", checkpointId = "SSB-WB-JAI-01") {
+  const res = await fetch(`${API_BASE_URL}/api/v1/companion/simulate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      capture_type: captureType,
+      device_id: deviceId,
+      checkpoint_id: checkpointId
+    })
+  });
+  if (!res.ok) {
+    throw new Error(`Simulation failed: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+// src/components/ConnectModal.tsx
+var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
+var GF_EXP = new Uint8Array(512);
+var GF_LOG = new Uint8Array(256);
+(() => {
+  let x = 1;
+  for (let i = 0; i < 255; i++) {
+    GF_EXP[i] = x;
+    GF_LOG[x] = i;
+    x <<= 1;
+    if (x & 256) {
+      x ^= 285;
+    }
+  }
+  for (let i = 255; i < 512; i++) {
+    GF_EXP[i] = GF_EXP[i - 255];
+  }
+})();
+function gfMul(x, y) {
+  if (x === 0 || y === 0) return 0;
+  return GF_EXP[GF_LOG[x] + GF_LOG[y]];
+}
+function rsGeneratorPoly(degree) {
+  let poly = new Uint8Array([1]);
+  for (let i = 0; i < degree; i++) {
+    const nextPoly = new Uint8Array(poly.length + 1);
+    for (let j = 0; j < poly.length; j++) {
+      nextPoly[j] ^= gfMul(poly[j], GF_EXP[i]);
+      nextPoly[j + 1] ^= poly[j];
+    }
+    poly = nextPoly;
+  }
+  return poly;
+}
+function rsCalculateEcc(data, eccCount) {
+  const gen = rsGeneratorPoly(eccCount);
+  const ecc = new Uint8Array(eccCount);
+  for (let i = 0; i < data.length; i++) {
+    const feedback = data[i] ^ ecc[0];
+    for (let j = 0; j < eccCount - 1; j++) {
+      ecc[j] = ecc[j + 1] ^ gfMul(gen[j + 1], feedback);
+    }
+    ecc[eccCount - 1] = gfMul(gen[eccCount], feedback);
+  }
+  return ecc;
+}
+var QR_SPECS = [
+  { version: 1, size: 21, totalBytes: 26, dataBytes: 19, eccBytes: 7, alignmentPositions: [] },
+  { version: 2, size: 25, totalBytes: 44, dataBytes: 34, eccBytes: 10, alignmentPositions: [6, 18] },
+  { version: 3, size: 29, totalBytes: 70, dataBytes: 55, eccBytes: 15, alignmentPositions: [6, 22] },
+  { version: 4, size: 33, totalBytes: 100, dataBytes: 80, eccBytes: 20, alignmentPositions: [6, 26] },
+  { version: 5, size: 37, totalBytes: 134, dataBytes: 108, eccBytes: 26, alignmentPositions: [6, 30] }
+];
+function generateQRMatrix(text) {
+  const textBytes = new TextEncoder().encode(text);
+  const spec = QR_SPECS.find((s) => s.dataBytes >= textBytes.length + 3) || QR_SPECS[QR_SPECS.length - 1];
+  const size = spec.size;
+  const matrix = Array.from({ length: size }, () => Array(size).fill(null));
+  const isFunction = Array.from({ length: size }, () => Array(size).fill(false));
+  const setModule = (r, c, val, isFunc = true) => {
+    if (r >= 0 && r < size && c >= 0 && c < size) {
+      matrix[r][c] = val;
+      if (isFunc) isFunction[r][c] = true;
+    }
+  };
+  const drawFinder = (top, left) => {
+    for (let r = -1; r <= 7; r++) {
+      for (let c = -1; c <= 7; c++) {
+        const row = top + r;
+        const col = left + c;
+        if (row < 0 || row >= size || col < 0 || col >= size) continue;
+        if (r >= 0 && r <= 6 && c >= 0 && c <= 6) {
+          const isBlack = r === 0 || r === 6 || c === 0 || c === 6 || r >= 2 && r <= 4 && c >= 2 && c <= 4;
+          setModule(row, col, isBlack, true);
+        } else {
+          setModule(row, col, false, true);
+        }
+      }
+    }
+  };
+  drawFinder(0, 0);
+  drawFinder(0, size - 7);
+  drawFinder(size - 7, 0);
+  if (spec.alignmentPositions.length > 0) {
+    const coords = spec.alignmentPositions;
+    for (const r of coords) {
+      for (const c of coords) {
+        if (r === 6 && c === 6 || r === 6 && c === size - 7 || r === size - 7 && c === 6) {
+          continue;
+        }
+        for (let dy = -2; dy <= 2; dy++) {
+          for (let dx = -2; dx <= 2; dx++) {
+            const isBlack = Math.max(Math.abs(dy), Math.abs(dx)) !== 1;
+            setModule(r + dy, c + dx, isBlack, true);
+          }
+        }
+      }
+    }
+  }
+  for (let i = 8; i < size - 8; i++) {
+    const val = i % 2 === 0;
+    if (matrix[6][i] === null) setModule(6, i, val, true);
+    if (matrix[i][6] === null) setModule(i, 6, val, true);
+  }
+  setModule(size - 8, 8, true, true);
+  for (let i = 0; i < 9; i++) {
+    if (matrix[8][i] === null) setModule(8, i, false, true);
+    if (matrix[i][8] === null) setModule(i, 8, false, true);
+  }
+  for (let i = size - 8; i < size; i++) {
+    if (matrix[8][i] === null) setModule(8, i, false, true);
+    if (matrix[i][8] === null) setModule(i, 8, false, true);
+  }
+  const bitStream = [];
+  const appendBits = (val, length) => {
+    for (let i = length - 1; i >= 0; i--) {
+      bitStream.push(val >> i & 1);
+    }
+  };
+  appendBits(4, 4);
+  appendBits(textBytes.length, 8);
+  for (const byte of textBytes) {
+    appendBits(byte, 8);
+  }
+  const capacityBits = spec.dataBytes * 8;
+  const termLength = Math.min(4, capacityBits - bitStream.length);
+  appendBits(0, termLength);
+  while (bitStream.length % 8 !== 0 && bitStream.length < capacityBits) {
+    bitStream.push(0);
+  }
+  const padBytes = [236, 17];
+  let padIdx = 0;
+  while (bitStream.length < capacityBits) {
+    appendBits(padBytes[padIdx % 2], 8);
+    padIdx++;
+  }
+  const dataCodewords = new Uint8Array(spec.dataBytes);
+  for (let i = 0; i < spec.dataBytes; i++) {
+    let byteVal = 0;
+    for (let b = 0; b < 8; b++) {
+      byteVal = byteVal << 1 | bitStream[i * 8 + b];
+    }
+    dataCodewords[i] = byteVal;
+  }
+  const eccCodewords = rsCalculateEcc(dataCodewords, spec.eccBytes);
+  const totalCodewords = new Uint8Array(spec.totalBytes);
+  totalCodewords.set(dataCodewords, 0);
+  totalCodewords.set(eccCodewords, spec.dataBytes);
+  const finalBits = [];
+  for (const byte of totalCodewords) {
+    for (let b = 7; b >= 0; b--) {
+      finalBits.push(byte >> b & 1);
+    }
+  }
+  let bitIdx = 0;
+  let upward = true;
+  for (let right = size - 1; right > 0; right -= 2) {
+    if (right === 6) right--;
+    const rows = upward ? Array.from({ length: size }, (_, i) => size - 1 - i) : Array.from({ length: size }, (_, i) => i);
+    for (const r of rows) {
+      for (const c of [right, right - 1]) {
+        if (!isFunction[r][c]) {
+          const bit = bitIdx < finalBits.length ? finalBits[bitIdx++] : 0;
+          const mask = (r + c) % 2 === 0;
+          matrix[r][c] = mask ? bit === 0 : bit === 1;
+        }
+      }
+    }
+    upward = !upward;
+  }
+  const formatBits = [1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0];
+  for (let i = 0; i < 6; i++) setModule(8, i, formatBits[i] === 1, true);
+  setModule(8, 7, formatBits[6] === 1, true);
+  setModule(8, 8, formatBits[7] === 1, true);
+  setModule(7, 8, formatBits[8] === 1, true);
+  for (let i = 9; i < 15; i++) setModule(14 - i, 8, formatBits[i] === 1, true);
+  for (let i = 0; i < 8; i++) setModule(size - 1 - i, 8, formatBits[i] === 1, true);
+  for (let i = 8; i < 15; i++) setModule(8, size - 15 + i, formatBits[i] === 1, true);
+  return matrix.map((row) => row.map((cell) => cell ?? false));
+}
+var ConnectModal = ({
+  isOpen,
+  onClose,
+  serverUrl = typeof window !== "undefined" ? window.location.origin : "http://localhost:8000",
+  onSimulatedCapture
+}) => {
+  const [copiedKey, setCopiedKey] = (0, import_react4.useState)(null);
+  const [activeTab, setActiveTab] = (0, import_react4.useState)("qr");
+  const [companionInfo, setCompanionInfo] = (0, import_react4.useState)(null);
+  const [devicesList, setDevicesList] = (0, import_react4.useState)([]);
+  const [activeDeviceCount, setActiveDeviceCount] = (0, import_react4.useState)(0);
+  const [isLoading, setIsLoading] = (0, import_react4.useState)(false);
+  const [isSimulating, setIsSimulating] = (0, import_react4.useState)(null);
+  const [simSuccessMsg, setSimSuccessMsg] = (0, import_react4.useState)(null);
+  const [guideSubTab, setGuideSubTab] = (0, import_react4.useState)("wifi");
+  const isMountedRef = (0, import_react4.useRef)(true);
+  const fetchTelemetry = (0, import_react4.useCallback)(async () => {
+    if (!isOpen) return;
+    setIsLoading(true);
+    try {
+      const infoPromise = getCompanionInfo();
+      const devicesPromise = fetch(`${API_BASE_URL}/api/v1/devices`).then((res) => res.ok ? res.json() : null).catch(() => null);
+      const [info, devData] = await Promise.all([infoPromise, devicesPromise]);
+      if (isMountedRef.current) {
+        if (info) {
+          setCompanionInfo(info);
+        }
+        if (devData && Array.isArray(devData.devices)) {
+          setDevicesList(devData.devices);
+          setActiveDeviceCount(devData.total_devices ?? devData.devices.length);
+        } else if (info && Array.isArray(info.devices)) {
+          setDevicesList(info.devices);
+          setActiveDeviceCount(info.active_devices_count ?? info.devices.length);
+        } else {
+          setDevicesList([]);
+          setActiveDeviceCount(0);
+        }
+      }
+    } catch (err) {
+      console.warn("Telemetry polling notice:", err);
+    } finally {
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
+    }
+  }, [isOpen]);
+  (0, import_react4.useEffect)(() => {
+    isMountedRef.current = true;
+    if (isOpen) {
+      fetchTelemetry();
+      const interval = setInterval(fetchTelemetry, 2500);
+      return () => {
+        isMountedRef.current = false;
+        clearInterval(interval);
+      };
+    }
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [isOpen, fetchTelemetry]);
+  (0, import_react4.useEffect)(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [isOpen, onClose]);
+  if (!isOpen) return null;
+  const handleCopy = (text, key) => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    }
+    setCopiedKey(key);
+    setTimeout(() => {
+      if (isMountedRef.current) setCopiedKey(null);
+    }, 2200);
+  };
+  const handleSimulate = async (type) => {
+    setIsSimulating(type);
+    setSimSuccessMsg(null);
+    try {
+      await simulateCompanionUpload(type);
+      setSimSuccessMsg(
+        type === "document" ? "\u2713 Test Document Scan ingested! Slotted into Document Viewport." : "\u2713 Test Traveler Selfie ingested! Live photo screening triggered."
+      );
+      if (onSimulatedCapture) {
+        onSimulatedCapture(type);
+      }
+      fetchTelemetry();
+      setTimeout(() => {
+        if (isMountedRef.current) setSimSuccessMsg(null);
+      }, 4500);
+    } catch (err) {
+      console.error("Simulation error:", err);
+    } finally {
+      if (isMountedRef.current) {
+        setIsSimulating(null);
+      }
+    }
+  };
+  const handleClearBuffer = async () => {
+    setIsSimulating("clear");
+    setSimSuccessMsg(null);
+    try {
+      await clearCompanionCapture();
+      setSimSuccessMsg("\u2713 In-memory companion stream buffer cleared across edge gateway.");
+      fetchTelemetry();
+      setTimeout(() => {
+        if (isMountedRef.current) setSimSuccessMsg(null);
+      }, 4e3);
+    } catch (err) {
+      console.error("Clear buffer error:", err);
+    } finally {
+      if (isMountedRef.current) {
+        setIsSimulating(null);
+      }
+    }
+  };
+  const primaryGateway = companionInfo?.gateway_url || (serverUrl.startsWith("http") ? serverUrl : `http://${serverUrl}:8000`);
+  const emulatorUrl = companionInfo?.emulator_url || "http://10.0.2.2:8000";
+  const adbCmd = companionInfo?.adb_command || "adb reverse tcp:8000 tcp:8000";
+  const localhostUrl = "http://localhost:8000";
+  let qrMatrix;
+  try {
+    qrMatrix = generateQRMatrix(primaryGateway);
+  } catch {
+    qrMatrix = Array.from({ length: 25 }, () => Array(25).fill(false));
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    "div",
+    {
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-labelledby": "companion-modal-title",
+      className: "fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-3 sm:p-4 animate-fade-in",
+      onClick: (e) => {
+        if (e.target === e.currentTarget) onClose();
+      },
+      children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "bg-surface border border-line rounded-2xl shadow-raised max-w-2xl w-full overflow-hidden flex flex-col max-h-[92vh]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between px-5 py-4 border-b border-line bg-gradient-to-r from-inset via-surface to-surface", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center space-x-3 min-w-0", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "p-2.5 bg-accent/10 border border-accent/20 rounded-xl text-accent shrink-0", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Smartphone, { className: "w-5 h-5" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "min-w-0", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 flex-wrap", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h2", { id: "companion-modal-title", className: "text-sm sm:text-base font-bold text-ink truncate", children: "Companion Connection & Pairing Center" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                  "span",
+                  {
+                    className: `inline-flex items-center gap-1.5 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border transition-all ${activeDeviceCount > 0 ? "bg-green-bg border-green/30 text-green" : "bg-orange-bg border-orange/30 text-orange"}`,
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                        "span",
+                        {
+                          className: `size-1.5 rounded-full ${activeDeviceCount > 0 ? "bg-green animate-ping" : "bg-orange"}`
+                        }
+                      ),
+                      activeDeviceCount > 0 ? `${activeDeviceCount} Field Unit${activeDeviceCount > 1 ? "s" : ""} Online` : "Waiting for Device"
+                    ]
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-[11.5px] text-ink-3 truncate mt-0.5", children: "Indo-Nepal & Indo-Bhutan Frontier Mobile Camera & Biometric Stream Sync" })
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              type: "button",
+              onClick: onClose,
+              "aria-label": "Close Pairing Center",
+              className: "p-1.5 text-ink-3 hover:text-ink rounded-lg hover:bg-hover border border-transparent hover:border-line transition-colors ml-2 shrink-0",
+              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(X, { className: "w-5 h-5" })
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center border-b border-line bg-inset/60 px-4 sm:px-6 gap-1 sm:gap-2 overflow-x-auto no-scrollbar", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => setActiveTab("qr"),
+              className: `flex items-center gap-2 py-3 px-3 border-b-2 text-xs font-semibold whitespace-nowrap transition-all ${activeTab === "qr" ? "border-accent text-accent" : "border-transparent text-ink-3 hover:text-ink"}`,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(QrCode, { className: "w-4 h-4" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Pairing & QR Code" })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => setActiveTab("devices"),
+              className: `flex items-center gap-2 py-3 px-3 border-b-2 text-xs font-semibold whitespace-nowrap transition-all ${activeTab === "devices" ? "border-accent text-accent" : "border-transparent text-ink-3 hover:text-ink"}`,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Radio, { className: "w-4 h-4" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Live Device Monitor" }),
+                activeDeviceCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-green text-white", children: activeDeviceCount })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => setActiveTab("test"),
+              className: `flex items-center gap-2 py-3 px-3 border-b-2 text-xs font-semibold whitespace-nowrap transition-all ${activeTab === "test" ? "border-accent text-accent" : "border-transparent text-ink-3 hover:text-ink"}`,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Zap, { className: "w-4 h-4" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Simulation Suite" })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => setActiveTab("guide"),
+              className: `flex items-center gap-2 py-3 px-3 border-b-2 text-xs font-semibold whitespace-nowrap transition-all ${activeTab === "guide" ? "border-accent text-accent" : "border-transparent text-ink-3 hover:text-ink"}`,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CircleHelp, { className: "w-4 h-4" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Setup Guide" })
+              ]
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-5 sm:p-6 overflow-y-auto space-y-5 flex-1", children: [
+          activeTab === "qr" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex flex-col sm:flex-row items-center gap-5 p-4 sm:p-5 rounded-2xl bg-inset border border-line", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-3 bg-white rounded-2xl shadow-card border border-neutral-200 shrink-0 flex flex-col items-center", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                  "svg",
+                  {
+                    width: "136",
+                    height: "136",
+                    viewBox: `0 0 ${qrMatrix.length} ${qrMatrix.length}`,
+                    shapeRendering: "crispEdges",
+                    className: "rounded-sm",
+                    "aria-label": `QR Code for ${primaryGateway}`,
+                    children: qrMatrix.map(
+                      (row, r) => row.map((filled, c) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                        "rect",
+                        {
+                          x: c,
+                          y: r,
+                          width: "1",
+                          height: "1",
+                          fill: filled ? "#09090b" : "#ffffff"
+                        },
+                        `${r}-${c}`
+                      ))
+                    )
+                  }
+                ),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[9.5px] font-bold text-neutral-600 uppercase tracking-widest mt-1.5", children: "SCAN TO PAIR" })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex-1 min-w-0 space-y-2.5 text-center sm:text-left", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-center sm:justify-start gap-1.5 text-accent text-xs font-bold uppercase tracking-wider", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Wifi, { className: "w-3.5 h-3.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Border Wi-Fi / LAN Gateway" })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("p", { className: "text-xs text-ink-2 leading-relaxed", children: [
+                  "Point your Android ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "SSB Field Camera" }),
+                  " scanner at this QR code or enter the Gateway URL manually in companion app settings:"
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between gap-2 bg-surface px-3.5 py-2.5 rounded-xl border border-line shadow-sm", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("code", { className: "text-xs font-mono text-ink font-semibold truncate select-all", children: primaryGateway }),
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => handleCopy(primaryGateway, "gateway"),
+                      className: `inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-md transition-all shrink-0 ${copiedKey === "gateway" ? "bg-green-bg text-green border border-green/30" : "bg-accent/10 hover:bg-accent/20 text-accent"}`,
+                      children: copiedKey === "gateway" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Check, { className: "w-3.5 h-3.5 text-green" }),
+                        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Copied!" })
+                      ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Copy, { className: "w-3.5 h-3.5" }),
+                        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Copy" })
+                      ] })
+                    }
+                  )
+                ] })
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "space-y-2.5", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[11px] font-bold text-ink-3 uppercase tracking-wider block", children: "Alternative Connection Modes & Tethering Options" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-2.5", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between gap-3 p-3 rounded-xl bg-inset border border-line text-xs", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2.5 min-w-0", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "p-1.5 rounded-lg bg-surface border border-line text-ink-3", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Cpu, { className: "w-4 h-4" }) }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "min-w-0", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "font-semibold text-ink block truncate", children: "Android Emulator" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("code", { className: "text-[11px] font-mono text-ink-3 truncate block", children: emulatorUrl })
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => handleCopy(emulatorUrl, "emu"),
+                      title: "Copy Emulator URL",
+                      "aria-label": "Copy Emulator URL",
+                      className: "p-1.5 text-ink-3 hover:text-ink rounded-lg bg-surface border border-line shadow-btn transition-colors shrink-0",
+                      children: copiedKey === "emu" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Check, { className: "w-3.5 h-3.5 text-green" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Copy, { className: "w-3.5 h-3.5" })
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between gap-3 p-3 rounded-xl bg-inset border border-line text-xs", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2.5 min-w-0", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "p-1.5 rounded-lg bg-surface border border-line text-ink-3", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Usb, { className: "w-4 h-4" }) }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "min-w-0", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "font-semibold text-ink block truncate", children: "USB Cable (ADB Reverse)" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("code", { className: "text-[11px] font-mono text-ink-3 truncate block", children: adbCmd })
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => handleCopy(adbCmd, "adb"),
+                      title: "Copy ADB Command",
+                      "aria-label": "Copy ADB Command",
+                      className: "p-1.5 text-ink-3 hover:text-ink rounded-lg bg-surface border border-line shadow-btn transition-colors shrink-0",
+                      children: copiedKey === "adb" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Check, { className: "w-3.5 h-3.5 text-green" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Copy, { className: "w-3.5 h-3.5" })
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between gap-3 p-3 rounded-xl bg-inset border border-line text-xs sm:col-span-2", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2.5 min-w-0", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "p-1.5 rounded-lg bg-surface border border-line text-ink-3", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Globe, { className: "w-4 h-4" }) }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "min-w-0", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "font-semibold text-ink block truncate", children: "Localhost Edge Gateway" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("code", { className: "text-[11px] font-mono text-ink-3 truncate block", children: localhostUrl })
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => handleCopy(localhostUrl, "local"),
+                      title: "Copy Localhost URL",
+                      "aria-label": "Copy Localhost URL",
+                      className: "p-1.5 text-ink-3 hover:text-ink rounded-lg bg-surface border border-line shadow-btn transition-colors shrink-0",
+                      children: copiedKey === "local" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Check, { className: "w-3.5 h-3.5 text-green" }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Copy, { className: "w-3.5 h-3.5" })
+                    }
+                  )
+                ] })
+              ] })
+            ] })
+          ] }),
+          activeTab === "devices" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Activity, { className: "w-4 h-4 text-accent" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-xs font-bold text-ink", children: "Active Field Units Registered on Edge Gateway" })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  onClick: fetchTelemetry,
+                  disabled: isLoading,
+                  className: "inline-flex items-center gap-1.5 text-[11px] font-semibold text-accent hover:text-accent-hover transition-colors",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RefreshCw, { className: `w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}` }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Refresh Telemetry" })
+                  ]
+                }
+              )
+            ] }),
+            devicesList.length > 0 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "space-y-2.5", children: devicesList.map((dev, idx) => {
+              const isOnline = dev.status === "ONLINE";
+              return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                "div",
+                {
+                  className: "p-4 rounded-xl bg-inset border border-line flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-card",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center space-x-3 min-w-0", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                        "div",
+                        {
+                          className: `size-2.5 rounded-full shrink-0 ${isOnline ? "bg-green animate-pulse" : "bg-ink-3"}`
+                        }
+                      ),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "min-w-0", children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2", children: [
+                          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "font-bold text-ink truncate", children: dev.user_agent || `Field Camera Unit #${idx + 1}` }),
+                          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                            "span",
+                            {
+                              className: `text-[9.5px] font-bold px-2 py-0.5 rounded-full border ${isOnline ? "bg-green-bg text-green border-green/30" : "bg-surface text-ink-3 border-line"}`,
+                              children: dev.status || "ONLINE"
+                            }
+                          )
+                        ] }),
+                        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 text-[11px] font-mono text-ink-3 mt-1 flex-wrap", children: [
+                          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
+                            "IP: ",
+                            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { className: "text-ink", children: dev.client_ip })
+                          ] }),
+                          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "\xB7" }),
+                          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
+                            "Checkpost: ",
+                            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { className: "text-ink", children: dev.checkpoint_id || "WB-JAI-01" })
+                          ] }),
+                          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "\xB7" }),
+                          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { children: [
+                            "Reqs: ",
+                            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { className: "text-ink", children: dev.total_requests })
+                          ] })
+                        ] })
+                      ] })
+                    ] }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "text-left sm:text-right shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-line", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-1", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[11px] font-semibold text-accent font-mono", children: typeof dev.latency_ms === "number" ? `${dev.latency_ms} ms` : "Live" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10.5px] text-ink-3", children: dev.last_seen ? new Date(dev.last_seen).toLocaleTimeString() : "Active" })
+                    ] }) })
+                  ]
+                },
+                idx
+              );
+            }) }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-8 rounded-2xl bg-inset border border-line text-center space-y-3", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "size-12 rounded-2xl bg-surface border border-line flex items-center justify-center mx-auto text-ink-3", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Radio, { className: "w-6 h-6 animate-pulse text-orange" }) }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "space-y-1", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-sm font-bold text-ink", children: "No Field Units Currently Connected" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("p", { className: "text-xs text-ink-3 max-w-sm mx-auto", children: [
+                  "Launch the ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "SSB Field Camera" }),
+                  " app on an Android device connected to the same local Wi-Fi network or tethered via USB to register live telemetry."
+                ] })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setActiveTab("qr"),
+                  className: "inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:text-accent-hover mt-1",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(QrCode, { className: "w-3.5 h-3.5" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "View QR Code & Setup Instructions" })
+                  ]
+                }
+              )
+            ] })
+          ] }),
+          activeTab === "test" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-3.5 rounded-xl bg-accent/10 border border-accent/20 text-xs text-accent-ink space-y-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "font-bold block flex items-center gap-1.5 text-accent", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Zap, { className: "w-3.5 h-3.5" }),
+                "Interactive Testing & Stream Ingestion Simulation"
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-ink-2", children: "Dispatch synthetic document scans and live traveler selfies directly to the FastAPI edge gateway to verify live slotting and automated fraud screening without a physical phone in hand." })
+            ] }),
+            simSuccessMsg && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-3 rounded-xl bg-green-bg border border-green/30 text-xs text-green font-semibold flex items-center gap-2 animate-fade-up", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(CircleCheck, { className: "w-4 h-4 shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: simSuccessMsg })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3.5", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => handleSimulate("document"),
+                  disabled: isSimulating !== null,
+                  className: "p-4 rounded-xl bg-inset hover:bg-hover border border-line text-left transition-all active:scale-[0.98] space-y-2 shadow-btn disabled:opacity-50",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "p-2 bg-surface rounded-lg border border-line text-accent", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FileText, { className: "w-4 h-4" }) }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10.5px] font-bold text-accent uppercase", children: isSimulating === "document" ? "Ingesting..." : "Ingest Doc" })
+                    ] }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h4", { className: "font-bold text-xs text-ink", children: "Send Test Document Scan" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-[11px] text-ink-3", children: "Simulates field officer scanning a passport/citizenship document (`capture_type: document`)." })
+                    ] })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => handleSimulate("selfie"),
+                  disabled: isSimulating !== null,
+                  className: "p-4 rounded-xl bg-inset hover:bg-hover border border-line text-left transition-all active:scale-[0.98] space-y-2 shadow-btn disabled:opacity-50",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "p-2 bg-surface rounded-lg border border-line text-green", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(User, { className: "w-4 h-4" }) }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10.5px] font-bold text-green uppercase", children: isSimulating === "selfie" ? "Ingesting..." : "Ingest Selfie" })
+                    ] }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h4", { className: "font-bold text-xs text-ink", children: "Send Test Traveler Selfie" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-[11px] text-ink-3", children: "Simulates companion selfie capture (`capture_type: selfie`) triggering 1:1 facial biometric matching." })
+                    ] })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  onClick: handleClearBuffer,
+                  disabled: isSimulating !== null,
+                  className: "p-4 rounded-xl bg-inset hover:bg-hover border border-line text-left transition-all active:scale-[0.98] space-y-2 shadow-btn disabled:opacity-50 sm:col-span-2",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center justify-between", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "p-2 bg-surface rounded-lg border border-line text-red", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Trash2, { className: "w-4 h-4" }) }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10.5px] font-bold text-red uppercase", children: isSimulating === "clear" ? "Clearing..." : "Flush Buffer" })
+                    ] }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h4", { className: "font-bold text-xs text-ink", children: "Clear Companion Stream Buffer" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "text-[11px] text-ink-3", children: "Calls `POST /api/v1/companion/clear` to reset in-transit ring buffer and active frame slots on Edge Gateway." })
+                    ] })
+                  ]
+                }
+              )
+            ] })
+          ] }),
+          activeTab === "guide" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 p-1 bg-inset rounded-xl border border-line", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setGuideSubTab("wifi"),
+                  className: `flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${guideSubTab === "wifi" ? "bg-surface text-ink shadow-sm border border-line" : "text-ink-3 hover:text-ink"}`,
+                  children: "Mode A: Wi-Fi / LAN"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setGuideSubTab("usb"),
+                  className: `flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${guideSubTab === "usb" ? "bg-surface text-ink shadow-sm border border-line" : "text-ink-3 hover:text-ink"}`,
+                  children: "Mode B: USB / ADB Reverse"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setGuideSubTab("emulator"),
+                  className: `flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${guideSubTab === "emulator" ? "bg-surface text-ink shadow-sm border border-line" : "text-ink-3 hover:text-ink"}`,
+                  children: "Mode C: Emulator"
+                }
+              )
+            ] }),
+            guideSubTab === "wifi" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-4 rounded-xl bg-inset border border-line text-xs space-y-2.5 text-ink-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 text-ink font-bold text-xs", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Wifi, { className: "w-4 h-4 text-accent" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Wireless Local Area Network Setup:" })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("ol", { className: "list-decimal list-inside space-y-2 text-[11.5px] leading-relaxed pl-1", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Connect your Android phone to the ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "same Wi-Fi router or hotspot" }),
+                  " as this workstation."
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Launch the ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "SSB Field Camera" }),
+                  " application on the device."
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Tap the ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "Gateway URL / Settings" }),
+                  " icon in the app toolbar."
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Scan the ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "QR Code" }),
+                  " from the Pairing tab or type in: ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("code", { className: "font-mono text-ink bg-surface px-1.5 py-0.5 rounded border border-line", children: primaryGateway })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Once connected, the status badge turns ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-green font-bold", children: "\u{1F7E2} Connected" }),
+                  " and captures stream instantly."
+                ] })
+              ] })
+            ] }),
+            guideSubTab === "usb" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-4 rounded-xl bg-inset border border-line text-xs space-y-2.5 text-ink-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 text-ink font-bold text-xs", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Usb, { className: "w-4 h-4 text-accent" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Air-Gapped USB Tethering & Reverse Proxy:" })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("ol", { className: "list-decimal list-inside space-y-2 text-[11.5px] leading-relaxed pl-1", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Connect the Android phone to the desktop using a ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "USB-C data cable" }),
+                  "."
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Enable ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "USB Debugging" }),
+                  " under Android Settings > Developer Options."
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Open Terminal on this workstation and run:",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "my-1.5 flex items-center justify-between bg-surface px-3 py-1.5 rounded-lg border border-line font-mono text-[11px] text-ink", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: adbCmd }),
+                    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                      "button",
+                      {
+                        type: "button",
+                        onClick: () => handleCopy(adbCmd, "guide-adb"),
+                        className: "text-accent hover:text-accent-hover font-sans font-semibold text-[10px]",
+                        children: copiedKey === "guide-adb" ? "Copied!" : "Copy"
+                      }
+                    )
+                  ] })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "In the companion app, configure the Gateway URL to: ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("code", { className: "font-mono text-ink bg-surface px-1.5 py-0.5 rounded border border-line", children: "http://localhost:8000" })
+                ] })
+              ] })
+            ] }),
+            guideSubTab === "emulator" && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "p-4 rounded-xl bg-inset border border-line text-xs space-y-2.5 text-ink-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 text-ink font-bold text-xs", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Cpu, { className: "w-4 h-4 text-accent" }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: "Android Studio Virtual Device (AVD) Simulation:" })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("ol", { className: "list-decimal list-inside space-y-2 text-[11.5px] leading-relaxed pl-1", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("li", { children: "Start the Android Virtual Device emulator in Android Studio." }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Run the ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("strong", { children: "android-agent" }),
+                  " project on the emulator."
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
+                  "Set the Gateway URL to the special host loopback alias: ",
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("code", { className: "font-mono text-ink bg-surface px-1.5 py-0.5 rounded border border-line", children: emulatorUrl })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("li", { children: "Simulated camera captures and barcode detections will sync directly to this screening desk." })
+              ] })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "px-5 sm:px-6 py-3.5 border-t border-line bg-inset flex items-center justify-between", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-2 text-xs text-ink-3", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ShieldCheck, { className: "w-4 h-4 text-green shrink-0" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "hidden sm:inline", children: "SSB Air-Gapped Local Gateway Active (Port 8000)" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "sm:hidden", children: "Gateway Active" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              type: "button",
+              onClick: onClose,
+              className: "bg-accent hover:bg-accent-hover text-white text-xs font-bold px-6 py-2 rounded-control shadow-btn transition-all active:scale-95",
+              children: "Close"
+            }
+          )
+        ] })
+      ] })
+    }
+  );
+};
+
+// src/components/Header.tsx
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var Header = ({
   selectedCheckpoint,
   onSelectCheckpoint,
@@ -28129,16 +29244,26 @@ var Header = ({
   isCheckingHealth,
   onOpenAuditModal,
   onOpenJsonModal,
-  hasScanResult
+  hasScanResult,
+  serverUrl = typeof window !== "undefined" ? window.location.origin : "http://localhost:8000",
+  onOpenConnectModal
 }) => {
-  const [currentTime, setCurrentTime] = (0, import_react3.useState)((/* @__PURE__ */ new Date()).toUTCString());
-  const [activeDeviceCount, setActiveDeviceCount] = (0, import_react3.useState)(0);
-  const [deviceLatencyMs, setDeviceLatencyMs] = (0, import_react3.useState)(null);
-  (0, import_react3.useEffect)(() => {
+  const [currentTime, setCurrentTime] = (0, import_react5.useState)((/* @__PURE__ */ new Date()).toUTCString());
+  const [activeDeviceCount, setActiveDeviceCount] = (0, import_react5.useState)(0);
+  const [deviceLatencyMs, setDeviceLatencyMs] = (0, import_react5.useState)(null);
+  const [isConnectModalOpen, setIsConnectModalOpen] = (0, import_react5.useState)(false);
+  const handleOpenConnect = () => {
+    if (onOpenConnectModal) {
+      onOpenConnectModal();
+    } else {
+      setIsConnectModalOpen(true);
+    }
+  };
+  (0, import_react5.useEffect)(() => {
     const timer = setInterval(() => setCurrentTime((/* @__PURE__ */ new Date()).toUTCString()), 1e3);
     return () => clearInterval(timer);
   }, []);
-  (0, import_react3.useEffect)(() => {
+  (0, import_react5.useEffect)(() => {
     let isMounted = true;
     const checkDevices = async () => {
       try {
@@ -28171,112 +29296,150 @@ var Header = ({
       clearInterval(interval);
     };
   }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("header", { className: "bg-surface border-b border-line sticky top-0 z-40 px-4 py-2.5 shadow-card", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "max-w-[1700px] mx-auto flex flex-wrap items-center justify-between gap-3", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center space-x-3.5", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "relative flex-shrink-0", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/ssb_logo.png", alt: "Sashastra Seema Bal", className: "w-10 h-10 object-contain drop-shadow" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `relative inline-flex rounded-full h-2.5 w-2.5 ${backendOnline ? "bg-green" : "bg-red"}` }) })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "flex items-center space-x-2", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-[10px] uppercase font-mono font-bold tracking-widest text-ink-3", children: "Government of India \xB7 Ministry of Home Affairs" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center space-x-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { className: "text-base font-bold text-ink tracking-tight", children: "Sashastra Seema Bal (SSB)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-xs font-mono text-ink-3 hidden sm:inline", children: "\xB7 AI Document Screening (SIH26188)" })
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("header", { className: "sticky top-0 z-40 border-b border-line bg-surface/95 px-4 py-3 backdrop-blur-xl shadow-sm", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mx-auto flex max-w-[1700px] flex-wrap items-center justify-between gap-4", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center space-x-4", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative flex-shrink-0", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "h-11 w-11 rounded-xl bg-gradient-to-br from-accent to-accent-hover p-1.5 shadow-lg shadow-accent/20 flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { src: "/ssb_logo.svg", alt: "Sashastra Seema Bal", className: "h-full w-full object-contain" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "absolute -bottom-1 -right-1 flex h-3 w-3", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: `relative inline-flex h-3 w-3 rounded-full ${backendOnline ? "bg-green shadow-green/50 shadow-lg" : "bg-red shadow-red/50 shadow-lg"}` }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: `absolute inline-flex h-full w-full rounded-full ${backendOnline ? "bg-green" : "bg-red"} animate-ping opacity-75` })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "flex items-center space-x-2", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[10.5px] font-semibold uppercase tracking-widest text-ink-3", children: "Government of India \xB7 Ministry of Home Affairs" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { className: "text-base font-bold tracking-tight text-ink", children: "Sashastra Seema Bal (SSB)" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "hidden text-xs font-medium text-ink-3 sm:inline", children: "\xB7 Document Screening Station" }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "hidden xl:inline text-[10px] font-mono font-semibold px-2 py-0.5 rounded-chip bg-accent/10 text-accent border border-accent/20", children: "AIR-GAPPED" })
+          ] })
         ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex flex-wrap items-center gap-3 text-xs", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "hidden font-mono text-[11px] text-ink-3 lg:inline bg-inset px-2.5 py-1 rounded-control border border-line", children: currentTime }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center rounded-control border border-line bg-inset px-3.5 py-2 text-ink shadow-btn hover:bg-hover transition-colors", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MapPin, { className: "mr-2 h-3.5 w-3.5 flex-shrink-0 text-accent" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "mr-1.5 text-[11px] font-medium text-ink-3", children: "Post:" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            "select",
+            {
+              value: selectedCheckpoint.id,
+              onChange: (e) => {
+                const found = CHECKPOINTS.find((cp) => cp.id === e.target.value);
+                if (found) onSelectCheckpoint(found);
+              },
+              className: "cursor-pointer bg-transparent text-xs font-semibold text-ink focus:outline-none",
+              children: CHECKPOINTS.map((cp) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("option", { value: cp.id, className: "bg-surface text-ink", children: [
+                cp.name,
+                " (",
+                cp.border,
+                ")"
+              ] }, cp.id))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: handleOpenConnect,
+            className: "flex items-center space-x-2 rounded-control bg-accent text-white px-3.5 py-2 text-xs font-semibold shadow-btn hover:bg-accent-hover transition-all active:scale-95 group",
+            title: "Connect Mobile Field Unit / Companion Camera",
+            "aria-label": "Connect Field Unit",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Smartphone, { className: "h-3.5 w-3.5 transition-transform group-hover:scale-110" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Connect Field Unit" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+          "div",
+          {
+            role: "button",
+            tabIndex: 0,
+            onClick: handleOpenConnect,
+            onKeyDown: (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                handleOpenConnect();
+              }
+            },
+            className: `flex cursor-pointer items-center space-x-2.5 rounded-control border border-line bg-inset px-3 py-2 text-[11px] font-medium shadow-btn hover:bg-hover hover:border-line-strong transition-all`,
+            title: "Field Companion Connection Status (Click to open Pairing Center)",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Smartphone, { className: "h-3.5 w-3.5 shrink-0 text-accent" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "span",
+                {
+                  className: `h-2.5 w-2.5 shrink-0 rounded-full ${!backendOnline ? "bg-red" : activeDeviceCount > 0 ? "bg-green" : "bg-orange"} ${!backendOnline ? "animate-pulse" : ""}`
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "span",
+                {
+                  className: `font-semibold ${!backendOnline ? "text-red" : activeDeviceCount > 0 ? "text-green" : "text-orange"}`,
+                  children: !backendOnline ? "OFFLINE SIM" : activeDeviceCount === 0 ? "0 FIELD UNITS (OFFLINE)" : `${activeDeviceCount} FIELD UNIT${activeDeviceCount > 1 ? "S" : ""} (ONLINE)`
+                }
+              ),
+              backendOnline && activeDeviceCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "font-mono text-[10px] text-ink-3 bg-surface px-1.5 py-0.5 rounded border border-line", children: deviceLatencyMs !== null ? `${deviceLatencyMs}ms` : backendLatencyMs !== null ? `${backendLatencyMs}ms` : "live" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: (e) => {
+                    e.stopPropagation();
+                    onRefreshHealth();
+                  },
+                  disabled: isCheckingHealth,
+                  title: "Refresh Edge Gateway Status",
+                  className: "ml-0.5 text-ink-3 transition-colors hover:text-ink",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RefreshCw, { className: `h-3 w-3 ${isCheckingHealth ? "animate-spin" : ""}` })
+                }
+              )
+            ]
+          }
+        ),
+        hasScanResult && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: onOpenAuditModal,
+              className: "flex items-center space-x-2 rounded-control bg-accent px-4 py-2 text-xs font-semibold text-white shadow-btn transition-all hover:bg-accent-hover active:scale-95",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Shield, { className: "h-3.5 w-3.5" }),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Audit Certificate" })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: onOpenJsonModal,
+              className: "flex items-center space-x-2 rounded-control border border-line bg-inset px-3 py-2 font-mono text-xs text-ink-2 shadow-btn transition-colors hover:bg-hover active:scale-95",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Database, { className: "h-3 w-3" }),
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "JSON" })
+              ]
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "md:hidden", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ThemeToggle, {}) })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center flex-wrap gap-2.5 text-xs", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center bg-inset border border-line rounded-control px-2.5 py-1 text-ink shadow-btn", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, { className: "w-3.5 h-3.5 text-accent mr-1.5 flex-shrink-0" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-ink-3 mr-1 text-[11px]", children: "Post:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "select",
-          {
-            value: selectedCheckpoint.id,
-            onChange: (e) => {
-              const found = CHECKPOINTS.find((cp) => cp.id === e.target.value);
-              if (found) onSelectCheckpoint(found);
-            },
-            className: "bg-transparent text-ink font-semibold text-xs focus:outline-none cursor-pointer",
-            children: CHECKPOINTS.map((cp) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("option", { value: cp.id, className: "bg-surface text-ink", children: [
-              cp.id.slice(4),
-              " \xB7 ",
-              cp.name,
-              " (",
-              cp.border,
-              ")"
-            ] }, cp.id))
-          }
-        )
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex items-center bg-inset border border-line rounded-control px-2.5 py-1 space-x-2 text-[11px] font-mono shadow-btn", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Smartphone, { className: "w-3.5 h-3.5 text-accent shrink-0" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "span",
-          {
-            className: `w-2 h-2 rounded-full shrink-0 ${!backendOnline ? "bg-red" : activeDeviceCount > 0 ? "bg-green" : "bg-orange"}`
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "span",
-          {
-            className: `font-semibold ${!backendOnline ? "text-red" : activeDeviceCount > 0 ? "text-green" : "text-orange"}`,
-            children: !backendOnline ? "OFFLINE SIM" : activeDeviceCount === 0 ? "0 FIELD UNITS (OFFLINE)" : `${activeDeviceCount} ${activeDeviceCount === 1 ? "FIELD UNIT" : "FIELD UNITS"} (${deviceLatencyMs ?? backendLatencyMs ?? 0}ms)`
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-line-strong", children: "|" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "text-ink-2 font-medium", children: "AIR-GAPPED" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "button",
-          {
-            type: "button",
-            onClick: onRefreshHealth,
-            disabled: isCheckingHealth,
-            title: "Refresh Edge Gateway Status",
-            className: "text-ink-3 hover:text-ink transition-colors ml-0.5",
-            children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RefreshCw, { className: `w-3 h-3 ${isCheckingHealth ? "animate-spin" : ""}` })
-          }
-        )
-      ] }),
-      hasScanResult && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: onOpenAuditModal,
-            className: "flex items-center space-x-1 bg-accent-tint hover:bg-accent-tint/80 text-accent font-semibold px-2.5 py-1 rounded-control border border-accent/40 transition-colors text-[11px] shadow-btn",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Shield, { className: "w-3 h-3" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Audit Certificate" })
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: onOpenJsonModal,
-            className: "flex items-center space-x-1 bg-inset hover:bg-hover text-ink-2 font-mono px-2.5 py-1 rounded-control border border-line transition-colors text-[11px] shadow-btn",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Database, { className: "w-3 h-3" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "JSON" })
-            ]
-          }
-        )
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "hidden xl:flex items-center text-ink-3 text-[11px] font-mono bg-inset px-2.5 py-1 rounded-control border border-line shadow-btn", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Clock, { className: "w-3 h-3 mr-1 text-ink-3" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-          currentTime.split(" ").slice(4, 5).join(""),
-          " UTC"
-        ] })
-      ] })
-    ] })
-  ] }) });
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      ConnectModal,
+      {
+        isOpen: isConnectModalOpen,
+        onClose: () => setIsConnectModalOpen(false),
+        serverUrl
+      }
+    )
+  ] });
 };
 
 // tests/challenger_m3_frontend.test.tsx
-var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 var SRC_DIR = import_node_path.default.resolve(process.cwd(), "src");
 var passed = 0;
 var failed = 0;
@@ -28302,7 +29465,7 @@ async function runAll() {
   console.log("\n--- SUITE 1: Header Status Capsule Multi-State Rendering ---");
   await test("Header renders OFFLINE SIM when backendOnline is false", () => {
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
         Header,
         {
           selectedCheckpoint: CHECKPOINTS[0],
@@ -28328,7 +29491,7 @@ async function runAll() {
   });
   await test("Header renders 0 FIELD UNITS (OFFLINE) with orange warning on initial mount (0 devices)", () => {
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
         Header,
         {
           selectedCheckpoint: CHECKPOINTS[0],
@@ -28443,6 +29606,93 @@ async function runAll() {
     );
     import_strict.default.equal(multiResult.count, 3, "Count must be 3");
     import_strict.default.equal(multiResult.latency, 22, "Latency must be rounded to 22");
+  });
+  console.log("\n--- SUITE 4: Pure TypeScript QR Code Matrix Generator Engine ---");
+  await test("generateQRMatrix produces valid square boolean matrix with finder patterns", () => {
+    const testUrl = "http://192.168.1.105:8000";
+    const matrix = generateQRMatrix(testUrl);
+    import_strict.default.ok(Array.isArray(matrix), "Matrix must be an array");
+    import_strict.default.ok(matrix.length >= 21, "Matrix size must be at least 21x21 (Version 1+)");
+    import_strict.default.equal(matrix.length, matrix[0].length, "Matrix must be square");
+    import_strict.default.equal(matrix[0][0], true, "TL (0,0) must be black");
+    import_strict.default.equal(matrix[0][6], true, "TL (0,6) must be black");
+    import_strict.default.equal(matrix[6][0], true, "TL (6,0) must be black");
+    import_strict.default.equal(matrix[6][6], true, "TL (6,6) must be black");
+    import_strict.default.equal(matrix[3][3], true, "TL (3,3) center must be black");
+    import_strict.default.equal(matrix[1][1], false, "TL (1,1) inner ring must be white");
+    const size = matrix.length;
+    import_strict.default.equal(matrix[0][size - 7], true, "TR top-left finder module must be black");
+    import_strict.default.equal(matrix[0][size - 1], true, "TR top-right finder module must be black");
+    import_strict.default.equal(matrix[6][size - 7], true, "TR bottom-left finder module must be black");
+    import_strict.default.equal(matrix[size - 7][0], true, "BL top-left finder module must be black");
+    import_strict.default.equal(matrix[size - 1][0], true, "BL bottom-left finder module must be black");
+    import_strict.default.equal(matrix[size - 7][6], true, "BL top-right finder module must be black");
+  });
+  await test("generateQRMatrix encodes short and long URLs without throwing", () => {
+    const urls = [
+      "http://localhost:8000",
+      "http://10.0.2.2:8000",
+      "http://192.168.100.250:8000/api/v1/companion/upload"
+    ];
+    for (const url of urls) {
+      const matrix = generateQRMatrix(url);
+      import_strict.default.ok(matrix.length >= 21, `Matrix for ${url} should have valid dimensions`);
+      import_strict.default.ok(matrix.every((row) => row.length === matrix.length), "All rows must match size");
+    }
+  });
+  console.log("\n--- SUITE 5: ConnectModal Component Static Rendering & Structure ---");
+  await test("ConnectModal returns null when isOpen is false", () => {
+    const html = import_server.default.renderToStaticMarkup(
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ConnectModal, { isOpen: false, onClose: () => {
+      } })
+    );
+    import_strict.default.equal(html, "", "ConnectModal must render null when closed");
+  });
+  await test("ConnectModal renders full pairing modal when isOpen is true", () => {
+    const html = import_server.default.renderToStaticMarkup(
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ConnectModal, { isOpen: true, onClose: () => {
+      }, serverUrl: "http://192.168.1.100:8000" })
+    );
+    import_strict.default.ok(html.includes("Companion Connection &amp; Pairing Center"), "Must render modal title");
+    import_strict.default.ok(html.includes("http://192.168.1.100:8000"), "Must render primary gateway URL");
+    import_strict.default.ok(html.includes("http://10.0.2.2:8000"), "Must render emulator loopback URL");
+    import_strict.default.ok(html.includes("adb reverse tcp:8000 tcp:8000"), "Must render ADB reverse command");
+    import_strict.default.ok(html.includes("<svg"), "Must render inline SVG QR code");
+    import_strict.default.ok(html.includes("SCAN TO PAIR"), "Must render scan to pair hint");
+    import_strict.default.ok(html.includes('role="dialog"'), "Must have accessible dialog role");
+  });
+  await test("ConnectModal renders navigation tabs and action controls", () => {
+    const html = import_server.default.renderToStaticMarkup(
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ConnectModal, { isOpen: true, onClose: () => {
+      } })
+    );
+    import_strict.default.ok(html.includes("Pairing &amp; QR Code"), "Must render Pairing tab");
+    import_strict.default.ok(html.includes("Live Device Monitor"), "Must render Device Monitor tab");
+    import_strict.default.ok(html.includes("Simulation Suite"), "Must render Simulation tab");
+    import_strict.default.ok(html.includes("Setup Guide"), "Must render Setup Guide tab");
+    import_strict.default.ok(html.includes("Close"), "Must render close button in footer");
+  });
+  console.log("\n--- SUITE 6: ConnectModal Source Code Static Analysis & Integrity ---");
+  await test("ConnectModal.tsx contains live polling loop and unmount cleanup", () => {
+    const modalPath = import_node_path.default.join(SRC_DIR, "components/ConnectModal.tsx");
+    const code = import_node_fs.default.readFileSync(modalPath, "utf8");
+    import_strict.default.ok(code.includes("clearInterval(interval)"), "Must clear interval on unmount");
+    import_strict.default.ok(code.includes("isMountedRef"), "Must have isMounted guard to prevent memory leaks");
+    import_strict.default.ok(code.includes("/api/v1/devices"), "Must query /api/v1/devices telemetry endpoint");
+  });
+  await test("ConnectModal.tsx contains 1-click simulation triggers for Document, Selfie, and Clear", () => {
+    const modalPath = import_node_path.default.join(SRC_DIR, "components/ConnectModal.tsx");
+    const code = import_node_fs.default.readFileSync(modalPath, "utf8");
+    import_strict.default.ok(code.includes("Send Test Document Scan"), "Must contain Document Scan trigger");
+    import_strict.default.ok(code.includes("Send Test Traveler Selfie"), "Must contain Traveler Selfie trigger");
+    import_strict.default.ok(code.includes("Clear Companion Stream Buffer"), "Must contain Clear Stream Buffer trigger");
+    import_strict.default.ok(code.includes("clearCompanionCapture"), "Must call clearCompanionCapture");
+  });
+  await test("ConnectModal.tsx contains keyboard Escape dismiss listener", () => {
+    const modalPath = import_node_path.default.join(SRC_DIR, "components/ConnectModal.tsx");
+    const code = import_node_fs.default.readFileSync(modalPath, "utf8");
+    import_strict.default.ok(code.includes("e.key === 'Escape'"), "Must listen for Escape key");
+    import_strict.default.ok(code.includes("window.removeEventListener('keydown'"), "Must clean up keydown listener");
   });
   console.log("\n=============================================");
   console.log(`TOTAL AUDIT CHECKS RUN : ${total}`);
@@ -28579,12 +29829,28 @@ lucide-react/dist/esm/shared/src/utils.js:
 lucide-react/dist/esm/defaultAttributes.js:
 lucide-react/dist/esm/Icon.js:
 lucide-react/dist/esm/createLucideIcon.js:
-lucide-react/dist/esm/icons/clock.js:
+lucide-react/dist/esm/icons/activity.js:
+lucide-react/dist/esm/icons/check.js:
+lucide-react/dist/esm/icons/circle-check.js:
+lucide-react/dist/esm/icons/circle-help.js:
+lucide-react/dist/esm/icons/copy.js:
+lucide-react/dist/esm/icons/cpu.js:
 lucide-react/dist/esm/icons/database.js:
+lucide-react/dist/esm/icons/file-text.js:
+lucide-react/dist/esm/icons/globe.js:
 lucide-react/dist/esm/icons/map-pin.js:
+lucide-react/dist/esm/icons/qr-code.js:
+lucide-react/dist/esm/icons/radio.js:
 lucide-react/dist/esm/icons/refresh-cw.js:
+lucide-react/dist/esm/icons/shield-check.js:
 lucide-react/dist/esm/icons/shield.js:
 lucide-react/dist/esm/icons/smartphone.js:
+lucide-react/dist/esm/icons/trash-2.js:
+lucide-react/dist/esm/icons/usb.js:
+lucide-react/dist/esm/icons/user.js:
+lucide-react/dist/esm/icons/wifi.js:
+lucide-react/dist/esm/icons/x.js:
+lucide-react/dist/esm/icons/zap.js:
 lucide-react/dist/esm/lucide-react.js:
   (**
    * @license lucide-react v0.475.0 - ISC

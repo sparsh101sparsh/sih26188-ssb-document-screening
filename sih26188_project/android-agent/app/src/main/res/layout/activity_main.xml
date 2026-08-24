@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    tools:context=".MainActivity">
+
+    <!-- Camera Preview Viewport -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 1. Government Top Accessibility Bar -->
+    <LinearLayout
+        android:id="@+id/govTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gov_topbar"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="6dp"
+        android:gravity="center_vertical"
+        android:elevation="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="भारत सरकार • गृह मंत्रालय • SSB"
+            android:textColor="#FDE68A"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FIELD ENCLAVE v2.4"
+            android:textColor="#94A3B8"
+            android:textSize="9sp"
+            android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <!-- 2. Clean White Official Header Card (UIDAI Style) -->
+    <LinearLayout
+        android:id="@+id/govHeaderCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_card"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:elevation="6dp"
+        app:layout_constraintTop_toBottomOf="@id/govTopBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_ssb_crest"
+            android:contentDescription="SSB Insignia"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="सशस्त्र सीमा बल"
+                android:textColor="@color/gov_gold"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Field Screening Companion"
+                android:textColor="@color/text_secondary"
+                android:textSize="10.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Outbox Pending Badge -->
+        <TextView
+            android:id="@+id/outboxCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/outbox_badge"
+            android:paddingStart="10dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="4dp"
+            android:text="0 pending"
+            android:textColor="@color/status_orange"
+            android:textSize="10.5sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- 3. Connection Status & Station Pill -->
+    <TextView
+        android:id="@+id/connectionStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/status_badge"
+        android:drawableStart="@drawable/ic_status_dot"
+        android:drawablePadding="8dp"
+        android:paddingStart="14dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="6dp"
+        android:text="🟢 Linked to Desktop (Jaigaon / Phuentsholing)"
+        android:textColor="@color/text_primary"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/govHeaderCard" />
+
+    <!-- 4. Mode Toggle (UIDAI Pill Style) -->
+    <LinearLayout
+        android:id="@+id/cameraModeToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/mode_toggle_bg"
+        android:orientation="horizontal"
+        android:padding="3.5dp"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/connectionStatus">
+
+        <TextView
+            android:id="@+id/modeSelfie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mode_selected"
+            android:paddingStart="18dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="7dp"
+            android:text="👤 Biometric Selfie"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/modeDocument"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:paddingStart="18dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="7dp"
+            android:text="📄 Passport / Document"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- 5. Viewfinder Framing Guides -->
+    <View
+        android:id="@+id/reticleTop"
+        android:layout_width="220dp"
+        android:layout_height="2.5dp"
+        android:background="@color/gov_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+    <View
+        android:id="@+id/reticleBottom"
+        android:layout_width="220dp"
+        android:layout_height="2.5dp"
+        android:background="@color/gov_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/reticleLeft"
+        android:layout_width="2.5dp"
+        android:layout_height="220dp"
+        android:background="@color/gov_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+    <View
+        android:id="@+id/reticleRight"
+        android:layout_width="2.5dp"
+        android:layout_height="220dp"
+        android:background="@color/gov_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.22" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.78" />
+
+    <!-- 6. Bottom Controls Bar -->
+    <LinearLayout
+        android:id="@+id/bottomControlsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_card"
+        android:orientation="vertical"
+        android:paddingTop="12dp"
+        android:paddingBottom="24dp"
+        android:gravity="center"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Shutter Button -->
+        <FrameLayout
+            android:id="@+id/shutterButton"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/shutter_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="4dp" />
+
+        <TextView
+            android:id="@+id/shutterLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Tap to capture photo"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/statusMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Camera ready • Align face in box"
+            android:textColor="@color/text_muted"
+            android:textSize="10.5sp" />
+    </LinearLayout>
+
+    <!-- 7. Verdict Banner Overlay -->
+    <LinearLayout
+        android:id="@+id/verdictBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/verdict_banner_bg"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:elevation="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomControlsCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/verdictTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VERDICT RECEIVED"
+            android:textColor="@color/status_green"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/verdictDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Document is clear. Officer authorized entry."
+            android:textColor="@color/text_primary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- 8. Fullscreen Stamp Slam Intro Overlay -->
+    <FrameLayout
+        android:id="@+id/stampIntroOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#051329"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Triple Shockwave Rings -->
+        <View
+            android:id="@+id/shockwaveRing"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shockwave_ring"
+            android:alpha="0" />
+
+        <View
+            android:id="@+id/shockwaveRing2"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shockwave_ring"
+            android:alpha="0" />
+
+        <View
+            android:id="@+id/shockwaveRing3"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shockwave_ring"
+            android:alpha="0" />
+
+        <!-- Center Stamp Content -->
+        <LinearLayout
+            android:id="@+id/stampContentGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <ImageView
+                android:id="@+id/stampLogo"
+                android:layout_width="220dp"
+                android:layout_height="280dp"
+                android:src="@drawable/ic_ssb_crest"
+                android:contentDescription="SSB Logo"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/stampTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="SASHASTRA SEEMA BAL"
+                android:textColor="#FFDF73"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12"
+                android:alpha="0" />
+
+            <TextView
+                android:id="@+id/stampSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="सशस्त्र सीमा बल • सेवा • सुरक्षा • बन्धुत्व"
+                android:textColor="#C5962B"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:alpha="0" />
+
+            <TextView
+                android:id="@+id/stampAgency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="FIELD SCREENING COMPANION"
+                android:textColor="#94A3B8"
+                android:textSize="10sp"
+                android:letterSpacing="0.1"
+                android:alpha="0" />
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -262,3 +262,23 @@ export interface DevicesResponse {
   last_active_device?: ConnectedClient | null;
 }
 
+export interface CompanionCapturePayload {
+  device_id: string;
+  capture_type: 'document' | 'selfie' | 'face' | 'traveler_live';
+  image_data: string;
+  checkpoint_id?: string;
+  timestamp: string;
+  filename?: string;
+}
+
+export interface CompanionLatestResponse {
+  has_capture: boolean;
+  sequence_id: number;
+  image_data?: string | null;
+  capture_type?: string | null;
+  device_id?: string | null;
+  checkpoint_id?: string | null;
+  timestamp?: string | null;
+  filename?: string | null;
+}
+

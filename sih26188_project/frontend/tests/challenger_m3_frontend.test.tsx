@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Header } from '../src/components/Header';
+import { ConnectModal, generateQRMatrix } from '../src/components/ConnectModal';
 import { CHECKPOINTS } from '../src/types/api';
 
 const SRC_DIR = path.resolve(process.cwd(), 'src');
@@ -193,6 +194,122 @@ async function runAll() {
     );
     assert.equal(multiResult.count, 3, 'Count must be 3');
     assert.equal(multiResult.latency, 22, 'Latency must be rounded to 22');
+  });
+
+  // -------------------------------------------------------------
+  // SUITE 4: Pure TypeScript QR Code Matrix Generator Engine
+  // -------------------------------------------------------------
+  console.log('\n--- SUITE 4: Pure TypeScript QR Code Matrix Generator Engine ---');
+
+  await test('generateQRMatrix produces valid square boolean matrix with finder patterns', () => {
+    const testUrl = 'http://192.168.1.105:8000';
+    const matrix = generateQRMatrix(testUrl);
+
+    assert.ok(Array.isArray(matrix), 'Matrix must be an array');
+    assert.ok(matrix.length >= 21, 'Matrix size must be at least 21x21 (Version 1+)');
+    assert.equal(matrix.length, matrix[0].length, 'Matrix must be square');
+
+    // Verify Finder Pattern at Top-Left (7x7 solid core & border)
+    assert.equal(matrix[0][0], true, 'TL (0,0) must be black');
+    assert.equal(matrix[0][6], true, 'TL (0,6) must be black');
+    assert.equal(matrix[6][0], true, 'TL (6,0) must be black');
+    assert.equal(matrix[6][6], true, 'TL (6,6) must be black');
+    assert.equal(matrix[3][3], true, 'TL (3,3) center must be black');
+    assert.equal(matrix[1][1], false, 'TL (1,1) inner ring must be white');
+
+    // Verify Finder Pattern at Top-Right
+    const size = matrix.length;
+    assert.equal(matrix[0][size - 7], true, 'TR top-left finder module must be black');
+    assert.equal(matrix[0][size - 1], true, 'TR top-right finder module must be black');
+    assert.equal(matrix[6][size - 7], true, 'TR bottom-left finder module must be black');
+
+    // Verify Finder Pattern at Bottom-Left
+    assert.equal(matrix[size - 7][0], true, 'BL top-left finder module must be black');
+    assert.equal(matrix[size - 1][0], true, 'BL bottom-left finder module must be black');
+    assert.equal(matrix[size - 7][6], true, 'BL top-right finder module must be black');
+  });
+
+  await test('generateQRMatrix encodes short and long URLs without throwing', () => {
+    const urls = [
+      'http://localhost:8000',
+      'http://10.0.2.2:8000',
+      'http://192.168.100.250:8000/api/v1/companion/upload',
+    ];
+    for (const url of urls) {
+      const matrix = generateQRMatrix(url);
+      assert.ok(matrix.length >= 21, `Matrix for ${url} should have valid dimensions`);
+      assert.ok(matrix.every((row) => row.length === matrix.length), 'All rows must match size');
+    }
+  });
+
+  // -------------------------------------------------------------
+  // SUITE 5: ConnectModal Component Static Rendering & Structure
+  // -------------------------------------------------------------
+  console.log('\n--- SUITE 5: ConnectModal Component Static Rendering & Structure ---');
+
+  await test('ConnectModal returns null when isOpen is false', () => {
+    const html = ReactDOMServer.renderToStaticMarkup(
+      <ConnectModal isOpen={false} onClose={() => {}} />
+    );
+    assert.equal(html, '', 'ConnectModal must render null when closed');
+  });
+
+  await test('ConnectModal renders full pairing modal when isOpen is true', () => {
+    const html = ReactDOMServer.renderToStaticMarkup(
+      <ConnectModal isOpen={true} onClose={() => {}} serverUrl="http://192.168.1.100:8000" />
+    );
+
+    assert.ok(html.includes('Companion Connection &amp; Pairing Center'), 'Must render modal title');
+    assert.ok(html.includes('http://192.168.1.100:8000'), 'Must render primary gateway URL');
+    assert.ok(html.includes('http://10.0.2.2:8000'), 'Must render emulator loopback URL');
+    assert.ok(html.includes('adb reverse tcp:8000 tcp:8000'), 'Must render ADB reverse command');
+    assert.ok(html.includes('<svg'), 'Must render inline SVG QR code');
+    assert.ok(html.includes('SCAN TO PAIR'), 'Must render scan to pair hint');
+    assert.ok(html.includes('role="dialog"'), 'Must have accessible dialog role');
+  });
+
+  await test('ConnectModal renders navigation tabs and action controls', () => {
+    const html = ReactDOMServer.renderToStaticMarkup(
+      <ConnectModal isOpen={true} onClose={() => {}} />
+    );
+
+    assert.ok(html.includes('Pairing &amp; QR Code'), 'Must render Pairing tab');
+    assert.ok(html.includes('Live Device Monitor'), 'Must render Device Monitor tab');
+    assert.ok(html.includes('Simulation Suite'), 'Must render Simulation tab');
+    assert.ok(html.includes('Setup Guide'), 'Must render Setup Guide tab');
+    assert.ok(html.includes('Close'), 'Must render close button in footer');
+  });
+
+  // -------------------------------------------------------------
+  // SUITE 6: ConnectModal Source Code Static Analysis & Integrity
+  // -------------------------------------------------------------
+  console.log('\n--- SUITE 6: ConnectModal Source Code Static Analysis & Integrity ---');
+
+  await test('ConnectModal.tsx contains live polling loop and unmount cleanup', () => {
+    const modalPath = path.join(SRC_DIR, 'components/ConnectModal.tsx');
+    const code = fs.readFileSync(modalPath, 'utf8');
+
+    assert.ok(code.includes('clearInterval(interval)'), 'Must clear interval on unmount');
+    assert.ok(code.includes('isMountedRef'), 'Must have isMounted guard to prevent memory leaks');
+    assert.ok(code.includes('/api/v1/devices'), 'Must query /api/v1/devices telemetry endpoint');
+  });
+
+  await test('ConnectModal.tsx contains 1-click simulation triggers for Document, Selfie, and Clear', () => {
+    const modalPath = path.join(SRC_DIR, 'components/ConnectModal.tsx');
+    const code = fs.readFileSync(modalPath, 'utf8');
+
+    assert.ok(code.includes('Send Test Document Scan'), 'Must contain Document Scan trigger');
+    assert.ok(code.includes('Send Test Traveler Selfie'), 'Must contain Traveler Selfie trigger');
+    assert.ok(code.includes('Clear Companion Stream Buffer'), 'Must contain Clear Stream Buffer trigger');
+    assert.ok(code.includes('clearCompanionCapture'), 'Must call clearCompanionCapture');
+  });
+
+  await test('ConnectModal.tsx contains keyboard Escape dismiss listener', () => {
+    const modalPath = path.join(SRC_DIR, 'components/ConnectModal.tsx');
+    const code = fs.readFileSync(modalPath, 'utf8');
+
+    assert.ok(code.includes("e.key === 'Escape'"), 'Must listen for Escape key');
+    assert.ok(code.includes("window.removeEventListener('keydown'"), 'Must clean up keydown listener');
   });
 
   console.log('\n=============================================');

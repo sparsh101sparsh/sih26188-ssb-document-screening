@@ -36,3 +36,9 @@ export {
   type InspectionPipelineTraceProps,
   type InspectionStep,
 } from './InspectionPipelineTrace';
+export { ThemeToggle } from './ThemeToggle';
+export { LoadingState } from './LoadingState';
+export { ThinkingState } from './ThinkingState';
+export { ContextCards, type ContextChunk } from './ContextCards';
+export { ExtractedRecords, type RecordRow } from './ExtractedRecords';
+export { InsightStrip } from './InsightStrip';

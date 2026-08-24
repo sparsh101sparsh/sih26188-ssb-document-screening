@@ -1,5 +1,5 @@
 /**
- * SIH26188 — Frontend Formatting and Color Utilities (Deep Oceanic DLS)
+ * SIH26188 — Frontend Formatting and Color Utilities (Whitish Modern DLS)
  */
 
 import { RiskLevel } from '../types/api';

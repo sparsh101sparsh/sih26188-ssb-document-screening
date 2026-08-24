@@ -62,39 +62,36 @@ async function runAll() {
   console.log('======================================================\n');
 
   // -------------------------------------------------------------
-  // SUITE 1: Deep Oceanic Token & Palette Compliance
+  // SUITE 1: Whitish / Light-Mode Modern Theme & Jargon Purge
   // -------------------------------------------------------------
-  console.log('--- SUITE 1: Deep Oceanic CSS Tokens & Palette Verification ---');
+  console.log('--- SUITE 1: Whitish Modern Light-Mode CSS Tokens & Jargon Purge ---');
 
-  await test('CSS Token exact matching in index.css', () => {
+  await test('CSS Token exact matching in index.css (Whitish Modern Light Stack)', () => {
     const cssPath = path.join(SRC_DIR, 'index.css');
     const css = fs.readFileSync(cssPath, 'utf8');
 
-    // Verify Required Design Tokens
+    // Verify Required Whitish Modern Design Tokens
     const expectedTokens = [
-      ['--page', '#030B14'],
-      ['--canvas', '#030B14'],
-      ['--surface', '#0B1A2E'],
-      ['--inset', '#081525'],
-      ['--field', '#081525'],
-      ['--hover', '#112745'],
-      ['--hover-2', '#163259'],
-      ['--ink', '#F8FAFC'],
-      ['--ink-2', '#94A3B8'],
-      ['--ink-3', '#64748B'],
-      ['--line', '#1E3A5F'],
-      ['--line-strong', '#2C5282'],
+      ['--page', '#F8FAFC'],
+      ['--canvas', '#F8FAFC'],
+      ['--surface', '#FFFFFF'],
+      ['--inset', '#F1F5F9'],
+      ['--field', '#FFFFFF'],
+      ['--hover', '#F1F5F9'],
+      ['--hover-2', '#E2E8F0'],
+      ['--ink', '#0F172A'],
+      ['--ink-2', '#475569'],
+      ['--ink-3', '#94A3B8'],
+      ['--line', '#E2E8F0'],
+      ['--line-strong', '#CBD5E1'],
       ['--accent', '#2563EB'],
-      ['--accent-hover', '#3B82F6'],
-      ['--brand-purple', '#5B21B6'],
-      ['--brand-purple-dark', '#4C1D95'],
       ['--green', '#10B981'],
       ['--orange', '#F59E0B'],
       ['--red', '#EF4444'],
       ['--radius-chip', '6px'],
       ['--radius-control', '8px'],
-      ['--radius-card', '10px'],
-      ['--radius-window', '14px'],
+      ['--radius-card', '12px'],
+      ['--radius-window', '16px'],
     ];
 
     for (const [token, value] of expectedTokens) {
@@ -106,16 +103,55 @@ async function runAll() {
     }
   });
 
-  await test('Tailwind configuration canonical palette verification', () => {
+  await test('Tailwind configuration whitish modern palette & obsidian purge verification', () => {
     const tailwindPath = path.resolve(process.cwd(), 'tailwind.config.js');
     const configContent = fs.readFileSync(tailwindPath, 'utf8');
 
-    assert.ok(configContent.includes("'#030B14'"), 'Missing canonical base #030B14 in tailwind.config.js');
-    assert.ok(configContent.includes("'#0B1A2E'"), 'Missing canonical surface #0B1A2E in tailwind.config.js');
-    assert.ok(configContent.includes("'#081525'"), 'Missing canonical inset #081525 in tailwind.config.js');
-    assert.ok(configContent.includes("'#112745'"), 'Missing canonical interactive #112745 in tailwind.config.js');
-    assert.ok(configContent.includes("'#1E3A5F'"), 'Missing canonical border #1E3A5F in tailwind.config.js');
-    assert.ok(configContent.includes("'#2C5282'"), 'Missing canonical active border #2C5282 in tailwind.config.js');
+    // Ensure obsidian classes are purged
+    assert.ok(!configContent.includes('obsidian:'), 'tailwind.config.js must not contain legacy obsidian classes');
+    assert.ok(!configContent.includes("'#090A0F'"), 'tailwind.config.js must not contain legacy #090A0F');
+
+    // Verify presence of core CSS variable token bindings
+    assert.ok(configContent.includes("'var(--page)'"), 'Missing var(--page) binding in tailwind.config.js');
+    assert.ok(configContent.includes("'var(--surface)'"), 'Missing var(--surface) binding in tailwind.config.js');
+    assert.ok(configContent.includes("'var(--inset)'"), 'Missing var(--inset) binding in tailwind.config.js');
+    assert.ok(configContent.includes("'var(--ink)'"), 'Missing var(--ink) binding in tailwind.config.js');
+    assert.ok(configContent.includes("'var(--line)'"), 'Missing var(--line) binding in tailwind.config.js');
+  });
+
+  await test('Jargon purge: No raw model names in component source codes', () => {
+    function scanDir(dir: string): string[] {
+      const files = fs.readdirSync(dir);
+      let allFiles: string[] = [];
+      for (const f of files) {
+        const full = path.join(dir, f);
+        if (fs.statSync(full).isDirectory()) {
+          allFiles = allFiles.concat(scanDir(full));
+        } else if ((f.endsWith('.tsx') || f.endsWith('.ts')) && !f.endsWith('.test.tsx')) {
+          allFiles.push(full);
+        }
+      }
+      return allFiles;
+    }
+
+    const allSourceFiles = scanDir(SRC_DIR);
+    const forbiddenJargon = [
+      /AdaFace-ResNet/i,
+      /MiniFASNetV2/i,
+      /DocTamper-ResNet/i,
+      /TruFor-SegFormer/i,
+      /300 DPI/i,
+    ];
+
+    for (const filePath of allSourceFiles) {
+      const content = fs.readFileSync(filePath, 'utf8');
+      for (const pattern of forbiddenJargon) {
+        assert.ok(
+          !pattern.test(content),
+          `Found forbidden model jargon ${pattern} in ${path.relative(SRC_DIR, filePath)}`
+        );
+      }
+    }
   });
 
   await test('No lingering neon glows, radar sweeps, or arbitrary gradients', () => {
@@ -367,9 +403,142 @@ async function runAll() {
 
     assert.ok(html.includes('Sashastra Seema Bal (SSB)'), 'Official SSB branding missing');
     assert.ok(html.includes('FIELD UNIT'), 'Field unit device tracker missing');
+    assert.ok(html.includes('Connect Field Unit'), 'Connect Field Unit button missing');
     assert.ok(html.includes('AIR-GAPPED'), 'Air gapped badge missing');
     assert.ok(html.includes('Audit Certificate'), 'Audit certificate button missing');
     assert.ok(html.includes('JSON'), 'JSON button missing');
+  });
+
+  await test('Companion Live Sync indicators & Received Badges in Ingestion Components', () => {
+    // 1. Dropzone with companion live sync active and received badge
+    const dropzoneHtml = ReactDOMServer.renderToStaticMarkup(
+      <Dropzone
+        documentFile={new File(['test'], 'doc.jpg', { type: 'image/jpeg' })}
+        documentPreviewUrl="data:image/jpeg;base64,mock"
+        onSelectDocument={() => {}}
+        onClearDocument={() => {}}
+        isCompanionConnected={true}
+        receivedFromCompanion={true}
+      />
+    );
+    assert.ok(
+      dropzoneHtml.includes('Field Unit Connected (Live Companion Sync Active)'),
+      'Dropzone must render live sync indicator when connected'
+    );
+    assert.ok(
+      dropzoneHtml.includes('Received from Field Unit Camera'),
+      'Dropzone must render received badge when receivedFromCompanion is true'
+    );
+
+    // 2. WebCamCapture with companion live sync active and received badge
+    const webcamHtml = ReactDOMServer.renderToStaticMarkup(
+      <WebCamCapture
+        livePhotoFile={new File(['test'], 'face.jpg', { type: 'image/jpeg' })}
+        livePhotoPreviewUrl="data:image/jpeg;base64,mock"
+        onCaptureFace={() => {}}
+        onClearFace={() => {}}
+        isCompanionConnected={true}
+        receivedFromCompanion={true}
+      />
+    );
+    assert.ok(
+      webcamHtml.includes('Field Unit Connected (Live Companion Sync Active)'),
+      'WebCamCapture must render live sync indicator when connected'
+    );
+    assert.ok(
+      webcamHtml.includes('Received from Field Unit Camera'),
+      'WebCamCapture must render received badge when receivedFromCompanion is true'
+    );
+
+    // 3. IngestionPanel with companion sync indicator (Connected state)
+    const ingestionHtml = ReactDOMServer.renderToStaticMarkup(
+      <IngestionPanel
+        documentFile={null}
+        documentPreviewUrl={null}
+        onSelectDocument={() => {}}
+        onClearDocument={() => {}}
+        livePhotoFile={null}
+        livePhotoPreviewUrl={null}
+        onCaptureFace={() => {}}
+        onClearFace={() => {}}
+        selectedCheckpoint={CHECKPOINTS[0]}
+        transitDate="2026-08-24"
+        onChangeTransitDate={() => {}}
+        onSelectPreset={() => {}}
+        onScan={() => {}}
+        onReset={() => {}}
+        isScanning={false}
+        canScan={false}
+        isCompanionConnected={true}
+      />
+    );
+    assert.ok(
+      ingestionHtml.includes('Field Unit Connected (Live Companion Sync Active)'),
+      'IngestionPanel must render companion live indicator banner'
+    );
+    assert.ok(
+      ingestionHtml.includes('Companion Pairing Center'),
+      'IngestionPanel must render companion pairing center button when connected'
+    );
+
+    // 4. IngestionPanel (Disconnected state)
+    const ingestionDisconnectedHtml = ReactDOMServer.renderToStaticMarkup(
+      <IngestionPanel
+        documentFile={null}
+        documentPreviewUrl={null}
+        onSelectDocument={() => {}}
+        onClearDocument={() => {}}
+        livePhotoFile={null}
+        livePhotoPreviewUrl={null}
+        onCaptureFace={() => {}}
+        onClearFace={() => {}}
+        selectedCheckpoint={CHECKPOINTS[0]}
+        transitDate="2026-08-24"
+        onChangeTransitDate={() => {}}
+        onSelectPreset={() => {}}
+        onScan={() => {}}
+        onReset={() => {}}
+        isScanning={false}
+        canScan={false}
+        isCompanionConnected={false}
+      />
+    );
+    assert.ok(
+      ingestionDisconnectedHtml.includes('Connect Field Unit'),
+      'IngestionPanel must render Connect Field Unit button when waiting/disconnected'
+    );
+    assert.ok(
+      ingestionDisconnectedHtml.includes('Waiting for Field Unit'),
+      'IngestionPanel must render Waiting for Field Unit pill when disconnected'
+    );
+  });
+
+  await test('ResultsPanel side-by-side biometric comparison (Document Photo vs Live Field Capture)', () => {
+    const preset = PRESET_LIST[0];
+    const html = ReactDOMServer.renderToStaticMarkup(
+      <ResultsPanel
+        result={preset.mockResponse}
+        documentImageUrl="data:image/png;base64,mockDoc"
+        livePhotoUrl="data:image/png;base64,mockLive"
+      />
+    );
+
+    assert.ok(
+      html.includes('1:1 Identity Verification · Side-by-Side Comparison'),
+      'ResultsPanel must render side-by-side comparison title'
+    );
+    assert.ok(
+      html.includes('Document Credential Photo'),
+      'ResultsPanel must label document photo'
+    );
+    assert.ok(
+      html.includes('Live Field Unit Capture'),
+      'ResultsPanel must label live field unit capture'
+    );
+    assert.ok(
+      html.includes('Received from Field Unit Camera'),
+      'ResultsPanel must render companion badge in side-by-side comparison'
+    );
   });
 
   await test('Device polling fallback simulation: 200 OK, 500 error, network down, malformed JSON', async () => {

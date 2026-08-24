@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UIDAI / Sovereign Government Official Palette -->
+    <color name="gov_topbar">#18103C</color>
+    <color name="gov_navy">#0F2750</color>
+    <color name="gov_blue">#1E3A8A</color>
+    <color name="gov_indigo">#2563EB</color>
+    <color name="gov_gold">#D97706</color>
+    <color name="gov_gold_light">#FDE68A</color>
+    
+    <color name="bg_main">#F8FAFC</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="surface_inset">#F1F5F9</color>
+    <color name="border_line">#E2E8F0</color>
+
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#475569</color>
+    <color name="text_muted">#94A3B8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#0F172A</color>
+
+    <color name="accent_primary">#1E3A8A</color>
+    <color name="accent_navy">#0F2750</color>
+    <color name="accent_blue_subtle">#EFF6FF</color>
+
+    <color name="status_green">#16A34A</color>
+    <color name="status_green_bg">#DCFCE7</color>
+    <color name="status_orange">#D97706</color>
+    <color name="status_orange_bg">#FEF3C7</color>
+    <color name="status_red">#DC2626</color>
+    <color name="status_red_bg">#FEE2E2</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="scrim_light">#40000000</color>
+    <color name="scrim_white">#F2FFFFFF</color>
+    <color name="dark_gray">#475569</color>
+    <color name="medium_gray">#64748B</color>
+    <color name="light_gray">#94A3B8</color>
+    <color name="accent_gold">#D97706</color>
+</resources>

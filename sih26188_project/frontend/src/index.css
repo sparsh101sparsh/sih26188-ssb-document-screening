@@ -3,126 +3,166 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────
- * SSB Field Screening System — Apple Pro Clean Light Theme
- * Ultra-Clean Whitish Texture & Modern Enterprise Aesthetic
+ * GOVERNMENT OF INDIA • UIDAI / SSB SOVEREIGN DESIGN SYSTEM
+ * Official AI-Powered Border Screening Workstation
+ * Ministry of Home Affairs • Government of India
  * ────────────────────────────────────────────────────────── */
 
 :root {
-  /* Canvas & Surfaces (Clean Whitish Stack) */
-  --page: #F8FAFC;          /* L0 Canvas Ground: Crisp Slate-50 */
-  --canvas: #F8FAFC;        /* Viewport background */
-  --surface: #FFFFFF;       /* L2 Card / Container: Pure White */
-  --inset: #F1F5F9;         /* L-1 Inset Well: Slate-100 */
-  --field: #FFFFFF;         /* Form input fields */
-  --hover: #F1F5F9;         /* Interactive / Hover state */
-  --hover-2: #E2E8F0;       /* Selected / Active state */
+  /* Official Gov Light Palette (UIDAI / myAadhaar Standards) */
+  --page: #F8FAFC;
+  --canvas: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-elevated: #F8FAFC;
+  --inset: #F1F5F9;
+  --hover: #EEF2F6;
+  --hover-2: #E2E8F0;
 
-  /* Typography (High Contrast Dark Slate) */
-  --ink: #0F172A;           /* Primary Text: Slate-900 */
-  --ink-2: #475569;         /* Secondary Text: Slate-600 */
-  --ink-3: #94A3B8;         /* Muted Text: Slate-400 */
+  --ink: #0F172A;
+  --ink-2: #475569;
+  --ink-3: #94A3B8;
 
-  /* Hairline Borders & Dividers */
-  --line: #E2E8F0;          /* Slate-200 Hairline Border */
-  --line-strong: #CBD5E1;   /* Slate-300 Active Border */
+  --line: #E2E8F0;
+  --line-strong: #CBD5E1;
+  --line-gold: #D97706;
+  --field: #F8FAFC;
 
-  /* Brand & Accents */
-  --accent: #2563EB;        /* Royal Blue / Primary Accent */
-  --accent-hover: #1D4ED8;  /* Blue Hover */
-  --accent-ink: #1E40AF;    /* Deep Blue Text */
-  --accent-tint: rgba(37, 99, 235, 0.08);
+  /* Sovereign Government Accents */
+  --accent: #1E3A8A;
+  --accent-hover: #2563EB;
+  --accent-ink: #FFFFFF;
+  --accent-tint: #EFF6FF;
 
-  --brand-purple: #6366F1;
-  --brand-purple-dark: #4F46E5;
+  /* Status Tokens */
+  --green: #16A34A;
+  --green-bg: #DCFCE7;
+  --green-tint: #F0FDF4;
+  --green-border: #86EFAC;
 
-  /* Semantic Status: Success (Emerald) */
-  --green: #059669;
-  --green-bg: #ECFDF5;
-  --green-tint: rgba(5, 150, 105, 0.08);
-  --green-border: #A7F3D0;
-
-  /* Semantic Status: Warning (Amber) */
   --orange: #D97706;
-  --orange-bg: #FFFBEB;
-  --orange-tint: rgba(217, 119, 6, 0.08);
+  --orange-bg: #FEF3C7;
+  --orange-tint: #FFFBEB;
   --orange-border: #FDE68A;
 
-  /* Semantic Status: Danger / Critical (Crimson) */
   --red: #DC2626;
-  --red-bg: #FEF2F2;
-  --red-tint: rgba(220, 38, 38, 0.08);
-  --red-border: #FECACA;
+  --red-bg: #FEE2E2;
+  --red-tint: #FEF2F2;
+  --red-border: #FCA5A5;
 
-  /* Proportional Corner Radii */
   --radius-chip: 6px;
   --radius-control: 8px;
-  --radius-card: 12px;
-  --radius-window: 16px;
+  --radius-card: 14px;
+  --radius-window: 18px;
 
-  /* Soft Ambient Shadows */
-  --shadow-hairline: 0 0 0 1px var(--line);
-  --shadow-btn: 0 1px 2px rgba(15, 23, 42, 0.06), 0 0 0 1px var(--line);
-  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02), 0 0 0 1px var(--line);
-  --shadow-raised: 0 4px 16px rgba(15, 23, 42, 0.08), 0 0 0 1px var(--line-strong);
-  --shadow-overlay: 0 16px 40px rgba(15, 23, 42, 0.12), 0 0 0 1px var(--line-strong);
-  --shadow-inset-field: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-hairline: 0 0 0 1px #E2E8F0;
+  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-raised: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-overlay: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-inset-field: inset 0 1px 2px rgba(0, 0, 0, 0.04);
 
   --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-strong: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-link: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-link: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-sans-face: "Plus Jakarta Sans", "Inter", -apple-system, system-ui, sans-serif;
+  --font-serif-face: "Cinzel", Georgia, serif;
+  --font-mono-face: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 }
 
 @layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background-color: #F8FAFC;
+  }
+
   body {
-    background-color: var(--page);
+    background: #F8FAFC;
     color: var(--ink);
-    font-feature-settings: "cv11" 1, "ss01" 1, "tnum" 1;
-    font-size: 14px;
+    font-family: var(--font-sans-face);
     letter-spacing: -0.01em;
     line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
   }
-  * {
-    border-color: var(--line);
+
+  /* Defense Terminal Clean Scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F1F5F9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
   }
 }
 
-/* Functional UI animations */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Custom UI Utilities matching UIDAI */
+.badge-clear {
+  background-color: #DCFCE7;
+  color: #16A34A;
+  border: 1px solid #86EFAC;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.badge-warning {
+  background-color: #FEF3C7;
+  color: #D97706;
+  border: 1px solid #FDE68A;
 }
 
-@keyframes pop-in {
-  from { opacity: 0; transform: scale(0.97); }
-  to { opacity: 1; transform: scale(1); }
+.badge-critical {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  border: 1px solid #FCA5A5;
 }
 
-.primitive-card-pad {
-  padding: 14px;
+.defense-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.primitive-card-bar {
-  padding: 10px 14px;
+.defense-card-elevated {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
-.primitive-card-footer {
-  padding: 10px 14px;
+.btn-defense-gold {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  border: 1px solid #D97706;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
 }
 
-.primitive-table-cell {
-  padding: 10px 14px;
+.btn-defense-gold:hover {
+  background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
 }
 
-.records-shell {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  background: var(--surface);
-  box-shadow: var(--shadow-card);
+.btn-defense-navy {
+  background-color: #FFFFFF;
+  color: #1E3A8A;
+  border: 1px solid #CBD5E1;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-defense-navy:hover {
+  background-color: #EFF6FF;
+  border-color: #93C5FD;
 }

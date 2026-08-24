@@ -75,10 +75,10 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="w-full bg-surface border border-line rounded-card p-3.5 text-xs font-mono text-ink-2 hover:text-ink text-left flex items-center justify-between shadow-card hover:bg-hover transition-colors"
+        className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-xs font-sans text-slate-700 hover:text-slate-900 text-left flex items-center justify-between shadow-xs hover:bg-slate-50 transition-colors cursor-pointer"
       >
-        <span className="font-bold">Open Officer Authorization</span>
-        <span className="text-[11px] text-ink-3">Click to expand decision console</span>
+        <span className="font-bold">Open Officer Authorization Console</span>
+        <span className="text-[11px] text-slate-400">Click to expand decision workflow</span>
       </button>
     );
   }
@@ -88,57 +88,62 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
       selectedAction === 'AUTO_CLEAR'
         ? 'Traveler Cleared • Entry Permit Authorized'
         : selectedAction === 'SECONDARY_INSPECTION'
-        ? 'Secondary Inspection Order Issued • Subject Directed to Counter 2'
+        ? 'Secondary Inspection Order Issued • Counter 2 Physical Verification'
         : 'Interdiction Order Dispatched • Detention Protocol Active';
 
     return (
-      <div className="w-full bg-surface border border-line rounded-card p-3.5 flex items-center justify-between shadow-card animate-pop-in">
-        <div className="flex items-center space-x-2.5">
-          <span className="flex size-6 items-center justify-center rounded-full bg-green text-surface font-bold">
-            <Check className="w-3.5 h-3.5" />
+      <div className="w-full bg-white border border-emerald-300 rounded-2xl p-4 flex items-center justify-between shadow-sm animate-pop-in">
+        <div className="flex items-center space-x-3">
+          <span className="flex size-7 items-center justify-center rounded-full bg-emerald-600 text-white font-bold">
+            <Check className="w-4 h-4" />
           </span>
-          <span className="text-xs font-semibold text-ink font-mono">
-            {confirmationLabel} • Logged to Audit ({officerBadgeId})
-          </span>
+          <div>
+            <span className="text-xs font-bold text-slate-900 font-sans block">
+              {confirmationLabel}
+            </span>
+            <span className="text-[11px] text-slate-500 font-mono">
+              Signed and logged to defense audit ledger ({officerBadgeId})
+            </span>
+          </div>
         </div>
         <button
           type="button"
           onClick={handleReset}
-          className="text-xs text-ink-3 hover:text-ink font-mono flex items-center gap-1.5"
+          className="text-xs text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1.5 cursor-pointer"
         >
-          <RotateCcw className="w-3 h-3" /> Change Decision
+          <RotateCcw className="w-3.5 h-3.5" /> Modify Decision
         </button>
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-surface border border-line rounded-card p-3.5 space-y-3 shadow-card">
-      <div className="flex items-center justify-between border-b border-line pb-2">
-        <span className="text-xs font-bold text-ink uppercase tracking-wider font-mono">
+    <div className="w-full bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm select-none">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+        <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider font-sans">
           Human-In-The-Loop Officer Authorization
         </span>
-        <span className="text-[11px] font-mono text-ink-3">
-          Section 4(2) Passport & Immigration Act · {officerBadgeId}
+        <span className="text-[11px] font-mono text-slate-500">
+          Section 4(2) Passport & Immigration Act • Officer: <strong className="text-slate-800">{officerBadgeId}</strong>
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <button
           type="button"
           onClick={() => setSelectedAction('AUTO_CLEAR')}
           disabled={disabled}
-          className={`p-3 rounded-control text-left border transition-all flex flex-col justify-between ${
+          className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
             selectedAction === 'AUTO_CLEAR'
-              ? 'bg-green-tint border-green shadow-btn'
-              : 'bg-inset border-line hover:border-line-strong'
+              ? 'bg-emerald-50/80 border-emerald-500 shadow-xs'
+              : 'bg-slate-50 border-slate-200 hover:border-slate-300'
           }`}
         >
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-green shrink-0" />
-            <span className="text-xs font-bold text-ink font-mono">Clear Traveler</span>
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span className="text-xs font-bold text-slate-900 font-sans">Clear Traveler</span>
           </div>
-          <span className="text-[11px] text-ink-2 mt-1.5 font-sans">
+          <span className="text-[11px] text-slate-600 mt-1.5 font-sans">
             Proceed with normal transit entry
           </span>
         </button>
@@ -147,17 +152,17 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           type="button"
           onClick={() => setSelectedAction('SECONDARY_INSPECTION')}
           disabled={disabled}
-          className={`p-3 rounded-control text-left border transition-all flex flex-col justify-between ${
+          className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
             selectedAction === 'SECONDARY_INSPECTION'
-              ? 'bg-orange-tint border-orange shadow-btn'
-              : 'bg-inset border-line hover:border-line-strong'
+              ? 'bg-amber-50/80 border-amber-500 shadow-xs'
+              : 'bg-slate-50 border-slate-200 hover:border-slate-300'
           }`}
         >
           <div className="flex items-center space-x-2">
-            <ShieldAlert className="w-4 h-4 text-orange shrink-0" />
-            <span className="text-xs font-bold text-ink font-mono">Secondary Hold</span>
+            <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
+            <span className="text-xs font-bold text-slate-900 font-sans">Secondary Hold</span>
           </div>
-          <span className="text-[11px] text-ink-2 mt-1.5 font-sans">
+          <span className="text-[11px] text-slate-600 mt-1.5 font-sans">
             Redirect for physical document inspection
           </span>
         </button>
@@ -166,32 +171,32 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           type="button"
           onClick={() => setSelectedAction('DETAIN_AND_INTERDICT')}
           disabled={disabled}
-          className={`p-3 rounded-control text-left border transition-all flex flex-col justify-between ${
+          className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
             selectedAction === 'DETAIN_AND_INTERDICT'
-              ? 'bg-red-tint border-red shadow-btn'
-              : 'bg-inset border-line hover:border-line-strong'
+              ? 'bg-red-50/80 border-red-500 shadow-xs'
+              : 'bg-slate-50 border-slate-200 hover:border-slate-300'
           }`}
         >
           <div className="flex items-center space-x-2">
-            <AlertOctagon className="w-4 h-4 text-red shrink-0" />
-            <span className="text-xs font-bold text-ink font-mono">Interdiction Order</span>
+            <AlertOctagon className="w-4 h-4 text-red-600 shrink-0" />
+            <span className="text-xs font-bold text-slate-900 font-sans">Interdiction Order</span>
           </div>
-          <span className="text-[11px] text-ink-2 mt-1.5 font-sans">
+          <span className="text-[11px] text-slate-600 mt-1.5 font-sans">
             Issue border detention & report to MHA
           </span>
         </button>
       </div>
 
-      <div className="flex items-center gap-2 pt-1">
+      <div className="flex items-center gap-3 pt-1">
         <input
           type="text"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder={`Officer Remarks / Duty Officer Badge ID (${officerBadgeId})…`}
-          className="flex-1 bg-inset border border-line rounded-control px-3 py-1.5 text-xs text-ink placeholder:text-ink-3 font-mono focus:outline-none focus:border-accent shadow-inset-field"
+          className="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 font-sans focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors"
         />
         <Button
-          variant={selectedAction === 'DETAIN_AND_INTERDICT' ? 'danger' : 'accent'}
+          variant={selectedAction === 'DETAIN_AND_INTERDICT' ? 'danger' : 'primary'}
           size="md"
           onClick={handleSubmit}
         >

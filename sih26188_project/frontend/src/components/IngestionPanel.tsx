@@ -1,10 +1,11 @@
-import React from 'react';
-import { Scan, RotateCcw, Loader2, Calendar, Navigation, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { Scan, RotateCcw, Loader2, Calendar, Navigation, ShieldCheck, Smartphone, Lock, ShieldAlert, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Dropzone } from './Dropzone';
 import { WebCamCapture } from './WebCamCapture';
 import { PresetsBar } from './PresetsBar';
 import { CheckpointInfo } from '../types/api';
 import { PresetItem } from '../services/presets';
+import { ConnectModal } from './ConnectModal';
 
 interface IngestionPanelProps {
   documentFile: File | null;
@@ -18,12 +19,17 @@ interface IngestionPanelProps {
   selectedCheckpoint: CheckpointInfo;
   transitDate: string;
   onChangeTransitDate: (date: string) => void;
-  onSelectPreset: (preset: PresetItem) => void;
+  onSelectPreset?: (preset: PresetItem) => void;
   onScan: () => void;
   onReset: () => void;
   isScanning: boolean;
   canScan: boolean;
   latencyMs?: number | null;
+  isCompanionConnected?: boolean;
+  docFromCompanion?: boolean;
+  photoFromCompanion?: boolean;
+  onOpenConnectModal?: () => void;
+  serverUrl?: string;
 }
 
 export const IngestionPanel: React.FC<IngestionPanelProps> = ({
@@ -43,20 +49,91 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
   onReset,
   isScanning,
   canScan,
+  isCompanionConnected = false,
+  docFromCompanion = false,
+  photoFromCompanion = false,
+  onOpenConnectModal,
+  serverUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8000',
 }) => {
-  return (
-    <div className="flex flex-col space-y-3.5">
-      {/* 1. Sleek Compact Presets Strip */}
-      <PresetsBar onSelectPreset={onSelectPreset} disabled={isScanning} />
+  const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
 
-      {/* 2. Dual Ingestion Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+  const handleOpenConnectModal = () => {
+    if (onOpenConnectModal) {
+      onOpenConnectModal();
+    } else {
+      setIsConnectModalOpen(true);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden mb-8">
+      {/* 1. Header: UIDAI-style Section Bar */}
+      <div className="bg-slate-50 border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center">
+            <Scan className="w-4 h-4" />
+          </div>
+          <div>
+            <h3 className="font-serif font-black text-slate-900 text-sm tracking-wide">
+              PRIMARY SCREENING & INGESTION DECK
+            </h3>
+            <p className="text-slate-500 text-[11px] font-medium">
+              Dual-Channel Optical Document OCR & 1:1 Live Biometric Stream Ingestion
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-500 text-xs">Field Status:</span>
+            {isCompanionConnected ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-0.5 text-[11px] font-bold">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                LIVE FIELD SYNC ACTIVE
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 px-3 py-0.5 text-[11px] font-medium">
+                <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                STANDALONE TERMINAL
+              </span>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={handleOpenConnectModal}
+            className="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-3 py-1.5 rounded-lg border border-slate-300 text-xs flex items-center space-x-1.5 shadow-2xs transition-all cursor-pointer"
+          >
+            <Smartphone className="w-3.5 h-3.5 text-indigo-600" />
+            <span>{isCompanionConnected ? 'Pairing Center' : 'Link Companion'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 2. Sample Presets Bar (Fast Testing) */}
+      {onSelectPreset && (
+        <div className="px-6 py-2.5 bg-indigo-50/40 border-b border-indigo-100 flex items-center justify-between flex-wrap gap-2 text-xs">
+          <div className="flex items-center space-x-2 text-indigo-900 font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span>Quick Sample Documents:</span>
+          </div>
+          <PresetsBar onSelectPreset={onSelectPreset} disabled={isScanning} />
+        </div>
+      )}
+
+      {/* 3. Dual Ingestion Bays */}
+      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50/30">
         <Dropzone
           documentFile={documentFile}
           documentPreviewUrl={documentPreviewUrl}
           onSelectDocument={onSelectDocument}
           onClearDocument={onClearDocument}
           disabled={isScanning}
+          isCompanionConnected={isCompanionConnected}
+          receivedFromCompanion={docFromCompanion}
         />
 
         <WebCamCapture
@@ -65,61 +142,63 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
           onCaptureFace={onCaptureFace}
           onClearFace={onClearFace}
           disabled={isScanning}
+          isCompanionConnected={isCompanionConnected}
+          receivedFromCompanion={photoFromCompanion}
+          onOpenConnectModal={handleOpenConnectModal}
         />
       </div>
 
-      {/* 3. Action Toolbar */}
-      <div className="bg-surface p-3.5 rounded-card border border-line flex flex-wrap items-center justify-between gap-3 shadow-card">
-        <div className="flex items-center flex-wrap gap-4 text-xs">
-          <div className="flex items-center space-x-2 text-ink-2">
-            <Navigation className="w-3.5 h-3.5 text-accent" />
-            <span className="text-ink-3">Post:</span>
-            <span className="font-semibold text-ink">{selectedCheckpoint.name} ({selectedCheckpoint.id})</span>
+      {/* 4. Action Footer & Execute Verification */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 bg-slate-50/80 px-6 py-4">
+        <div className="flex items-center flex-wrap gap-5 text-xs">
+          <div className="flex items-center space-x-2 text-slate-700">
+            <Navigation className="w-4 h-4 text-indigo-600 shrink-0" />
+            <span className="text-slate-500 font-semibold">Active Post:</span>
+            <span className="font-bold text-slate-900">{selectedCheckpoint.name} ({selectedCheckpoint.id})</span>
           </div>
 
-          <div className="flex items-center space-x-2 text-ink-2">
-            <Calendar className="w-3.5 h-3.5 text-accent" />
-            <span className="text-ink-3">Transit Date:</span>
+          <div className="flex items-center space-x-2 text-slate-700">
+            <Calendar className="w-4 h-4 text-indigo-600 shrink-0" />
+            <span className="text-slate-500 font-semibold">Transit Date:</span>
             <input
               type="date"
               value={transitDate}
               onChange={(e) => onChangeTransitDate(e.target.value)}
-              disabled={isScanning}
-              className="bg-inset border border-line text-ink text-xs px-2.5 py-1 rounded-control focus:outline-none focus:border-accent font-mono shadow-inset-field"
+              className="bg-white text-slate-900 text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-300 focus:border-indigo-600 focus:outline-none shadow-2xs"
             />
           </div>
         </div>
 
-        <div className="flex items-center space-x-2.5 w-full sm:w-auto justify-end">
+        <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={onReset}
-            disabled={isScanning || (!documentPreviewUrl && !livePhotoPreviewUrl)}
-            className="flex items-center space-x-1.5 px-4 py-2 rounded-control text-xs font-semibold bg-inset hover:bg-hover text-ink border border-line transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-btn"
+            disabled={isScanning || (!documentFile && !livePhotoFile)}
+            className="flex items-center space-x-1.5 px-4 py-2 rounded-lg text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 shadow-2xs disabled:opacity-40 transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset</span>
+            <span>Reset Bay</span>
           </button>
 
           <button
             type="button"
             onClick={onScan}
             disabled={!canScan || isScanning}
-            className={`flex-1 sm:flex-none flex items-center justify-center space-x-2 px-6 py-2.5 rounded-control font-bold text-sm transition-all shadow-btn ${
+            className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg text-xs font-extrabold shadow-md transition-all transform hover:-translate-y-0.5 cursor-pointer ${
               canScan && !isScanning
-                ? 'bg-white text-[#090A0F] hover:bg-slate-100 active:scale-[0.98]'
-                : 'bg-inset text-ink-3 border border-line cursor-not-allowed'
+                ? 'bg-gradient-to-r from-[#0F2750] to-[#1E3A8A] hover:from-[#0B1D3A] hover:to-[#172554] text-white border border-amber-400/40 shadow-indigo-900/20'
+                : 'bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed'
             }`}
           >
             {isScanning ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin text-[#090A0F]" />
-                <span>Running Screening Engine…</span>
+                <Loader2 className="w-4 h-4 animate-spin text-amber-300" />
+                <span>RUNNING MULTI-PILLAR INFERENCE...</span>
               </>
             ) : (
               <>
-                <ShieldCheck className="w-4 h-4" />
-                <span>Run Document Screening</span>
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
+                <span>EXECUTE DOCUMENT VERIFICATION</span>
               </>
             )}
           </button>
@@ -128,5 +207,3 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
     </div>
   );
 };
-
-export default IngestionPanel;

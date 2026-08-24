@@ -36,6 +36,9 @@ import {
   StatusPill,
   StatusTone,
 } from './ui/StatusPill';
+import { InsightStrip } from './ui/InsightStrip';
+import { ExtractedRecords, RecordRow } from './ui/ExtractedRecords';
+import { ContextCards } from './ui/ContextCards';
 import {
   LayoutDashboard,
   GitCompare,
@@ -45,12 +48,14 @@ import {
   ChevronDown,
   ChevronRight,
   ShieldAlert,
+  UserCheck,
 } from 'lucide-react';
 
 interface ResultsPanelProps {
   result: DocumentInspectResponse;
   documentImageUrl: string;
   heatmapImageUrl?: string | null;
+  livePhotoUrl?: string | null;
   onOfficerDecision?: (decision: OfficerDecision) => void;
   officerDecision?: OfficerDecision | null;
 }
@@ -125,6 +130,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
   result,
   documentImageUrl,
   heatmapImageUrl,
+  livePhotoUrl,
   onOfficerDecision,
   officerDecision,
 }) => {
@@ -168,7 +174,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
     const steps: InspectionStep[] = [
       {
         id: 'ocr',
-        name: 'Multilingual Text & QR Extraction Engine',
+        name: 'Text extraction',
         category: 'OCR',
         status: ocrSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(ocrProcessingTime),
@@ -186,51 +192,51 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         confidence: details?.mrz?.valid ? 1.0 : 0.45,
         details: details?.mrz?.mrz_detected
           ? details.mrz.valid
-            ? 'All Check Digits Valid (Security checksum verified)'
-            : `Checksum Failure: ${details.mrz.checksum_failures.join(', ') || 'CD1 Mismatch'}`
+            ? 'All security checks passed'
+          : `Security check failed: ${details.mrz.checksum_failures.join(', ') || 'CD1 Mismatch'}`
           : 'Bypassed (Non-MRZ document format)',
       },
       {
         id: 'biometrics',
-        name: 'Facial Biometric Matcher & Anti-Spoofing',
+        name: 'Face check',
         category: 'BIOMETRICS',
         status: biometricsSuccess && livenessSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(bioProcessingTime + liveProcessingTime),
         confidence: details?.biometrics?.similarity ?? 0.84,
         details: details?.biometrics
-          ? `Face Match Confidence: ${((details.biometrics.similarity) * 100).toFixed(0)}% • ${
-              livenessSuccess ? 'Live Human Confirmed' : 'Spoof Attack Flagged'
+          ? `Match: ${((details.biometrics.similarity) * 100).toFixed(0)}% • ${
+              livenessSuccess ? 'Real person' : 'Fake detected'
             }`
-          : 'Biometric Face Ingested & Verified',
+          : 'Face verified',
       },
       {
         id: 'forensics',
-        name: 'Digital Text Tamper & Photo Splicing Detector',
+        name: 'Tamper check',
         category: 'FORENSICS',
         status: forensicsSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(forensProcessingTime),
         confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
         details: forensicsSuccess
-          ? 'Zero Tampering Detected • Substrate Nominal'
-          : `Tamper Alert: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}% • Tampering localized`,
+          ? 'No tampering found'
+          : `Tampering detected: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`,
       },
       {
         id: 'stamp',
-        name: 'Border Transit Permit Stamp Verifier',
+        name: 'Stamp check',
         category: 'STAMP',
         status: stampSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(stampProcessingTime),
         confidence: details?.stamp?.stamp_score ?? 0.94,
         details: details?.stamp?.stamp_found
-          ? `Template: ${details.stamp.location_name || details.stamp.checkpost_id || 'ICP Post'} (${details.stamp.verdict})`
-          : 'No physical transit seal detected on current page',
+          ? `Stamp: ${details.stamp.location_name || details.stamp.checkpost_id || 'Post'} (${details.stamp.verdict})`
+          : 'No stamp found',
       },
     ];
 
     // ToolChips Items
     const tools: ToolTelemetryItem[] = [
       {
-        name: 'Multilingual Text & QR Engine',
+        name: 'Text reader',
         label: 'Text & QR',
         status: ocrSuccess ? 'completed' : 'failed',
         durationMs: Math.round(ocrProcessingTime),
@@ -251,8 +257,8 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         ],
       },
       {
-        name: 'Document Format & Security Checksum Validator',
-        label: 'Document Format',
+        name: 'Security check',
+        label: 'Format check',
         status: mrzSuccess ? 'completed' : 'failed',
         durationMs: Math.round(mrzProcessingTime),
         confidence: details?.mrz?.valid ? 1.0 : 0.4,
@@ -262,15 +268,15 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         detailLines: [
           {
             text: details?.mrz?.valid
-              ? '✓ Check digit security validation passed for all fields'
-              : `✕ Checksum failure: ${details?.mrz?.checksum_failures?.join(', ') || 'Checksum mismatch'}`,
+              ? '✓ Security checks passed'
+              : `✕ Security check failed: ${details?.mrz?.checksum_failures?.join(', ') || 'Checksum mismatch'}`,
             tone: details?.mrz?.valid ? 'add' : 'del',
           },
         ],
       },
       {
-        name: 'Facial Biometric Matcher',
-        label: 'Face Matcher',
+        name: 'Face matcher',
+        label: 'Face check',
         status: biometricsSuccess ? 'completed' : 'failed',
         durationMs: Math.round(bioProcessingTime),
         confidence: details?.biometrics?.similarity ?? 0.84,
@@ -279,10 +285,10 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         icon: 'face',
         detailLines: [
           {
-            text: `✓ Canonical facial alignment to 112×112`,
+            text: `✓ Face aligned`,
           },
           {
-            text: `✓ Face match confidence: ${((details?.biometrics?.similarity ?? 0.84) * 100).toFixed(0)}% (Threshold: 35%)`,
+            text: `✓ Match: ${((details?.biometrics?.similarity ?? 0.84) * 100).toFixed(0)}%`,
             tone: biometricsSuccess ? 'add' : 'del',
           },
         ],
@@ -742,9 +748,9 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
       : 'green';
 
   return (
-    <div className="space-y-4 animate-fade-up">
+    <div className="space-y-5 animate-fade-up">
       {/* 1. Tactical Command Bar: Segmented Tab Switcher & Status Badges */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-card bg-surface p-2.5 shadow-card border border-line">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-surface p-3 shadow-card border border-line">
         <SegmentedControl
           options={tabOptions}
           value={activeTab}
@@ -752,7 +758,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
           size="md"
         />
 
-        <div className="flex items-center flex-wrap gap-2">
+        <div className="flex items-center flex-wrap gap-2.5">
           <StatusPill tone={riskTone} dot>
             Threat Level: {assessment.risk_score.toFixed(1)} / 100
           </StatusPill>
@@ -783,9 +789,43 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
 
       {/* TAB CONTENT: Overview (Clean Master View with Collapsible Accordions) */}
       {activeTab === 'overview' && (
-        <div className="space-y-4">
+        <div className="space-y-5">
+          <InsightStrip
+            items={[
+              {
+                label: 'Threat score',
+                value: assessment.risk_score.toFixed(1),
+                hint: assessment.risk_level,
+                tone:
+                  assessment.risk_level === 'RED'
+                    ? 'red'
+                    : assessment.risk_level === 'AMBER'
+                    ? 'orange'
+                    : 'green',
+              },
+              {
+                label: 'Screening time',
+                value: `${Math.round(assessment.processing_time_ms)}ms`,
+                hint: '3-stream pipeline',
+                tone: 'accent',
+              },
+              {
+                label: 'Field diffs',
+                value: String(mismatchCount),
+                hint: mismatchCount === 0 ? 'Cross-stream consistent' : 'Needs review',
+                tone: mismatchCount > 0 ? 'red' : 'green',
+              },
+              {
+                label: 'Guard violations',
+                value: String(violationCount),
+                hint: `${cvRules.length} rules checked`,
+                tone: violationCount > 0 ? 'orange' : 'green',
+              },
+            ]}
+          />
+
           {/* Primary Assessment Summary Row: Bayesian Gauge & Reason Bullet List */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <RiskScoreCard assessment={assessment} />
             {details && (
               <ReasonBulletList
@@ -794,6 +834,118 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
               />
             )}
           </div>
+
+          {/* Side-by-Side Biometric Verification (Document Photo vs Live Field Capture) */}
+          {livePhotoUrl && (
+            <div className="bg-surface rounded-xl border border-line p-5 shadow-card space-y-4">
+              <div className="flex items-center justify-between border-b border-line pb-3">
+                <div className="flex items-center space-x-2.5">
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <UserCheck className="w-4 h-4 text-accent" />
+                  </div>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-ink font-mono">
+                    1:1 Identity Verification · Side-by-Side Comparison
+                  </h3>
+                </div>
+                <span
+                  className={`text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-chip border ${
+                    details?.biometrics?.match
+                      ? 'bg-green-bg text-green border-green-border'
+                      : 'bg-red-bg text-red border-red-border'
+                  }`}
+                >
+                  {details?.biometrics?.match
+                    ? '✓ 1:1 BIOMETRIC MATCH CONFIRMED'
+                    : '✕ BIOMETRIC MISMATCH'}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                {/* Document Photo */}
+                <div className="flex flex-col items-center bg-inset p-3 rounded-control border border-line shadow-card">
+                  <span className="text-[10.5px] font-mono text-ink-3 uppercase mb-2">
+                    Document Credential Photo
+                  </span>
+                  <div className="h-[180px] w-full flex items-center justify-center overflow-hidden">
+                    <img
+                      src={documentImageUrl}
+                      alt="Document Photo"
+                      className="max-h-full max-w-full object-contain rounded-chip border border-line shadow-card"
+                    />
+                  </div>
+                  <span className="text-[11px] text-ink-2 font-mono mt-2">
+                    Extracted ID Reference
+                  </span>
+                </div>
+
+                {/* Live Field Unit Capture */}
+                <div className="flex flex-col items-center bg-inset p-3 rounded-control border border-line shadow-card">
+                  <span className="text-[10.5px] font-mono text-ink-3 uppercase mb-2 flex items-center gap-1">
+                    <span>Live Field Unit Capture</span>
+                    <span className="text-green text-[10px]">● Live Sync</span>
+                  </span>
+                  <div className="h-[180px] w-full flex items-center justify-center overflow-hidden">
+                    <img
+                      src={livePhotoUrl}
+                      alt="Live Field Capture"
+                      className="max-h-full max-w-full object-contain rounded-chip border border-line shadow-card"
+                    />
+                  </div>
+                  <span className="text-[11px] text-ink-2 font-mono mt-2 flex items-center gap-1">
+                    <span className="text-green font-semibold">✓ Received from Field Unit Camera</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {details?.ocr?.fields && (
+            <ExtractedRecords
+              rows={
+                Object.entries(details.ocr.fields).map(([field, value]) => ({
+                  field: field.replace(/_/g, ' '),
+                  value: String(value ?? '—'),
+                  source: 'Visual OCR',
+                  confidence: details.ocr.field_confidences?.[field] ?? details.ocr.mean_confidence,
+                })) as RecordRow[]
+              }
+            />
+          )}
+
+          {details && (
+            <ContextCards
+              heading="Model & checkpoint context"
+              chunks={[
+                {
+                  title: 'OCR engine',
+                  body: assessment.model_versions?.pp_ocr || 'PP-OCRv4 multilingual extractor',
+                  source: `${Object.keys(details.ocr?.fields || {}).length} fields`,
+                  badge: 'OCR',
+                  tone: 'bg-accent',
+                },
+                {
+                  title: 'Face matcher',
+                  body: details.biometrics
+                    ? `Similarity ${(details.biometrics.similarity * 100).toFixed(0)}% · ${
+                        details.biometrics.match ? '1:1 match' : 'mismatch'
+                      }`
+                    : 'No live portrait ingested',
+                  source: assessment.model_versions?.face_embedder || 'Face Matcher',
+                  badge: 'BIO',
+                  tone: details.biometrics?.match ? 'bg-green' : 'bg-orange',
+                },
+                {
+                  title: 'Forensic substrate',
+                  body: details.forensics?.is_tampered
+                    ? `Tamper localized at ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%`
+                    : 'Substrate within nominal integrity threshold',
+                  source: assessment.model_versions?.tamper_detector || 'Tamper Check',
+                  badge: 'FX',
+                  tone: details.forensics?.is_tampered ? 'bg-red' : 'bg-green',
+                },
+              ]}
+            />
+          )}
 
           {/* Deep Diagnostic Expandable Accordions (Collapsed by Default) */}
           <div className="space-y-3">

@@ -36,10 +36,10 @@ export const PRESET_CLEAN_PASSPORT: DocumentInspectResponse = {
     model_versions: {
       pp_ocr: 'PP-OCRv4-Multilingual',
       mrz_engine: 'ICAO-9303-v2.1',
-      face_embedder: 'AdaFace-ResNet100-ONNX',
-      liveness_detector: 'MiniFASNetV2-SE-DualScale',
-      tamper_detector: 'DocTamper-ResNet50-DTD',
-      splicing_detector: 'TruFor-SegFormer-B0'
+      face_embedder: 'Face Matcher v2.0',
+      liveness_detector: 'Liveness Check v2.0',
+      tamper_detector: 'Tamper Check v2.0',
+      splicing_detector: 'Tamper Check (Splicing)'
     },
     processing_time_ms: 382.4,
     audit_hash: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
@@ -113,7 +113,7 @@ export const PRESET_CLEAN_PASSPORT: DocumentInspectResponse = {
       similarity: 0.882,
       match: true,
       threshold: 0.35,
-      embedding_model_used: 'AdaFace-ResNet100',
+      embedding_model_used: 'Face Matcher',
       apparent_age_id: 34,
       apparent_age_live: 34,
       age_drift_years: 0,
@@ -211,10 +211,10 @@ export const PRESET_CLEAN_PASSPORT: DocumentInspectResponse = {
       model_versions: {
         pp_ocr: 'PP-OCRv4-Multilingual',
         mrz_engine: 'ICAO-9303-v2.1',
-        face_embedder: 'AdaFace-ResNet100-ONNX',
-        liveness_detector: 'MiniFASNetV2-SE-DualScale',
-        tamper_detector: 'DocTamper-ResNet50-DTD',
-        splicing_detector: 'TruFor-SegFormer-B0'
+        face_embedder: 'Face Matcher v2.0',
+        liveness_detector: 'Liveness Check v2.0',
+        tamper_detector: 'Tamper Check v2.0',
+        splicing_detector: 'Tamper Check (Splicing)'
       },
       processing_time_ms: 382.4,
       audit_hash: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
@@ -261,9 +261,9 @@ export const PRESET_FORGED_AADHAAR: DocumentInspectResponse = {
     model_versions: {
       pp_ocr: 'PP-OCRv4-Multilingual',
       qr_pki: 'UIDAI-RSA2048-PKCS1v15',
-      face_embedder: 'AdaFace-ResNet100-ONNX',
-      tamper_detector: 'DocTamper-ResNet50-DTD',
-      splicing_detector: 'TruFor-SegFormer-B0'
+      face_embedder: 'Face Matcher v2.0',
+      tamper_detector: 'Tamper Check v2.0',
+      splicing_detector: 'Tamper Check (Splicing)'
     },
     processing_time_ms: 412.8,
     audit_hash: '3a49182d8c1192e420bfa51829e19c9284102910fae19028e102947192830192'
@@ -319,7 +319,7 @@ export const PRESET_FORGED_AADHAAR: DocumentInspectResponse = {
       similarity: 0.42,
       match: true,
       threshold: 0.35,
-      embedding_model_used: 'AdaFace-ResNet100',
+      embedding_model_used: 'Face Matcher',
       apparent_age_id: 31,
       apparent_age_live: 31,
       age_drift_years: 0,
@@ -451,9 +451,9 @@ export const PRESET_FORGED_AADHAAR: DocumentInspectResponse = {
       model_versions: {
         pp_ocr: 'PP-OCRv4-Multilingual',
         qr_pki: 'UIDAI-RSA2048-PKCS1v15',
-        face_embedder: 'AdaFace-ResNet100-ONNX',
-        tamper_detector: 'DocTamper-ResNet50-DTD',
-        splicing_detector: 'TruFor-SegFormer-B0'
+        face_embedder: 'Face Matcher v2.0',
+        tamper_detector: 'Tamper Check v2.0',
+        splicing_detector: 'Tamper Check (Splicing)'
       },
       processing_time_ms: 412.8,
       audit_hash: '3a49182d8c1192e420bfa51829e19c9284102910fae19028e102947192830192'
@@ -495,7 +495,7 @@ export const PRESET_TAMPERED_STAMP: DocumentInspectResponse = {
     model_versions: {
       pp_ocr: 'PP-OCRv4-Multilingual',
       stamp_verifier: 'SSB-Registry-SSIM-ORB',
-      tamper_detector: 'DocTamper-ResNet50-DTD'
+      tamper_detector: 'Tamper Check v2.0'
     },
     processing_time_ms: 365.2,
     audit_hash: 'b10a8db164e0754105b7a99be72e3fe59da5cfc5e236614791d6044f00612990'
@@ -536,7 +536,7 @@ export const PRESET_TAMPERED_STAMP: DocumentInspectResponse = {
       similarity: 0.79,
       match: true,
       threshold: 0.35,
-      embedding_model_used: 'AdaFace-ResNet100',
+      embedding_model_used: 'Face Matcher',
       apparent_age_id: 28,
       apparent_age_live: 29,
       age_drift_years: 1,
@@ -657,7 +657,7 @@ export const PRESET_TAMPERED_STAMP: DocumentInspectResponse = {
       model_versions: {
         pp_ocr: 'PP-OCRv4-Multilingual',
         stamp_verifier: 'SSB-Registry-SSIM-ORB',
-        tamper_detector: 'DocTamper-ResNet50-DTD'
+        tamper_detector: 'Tamper Check v2.0'
       },
       processing_time_ms: 365.2,
       audit_hash: 'b10a8db164e0754105b7a99be72e3fe59da5cfc5e236614791d6044f00612990'
@@ -700,8 +700,8 @@ export const PRESET_PRESENTATION_SPOOF: DocumentInspectResponse = {
     },
     model_versions: {
       pp_ocr: 'PP-OCRv4-Multilingual',
-      face_embedder: 'AdaFace-ResNet100-ONNX',
-      liveness_detector: 'MiniFASNetV2-SE-DualScale'
+      face_embedder: 'Face Matcher v2.0',
+      liveness_detector: 'Liveness Check v2.0'
     },
     processing_time_ms: 395.0,
     audit_hash: 'c8273b182049182aef1928401928471029481029481920491820491829481920'
@@ -770,7 +770,7 @@ export const PRESET_PRESENTATION_SPOOF: DocumentInspectResponse = {
       similarity: 0.74,
       match: true,
       threshold: 0.35,
-      embedding_model_used: 'AdaFace-ResNet100',
+      embedding_model_used: 'Face Matcher',
       apparent_age_id: 38,
       apparent_age_live: 38,
       age_drift_years: 0,
@@ -868,8 +868,8 @@ export const PRESET_PRESENTATION_SPOOF: DocumentInspectResponse = {
       },
       model_versions: {
         pp_ocr: 'PP-OCRv4-Multilingual',
-        face_embedder: 'AdaFace-ResNet100-ONNX',
-        liveness_detector: 'MiniFASNetV2-SE-DualScale'
+        face_embedder: 'Face Matcher v2.0',
+        liveness_detector: 'Liveness Check v2.0'
       },
       processing_time_ms: 395.0,
       audit_hash: 'c8273b182049182aef1928401928471029481029481920491820491829481920'

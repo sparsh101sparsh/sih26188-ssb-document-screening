@@ -245,6 +245,7 @@ async def inspect_document(
     declared_checkpost: Optional[str] = Form(None, description="Border checkpoint ID (Desktop frontend)"),
     transit_date: Optional[str] = Form(None, description="Transit timestamp (Android client)"),
     declared_transit_date: Optional[str] = Form(None, description="Transit timestamp (Desktop frontend)"),
+    officer_id: Optional[str] = Form(None, description="Screening officer badge identifier"),
 ) -> DocumentInspectResponse:
     """
     Master inspection endpoint executing the full 3-stream parallel screening pipeline.

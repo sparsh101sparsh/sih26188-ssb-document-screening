@@ -273,7 +273,7 @@ function drawPermitWithStamp(): string {
 }
 
 /**
- * Procedurally render a simulated live face capture
+ * Procedurally render a realistic ICAO-standard biometric face capture
  */
 function drawFaceImage(spoof = false): string {
   const canvas = document.createElement('canvas');
@@ -282,18 +282,21 @@ function drawFaceImage(spoof = false): string {
   const ctx = canvas.getContext('2d');
   if (!ctx) return '';
 
-  // Background
-  ctx.fillStyle = spoof ? '#18181b' : '#334155';
+  // Clean studio gradient background
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, 320);
+  bgGrad.addColorStop(0, '#E2E8F0');
+  bgGrad.addColorStop(1, '#CBD5E1');
+  ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, 320, 320);
 
   if (spoof) {
     // Screen bezel & reflection
-    ctx.strokeStyle = '#3f3f46';
-    ctx.lineWidth = 12;
-    ctx.strokeRect(10, 10, 300, 300);
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(4, 4, 312, 312);
 
     // Moiré / raster lines
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.06)';
     ctx.lineWidth = 1;
     for (let y = 10; y < 310; y += 4) {
       ctx.beginPath();
@@ -303,30 +306,70 @@ function drawFaceImage(spoof = false): string {
     }
   }
 
-  // Face head
-  ctx.fillStyle = '#fde047';
+  // Torso / Shoulders (Dark Navy Jacket)
+  ctx.fillStyle = '#0F2750';
   ctx.beginPath();
-  ctx.arc(160, 140, 70, 0, Math.PI * 2);
+  ctx.ellipse(160, 330, 130, 90, 0, Math.PI, 0);
   ctx.fill();
+
+  // White Shirt Collar
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.moveTo(140, 240);
+  ctx.lineTo(160, 270);
+  ctx.lineTo(180, 240);
+  ctx.fill();
+
+  // Neck
+  ctx.fillStyle = '#D9A066';
+  ctx.fillRect(145, 195, 30, 45);
+
+  // Realistic Head / Jaw
+  const skinGrad = ctx.createLinearGradient(120, 90, 200, 220);
+  skinGrad.addColorStop(0, '#F5C6A5');
+  skinGrad.addColorStop(1, '#E09E67');
+  ctx.fillStyle = skinGrad;
+  ctx.beginPath();
+  ctx.ellipse(160, 140, 52, 68, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Dark Hair
+  ctx.fillStyle = '#1E293B';
+  ctx.beginPath();
+  ctx.ellipse(160, 95, 54, 38, 0, Math.PI, 0);
+  ctx.fill();
+
+  // Eyebrows
+  ctx.fillStyle = '#0F172A';
+  ctx.fillRect(130, 118, 22, 4);
+  ctx.fillRect(168, 118, 22, 4);
 
   // Eyes
-  ctx.fillStyle = '#0f172a';
+  ctx.fillStyle = '#FFFFFF';
   ctx.beginPath();
-  ctx.arc(135, 130, 8, 0, Math.PI * 2);
-  ctx.arc(185, 130, 8, 0, Math.PI * 2);
+  ctx.ellipse(141, 132, 9, 6, 0, 0, Math.PI * 2);
+  ctx.ellipse(179, 132, 9, 6, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Mouth
+  ctx.fillStyle = '#1E293B';
   ctx.beginPath();
-  ctx.arc(160, 170, 25, 0.1 * Math.PI, 0.9 * Math.PI);
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = '#0f172a';
+  ctx.arc(141, 132, 4.5, 0, Math.PI * 2);
+  ctx.arc(179, 132, 4.5, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Nose
+  ctx.strokeStyle = '#B87D4B';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(160, 130);
+  ctx.lineTo(160, 155);
+  ctx.lineTo(154, 158);
   ctx.stroke();
 
-  // Torso
-  ctx.fillStyle = '#1e293b';
+  // Lips
+  ctx.fillStyle = '#C87258';
   ctx.beginPath();
-  ctx.arc(160, 340, 140, Math.PI, 0);
+  ctx.ellipse(160, 175, 14, 5, 0, 0, Math.PI * 2);
   ctx.fill();
 
   return canvas.toDataURL('image/png');

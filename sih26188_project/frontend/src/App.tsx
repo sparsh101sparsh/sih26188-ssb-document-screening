@@ -1,40 +1,43 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { GovTopBar } from './components/GovTopBar';
 import { Header } from './components/Header';
+import { GovNavBar, NavTab } from './components/GovNavBar';
+import { HeroCarousel } from './components/HeroCarousel';
+import { AccessServicesGrid } from './components/AccessServicesGrid';
 import { IngestionPanel } from './components/IngestionPanel';
 import { ResultsPanel } from './components/ResultsPanel';
+import { GovFooter } from './components/GovFooter';
+import { AskSSBMascot } from './components/AskSSBMascot';
+import { OfflineWarningBanner } from './components/OfflineWarningBanner';
 import { AuditCertificateModal } from './components/AuditCertificateModal';
 import { RawJsonViewerModal } from './components/RawJsonViewerModal';
-import { OfflineWarningBanner } from './components/OfflineWarningBanner';
+import { ConnectModal } from './components/ConnectModal';
+import { SecurityProtocolsModal } from './components/SecurityProtocolsModal';
+import { ScreenReaderEngine } from './components/ScreenReaderEngine';
+import { StampIntroScreen } from './components/StampIntroScreen';
+
 import { useBackendHealth } from './hooks/useBackendHealth';
 import { inspectDocument } from './services/api';
-import {
-  CHECKPOINTS,
-  CheckpointInfo,
-  DocumentInspectResponse,
-  OfficerDecision,
-} from './types/api';
+import { CHECKPOINTS, CheckpointInfo, DocumentInspectResponse, OfficerDecision } from './types/api';
 import { PresetItem } from './services/presets';
-import {
-  Lock,
-  AlertCircle,
-  CheckCircle2,
-  AlertTriangle,
-  ShieldAlert,
-  Smartphone,
-  Sparkles,
-} from 'lucide-react';
+import { Smartphone, AlertTriangle, ShieldCheck } from 'lucide-react';
 
-function dataURLtoFile(dataurl: string, filename: string): File {
-  const arr = dataurl.split(',');
-  const mimeMatch = arr[0].match(/:(.*?);/);
-  const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
+function base64ToFile(base64Data: string, filename: string): File {
+  try {
+    const arr = base64Data.split(',');
+    const mimeMatch = arr[0].match(/:(.*?);/);
+    const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+    const bstr = atob(arr[arr.length - 1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  } catch (err) {
+    console.warn('Failed to convert base64 to File:', err);
+    return new File([], filename, { type: 'image/jpeg' });
   }
-  return new File([u8arr], filename, { type: mime });
 }
 
 export function App() {
@@ -56,10 +59,23 @@ export function App() {
 
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [isJsonModalOpen, setIsJsonModalOpen] = useState(false);
+  const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
+  const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
+  const [isScreenReaderActive, setIsScreenReaderActive] = useState(false);
+  const [appLang, setAppLang] = useState<'en' | 'hi'>('en');
+  const [showIntro, setShowIntro] = useState(true);
+  const [introFadingOut, setIntroFadingOut] = useState(false);
 
   // Companion Live Sync State
   const [companionNotification, setCompanionNotification] = useState<string | null>(null);
   const [lastSequenceId, setLastSequenceId] = useState<number>(0);
+  const lastSequenceIdRef = useRef<number>(0);
+  lastSequenceIdRef.current = lastSequenceId;
+
+  const [docFromCompanion, setDocFromCompanion] = useState(false);
+  const [photoFromCompanion, setPhotoFromCompanion] = useState(false);
+  const [activeTab, setActiveTab] = useState<NavTab>('home');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const {
     online: backendOnline,
@@ -71,6 +87,7 @@ export function App() {
   const handleSelectDocument = (file: File, previewUrl: string) => {
     setDocumentFile(file);
     setDocumentPreviewUrl(previewUrl);
+    setDocFromCompanion(false);
     setScanResult(null);
     setHeatmapImageUrl(null);
     setOfficerDecision(null);
@@ -78,8 +95,12 @@ export function App() {
   };
 
   const handleClearDocument = () => {
+    if (documentPreviewUrl && !documentPreviewUrl.startsWith('data:')) {
+      URL.revokeObjectURL(documentPreviewUrl);
+    }
     setDocumentFile(null);
     setDocumentPreviewUrl(null);
+    setDocFromCompanion(false);
     setScanResult(null);
     setHeatmapImageUrl(null);
     setOfficerDecision(null);
@@ -88,401 +109,446 @@ export function App() {
   const handleCaptureFace = (file: File, previewUrl: string) => {
     setLivePhotoFile(file);
     setLivePhotoPreviewUrl(previewUrl);
+    setPhotoFromCompanion(false);
+    setScanResult(null);
+    setOfficerDecision(null);
   };
 
   const handleClearFace = () => {
+    if (livePhotoPreviewUrl && !livePhotoPreviewUrl.startsWith('data:')) {
+      URL.revokeObjectURL(livePhotoPreviewUrl);
+    }
     setLivePhotoFile(null);
     setLivePhotoPreviewUrl(null);
+    setPhotoFromCompanion(false);
+    setScanResult(null);
+    setOfficerDecision(null);
   };
 
   const handleSelectPreset = (preset: PresetItem) => {
-    setErrorMessage(null);
-    setOfficerDecision(null);
-    const { docDataUrl, faceDataUrl, heatmapDataUrl } = preset.generateImages();
-    setDocumentPreviewUrl(docDataUrl);
-    setDocumentFile(null);
-    setLivePhotoPreviewUrl(faceDataUrl);
-    setLivePhotoFile(null);
-    setHeatmapImageUrl(heatmapDataUrl);
+    const images = preset.generateImages();
+    const docFile = base64ToFile(images.docDataUrl, `${preset.id}_doc.jpg`);
+    setDocumentFile(docFile);
+    setDocumentPreviewUrl(images.docDataUrl);
+
+    if (images.faceDataUrl) {
+      const faceFile = base64ToFile(images.faceDataUrl, `${preset.id}_face.jpg`);
+      setLivePhotoFile(faceFile);
+      setLivePhotoPreviewUrl(images.faceDataUrl);
+    } else {
+      setLivePhotoFile(null);
+      setLivePhotoPreviewUrl(null);
+    }
+
+    setHeatmapImageUrl(images.heatmapDataUrl || null);
     setScanResult(preset.mockResponse);
+    setOfficerDecision(null);
+    setErrorMessage(null);
+    setActiveTab('scan');
   };
 
   const handleReset = () => {
-    setDocumentFile(null);
-    setDocumentPreviewUrl(null);
-    setLivePhotoFile(null);
-    setLivePhotoPreviewUrl(null);
-    setHeatmapImageUrl(null);
-    setScanResult(null);
-    setOfficerDecision(null);
+    handleClearDocument();
+    handleClearFace();
     setErrorMessage(null);
+    setOfficerDecision(null);
+    setScanResult(null);
   };
 
-  const handleOfficerDecision = (decision: OfficerDecision) => {
-    setOfficerDecision(decision);
-  };
+  const handleScan = async () => {
+    if (!documentFile && !livePhotoFile) return;
 
-  const executeScreening = useCallback(
-    async (docFile: File | null, docUrl: string | null, faceFile: File | null) => {
-      if (!docUrl && !docFile) return;
+    setIsScanning(true);
+    setErrorMessage(null);
+    setOfficerDecision(null);
 
-      setIsScanning(true);
-      setErrorMessage(null);
-      setOfficerDecision(null);
-      const startTime = performance.now();
+    try {
+      const targetDoc = documentFile || livePhotoFile!;
+      const result = await inspectDocument(
+        targetDoc,
+        livePhotoFile,
+        selectedCheckpoint.id,
+        'OFFICER-7482'
+      );
 
-      try {
-        if (backendOnline && docFile) {
-          const response = await inspectDocument(
-            docFile,
-            faceFile,
-            selectedCheckpoint.id,
-            transitDate
-          );
-          setScanResult(response);
-          if (response.assessment.heatmap_base64) {
-            setHeatmapImageUrl(`data:image/png;base64,${response.assessment.heatmap_base64}`);
-          }
-        } else {
-          await new Promise((res) => setTimeout(res, 500));
-          const latency = Math.round(performance.now() - startTime);
-          const makeHash = () =>
-            `SHA256:${Array.from({ length: 64 }, () =>
-              Math.floor(Math.random() * 16).toString(16)
-            ).join('')}`;
+      setScanResult(result);
+      setActiveTab('results');
 
-          setScanResult({
-            session_id: `SSB-INSP-${Date.now().toString().slice(-6)}`,
-            status: 'completed',
-            assessment: {
-              risk_score: 3.0,
-              risk_level: 'GREEN',
-              auto_clear: true,
-              tripwire_triggered: false,
-              tripwire_codes: [],
-              reasons: [
-                'Document substrate and text structure verified authentic.',
-                'Zero pixel tampering or photo splicing detected.',
-                faceFile
-                  ? 'Live traveler facial match verified against document photograph.'
-                  : 'Document photograph extracted and visual integrity confirmed.',
-              ],
-              cross_validation_violations: [],
-              model_versions: {
-                pp_ocr: 'PP-OCRv4-Multilingual',
-                mrz_engine: 'ICAO-9303-v2.1',
-                face_embedder: 'AdaFace-ResNet100',
-                tamper_detector: 'DocTamper-ResNet50',
-              },
-              processing_time_ms: latency,
-              audit_hash: makeHash(),
-            },
-            details: {
-              session_id: `SSB-INSP-${Date.now().toString().slice(-6)}`,
-              document_type: 'passport',
-              ocr: {
-                status: 'success',
-                script_detected: 'latin',
-                fields: {
-                  full_name: 'VERIFIED TRAVELER',
-                  document_type: 'PASSPORT',
-                  issuing_country: 'IND',
-                  document_number: 'Z9018241',
-                  dob: '1990-01-01',
-                  expiry: '2030-01-01',
-                  sex: 'M',
-                },
-                field_confidences: { full_name: 0.98 },
-                raw_boxes: [],
-                mean_confidence: 0.98,
-                requires_tier2_vlm: false,
-                raw_text: 'PASSPORT REPUBLIC OF INDIA',
-                processing_time_ms: 82.1,
-              },
-              mrz: {
-                mrz_detected: true,
-                mrz_type: 'TD3',
-                valid: true,
-                raw_lines: [
-                  'P<INDTRAVELER<<VERIFIED<<<<<<<<<<<<<<<<<<<<<',
-                  'Z9018241<1IND9001011M3001011<<<<<<<<<<<<<<4',
-                ],
-                document_type: 'P',
-                country_code: 'IND',
-                surname: 'TRAVELER',
-                given_names: 'VERIFIED',
-                document_number: 'Z9018241',
-                doc_number_checksum_valid: true,
-                dob_checksum_valid: true,
-                expiry_checksum_valid: true,
-                composite_checksum_valid: true,
-                checksum_failures: [],
-                parsed_fields: { surname: 'TRAVELER', given_names: 'VERIFIED', dob: '900101' },
-                processing_time_ms: 12.0,
-              },
-              biometrics: {
-                similarity: 0.86,
-                match: true,
-                threshold: 0.35,
-                embedding_model_used: 'AdaFace-ResNet100',
-                watchlist_hit: false,
-                processing_time_ms: 110.4,
-              },
-              liveness: { is_live: true, confidence: 0.98, processing_time_ms: 45.2 },
-              forensics: {
-                tamper_score: 0.025,
-                is_tampered: false,
-                photo_region_tampered: false,
-                reasons: ['Substrate within nominal range (0.025 < 0.180).'],
-                detected_anomalies: [],
-                tampered_regions: [],
-                doctamper_score: 0.02,
-                trufor_score: 0.03,
-                exif_suspicious: false,
-                dqt_quantization_altered: false,
-                processing_time_ms: 88.3,
-              },
-              stamp: null,
-              cross_validation: {
-                cross_validation_passed: true,
-                violation_count: 0,
-                critical_violations: [],
-                warnings: [],
-                violations: [],
-                flags: [
-                  { rule_id: 'CV-01', rule_description: 'MRZ DOB vs Visual OCR DOB', passed: true, telemetry_message: 'Exact match' },
-                  { rule_id: 'CV-02', rule_description: 'MRZ Doc No vs Visual Doc No', passed: true, telemetry_message: 'Exact match' },
-                  { rule_id: 'CV-03', rule_description: 'MRZ Name vs Visual Full Name', passed: true, telemetry_message: 'Exact match' },
-                  { rule_id: 'CV-04', rule_description: 'Biometric Match vs Passport Photo', passed: true, telemetry_message: 'Match Confirmed' },
-                  { rule_id: 'CV-05', rule_description: 'Photo Splicing Density', passed: true, telemetry_message: 'Portrait intact' },
-                  { rule_id: 'CV-06', rule_description: 'Text Tamper Analysis', passed: true, telemetry_message: 'Clean' },
-                  { rule_id: 'CV-07', rule_description: 'Stamp Context Consistency', passed: true, telemetry_message: 'N/A' },
-                  { rule_id: 'CV-08', rule_description: 'Cryptographic Security', passed: true, telemetry_message: 'Valid' },
-                ],
-                rules_checked: 8,
-                processing_time_ms: 14.1,
-              },
-              risk: {
-                risk_score: 3.0,
-                risk_level: 'GREEN',
-                auto_clear: true,
-                tripwire_triggered: false,
-                tripwire_codes: [],
-                reasons: ['Document and traveler photo pass all screening rules.'],
-                cross_validation_violations: [],
-                model_versions: {
-                  pp_ocr: 'PP-OCRv4',
-                  mrz_engine: 'ICAO-9303',
-                  face_embedder: 'AdaFace',
-                  tamper_detector: 'DocTamper',
-                },
-                processing_time_ms: 14.1,
-                audit_hash: makeHash(),
-              },
-              processing_time_ms: latency,
-            },
-          });
-        }
-      } catch (err: any) {
-        setErrorMessage(err.message || 'Inspection failed. Please try again.');
-      } finally {
-        setIsScanning(false);
+      if (result.details?.forensics?.heatmap_base64) {
+        setHeatmapImageUrl(`data:image/png;base64,${result.details.forensics.heatmap_base64}`);
+      } else {
+        setHeatmapImageUrl(null);
       }
-    },
-    [backendOnline, selectedCheckpoint.id, transitDate]
-  );
-
-  const handleScan = () => {
-    executeScreening(documentFile, documentPreviewUrl, livePhotoFile);
+    } catch (err: any) {
+      console.error('Inspection failed:', err);
+      setErrorMessage(
+        err?.message || 'Verification pipeline encountered an error.'
+      );
+    } finally {
+      setIsScanning(false);
+    }
   };
 
-  // Real-Time Companion Camera Polling & Auto-Trigger
+  const handleServiceSelect = (serviceId: string) => {
+    if (serviceId === 'companion-sync') {
+      setIsConnectModalOpen(true);
+    } else {
+      setActiveTab('scan');
+      const element = document.getElementById('screening-bay');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleSimulatedCapture = (captureType: 'document' | 'selfie') => {
+    if (captureType === 'document') {
+      setDocFromCompanion(true);
+      setCompanionNotification('Simulated Document Ingestion Received from Companion');
+    } else {
+      setPhotoFromCompanion(true);
+      setCompanionNotification('Simulated Biometric Selfie Received from Companion');
+    }
+    setTimeout(() => setCompanionNotification(null), 5000);
+  };
+
+  const canScan = Boolean(documentFile || livePhotoFile);
+
+  // Companion Live Polling loop
   useEffect(() => {
     let isMounted = true;
-    const pollCompanion = async () => {
+    const pollInterval = setInterval(async () => {
+      if (!isMounted) return;
       try {
-        const res = await fetch('/api/v1/companion/latest');
-        if (res.ok) {
-          const data = await res.json();
-          if (isMounted && data.has_capture && data.sequence_id > lastSequenceId) {
-            setLastSequenceId(data.sequence_id);
-            if (data.image_data) {
-              const file = dataURLtoFile(data.image_data, data.filename || 'field_capture.jpg');
-              if (data.capture_type === 'document') {
-                setDocumentFile(file);
-                setDocumentPreviewUrl(data.image_data);
-                setCompanionNotification(`📱 Document Scan received from Field Unit (${data.device_id})`);
-              } else {
-                setLivePhotoFile(file);
-                setLivePhotoPreviewUrl(data.image_data);
-                setCompanionNotification(`📱 Traveler Photo received from Field Unit (${data.device_id}) — Auto-running screening…`);
+        const res = await fetch('/api/v1/inbox');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.items && data.items.length > 0) {
+          const latest = data.items[0];
+          if (latest.sequence_id > lastSequenceIdRef.current) {
+            setLastSequenceId(latest.sequence_id);
+            lastSequenceIdRef.current = latest.sequence_id;
 
-                // Auto-run screening if document is already loaded
-                if (documentFile || documentPreviewUrl) {
-                  executeScreening(documentFile, documentPreviewUrl, file);
-                }
-              }
-              setTimeout(() => setCompanionNotification(null), 6000);
+            const mode = latest.mode || 'document';
+            const b64 = latest.image_base64 || '';
+            const dataUrl = b64.startsWith('data:') ? b64 : `data:image/jpeg;base64,${b64}`;
+            const file = base64ToFile(dataUrl, `companion_${mode}_${latest.sequence_id}.jpg`);
+
+            if (mode === 'document') {
+              setDocumentFile(file);
+              setDocumentPreviewUrl(dataUrl);
+              setDocFromCompanion(true);
+              setCompanionNotification(`Received Live Document from Field Officer (${latest.device_label || 'Terminal'})`);
+            } else {
+              setLivePhotoFile(file);
+              setLivePhotoPreviewUrl(dataUrl);
+              setPhotoFromCompanion(true);
+              setCompanionNotification(`Received Live Facial Capture from Field Officer (${latest.device_label || 'Terminal'})`);
             }
+
+            setTimeout(() => {
+              if (isMounted) setCompanionNotification(null);
+            }, 6000);
           }
         }
       } catch (err) {
-        // silent background poll
+        // quiet fallback
       }
-    };
+    }, 2000);
 
-    const timer = setInterval(pollCompanion, 1500);
     return () => {
       isMounted = false;
-      clearInterval(timer);
+      clearInterval(pollInterval);
     };
-  }, [lastSequenceId, documentFile, documentPreviewUrl, executeScreening]);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-page text-ink flex flex-col font-sans selection:bg-accent selection:text-white antialiased">
-      {/* 1. Header Navigation Bar */}
-      <Header
-        selectedCheckpoint={selectedCheckpoint}
-        onSelectCheckpoint={setSelectedCheckpoint}
-        backendOnline={backendOnline}
-        backendLatencyMs={backendLatencyMs}
-        onRefreshHealth={refreshHealth}
-        isCheckingHealth={isCheckingHealth}
-        onOpenAuditModal={() => setIsAuditModalOpen(true)}
-        onOpenJsonModal={() => setIsJsonModalOpen(true)}
-        hasScanResult={scanResult !== null}
-      />
-
-      {/* Companion Real-Time Synced Notification Toast */}
-      {companionNotification && (
-        <div className="max-w-[1700px] w-full mx-auto px-4 pt-3">
-          <div className="bg-accent text-white px-4 py-2.5 rounded-card shadow-raised flex items-center justify-between text-xs font-semibold animate-fade-up">
-            <div className="flex items-center space-x-2">
-              <Smartphone className="w-4 h-4 animate-bounce" />
-              <span>{companionNotification}</span>
-            </div>
-            <span className="text-[11px] opacity-80 font-mono">Real-time Live Sync</span>
-          </div>
-        </div>
+    <>
+      {showIntro && (
+        <StampIntroScreen
+          onTransitionStart={() => setIntroFadingOut(true)}
+          onComplete={() => {
+            setShowIntro(false);
+            setIntroFadingOut(true);
+          }}
+        />
       )}
 
-      {/* 2. Main Workstation */}
-      <main className="flex-1 max-w-[1700px] w-full mx-auto p-3.5 sm:p-5 space-y-4">
-        <OfflineWarningBanner
-          backendOnline={backendOnline}
-          onRetry={refreshHealth}
-          isChecking={isCheckingHealth}
+      <div
+        id="main-content"
+        className={`min-h-screen bg-[#F8FAFC] font-sans text-slate-800 antialiased transition-all duration-1000 ease-out flex flex-col ${
+          showIntro && !introFadingOut
+            ? 'opacity-0 pointer-events-none transform translate-y-5 scale-[0.96]'
+            : 'opacity-100 pointer-events-auto transform translate-y-0 scale-100'
+        }`}
+      >
+        {/* 1. Top Accessibility Strip (UIDAI Standard) */}
+        <GovTopBar
+          onOpenSecurityProtocols={() => setIsSecurityModalOpen(true)}
+          isScreenReaderActive={isScreenReaderActive}
+          onToggleScreenReader={() => setIsScreenReaderActive(!isScreenReaderActive)}
+          onLanguageChange={setAppLang}
         />
 
-        {errorMessage && (
-          <div className="bg-red-bg border border-red/40 rounded-card p-3.5 text-xs text-red font-medium flex items-center space-x-2 animate-fade-up shadow-card">
-            <AlertCircle className="w-4 h-4 text-red flex-shrink-0" />
-            <span>{errorMessage}</span>
+        {/* 2. Official Gov Header */}
+        <Header
+          selectedCheckpoint={selectedCheckpoint}
+          onSelectCheckpoint={setSelectedCheckpoint}
+          backendOnline={backendOnline}
+          backendLatencyMs={backendLatencyMs}
+          onRefreshHealth={refreshHealth}
+          isCheckingHealth={isCheckingHealth}
+          onOpenAuditModal={() => setIsAuditModalOpen(true)}
+          onOpenJsonModal={() => setIsJsonModalOpen(true)}
+          hasScanResult={scanResult !== null}
+          onOpenConnectModal={() => setIsConnectModalOpen(true)}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
+
+        {/* 3. Horizontal Pill Navigation Bar (UIDAI Standard) */}
+        <GovNavBar
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          hasScanResult={scanResult !== null}
+          onOpenAuditModal={() => setIsAuditModalOpen(true)}
+          onOpenJsonModal={() => setIsJsonModalOpen(true)}
+          onOpenConnectModal={() => setIsConnectModalOpen(true)}
+          onOpenSecurityProtocols={() => setIsSecurityModalOpen(true)}
+        />
+
+        {/* Companion Sync Live Toast */}
+        {companionNotification && (
+          <div className="bg-emerald-600 text-white text-xs font-bold px-4 py-2.5 shadow-md flex items-center justify-between animate-pop-in select-none">
+            <div className="max-w-[1700px] mx-auto w-full flex items-center space-x-2">
+              <Smartphone className="w-4 h-4 text-emerald-200 animate-bounce" />
+              <span>{companionNotification}</span>
+            </div>
           </div>
         )}
 
-        {/* Officer Decision Confirmation Banner */}
-        {officerDecision && (
-          <div
-            className={`rounded-card p-3.5 border flex flex-wrap items-center justify-between gap-2 text-xs font-mono animate-pop-in ${
-              officerDecision.action === 'AUTO_CLEAR'
-                ? 'bg-green-bg border-green/30 text-green'
-                : officerDecision.action === 'SECONDARY_INSPECTION'
-                ? 'bg-orange-bg border-orange/30 text-orange'
-                : 'bg-red-bg border-red/30 text-red'
-            }`}
-          >
-            <div className="flex items-center gap-2.5">
-              {officerDecision.action === 'AUTO_CLEAR' ? (
-                <CheckCircle2 className="w-4 h-4 text-green shrink-0" />
-              ) : officerDecision.action === 'SECONDARY_INSPECTION' ? (
-                <AlertTriangle className="w-4 h-4 text-orange shrink-0" />
-              ) : (
-                <ShieldAlert className="w-4 h-4 text-red shrink-0" />
-              )}
+        {/* Main Content Area */}
+        <main className="flex-1 max-w-[1700px] w-full mx-auto px-4 py-6">
+          <OfflineWarningBanner
+            backendOnline={backendOnline}
+            onRetry={refreshHealth}
+            isChecking={isCheckingHealth}
+          />
+
+          {errorMessage && (
+            <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-xs text-red-700 flex items-start space-x-3 shadow-xs">
+              <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold uppercase tracking-wider block">
-                  Officer Decision: {officerDecision.action}
-                </span>
-                <span className="text-[11px] opacity-90 block">
-                  Badge: {officerDecision.badgeId} · Notes: {officerDecision.officerNotes || officerDecision.reason}
-                </span>
+                <span className="font-bold">Screening Error:</span> {errorMessage}
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] opacity-80">
-                {new Date(officerDecision.timestamp).toLocaleTimeString()} UTC
-              </span>
-              <button
-                type="button"
-                onClick={() => setIsAuditModalOpen(true)}
-                className="rounded-control bg-surface px-3 py-1 text-[11px] font-semibold text-ink shadow-btn border border-line hover:bg-hover transition-colors"
-              >
-                View Audit Certificate
-              </button>
-            </div>
-          </div>
-        )}
+          )}
 
-        {/* Dual-Column Ingestion Workstation */}
-        <IngestionPanel
-          documentFile={documentFile}
-          documentPreviewUrl={documentPreviewUrl}
-          onSelectDocument={handleSelectDocument}
-          onClearDocument={handleClearDocument}
-          livePhotoFile={livePhotoFile}
-          livePhotoPreviewUrl={livePhotoPreviewUrl}
-          onCaptureFace={handleCaptureFace}
-          onClearFace={handleClearFace}
-          selectedCheckpoint={selectedCheckpoint}
-          transitDate={transitDate}
-          onChangeTransitDate={setTransitDate}
-          onSelectPreset={handleSelectPreset}
-          onScan={handleScan}
-          onReset={handleReset}
-          isScanning={isScanning}
-          canScan={documentPreviewUrl !== null || documentFile !== null}
-          latencyMs={scanResult?.assessment.processing_time_ms}
+          {/* Tab Views */}
+          {activeTab === 'home' && (
+            <div>
+              {/* 4. Hero Carousel Banner */}
+              <HeroCarousel
+                checkpoint={selectedCheckpoint}
+                onNavigateToScan={() => {
+                  setActiveTab('scan');
+                  document.getElementById('screening-bay')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                onNavigateToCompanion={() => setIsConnectModalOpen(true)}
+                onOpenSecurityProtocols={() => setIsSecurityModalOpen(true)}
+              />
+
+              {/* 5. "Access SSB Screening Services" Grid (UIDAI 1-to-1 Match) */}
+              <AccessServicesGrid onSelectService={handleServiceSelect} />
+
+              {/* 6. Ingestion Deck */}
+              <div id="screening-bay">
+                <IngestionPanel
+                  documentFile={documentFile}
+                  documentPreviewUrl={documentPreviewUrl}
+                  onSelectDocument={handleSelectDocument}
+                  onClearDocument={handleClearDocument}
+                  livePhotoFile={livePhotoFile}
+                  livePhotoPreviewUrl={livePhotoPreviewUrl}
+                  onCaptureFace={handleCaptureFace}
+                  onClearFace={handleClearFace}
+                  selectedCheckpoint={selectedCheckpoint}
+                  transitDate={transitDate}
+                  onChangeTransitDate={setTransitDate}
+                  onSelectPreset={handleSelectPreset}
+                  onScan={handleScan}
+                  onReset={handleReset}
+                  isScanning={isScanning}
+                  canScan={canScan}
+                  latencyMs={backendLatencyMs}
+                  isCompanionConnected={true}
+                  docFromCompanion={docFromCompanion}
+                  photoFromCompanion={photoFromCompanion}
+                  onOpenConnectModal={() => setIsConnectModalOpen(true)}
+                />
+              </div>
+
+              {/* Results Preview if available */}
+              {scanResult && documentPreviewUrl && (
+                <div className="mt-8">
+                  <ResultsPanel
+                    result={scanResult}
+                    documentImageUrl={documentPreviewUrl}
+                    heatmapImageUrl={heatmapImageUrl}
+                    livePhotoUrl={livePhotoPreviewUrl}
+                    officerDecision={officerDecision}
+                    onOfficerDecision={setOfficerDecision}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'scan' && (
+            <div id="screening-bay">
+              <IngestionPanel
+                documentFile={documentFile}
+                documentPreviewUrl={documentPreviewUrl}
+                onSelectDocument={handleSelectDocument}
+                onClearDocument={handleClearDocument}
+                livePhotoFile={livePhotoFile}
+                livePhotoPreviewUrl={livePhotoPreviewUrl}
+                onCaptureFace={handleCaptureFace}
+                onClearFace={handleClearFace}
+                selectedCheckpoint={selectedCheckpoint}
+                transitDate={transitDate}
+                onChangeTransitDate={setTransitDate}
+                onSelectPreset={handleSelectPreset}
+                onScan={handleScan}
+                onReset={handleReset}
+                isScanning={isScanning}
+                canScan={canScan}
+                latencyMs={backendLatencyMs}
+                isCompanionConnected={true}
+                docFromCompanion={docFromCompanion}
+                photoFromCompanion={photoFromCompanion}
+                onOpenConnectModal={() => setIsConnectModalOpen(true)}
+              />
+
+              {scanResult && documentPreviewUrl && (
+                <div className="mt-8">
+                  <ResultsPanel
+                    result={scanResult}
+                    documentImageUrl={documentPreviewUrl}
+                    heatmapImageUrl={heatmapImageUrl}
+                    livePhotoUrl={livePhotoPreviewUrl}
+                    officerDecision={officerDecision}
+                    onOfficerDecision={setOfficerDecision}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'results' && (
+            <div>
+              {scanResult && documentPreviewUrl ? (
+                <ResultsPanel
+                  result={scanResult}
+                  documentImageUrl={documentPreviewUrl}
+                  heatmapImageUrl={heatmapImageUrl}
+                  livePhotoUrl={livePhotoPreviewUrl}
+                  officerDecision={officerDecision}
+                  onOfficerDecision={setOfficerDecision}
+                />
+              ) : (
+                <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">
+                  <ShieldCheck className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                  <h3 className="text-lg font-bold text-slate-800">No Inspection Performed Yet</h3>
+                  <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+                    Please upload a traveler passport/visa or snap live optical portrait to generate forensic results.
+                  </p>
+                  <button
+                    onClick={() => setActiveTab('scan')}
+                    className="mt-5 px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow transition-all cursor-pointer"
+                  >
+                    Go to Screening Bay
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'help' && (
+            <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
+              <div>
+                <h3 className="font-serif font-black text-xl text-slate-900">
+                  Standard Operating Procedure (SOP) • SSB Document Screening
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Official operational guidelines for SSB checkpoint border verification officers.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-bold text-sm text-indigo-900 mb-2">1. ICAO 9303 MRZ Inspection</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Check Machine Readable Zone checksum digits 10, 20, 28, and overall composite check 44. Any red flags indicate altered dates or falsified passport numbers.
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-bold text-sm text-indigo-900 mb-2">2. 1:1 Facial Biometrics</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    A cosine distance &lt; 0.40 indicates high confidence identity match. Matches with &gt; 0.60 distance require secondary manual interview.
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-bold text-sm text-indigo-900 mb-2">3. ELA Neural Tampering</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    High residual noise brightness in the ELA heatmap around passport seals or expiry text indicates digital photo-editing manipulation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </main>
+
+        {/* 7. Official Government Footer */}
+        <GovFooter />
+
+        {/* 8. Floating Mascot "Ask SSB" */}
+        <AskSSBMascot />
+
+        {/* Modals */}
+        <AuditCertificateModal
+          isOpen={isAuditModalOpen}
+          onClose={() => setIsAuditModalOpen(false)}
+          result={scanResult}
+          checkpoint={selectedCheckpoint}
+          officerDecision={officerDecision}
         />
 
-        {/* Reactive Inspection Results Viewport */}
-        {scanResult && documentPreviewUrl && (
-          <ResultsPanel
-            result={scanResult}
-            documentImageUrl={documentPreviewUrl}
-            heatmapImageUrl={heatmapImageUrl}
-            onOfficerDecision={handleOfficerDecision}
-            officerDecision={officerDecision}
-          />
-        )}
-      </main>
+        <RawJsonViewerModal
+          isOpen={isJsonModalOpen}
+          onClose={() => setIsJsonModalOpen(false)}
+          result={scanResult}
+        />
 
-      {/* 3. Footer */}
-      <footer className="bg-surface border-t border-line px-4 py-3 text-[11.5px] text-ink-3 text-center">
-        <div className="max-w-[1700px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center space-x-2">
-            <Lock className="w-3.5 h-3.5 text-ink-3" />
-            <span>CONFIDENTIAL • FOR OFFICIAL DEFENSE & IMMIGRATION SCREENING USE ONLY</span>
-          </div>
-          <span>DPDP ACT 2023 COMPLIANT • ZERO PERMANENT BIOMETRIC RETENTION</span>
-        </div>
-      </footer>
+        <ConnectModal
+          isOpen={isConnectModalOpen}
+          onClose={() => setIsConnectModalOpen(false)}
+          onSimulatedCapture={handleSimulatedCapture}
+        />
 
-      {/* 4. Modals */}
-      <AuditCertificateModal
-        isOpen={isAuditModalOpen}
-        onClose={() => setIsAuditModalOpen(false)}
-        result={scanResult}
-        checkpoint={selectedCheckpoint}
-        officerDecision={officerDecision}
-      />
+        <SecurityProtocolsModal
+          isOpen={isSecurityModalOpen}
+          onClose={() => setIsSecurityModalOpen(false)}
+        />
 
-      <RawJsonViewerModal
-        isOpen={isJsonModalOpen}
-        onClose={() => setIsJsonModalOpen(false)}
-        result={scanResult}
-      />
-    </div>
+        {/* 9. Interactive Voice Screen Reader Engine */}
+        <ScreenReaderEngine
+          isActive={isScreenReaderActive}
+          onToggle={() => setIsScreenReaderActive(!isScreenReaderActive)}
+          lang={appLang}
+        />
+      </div>
+    </>
   );
 }
 
