@@ -130,7 +130,7 @@
         android:paddingTop="6dp"
         android:paddingEnd="14dp"
         android:paddingBottom="6dp"
-        android:text="🟢 Linked to Desktop (Jaigaon / Phuentsholing)"
+        android:text="Connecting to Screening Terminal..."
         android:textColor="@color/text_primary"
         android:textSize="11sp"
         android:textStyle="bold"
@@ -325,7 +325,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Document is clear. Officer authorized entry."
+            android:text="Awaiting live decision from Officer Terminal..."
             android:textColor="@color/text_primary"
             android:textSize="12sp" />
     </LinearLayout>
