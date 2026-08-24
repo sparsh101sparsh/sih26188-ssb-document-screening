@@ -152,22 +152,17 @@ export function StampIntroScreen({ onTransitionStart, onComplete }: StampIntroSc
         <p className="stamp-motto">सशस्त्र सीमा बल • सेवा • सुरक्षा • बन्धुत्व</p>
         <div className="stamp-badge">OFFICIAL DEFENSE & IMMIGRATION SCREENING TERMINAL</div>
 
-        {/* Dynamic Defense Loading Telemetry Bar */}
-        <div className="mt-5 flex flex-col items-center w-72 max-w-xs mx-auto">
-          <div className="w-full bg-[#0B1E3B] h-1.5 rounded-full overflow-hidden border border-[#D4AF37]/30 shadow-[0_0_12px_rgba(212,175,55,0.25)] relative">
-            <div
-              className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFDF73] to-[#F3CE63] rounded-full transition-all duration-700 ease-out relative"
-              style={{ width: `${Math.max(loadingProgress, impacted ? 15 : 0)}%` }}
-            >
-              <div className="absolute inset-0 bg-white/30 animate-pulse" />
-            </div>
+        {/* Circular Round Defense Loading Spinner */}
+        <div className="mt-6 flex flex-col items-center justify-center">
+          <div className="relative flex items-center justify-center w-9 h-9">
+            {/* Outer spinning gold halo */}
+            <div className="absolute inset-0 rounded-full border-2 border-[#D4AF37]/20 border-t-[#FFDF73] border-r-[#FDE68A] animate-spin shadow-[0_0_16px_rgba(255,223,115,0.5)]" />
+            {/* Inner pulsing radar core */}
+            <div className="w-2.5 h-2.5 rounded-full bg-[#FFDF73] shadow-[0_0_8px_#FFDF73] animate-pulse" />
           </div>
-          <div className="flex items-center space-x-2 mt-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#FFDF73] animate-ping" />
-            <span className="text-[10px] font-mono text-[#FDE68A] tracking-wider uppercase font-semibold">
-              {loadingStatus}
-            </span>
-          </div>
+          <span className="text-[10px] font-mono text-[#FDE68A] tracking-wider uppercase font-semibold mt-2.5 opacity-90">
+            {loadingStatus}
+          </span>
         </div>
       </div>
 
