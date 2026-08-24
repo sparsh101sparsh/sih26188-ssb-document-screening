@@ -24,13 +24,12 @@ export const OfflineWarningBanner: React.FC<OfflineWarningBannerProps> = ({
         <AlertCircle className="w-4 h-4 text-orange flex-shrink-0 mt-0.5" />
         <div className="space-y-0.5">
           <p className="font-bold text-ink">
-            Local Air-Gapped Inference Server (localhost:8000) is Offline
+            Edge AI Defense Gateway (localhost:8000) Unreachable
           </p>
           <p className="text-[11px] text-ink-2 leading-normal">
-            The UI is running in <span className="font-semibold underline text-ink">Offline Simulation Mode</span> with full procedural presets.
-            To connect the live PyTorch/ONNX backend, launch:
+            The local FastAPI neural pipeline is not responding. Ensure the backend is active:
             <code className="ml-1 bg-surface px-1.5 py-0.5 rounded-chip font-mono text-orange border border-line">
-              uvicorn app.main:app --port 8000 --reload
+              uvicorn app.main:app --port 8000
             </code>
           </p>
         </div>

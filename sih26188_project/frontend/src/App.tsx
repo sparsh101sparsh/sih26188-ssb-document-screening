@@ -125,14 +125,15 @@ export function App() {
     setOfficerDecision(null);
   };
 
-  const handleSelectPreset = (preset: PresetItem) => {
+  const handleSelectPreset = async (preset: PresetItem) => {
     const images = preset.generateImages();
     const docFile = base64ToFile(images.docDataUrl, `${preset.id}_doc.jpg`);
     setDocumentFile(docFile);
     setDocumentPreviewUrl(images.docDataUrl);
 
+    let faceFile: File | null = null;
     if (images.faceDataUrl) {
-      const faceFile = base64ToFile(images.faceDataUrl, `${preset.id}_face.jpg`);
+      faceFile = base64ToFile(images.faceDataUrl, `${preset.id}_face.jpg`);
       setLivePhotoFile(faceFile);
       setLivePhotoPreviewUrl(images.faceDataUrl);
     } else {
@@ -140,11 +141,33 @@ export function App() {
       setLivePhotoPreviewUrl(null);
     }
 
-    setHeatmapImageUrl(images.heatmapDataUrl || null);
-    setScanResult(preset.mockResponse);
+    setScanResult(null);
     setOfficerDecision(null);
     setErrorMessage(null);
+    setHeatmapImageUrl(null);
     setActiveTab('scan');
+
+    // Automatically execute live Edge AI neural screening on the backend
+    setIsScanning(true);
+    try {
+      const result = await inspectDocument(
+        docFile,
+        faceFile,
+        selectedCheckpoint.id,
+        'OFFICER-7482'
+      );
+      setScanResult(result);
+      if (result.details?.forensics?.heatmap_base64) {
+        setHeatmapImageUrl(`data:image/png;base64,${result.details.forensics.heatmap_base64}`);
+      }
+    } catch (err: any) {
+      console.error('Live neural inspection failed:', err);
+      setErrorMessage(
+        err?.message || 'Edge inference gateway encountered an error while analyzing document.'
+      );
+    } finally {
+      setIsScanning(false);
+    }
   };
 
   const handleReset = () => {

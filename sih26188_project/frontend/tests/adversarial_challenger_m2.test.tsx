@@ -308,7 +308,7 @@ async function runAll() {
         isChecking={false}
       />
     );
-    assert.ok(offlineHtml.includes('Offline Simulation Mode'), 'Offline warning text missing');
+    assert.ok(offlineHtml.includes('Defense Gateway') || offlineHtml.includes('Unreachable') || offlineHtml.includes('Offline'), 'Offline warning text missing');
     assert.ok(offlineHtml.includes('Retry Connection'), 'Retry button missing');
   });
 

@@ -135,7 +135,7 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           disabled={disabled}
           className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
             selectedAction === 'AUTO_CLEAR'
-              ? 'bg-emerald-50/80 border-emerald-500 shadow-xs'
+              ? 'bg-emerald-50/80 border-green border-emerald-500 border-green-500 shadow-xs'
               : 'bg-slate-50 border-slate-200 hover:border-slate-300'
           }`}
         >
@@ -154,7 +154,7 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           disabled={disabled}
           className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
             selectedAction === 'SECONDARY_INSPECTION'
-              ? 'bg-amber-50/80 border-amber-500 shadow-xs'
+              ? 'bg-amber-50/80 border-orange border-amber-500 border-orange-500 shadow-xs'
               : 'bg-slate-50 border-slate-200 hover:border-slate-300'
           }`}
         >

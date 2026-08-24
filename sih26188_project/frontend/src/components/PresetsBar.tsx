@@ -13,7 +13,7 @@ export const PresetsBar: React.FC<PresetsBarProps> = ({ onSelectPreset, disabled
       <div className="flex items-center space-x-2 shrink-0 text-xs">
         <FileText className="w-3.5 h-3.5 text-slate-700" />
         <span className="font-bold text-slate-900 text-xs tracking-tight font-sans">
-          Sample Inspection Documents:
+          Test Identity Dossiers (Live Neural Processing):
         </span>
       </div>
 
