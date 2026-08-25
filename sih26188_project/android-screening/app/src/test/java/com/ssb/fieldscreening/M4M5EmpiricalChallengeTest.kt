@@ -79,14 +79,14 @@ class M4M5EmpiricalChallengeTest {
 
         // Verify Tab 1: CAPTURE
         composeTestRule.onNodeWithTag("nav_tab_capture").assertExists()
-        // Verify Tab 2: RESULTS
-        composeTestRule.onNodeWithTag("nav_tab_results").assertExists()
-        // Verify Tab 3: OUTBOX
+        // Verify Tab 2: OUTBOX
         composeTestRule.onNodeWithTag("nav_tab_outbox").assertExists()
+        // Verify Tab 3: CONNECT (Wi-Fi)
+        composeTestRule.onNodeWithTag("nav_tab_connect_wifi").assertExists()
     }
 
     @Test
-    fun `challenge results screen renders expandable accordions and allows toggle`() {
+    fun `challenge capture screen and scenario preset selection`() {
         val app = ApplicationProvider.getApplicationContext<Application>()
         val viewModel = SsbScreeningViewModel(app)
 
@@ -100,29 +100,11 @@ class M4M5EmpiricalChallengeTest {
             }
         }
 
-        // Navigate to RESULTS tab
-        composeTestRule.onNodeWithTag("nav_tab_results").performClick()
+        // Navigate to CAPTURE tab
+        composeTestRule.onNodeWithTag("nav_tab_capture").performClick()
         composeTestRule.waitForIdle()
-        assertEquals(NavigationScreen.RESULTS, viewModel.uiState.value.activeScreen)
-
-        // Verify AssessmentSummaryCard elements exist
-        composeTestRule.onNodeWithTag("audit_hash_bar").assertExists()
-
-        // Verify Officer Decision Card and Buttons exist
-        composeTestRule.onNodeWithTag("officer_clear_btn").assertExists()
-        composeTestRule.onNodeWithTag("officer_hold_btn").assertExists()
-        composeTestRule.onNodeWithTag("officer_detain_btn").assertExists()
-
-        // Verify 3 Expandable Accordions exist
-        composeTestRule.onNodeWithTag("accordion_pipeline_trace").assertExists()
-        composeTestRule.onNodeWithTag("accordion_cross_validation").assertExists()
-        composeTestRule.onNodeWithTag("accordion_discrepancy_diff").assertExists()
-
-        // Toggle Accordion Collapse/Expand with performScrollTo
-        composeTestRule.onNodeWithTag("accordion_pipeline_trace").performScrollTo().performClick()
-        composeTestRule.onNodeWithTag("accordion_cross_validation").performScrollTo().performClick()
-        composeTestRule.onNodeWithTag("accordion_discrepancy_diff").performScrollTo().performClick()
-        composeTestRule.waitForIdle()
+        assertEquals(NavigationScreen.CAPTURE, viewModel.uiState.value.activeScreen)
+        assertEquals(forgedScenario.id, viewModel.uiState.value.selectedPreset?.id)
     }
 
     @Test
@@ -133,24 +115,14 @@ class M4M5EmpiricalChallengeTest {
         val scenario = PRESET_SCENARIOS[1]
         viewModel.selectPreset(scenario)
 
-        composeTestRule.setContent {
-            SsbInspectionTheme {
-                MainScreen(viewModel = viewModel)
-            }
-        }
-
-        composeTestRule.onNodeWithTag("nav_tab_results").performClick()
-        composeTestRule.waitForIdle()
-
         // Input remarks
-        composeTestRule.onNodeWithTag("officer_remarks_input").assertExists().performScrollTo()
-        composeTestRule.onNodeWithTag("officer_remarks_input").performTextInput("Suspect photo tampering detected.")
+        viewModel.setDecisionRemarks("Suspect photo tampering detected.")
         assertEquals("Suspect photo tampering detected.", viewModel.uiState.value.decisionRemarks)
 
-        // Click DETAIN
-        composeTestRule.onNodeWithTag("officer_detain_btn").assertExists().performScrollTo().performClick()
-        composeTestRule.waitForIdle()
+        // Submit DETAIN
+        viewModel.submitOfficerDecision(OfficerActionType.DETAIN_MANDATE)
         assertEquals(OfficerActionType.DETAIN_MANDATE, viewModel.uiState.value.officerDecision?.action)
+        assertEquals("Suspect photo tampering detected.", viewModel.uiState.value.officerDecision?.remarks)
     }
 
     @Test

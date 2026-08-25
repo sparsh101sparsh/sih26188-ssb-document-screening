@@ -201,7 +201,13 @@ fun CaptureScreenView(
             isInspecting = uiState.isInspecting,
             cameraState = uiState.cameraState,
             progressText = uiState.inspectionProgressText,
-            onRunInspection = { viewModel.runInspection() },
+            onRunInspection = {
+                if (uiState.gatewayHealth == null || uiState.gatewayLatencyMs <= 0) {
+                    onOpenWifiConnect()
+                } else {
+                    viewModel.runInspection()
+                }
+            },
             showHeatmapOverlay = uiState.showHeatmapOverlay,
             onToggleHeatmap = { viewModel.toggleHeatmapOverlay() },
             capturedDocumentBytes = uiState.capturedDocumentBytes,
@@ -338,7 +344,6 @@ fun NavigationBarRow(
                 badgeCount = null,
                 onClick = onOpenWifiConnect,
                 testTag = "nav_tab_connect_wifi",
-                accentColor = SsbColors.AccentCyan,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -347,7 +352,6 @@ fun NavigationBarRow(
 
 /**
  * 56dp High-Contrast Ergonomic Navigation Tab Item
- * Supports optional accentColor override for non-standard tabs (e.g., CONNECT Wi-Fi = cyan)
  */
 @Composable
 fun NavTabItem(
@@ -363,18 +367,18 @@ fun NavTabItem(
 ) {
     val baseColor = accentColor ?: SsbColors.Accent
     val color = when {
-        accentColor != null -> accentColor  // accent tabs always show in accent color
         isSelected -> SsbColors.AccentInk
+        accentColor != null -> accentColor  // accent tabs always show in accent color
         else -> SsbColors.TextMuted
     }
     val bg = when {
-        accentColor != null -> baseColor.copy(alpha = 0.10f)
         isSelected -> SsbColors.AccentTint
+        accentColor != null -> baseColor.copy(alpha = 0.10f)
         else -> Color.Transparent
     }
     val border = when {
-        accentColor != null -> baseColor.copy(alpha = 0.30f)
         isSelected -> SsbColors.Accent.copy(alpha = 0.28f)
+        accentColor != null -> baseColor.copy(alpha = 0.30f)
         else -> Color.Transparent
     }
 

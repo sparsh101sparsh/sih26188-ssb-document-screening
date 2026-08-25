@@ -28,13 +28,12 @@ class SsbScreeningViewModelPollingTest {
     }
 
     @Test
-    fun `test initial state starts polling and populates gateway health`() = runBlocking {
+    fun `test initial state starts in clean offline outbox mode`() = runBlocking {
         val viewModel = SsbScreeningViewModel(app)
-        delay(100)
-
         val state = viewModel.uiState.value
-        assertNotNull(state.gatewayHealth)
-        assertTrue(state.gatewayLatencyMs >= 0L)
+        assertEquals(ConnectivityMode.OFFLINE_OUTBOX, state.connectivityMode)
+        assertNull(state.gatewayHealth)
+        assertEquals(0L, state.gatewayLatencyMs)
     }
 
     @Test
@@ -50,62 +49,30 @@ class SsbScreeningViewModelPollingTest {
     }
 
     @Test
-    fun `test switching from OFFLINE_OUTBOX to USB_TETHERED restores health polling`() = runBlocking {
+    fun `test switching connectivity mode updates state cleanly`() = runBlocking {
         val viewModel = SsbScreeningViewModel(app)
         viewModel.setConnectivityMode(ConnectivityMode.OFFLINE_OUTBOX)
 
         assertEquals(ConnectivityMode.OFFLINE_OUTBOX, viewModel.uiState.value.connectivityMode)
         assertNull(viewModel.uiState.value.gatewayHealth)
 
-        // Switch back to tethered mode
-        viewModel.setConnectivityMode(ConnectivityMode.USB_TETHERED)
-        
-        var attempts = 0
-        while (viewModel.uiState.value.gatewayHealth == null && attempts < 140) {
-            delay(50)
-            attempts++
-        }
-
+        // Switch to Wi-Fi mode
+        viewModel.setConnectivityMode(ConnectivityMode.AIR_GAPPED_WIFI)
         val state = viewModel.uiState.value
-        assertEquals(ConnectivityMode.USB_TETHERED, state.connectivityMode)
-        assertNotNull(state.gatewayHealth)
-        assertTrue(state.gatewayLatencyMs >= 0L)
+        assertEquals(ConnectivityMode.AIR_GAPPED_WIFI, state.connectivityMode)
     }
 
     @Test
-    fun `test updateCustomGatewayUrl updates URL and restarts polling immediately`() = runBlocking {
+    fun `test updateCustomGatewayUrl updates URL and resets connection health`() = runBlocking {
         val viewModel = SsbScreeningViewModel(app)
-        val customUrl = "http://127.0.0.1:59999"
+        val customUrl = "http://192.168.1.50:8000"
 
         viewModel.updateCustomGatewayUrl(customUrl)
-        delay(100)
 
         val state = viewModel.uiState.value
         assertEquals(customUrl, state.customGatewayUrl)
-        assertNotNull(state.gatewayHealth)
-    }
-
-    @Test
-    fun `test manual checkGatewayHealth completes and maintains valid health state`() = runBlocking {
-        val viewModel = SsbScreeningViewModel(app)
-        viewModel.updateCustomGatewayUrl("http://127.0.0.1:59999")
-        delay(50)
-
-        viewModel.checkGatewayHealth()
-        
-        // Wait for coroutine to launch and then finish
-        var attempts = 0
-        while (attempts < 140) {
-            delay(50)
-            if (!viewModel.uiState.value.isGatewayChecking && viewModel.uiState.value.gatewayHealth != null) {
-                break
-            }
-            attempts++
-        }
-
-        val state = viewModel.uiState.value
-        assertNotNull(state.gatewayHealth)
-        assertEquals(false, state.isGatewayChecking)
+        assertNull(state.gatewayHealth)
+        assertEquals(0L, state.gatewayLatencyMs)
     }
 
     @Test

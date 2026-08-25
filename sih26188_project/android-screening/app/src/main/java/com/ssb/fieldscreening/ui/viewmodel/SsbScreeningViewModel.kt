@@ -49,15 +49,15 @@ enum class NavigationScreen(val title: String, val badgeText: String? = null) {
 
 
 data class ScreeningUiState(
-    val selectedPreset: PresetScenario? = PRESET_SCENARIOS[1], // Start with Forged Aadhaar for demo evaluation
-    val currentInspection: InspectionResponse? = PRESET_SCENARIOS[1].inspectionResponse,
+    val selectedPreset: PresetScenario? = null,
+    val currentInspection: InspectionResponse? = null,
     val isInspecting: Boolean = false,
     val cameraState: CameraState = CameraState.IDLE,
     val inspectionProgressText: String = "",
-    val connectivityMode: ConnectivityMode = ConnectivityMode.AIR_GAPPED_WIFI,
+    val connectivityMode: ConnectivityMode = ConnectivityMode.OFFLINE_OUTBOX,
     val selectedCheckpoint: Checkpoint = DEFAULT_CHECKPOINTS[0],
-    val gatewayHealth: HealthResponse? = HealthResponse(),
-    val gatewayLatencyMs: Long = 2L,
+    val gatewayHealth: HealthResponse? = null,
+    val gatewayLatencyMs: Long = 0L,
     val isGatewayChecking: Boolean = false,
     val customGatewayUrl: String = "http://192.168.1.61:8000",
     val officerId: String = "",
@@ -108,8 +108,8 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         )
 
     init {
-        // Start live health polling loop (2-second interval)
-        startHealthPolling()
+        // No automatic assumption of connectivity on startup.
+        // Connection is verified when the user initiates connection via Wi-Fi / QR.
     }
 
     fun connectToGateway(url: String) {
@@ -143,44 +143,36 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun runInspection(documentBytes: ByteArray? = null, liveFaceBytes: ByteArray? = null) {
+        val currentState = _uiState.value
+        val docBytes = documentBytes ?: currentState.capturedDocumentBytes
+        val faceBytes = liveFaceBytes ?: currentState.capturedLiveFaceBytes
+
+        if (currentState.connectivityMode == ConnectivityMode.OFFLINE_OUTBOX || currentState.gatewayHealth == null) {
+            // Offline Mode: Queue directly to local outbox without running fake AI compute
+            viewModelScope.launch {
+                _uiState.update {
+                    it.copy(
+                        isInspecting = false,
+                        cameraState = CameraState.IDLE,
+                        inspectionProgressText = "",
+                        companionUploadStatus = "⚠️ Saved in Offline Outbox (Connect to Laptop to Inspect)"
+                    )
+                }
+            }
+            return
+        }
+
         viewModelScope.launch {
             _uiState.update {
                 it.copy(
                     isInspecting = true,
-                    cameraState = CameraState.CAPTURING,
-                    inspectionProgressText = "Acquiring high-resolution optical frames..."
-                )
-            }
-            delay(80)
-            _uiState.update {
-                it.copy(
                     cameraState = CameraState.UPLOADING,
-                    inspectionProgressText = "Packaging & streaming multipart to Edge Gateway..."
+                    inspectionProgressText = "Streaming frames to Laptop Edge Gateway..."
                 )
             }
-            delay(100)
-            _uiState.update {
-                it.copy(
-                    cameraState = CameraState.PROCESSING,
-                    inspectionProgressText = "Verifying document text & format..."
-                )
-            }
-            delay(120)
-            _uiState.update { it.copy(inspectionProgressText = "Verifying face match & selfie liveness...") }
-            delay(140)
-            _uiState.update { it.copy(inspectionProgressText = "Analyzing ink & substrate integrity...") }
-            delay(130)
-            _uiState.update { it.copy(inspectionProgressText = "Verifying border permit stamp...") }
-            delay(90)
-
-            val currentState = _uiState.value
-            val docBytes = documentBytes
-                ?: currentState.capturedDocumentBytes
-                ?: ByteArray(1024) { 0x42 }
-            val faceBytes = liveFaceBytes ?: currentState.capturedLiveFaceBytes
 
             val result = repository.inspectDocument(
-                documentBytes = docBytes,
+                documentBytes = docBytes ?: ByteArray(1024) { 0x42 },
                 liveFaceBytes = faceBytes,
                 checkpoint = currentState.selectedCheckpoint,
                 officerId = currentState.officerId,
@@ -200,12 +192,13 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                         activeScreen = NavigationScreen.CAPTURE
                     )
                 }
-            }.onFailure {
+            }.onFailure { error ->
                 _uiState.update {
                     it.copy(
                         isInspecting = false,
                         cameraState = CameraState.IDLE,
-                        inspectionProgressText = ""
+                        inspectionProgressText = "",
+                        companionUploadStatus = "⚠️ Gateway Error: ${error.message ?: "Inspection failed"}"
                     )
                 }
             }
@@ -222,17 +215,14 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                 )
             } else {
                 it.copy(
-                    connectivityMode = mode,
-                    gatewayHealth = it.gatewayHealth ?: HealthResponse(
-                        status = "healthy",
-                        engineMode = "Desktop Terminal / Edge Gateway",
-                        modelsLoaded = com.ssb.fieldscreening.data.model.ModelsLoadedMap()
-                    ),
-                    gatewayLatencyMs = if (it.gatewayLatencyMs > 0) it.gatewayLatencyMs else 2L
+                    connectivityMode = mode
                 )
             }
         }
-        startHealthPolling()
+        if (mode != ConnectivityMode.OFFLINE_OUTBOX) {
+            checkGatewayHealth()
+            startHealthPolling()
+        }
     }
 
     fun setCheckpoint(checkpoint: Checkpoint) {
@@ -288,20 +278,27 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         healthPollingJob = viewModelScope.launch(Dispatchers.IO) {
             while (isActive) {
                 val currentState = _uiState.value
-                if (currentState.connectivityMode != ConnectivityMode.OFFLINE_OUTBOX) {
+                if (currentState.connectivityMode != ConnectivityMode.OFFLINE_OUTBOX && currentState.customGatewayUrl.isNotBlank()) {
                     val (health, latency) = repository.checkHealth(
                         currentState.connectivityMode,
                         currentState.customGatewayUrl
                     )
-                    _uiState.update {
-                        it.copy(
-                            gatewayHealth = health ?: HealthResponse(
-                                status = "healthy",
-                                engineMode = "Desktop Terminal / Edge Gateway",
-                                modelsLoaded = com.ssb.fieldscreening.data.model.ModelsLoadedMap()
-                            ),
-                            gatewayLatencyMs = if (latency > 0) latency else 2L
-                        )
+                    if (health != null && latency > 0) {
+                        _uiState.update {
+                            it.copy(
+                                gatewayHealth = health,
+                                gatewayLatencyMs = latency,
+                                connectivityMode = ConnectivityMode.AIR_GAPPED_WIFI
+                            )
+                        }
+                    } else {
+                        _uiState.update {
+                            it.copy(
+                                gatewayHealth = null,
+                                gatewayLatencyMs = 0L,
+                                connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
+                            )
+                        }
                     }
                 } else {
                     _uiState.update {
@@ -311,19 +308,20 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                         )
                     }
                 }
-                delay(2000L)
+                delay(3000L)
             }
         }
     }
 
     fun checkGatewayHealth() {
         val currentState = _uiState.value
-        if (currentState.connectivityMode == ConnectivityMode.OFFLINE_OUTBOX) {
+        if (currentState.customGatewayUrl.isBlank() || currentState.connectivityMode == ConnectivityMode.OFFLINE_OUTBOX) {
             _uiState.update {
                 it.copy(
                     gatewayHealth = null,
                     gatewayLatencyMs = 0L,
-                    isGatewayChecking = false
+                    isGatewayChecking = false,
+                    connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
                 )
             }
             return
@@ -332,19 +330,27 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         _uiState.update { it.copy(isGatewayChecking = true) }
         viewModelScope.launch(Dispatchers.IO) {
             val (health, latency) = repository.checkHealth(
-                currentState.connectivityMode,
+                ConnectivityMode.AIR_GAPPED_WIFI,
                 currentState.customGatewayUrl
             )
-            _uiState.update {
-                it.copy(
-                    gatewayHealth = health ?: HealthResponse(
-                        status = "healthy",
-                        engineMode = "Desktop Terminal / Edge Gateway",
-                        modelsLoaded = com.ssb.fieldscreening.data.model.ModelsLoadedMap()
-                    ),
-                    gatewayLatencyMs = if (latency > 0) latency else 2L,
-                    isGatewayChecking = false
-                )
+            if (health != null && latency > 0) {
+                _uiState.update {
+                    it.copy(
+                        gatewayHealth = health,
+                        gatewayLatencyMs = latency,
+                        connectivityMode = ConnectivityMode.AIR_GAPPED_WIFI,
+                        isGatewayChecking = false
+                    )
+                }
+            } else {
+                _uiState.update {
+                    it.copy(
+                        gatewayHealth = null,
+                        gatewayLatencyMs = 0L,
+                        connectivityMode = ConnectivityMode.OFFLINE_OUTBOX,
+                        isGatewayChecking = false
+                    )
+                }
             }
         }
     }
@@ -353,15 +359,11 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         _uiState.update {
             it.copy(
                 customGatewayUrl = url,
-                gatewayHealth = it.gatewayHealth ?: HealthResponse(
-                    status = "healthy",
-                    engineMode = "Desktop Terminal / Edge Gateway",
-                    modelsLoaded = com.ssb.fieldscreening.data.model.ModelsLoadedMap()
-                ),
-                gatewayLatencyMs = if (it.gatewayLatencyMs > 0) it.gatewayLatencyMs else 2L
+                gatewayHealth = null,
+                gatewayLatencyMs = 0L,
+                connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
             )
         }
-        startHealthPolling()
     }
 
     fun syncPendingOutbox() {

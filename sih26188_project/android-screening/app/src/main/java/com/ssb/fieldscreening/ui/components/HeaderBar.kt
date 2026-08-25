@@ -103,17 +103,15 @@ fun HeaderBar(
     val isOnline = connectivityMode != ConnectivityMode.OFFLINE_OUTBOX
     val isWifi = connectivityMode == ConnectivityMode.AIR_GAPPED_WIFI
     val statusColor = when {
-        !isOnline -> SsbColors.AmberWarn
         isWifi && gatewayLatencyMs > 0 -> SsbColors.GreenPass
-        gatewayLatencyMs > 0 -> SsbColors.GreenPass
+        !isOnline || gatewayLatencyMs <= 0 -> SsbColors.AmberWarn
         else -> SsbColors.AmberWarn
     }
     val statusLabel = when {
-        !isOnline -> "Offline"
         isWifi && gatewayLatencyMs > 0 -> "Wi-Fi Connected"
-        isWifi -> "Wi-Fi Connecting..."
-        gatewayLatencyMs > 0 -> "USB Link"
-        else -> "Connecting..."
+        !isOnline -> "Offline"
+        gatewayLatencyMs <= 0 -> "Not Connected"
+        else -> "Offline"
     }
 
     Surface(

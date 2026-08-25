@@ -51,14 +51,11 @@ class ExampleRobolectricTest {
         val viewModel = SsbScreeningViewModel(app)
 
         val initialState = viewModel.uiState.value
-        assertNotNull(initialState.currentInspection)
-        assertEquals(ConnectivityMode.USB_TETHERED, initialState.connectivityMode)
+        assertEquals(ConnectivityMode.OFFLINE_OUTBOX, initialState.connectivityMode)
         assertEquals(NavigationScreen.CAPTURE, initialState.activeScreen)
         assertEquals(com.ssb.fieldscreening.ui.viewmodel.CameraState.IDLE, initialState.cameraState)
 
-        // Test 3-tab Navigation
-        viewModel.navigateTo(NavigationScreen.RESULTS)
-        assertEquals(NavigationScreen.RESULTS, viewModel.uiState.value.activeScreen)
+        // Test 2-tab Navigation (CAPTURE and OUTBOX)
         viewModel.navigateTo(NavigationScreen.OUTBOX)
         assertEquals(NavigationScreen.OUTBOX, viewModel.uiState.value.activeScreen)
         viewModel.navigateTo(NavigationScreen.CAPTURE)
