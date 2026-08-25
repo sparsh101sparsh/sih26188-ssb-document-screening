@@ -321,7 +321,14 @@ async def inspect_document(
 
 
     # 5. Execute 8-Rule Multi-Modal Cross-Validation Matrix
-    photo_tamper_density = 0.85 if forensics_res.photo_region_tampered else (0.0 if not forensics_res.is_tampered else forensics_res.trufor_score)
+    # Compute genuine photo tamper density from TruFor and localized tamper regions
+    if forensics_res.photo_region_tampered:
+        photo_tamper_density = max(
+            forensics_res.trufor_score,
+            max((r.peak_tamper_probability for r in forensics_res.tampered_regions if r.tamper_type == "PHOTO_SPLICING"), default=0.0)
+        )
+    else:
+        photo_tamper_density = 0.0 if not forensics_res.is_tampered else (forensics_res.trufor_score * 0.5)
     stamp_date_str = effective_transit_date
     if not stamp_date_str and stamp_res and stamp_res.stamp_found:
         # Extract potential stamp date from reasons or specification
