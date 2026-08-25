@@ -135,6 +135,23 @@ fun QrScannerView(
                         scaleType = PreviewView.ScaleType.FILL_CENTER
                     }
 
+                    // Enable Tap-to-Focus for sharp LCD screen scanning
+                    previewView.setOnTouchListener { view, motionEvent ->
+                        if (motionEvent.action == android.view.MotionEvent.ACTION_UP) {
+                            val factory = previewView.meteringPointFactory
+                            val point = factory.createPoint(motionEvent.x, motionEvent.y)
+                            val action = androidx.camera.core.FocusMeteringAction.Builder(
+                                point,
+                                androidx.camera.core.FocusMeteringAction.FLAG_AF or androidx.camera.core.FocusMeteringAction.FLAG_AE
+                            ).setAutoCancelDuration(3, java.util.concurrent.TimeUnit.SECONDS).build()
+                            camera?.cameraControl?.startFocusAndMetering(action)
+                            view.performClick()
+                            true
+                        } else {
+                            true
+                        }
+                    }
+
                     val cameraProviderFuture = ProcessCameraProvider.getInstance(ctx)
                     cameraProviderFuture.addListener({
                         val cameraProvider = cameraProviderFuture.get()
@@ -149,7 +166,7 @@ fun QrScannerView(
                         }
 
                         val imageAnalysis = ImageAnalysis.Builder()
-                            .setTargetResolution(android.util.Size(640, 480))
+                            .setTargetResolution(android.util.Size(1280, 720))
                             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                             .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888)
                             .build()
@@ -167,6 +184,15 @@ fun QrScannerView(
                                 preview,
                                 imageAnalysis
                             )
+                            // Initial center auto-focus
+                            previewView.postDelayed({
+                                val centerPoint = previewView.meteringPointFactory.createPoint(
+                                    previewView.width / 2f,
+                                    previewView.height / 2f
+                                )
+                                val focusAction = androidx.camera.core.FocusMeteringAction.Builder(centerPoint).build()
+                                camera?.cameraControl?.startFocusAndMetering(focusAction)
+                            }, 500)
                         } catch (e: Exception) {
                             // Camera binding error
                         }

@@ -121,24 +121,29 @@ async def track_device_activity_middleware(request: Request, call_next):
     duration_ms = (time.perf_counter() - start_time) * 1000.0
 
     path = request.url.path
-    if (path.startswith("/api/v1/") or path in ("/health", "/api/v1/health")) and not path.startswith("/api/v1/devices"):
+    if path.startswith("/api/v1/companion") or path in ("/api/v1/inspect", "/api/v1/companion/upload", "/api/v1/companion/ping"):
         # Resolve client IP (support reverse proxy headers)
         forwarded = request.headers.get("x-forwarded-for")
         if forwarded:
             client_ip = forwarded.split(",")[0].strip()
         else:
-            client_ip = request.headers.get("x-real-ip") or (request.client.host if request.client else "127.0.0.1")
+            client_ip = request.headers.get("x-real-ip") or (request.client.host if request.client else "")
 
-        user_agent = request.headers.get("user-agent")
+        user_agent = request.headers.get("user-agent") or ""
         checkpoint_id = request.headers.get("x-checkpoint-id")
 
-        device_tracker.record_activity(
-            client_ip=client_ip,
-            user_agent=user_agent,
-            endpoint=path,
-            checkpoint_id=checkpoint_id,
-            latency_ms=duration_ms,
-        )
+        # Exclude loopback/localhost and desktop browser requests from field unit count
+        is_loopback = client_ip in ("127.0.0.1", "::1", "localhost", "")
+        is_browser = any(b in user_agent for b in ("Mozilla", "Chrome", "Safari", "AppleWebKit", "Firefox", "Edge"))
+
+        if not is_loopback and not is_browser:
+            device_tracker.record_activity(
+                client_ip=client_ip,
+                user_agent=user_agent,
+                endpoint=path,
+                checkpoint_id=checkpoint_id,
+                latency_ms=duration_ms,
+            )
 
     return response
 
