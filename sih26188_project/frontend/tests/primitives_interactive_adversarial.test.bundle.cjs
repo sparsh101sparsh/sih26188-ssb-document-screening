@@ -28530,28 +28530,28 @@ var ApprovalCard = ({
       )
     ] });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "w-full bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm select-none", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center justify-between border-b border-slate-200 pb-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-extrabold text-slate-900 uppercase tracking-wider font-sans", children: "Human-In-The-Loop Officer Authorization" }),
-      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-[11px] font-mono text-slate-500", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "w-full bg-white border border-slate-200/70 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs select-none", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center justify-between border-b border-slate-100 pb-2.5", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-slate-900 uppercase tracking-wider font-sans", children: "Human-In-The-Loop Officer Authorization" }),
+      /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-[10.5px] font-mono text-slate-400", children: [
         "Section 4(2) Passport & Immigration Act \u2022 Officer: ",
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("strong", { className: "text-slate-800", children: officerBadgeId })
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("strong", { className: "text-slate-700", children: officerBadgeId })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-2.5", children: [
       /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
         "button",
         {
           type: "button",
           onClick: () => setSelectedAction("AUTO_CLEAR"),
           disabled,
-          className: `p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${selectedAction === "AUTO_CLEAR" ? "bg-emerald-50/80 border-green border-emerald-500 border-green-500 shadow-xs" : "bg-slate-50 border-slate-200 hover:border-slate-300"}`,
+          className: `p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${selectedAction === "AUTO_CLEAR" ? "bg-emerald-50/70 border-emerald-400 text-emerald-900 ring-2 ring-emerald-500/10" : "bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60"}`,
           children: [
             /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(ShieldCheck, { className: "w-4 h-4 text-emerald-600 shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(ShieldCheck, { className: "w-3.5 h-3.5 text-emerald-600 shrink-0" }),
               /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Clear Traveler" })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-slate-600 mt-1.5 font-sans", children: "Proceed with normal transit entry" })
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-slate-500 mt-1 font-sans", children: "Proceed with normal transit entry" })
           ]
         }
       ),
@@ -28561,13 +28561,13 @@ var ApprovalCard = ({
           type: "button",
           onClick: () => setSelectedAction("SECONDARY_INSPECTION"),
           disabled,
-          className: `p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${selectedAction === "SECONDARY_INSPECTION" ? "bg-amber-50/80 border-orange border-amber-500 border-orange-500 shadow-xs" : "bg-slate-50 border-slate-200 hover:border-slate-300"}`,
+          className: `p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${selectedAction === "SECONDARY_INSPECTION" ? "bg-amber-50/70 border-amber-400 text-amber-900 ring-2 ring-amber-500/10" : "bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60"}`,
           children: [
             /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(ShieldAlert, { className: "w-4 h-4 text-amber-600 shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(ShieldAlert, { className: "w-3.5 h-3.5 text-amber-600 shrink-0" }),
               /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Secondary Hold" })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-slate-600 mt-1.5 font-sans", children: "Redirect for physical document inspection" })
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-slate-500 mt-1 font-sans", children: "Redirect for physical document inspection" })
           ]
         }
       ),
@@ -28577,18 +28577,18 @@ var ApprovalCard = ({
           type: "button",
           onClick: () => setSelectedAction("DETAIN_AND_INTERDICT"),
           disabled,
-          className: `p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${selectedAction === "DETAIN_AND_INTERDICT" ? "bg-red-50/80 border-red-500 shadow-xs" : "bg-slate-50 border-slate-200 hover:border-slate-300"}`,
+          className: `p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${selectedAction === "DETAIN_AND_INTERDICT" ? "bg-red-50/70 border-red-400 text-red-900 ring-2 ring-red-500/10" : "bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60"}`,
           children: [
             /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(OctagonAlert, { className: "w-4 h-4 text-red-600 shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(OctagonAlert, { className: "w-3.5 h-3.5 text-red-600 shrink-0" }),
               /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Interdiction Order" })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-slate-600 mt-1.5 font-sans", children: "Issue border detention & report to MHA" })
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] text-slate-500 mt-1 font-sans", children: "Issue border detention & report to MHA" })
           ]
         }
       )
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center gap-3 pt-1", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center gap-2.5 pt-1", children: [
       /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
         "input",
         {
@@ -28596,14 +28596,14 @@ var ApprovalCard = ({
           value: notes,
           onChange: (e) => setNotes(e.target.value),
           placeholder: `Officer Remarks / Duty Officer Badge ID (${officerBadgeId})\u2026`,
-          className: "flex-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 font-sans focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors"
+          className: "flex-1 bg-slate-50/60 border border-slate-200 rounded-xl px-3.5 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 font-sans focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors"
         }
       ),
       /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
         Button,
         {
           variant: selectedAction === "DETAIN_AND_INTERDICT" ? "danger" : "primary",
-          size: "md",
+          size: "sm",
           onClick: handleSubmit,
           children: "Commit Decision"
         }

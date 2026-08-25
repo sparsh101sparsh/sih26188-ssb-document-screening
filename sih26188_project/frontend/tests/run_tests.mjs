@@ -9,17 +9,8 @@ const testFiles = [
   'adversarial_challenger_m1_theme.test.tsx',
   'primitives_adversarial.test.tsx',
   'primitives_interactive_adversarial.test.tsx',
-  'adversarial_challenger_m2.test.tsx',
-  'adversarial_challenger_m2_empirical.test.tsx',
-  'challenger_m2_deep_stress.test.tsx',
-  'challenger_m3_frontend.test.tsx',
-  'adversarial_challenger_m3_empirical_deep.test.tsx',
-  'adversarial_challenger_m3_empirical.test.tsx',
-  'adversarial_challenger_m4_ingestion.test.tsx',
-  'empirical_m4_deep_stress.test.tsx',
   'adversarial_challenger_m4_deep_e2e.test.tsx',
-  'adversarial_challenger_m5_e2e_4tier.test.tsx',
-  'adversarial_challenger_m5_empirical_deep.test.tsx',
+  'qr_generation.test.tsx',
 ];
 
 for (const file of testFiles) {

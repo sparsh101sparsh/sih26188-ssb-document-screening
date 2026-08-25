@@ -372,7 +372,7 @@ runTest('ApprovalCard', 'Risk Level GREEN -> Defaults to Auto Clear', () => {
     <ApprovalCard riskLevel="GREEN" riskScore={14.2} />
   );
   assert.ok(html.includes('Clear Traveler'));
-  assert.ok(html.includes('border-green'));
+  assert.ok(html.includes('border-green') || html.includes('border-emerald'));
 });
 
 runTest('ApprovalCard', 'Risk Level AMBER -> Defaults to Secondary Hold', () => {
@@ -380,7 +380,7 @@ runTest('ApprovalCard', 'Risk Level AMBER -> Defaults to Secondary Hold', () => 
     <ApprovalCard riskLevel="AMBER" riskScore={52.8} />
   );
   assert.ok(html.includes('Secondary Hold'));
-  assert.ok(html.includes('border-orange'));
+  assert.ok(html.includes('border-orange') || html.includes('border-amber'));
 });
 
 runTest('ApprovalCard', 'Risk Level RED -> Defaults to Interdiction Order', () => {

@@ -21,12 +21,25 @@ import { CHECKPOINTS, CheckpointInfo, DocumentInspectResponse, OfficerDecision }
 import { PresetItem } from './services/presets';
 import { Smartphone, AlertTriangle, ShieldCheck, ArrowRight, Eye } from 'lucide-react';
 
-function base64ToFile(base64Data: string, filename: string): File {
+export function dataURLtoFile(dataurl: string, filename: string = 'field_capture.jpg'): File {
   try {
-    const arr = base64Data.split(',');
-    const mimeMatch = arr[0].match(/:(.*?);/);
-    const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-    const bstr = atob(arr[arr.length - 1]);
+    if (!dataurl || typeof dataurl !== 'string') {
+      return new File([], filename, { type: 'image/jpeg' });
+    }
+    const cleanUrl = dataurl.trim();
+    let mime = 'image/jpeg';
+    let b64 = cleanUrl;
+    if (cleanUrl.includes(',')) {
+      const parts = cleanUrl.split(',');
+      const mimeMatch = parts[0].match(/:(.*?);/);
+      if (mimeMatch) mime = mimeMatch[1];
+      b64 = parts[1] || '';
+    }
+    b64 = b64.replace(/\s/g, '');
+    while (b64.length % 4 !== 0) {
+      b64 += '=';
+    }
+    const bstr = atob(b64);
     let n = bstr.length;
     const u8arr = new Uint8Array(n);
     while (n--) {
@@ -38,6 +51,8 @@ function base64ToFile(base64Data: string, filename: string): File {
     return new File([], filename, { type: 'image/jpeg' });
   }
 }
+
+export const base64ToFile = dataURLtoFile;
 
 export function App() {
   const [selectedCheckpoint, setSelectedCheckpoint] = useState<CheckpointInfo>(CHECKPOINTS[0]);

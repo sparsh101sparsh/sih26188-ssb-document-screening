@@ -32,6 +32,9 @@ import {
 } from '../services/api';
 import { ConnectedClient } from '../types/api';
 
+import { QRCodeSVG } from 'qrcode.react';
+import QRCode from 'qrcode';
+
 export interface ConnectModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -39,179 +42,49 @@ export interface ConnectModalProps {
   onSimulatedCapture?: (captureType: 'document' | 'selfie') => void;
 }
 
-// Galois Field GF(256) Math for QR Code Generation
-const GF_EXP = new Uint8Array(512);
-const GF_LOG = new Uint8Array(256);
-
-(() => {
-  let x = 1;
-  for (let i = 0; i < 255; i++) {
-    GF_EXP[i] = x;
-    GF_LOG[x] = i;
-    x <<= 1;
-    if (x & 0x100) {
-      x ^= 0x11d;
-    }
-  }
-  for (let i = 255; i < 512; i++) {
-    GF_EXP[i] = GF_EXP[i - 255];
-  }
-})();
-
-function gfMul(x: number, y: number): number {
-  if (x === 0 || y === 0) return 0;
-  return GF_EXP[GF_LOG[x] + GF_LOG[y]];
-}
-
-function rsGeneratorPoly(degree: number): Uint8Array {
-  let poly = new Uint8Array([1]);
-  for (let i = 0; i < degree; i++) {
-    const nextPoly = new Uint8Array(poly.length + 1);
-    for (let j = 0; j < poly.length; j++) {
-      nextPoly[j] ^= gfMul(poly[j], GF_EXP[i]);
-      nextPoly[j + 1] ^= poly[j];
-    }
-    poly = nextPoly;
-  }
-  return poly;
-}
-
-function rsCalculateEcc(data: Uint8Array, eccCount: number): Uint8Array {
-  const gen = rsGeneratorPoly(eccCount);
-  const ecc = new Uint8Array(eccCount);
-  for (let i = 0; i < data.length; i++) {
-    const feedback = data[i] ^ ecc[0];
-    for (let j = 0; j < eccCount - 1; j++) {
-      ecc[j] = ecc[j + 1] ^ gfMul(gen[j + 1], feedback);
-    }
-    ecc[eccCount - 1] = gfMul(gen[eccCount], feedback);
-  }
-  return ecc;
-}
-
-interface QRVersionSpec {
-  version: number;
-  size: number;
-  totalBytes: number;
-  dataBytes: number;
-  eccBytes: number;
-  blocks: number;
-}
-
-const QR_SPECS: QRVersionSpec[] = [
-  { version: 1, size: 21, totalBytes: 26, dataBytes: 19, eccBytes: 7, blocks: 1 },
-  { version: 2, size: 25, totalBytes: 44, dataBytes: 34, eccBytes: 10, blocks: 1 },
-  { version: 3, size: 29, totalBytes: 70, dataBytes: 55, eccBytes: 15, blocks: 1 },
-  { version: 4, size: 33, totalBytes: 100, dataBytes: 80, eccBytes: 20, blocks: 1 },
-];
-
-function generateQRCodeMatrix(text: string): boolean[][] {
-  const textBytes = new TextEncoder().encode(text);
-  let spec = QR_SPECS.find((s) => textBytes.length + 3 <= s.dataBytes);
-  if (!spec) spec = QR_SPECS[QR_SPECS.length - 1];
-
-  const size = spec.size;
-  const matrix: boolean[][] = Array.from({ length: size }, () => Array(size).fill(false));
-  const isFunction: boolean[][] = Array.from({ length: size }, () => Array(size).fill(false));
-
-  function setFinder(row: number, col: number) {
-    for (let r = -1; r <= 7; r++) {
-      for (let c = -1; c <= 7; c++) {
-        const nr = row + r;
-        const nc = col + c;
-        if (nr >= 0 && nr < size && nc >= 0 && nc < size) {
-          isFunction[nr][nc] = true;
-          if (r >= 0 && r <= 6 && c >= 0 && c <= 6) {
-            matrix[nr][nc] = r === 0 || r === 6 || c === 0 || c === 6 || (r >= 2 && r <= 4 && c >= 2 && c <= 4);
-          } else {
-            matrix[nr][nc] = false;
-          }
-        }
+/**
+ * Generates a boolean matrix representation for a QR code using standard ISO/IEC 18004 generation.
+ */
+export function generateQRMatrix(
+  text: string,
+  options?: QRCode.QRCodeOptions | { errorCorrectionLevel?: 'L' | 'M' | 'Q' | 'H' }
+): boolean[][] {
+  try {
+    const safeText = typeof text === 'string' && text.length > 0 ? text : ' ';
+    const qr = QRCode.create(safeText, {
+      errorCorrectionLevel: 'M',
+      ...options,
+    });
+    const size = qr.modules.size;
+    const matrix: boolean[][] = [];
+    for (let r = 0; r < size; r++) {
+      const row: boolean[] = [];
+      for (let c = 0; c < size; c++) {
+        row.push(Boolean(qr.modules.get(r, c)));
       }
+      matrix.push(row);
     }
-  }
-
-  setFinder(0, 0);
-  setFinder(0, size - 7);
-  setFinder(size - 7, 0);
-
-  for (let i = 8; i < size - 8; i++) {
-    isFunction[6][i] = true;
-    matrix[6][i] = i % 2 === 0;
-    isFunction[i][6] = true;
-    matrix[i][6] = i % 2 === 0;
-  }
-
-  isFunction[4 * spec.version + 9][8] = true;
-  matrix[4 * spec.version + 9][8] = true;
-
-  const dataBits: number[] = [0, 1, 0, 0];
-  const len = textBytes.length;
-  for (let i = 7; i >= 0; i--) dataBits.push((len >> i) & 1);
-  for (const b of textBytes) {
-    for (let i = 7; i >= 0; i--) dataBits.push((b >> i) & 1);
-  }
-  while (dataBits.length % 8 !== 0) dataBits.push(0);
-
-  const rawBytes: number[] = [];
-  for (let i = 0; i < dataBits.length; i += 8) {
-    let byteVal = 0;
-    for (let j = 0; j < 8; j++) byteVal = (byteVal << 1) | dataBits[i + j];
-    rawBytes.push(byteVal);
-  }
-
-  const padPatterns = [0xec, 0x11];
-  let padIdx = 0;
-  while (rawBytes.length < spec.dataBytes) {
-    rawBytes.push(padPatterns[padIdx % 2]);
-    padIdx++;
-  }
-
-  const dataArr = new Uint8Array(rawBytes);
-  const eccArr = rsCalculateEcc(dataArr, spec.eccBytes);
-  const fullCodewords: number[] = [...dataArr, ...eccArr];
-
-  let bitIndex = 0;
-  const totalBits = fullCodewords.length * 8;
-  let upwards = true;
-
-  for (let col = size - 1; col > 0; col -= 2) {
-    if (col === 6) col--;
-    const rows = upwards ? Array.from({ length: size }, (_, i) => size - 1 - i) : Array.from({ length: size }, (_, i) => i);
-    for (const row of rows) {
-      for (const c of [col, col - 1]) {
-        if (!isFunction[row][c]) {
-          if (bitIndex < totalBits) {
-            const byte = fullCodewords[Math.floor(bitIndex / 8)];
-            const bit = (byte >> (7 - (bitIndex % 8))) & 1;
-            matrix[row][c] = (bit ^ (((row + c) % 2 === 0) ? 1 : 0)) === 1;
-            bitIndex++;
-          } else {
-            matrix[row][c] = ((row + c) % 2 === 0);
-          }
-        }
+    return matrix;
+  } catch {
+    // Robust fallback to minimal Version 1 standard QR matrix if payload exceeds max capacity
+    const qr = QRCode.create('http://localhost:8000', { errorCorrectionLevel: 'M' });
+    const size = qr.modules.size;
+    const matrix: boolean[][] = [];
+    for (let r = 0; r < size; r++) {
+      const row: boolean[] = [];
+      for (let c = 0; c < size; c++) {
+        row.push(Boolean(qr.modules.get(r, c)));
       }
+      matrix.push(row);
     }
-    upwards = !upwards;
+    return matrix;
   }
-
-  const formatBits = [1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0];
-  const formatCoords = [
-    [8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 7], [8, 8],
-    [7, 8], [5, 8], [4, 8], [3, 8], [2, 8], [1, 8], [0, 8]
-  ];
-  for (let i = 0; i < 15; i++) {
-    const [r, c] = formatCoords[i];
-    matrix[r][c] = formatBits[i] === 1;
-  }
-
-  return matrix;
 }
 
 export const ConnectModal: React.FC<ConnectModalProps> = ({
   isOpen,
   onClose,
-  serverUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8000',
+  serverUrl,
   onSimulatedCapture,
 }) => {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -258,6 +131,9 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
     try {
       await simulateCompanionUpload(mode);
       setSimulationStatus(`Dispatched ${mode === 'document' ? 'identity credential' : 'biometric capture'} packet to gateway.`);
+      if (onSimulatedCapture) {
+        onSimulatedCapture(mode);
+      }
       setTimeout(() => {
         onClose();
       }, 1200);
@@ -280,10 +156,25 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
 
   if (!isOpen) return null;
 
-  const primaryGateway = companionData?.gateway_url || serverUrl.replace(/\/$/, '');
+  const fallbackUrl =
+    typeof window !== 'undefined' && window.location.origin && window.location.origin !== 'null'
+      ? window.location.origin
+      : 'http://localhost:8000';
+  const rawGateway = (typeof companionData?.gateway_url === 'string' && companionData.gateway_url.trim()) ||
+    (typeof serverUrl === 'string' && serverUrl.trim()) ||
+    (typeof API_BASE_URL === 'string' && API_BASE_URL.trim()) ||
+    fallbackUrl;
+  const primaryGateway = (typeof rawGateway === 'string' ? rawGateway.replace(/\/+$/, '') : '') || 'http://localhost:8000';
+  const safeQrValue = (() => {
+    try {
+      QRCode.create(primaryGateway, { errorCorrectionLevel: 'M' });
+      return primaryGateway;
+    } catch {
+      return fallbackUrl;
+    }
+  })();
   const emulatorUrl = 'http://10.0.2.2:8000';
   const adbCmd = 'adb reverse tcp:8000 tcp:8000';
-  const qrMatrix = generateQRCodeMatrix(primaryGateway);
   const activeDeviceCount = companionData?.active_devices_count ?? 0;
 
   return (
@@ -435,26 +326,16 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
               <div className="flex flex-col sm:flex-row items-center gap-5 p-5 rounded-2xl bg-gradient-to-br from-slate-50 to-indigo-50/40 border border-indigo-100 shadow-sm">
                 {/* SVG Pure Matrix QR Code */}
                 <div className="p-3.5 bg-white rounded-xl shadow-md border border-slate-200 shrink-0 flex flex-col items-center">
-                  <svg
-                    width="150"
-                    height="150"
-                    viewBox={`0 0 ${qrMatrix.length} ${qrMatrix.length}`}
+                  <QRCodeSVG
+                    value={safeQrValue}
+                    size={150}
+                    level="M"
+                    bgColor="#ffffff"
+                    fgColor="#0F172A"
                     shapeRendering="crispEdges"
                     className="rounded-sm"
-                  >
-                    {qrMatrix.map((row, r) =>
-                      row.map((filled, c) => (
-                        <rect
-                          key={`${r}-${c}`}
-                          x={c}
-                          y={r}
-                          width="1"
-                          height="1"
-                          fill={filled ? '#0F172A' : '#ffffff'}
-                        />
-                      ))
-                    )}
-                  </svg>
+                    aria-label={`QR Code for ${primaryGateway}`}
+                  />
                   <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-widest mt-2 font-mono flex items-center gap-1">
                     <Camera className="w-3 h-3" /> SCAN WITH APP
                   </span>

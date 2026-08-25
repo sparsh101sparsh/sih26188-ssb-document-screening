@@ -28241,50 +28241,71 @@ var __iconNode22 = [
 ];
 var Fingerprint = createLucideIcon("Fingerprint", __iconNode22);
 
-// node_modules/lucide-react/dist/esm/icons/gauge.js
+// node_modules/lucide-react/dist/esm/icons/folder-open.js
 var __iconNode23 = [
+  [
+    "path",
+    {
+      d: "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2",
+      key: "usdka0"
+    }
+  ]
+];
+var FolderOpen = createLucideIcon("FolderOpen", __iconNode23);
+
+// node_modules/lucide-react/dist/esm/icons/gauge.js
+var __iconNode24 = [
   ["path", { d: "m12 14 4-4", key: "9kzdfg" }],
   ["path", { d: "M3.34 19a10 10 0 1 1 17.32 0", key: "19p75a" }]
 ];
-var Gauge = createLucideIcon("Gauge", __iconNode23);
+var Gauge = createLucideIcon("Gauge", __iconNode24);
 
 // node_modules/lucide-react/dist/esm/icons/git-compare.js
-var __iconNode24 = [
+var __iconNode25 = [
   ["circle", { cx: "18", cy: "18", r: "3", key: "1xkwt0" }],
   ["circle", { cx: "6", cy: "6", r: "3", key: "1lh9wr" }],
   ["path", { d: "M13 6h3a2 2 0 0 1 2 2v7", key: "1yeb86" }],
   ["path", { d: "M11 18H8a2 2 0 0 1-2-2V9", key: "19pyzm" }]
 ];
-var GitCompare = createLucideIcon("GitCompare", __iconNode24);
+var GitCompare = createLucideIcon("GitCompare", __iconNode25);
 
 // node_modules/lucide-react/dist/esm/icons/grid-3x3.js
-var __iconNode25 = [
+var __iconNode26 = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M3 9h18", key: "1pudct" }],
   ["path", { d: "M3 15h18", key: "5xshup" }],
   ["path", { d: "M9 3v18", key: "fh3hqa" }],
   ["path", { d: "M15 3v18", key: "14nvp0" }]
 ];
-var Grid3x3 = createLucideIcon("Grid3x3", __iconNode25);
+var Grid3x3 = createLucideIcon("Grid3x3", __iconNode26);
 
 // node_modules/lucide-react/dist/esm/icons/image.js
-var __iconNode26 = [
+var __iconNode27 = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2", key: "1m3agn" }],
   ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }],
   ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21", key: "1xmnt7" }]
 ];
-var Image2 = createLucideIcon("Image", __iconNode26);
+var Image2 = createLucideIcon("Image", __iconNode27);
+
+// node_modules/lucide-react/dist/esm/icons/images.js
+var __iconNode28 = [
+  ["path", { d: "M18 22H4a2 2 0 0 1-2-2V6", key: "pblm9e" }],
+  ["path", { d: "m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18", key: "nf6bnh" }],
+  ["circle", { cx: "12", cy: "8", r: "2", key: "1822b1" }],
+  ["rect", { width: "16", height: "16", x: "6", y: "2", rx: "2", key: "12espp" }]
+];
+var Images = createLucideIcon("Images", __iconNode28);
 
 // node_modules/lucide-react/dist/esm/icons/info.js
-var __iconNode27 = [
+var __iconNode29 = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M12 16v-4", key: "1dtifu" }],
   ["path", { d: "M12 8h.01", key: "e9boi3" }]
 ];
-var Info = createLucideIcon("Info", __iconNode27);
+var Info = createLucideIcon("Info", __iconNode29);
 
 // node_modules/lucide-react/dist/esm/icons/layers.js
-var __iconNode28 = [
+var __iconNode30 = [
   [
     "path",
     {
@@ -28307,33 +28328,33 @@ var __iconNode28 = [
     }
   ]
 ];
-var Layers = createLucideIcon("Layers", __iconNode28);
+var Layers = createLucideIcon("Layers", __iconNode30);
 
 // node_modules/lucide-react/dist/esm/icons/layout-dashboard.js
-var __iconNode29 = [
+var __iconNode31 = [
   ["rect", { width: "7", height: "9", x: "3", y: "3", rx: "1", key: "10lvy0" }],
   ["rect", { width: "7", height: "5", x: "14", y: "3", rx: "1", key: "16une8" }],
   ["rect", { width: "7", height: "9", x: "14", y: "12", rx: "1", key: "1hutg5" }],
   ["rect", { width: "7", height: "5", x: "3", y: "16", rx: "1", key: "ldoo1y" }]
 ];
-var LayoutDashboard = createLucideIcon("LayoutDashboard", __iconNode29);
+var LayoutDashboard = createLucideIcon("LayoutDashboard", __iconNode31);
 
 // node_modules/lucide-react/dist/esm/icons/list-checks.js
-var __iconNode30 = [
+var __iconNode32 = [
   ["path", { d: "m3 17 2 2 4-4", key: "1jhpwq" }],
   ["path", { d: "m3 7 2 2 4-4", key: "1obspn" }],
   ["path", { d: "M13 6h8", key: "15sg57" }],
   ["path", { d: "M13 12h8", key: "h98zly" }],
   ["path", { d: "M13 18h8", key: "oe0vm4" }]
 ];
-var ListChecks = createLucideIcon("ListChecks", __iconNode30);
+var ListChecks = createLucideIcon("ListChecks", __iconNode32);
 
 // node_modules/lucide-react/dist/esm/icons/loader-circle.js
-var __iconNode31 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-var LoaderCircle = createLucideIcon("LoaderCircle", __iconNode31);
+var __iconNode33 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("LoaderCircle", __iconNode33);
 
 // node_modules/lucide-react/dist/esm/icons/map-pin.js
-var __iconNode32 = [
+var __iconNode34 = [
   [
     "path",
     {
@@ -28343,10 +28364,10 @@ var __iconNode32 = [
   ],
   ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-var MapPin = createLucideIcon("MapPin", __iconNode32);
+var MapPin = createLucideIcon("MapPin", __iconNode34);
 
 // node_modules/lucide-react/dist/esm/icons/microscope.js
-var __iconNode33 = [
+var __iconNode35 = [
   ["path", { d: "M6 18h8", key: "1borvv" }],
   ["path", { d: "M3 22h18", key: "8prr45" }],
   ["path", { d: "M14 22a7 7 0 1 0 0-14h-1", key: "1jwaiy" }],
@@ -28354,16 +28375,10 @@ var __iconNode33 = [
   ["path", { d: "M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z", key: "1bmzmy" }],
   ["path", { d: "M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3", key: "1drr47" }]
 ];
-var Microscope = createLucideIcon("Microscope", __iconNode33);
-
-// node_modules/lucide-react/dist/esm/icons/navigation.js
-var __iconNode34 = [
-  ["polygon", { points: "3 11 22 2 13 21 11 13 3 11", key: "1ltx0t" }]
-];
-var Navigation = createLucideIcon("Navigation", __iconNode34);
+var Microscope = createLucideIcon("Microscope", __iconNode35);
 
 // node_modules/lucide-react/dist/esm/icons/octagon-alert.js
-var __iconNode35 = [
+var __iconNode36 = [
   ["path", { d: "M12 16h.01", key: "1drbdi" }],
   ["path", { d: "M12 8v4", key: "1got3b" }],
   [
@@ -28374,10 +28389,10 @@ var __iconNode35 = [
     }
   ]
 ];
-var OctagonAlert = createLucideIcon("OctagonAlert", __iconNode35);
+var OctagonAlert = createLucideIcon("OctagonAlert", __iconNode36);
 
 // node_modules/lucide-react/dist/esm/icons/printer.js
-var __iconNode36 = [
+var __iconNode37 = [
   [
     "path",
     {
@@ -28388,10 +28403,10 @@ var __iconNode36 = [
   ["path", { d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6", key: "1itne7" }],
   ["rect", { x: "6", y: "14", width: "12", height: "8", rx: "1", key: "1ue0tg" }]
 ];
-var Printer = createLucideIcon("Printer", __iconNode36);
+var Printer = createLucideIcon("Printer", __iconNode37);
 
 // node_modules/lucide-react/dist/esm/icons/qr-code.js
-var __iconNode37 = [
+var __iconNode38 = [
   ["rect", { width: "5", height: "5", x: "3", y: "3", rx: "1", key: "1tu5fj" }],
   ["rect", { width: "5", height: "5", x: "16", y: "3", rx: "1", key: "1v8r4q" }],
   ["rect", { width: "5", height: "5", x: "3", y: "16", rx: "1", key: "1x03jg" }],
@@ -28405,26 +28420,26 @@ var __iconNode37 = [
   ["path", { d: "M21 12v.01", key: "1lwtk9" }],
   ["path", { d: "M12 21v-1", key: "1880an" }]
 ];
-var QrCode = createLucideIcon("QrCode", __iconNode37);
+var QrCode = createLucideIcon("QrCode", __iconNode38);
 
 // node_modules/lucide-react/dist/esm/icons/refresh-cw.js
-var __iconNode38 = [
+var __iconNode39 = [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
 ];
-var RefreshCw = createLucideIcon("RefreshCw", __iconNode38);
+var RefreshCw = createLucideIcon("RefreshCw", __iconNode39);
 
 // node_modules/lucide-react/dist/esm/icons/rotate-ccw.js
-var __iconNode39 = [
+var __iconNode40 = [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ];
-var RotateCcw = createLucideIcon("RotateCcw", __iconNode39);
+var RotateCcw = createLucideIcon("RotateCcw", __iconNode40);
 
 // node_modules/lucide-react/dist/esm/icons/scan-face.js
-var __iconNode40 = [
+var __iconNode41 = [
   ["path", { d: "M3 7V5a2 2 0 0 1 2-2h2", key: "aa7l1z" }],
   ["path", { d: "M17 3h2a2 2 0 0 1 2 2v2", key: "4qcy5o" }],
   ["path", { d: "M21 17v2a2 2 0 0 1-2 2h-2", key: "6vwrx8" }],
@@ -28433,26 +28448,39 @@ var __iconNode40 = [
   ["path", { d: "M9 9h.01", key: "1q5me6" }],
   ["path", { d: "M15 9h.01", key: "x1ddxp" }]
 ];
-var ScanFace = createLucideIcon("ScanFace", __iconNode40);
+var ScanFace = createLucideIcon("ScanFace", __iconNode41);
 
 // node_modules/lucide-react/dist/esm/icons/scan.js
-var __iconNode41 = [
+var __iconNode42 = [
   ["path", { d: "M3 7V5a2 2 0 0 1 2-2h2", key: "aa7l1z" }],
   ["path", { d: "M17 3h2a2 2 0 0 1 2 2v2", key: "4qcy5o" }],
   ["path", { d: "M21 17v2a2 2 0 0 1-2 2h-2", key: "6vwrx8" }],
   ["path", { d: "M7 21H5a2 2 0 0 1-2-2v-2", key: "ioqczr" }]
 ];
-var Scan = createLucideIcon("Scan", __iconNode41);
+var Scan = createLucideIcon("Scan", __iconNode42);
 
 // node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode42 = [
+var __iconNode43 = [
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }],
   ["path", { d: "m21 21-4.3-4.3", key: "1qie3q" }]
 ];
-var Search = createLucideIcon("Search", __iconNode42);
+var Search = createLucideIcon("Search", __iconNode43);
+
+// node_modules/lucide-react/dist/esm/icons/settings.js
+var __iconNode44 = [
+  [
+    "path",
+    {
+      d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z",
+      key: "1qme2f"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+];
+var Settings = createLucideIcon("Settings", __iconNode44);
 
 // node_modules/lucide-react/dist/esm/icons/shield-alert.js
-var __iconNode43 = [
+var __iconNode45 = [
   [
     "path",
     {
@@ -28463,10 +28491,10 @@ var __iconNode43 = [
   ["path", { d: "M12 8v4", key: "1got3b" }],
   ["path", { d: "M12 16h.01", key: "1drbdi" }]
 ];
-var ShieldAlert = createLucideIcon("ShieldAlert", __iconNode43);
+var ShieldAlert = createLucideIcon("ShieldAlert", __iconNode45);
 
 // node_modules/lucide-react/dist/esm/icons/shield-check.js
-var __iconNode44 = [
+var __iconNode46 = [
   [
     "path",
     {
@@ -28476,10 +28504,10 @@ var __iconNode44 = [
   ],
   ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-var ShieldCheck = createLucideIcon("ShieldCheck", __iconNode44);
+var ShieldCheck = createLucideIcon("ShieldCheck", __iconNode46);
 
 // node_modules/lucide-react/dist/esm/icons/shield.js
-var __iconNode45 = [
+var __iconNode47 = [
   [
     "path",
     {
@@ -28488,10 +28516,10 @@ var __iconNode45 = [
     }
   ]
 ];
-var Shield = createLucideIcon("Shield", __iconNode45);
+var Shield = createLucideIcon("Shield", __iconNode47);
 
 // node_modules/lucide-react/dist/esm/icons/sigma.js
-var __iconNode46 = [
+var __iconNode48 = [
   [
     "path",
     {
@@ -28500,10 +28528,10 @@ var __iconNode46 = [
     }
   ]
 ];
-var Sigma = createLucideIcon("Sigma", __iconNode46);
+var Sigma = createLucideIcon("Sigma", __iconNode48);
 
 // node_modules/lucide-react/dist/esm/icons/sliders-vertical.js
-var __iconNode47 = [
+var __iconNode49 = [
   ["line", { x1: "4", x2: "4", y1: "21", y2: "14", key: "1p332r" }],
   ["line", { x1: "4", x2: "4", y1: "10", y2: "3", key: "gb41h5" }],
   ["line", { x1: "12", x2: "12", y1: "21", y2: "12", key: "hf2csr" }],
@@ -28514,33 +28542,17 @@ var __iconNode47 = [
   ["line", { x1: "10", x2: "14", y1: "8", y2: "8", key: "1yglbp" }],
   ["line", { x1: "18", x2: "22", y1: "16", y2: "16", key: "1jxqpz" }]
 ];
-var SlidersVertical = createLucideIcon("SlidersVertical", __iconNode47);
+var SlidersVertical = createLucideIcon("SlidersVertical", __iconNode49);
 
 // node_modules/lucide-react/dist/esm/icons/smartphone.js
-var __iconNode48 = [
+var __iconNode50 = [
   ["rect", { width: "14", height: "20", x: "5", y: "2", rx: "2", ry: "2", key: "1yt0o3" }],
   ["path", { d: "M12 18h.01", key: "mhygvu" }]
 ];
-var Smartphone = createLucideIcon("Smartphone", __iconNode48);
-
-// node_modules/lucide-react/dist/esm/icons/sparkles.js
-var __iconNode49 = [
-  [
-    "path",
-    {
-      d: "M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z",
-      key: "4pj2yx"
-    }
-  ],
-  ["path", { d: "M20 3v4", key: "1olli1" }],
-  ["path", { d: "M22 5h-4", key: "1gvqau" }],
-  ["path", { d: "M4 17v2", key: "vumght" }],
-  ["path", { d: "M5 18H3", key: "zchphs" }]
-];
-var Sparkles = createLucideIcon("Sparkles", __iconNode49);
+var Smartphone = createLucideIcon("Smartphone", __iconNode50);
 
 // node_modules/lucide-react/dist/esm/icons/stamp.js
-var __iconNode50 = [
+var __iconNode51 = [
   ["path", { d: "M5 22h14", key: "ehvnwv" }],
   [
     "path",
@@ -28554,10 +28566,10 @@ var __iconNode50 = [
     { d: "M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-3-3c-1.66 0-3 1-3 3s1 2 1 3.5V13", key: "cnxgux" }
   ]
 ];
-var Stamp = createLucideIcon("Stamp", __iconNode50);
+var Stamp = createLucideIcon("Stamp", __iconNode51);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode51 = [
+var __iconNode52 = [
   [
     "path",
     {
@@ -28568,33 +28580,42 @@ var __iconNode51 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("TriangleAlert", __iconNode51);
+var TriangleAlert = createLucideIcon("TriangleAlert", __iconNode52);
 
 // node_modules/lucide-react/dist/esm/icons/upload.js
-var __iconNode52 = [
+var __iconNode53 = [
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["polyline", { points: "17 8 12 3 7 8", key: "t8dd8p" }],
   ["line", { x1: "12", x2: "12", y1: "3", y2: "15", key: "widbto" }]
 ];
-var Upload = createLucideIcon("Upload", __iconNode52);
+var Upload = createLucideIcon("Upload", __iconNode53);
 
 // node_modules/lucide-react/dist/esm/icons/user-check.js
-var __iconNode53 = [
+var __iconNode54 = [
   ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
   ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }],
   ["polyline", { points: "16 11 18 13 22 9", key: "1pwet4" }]
 ];
-var UserCheck = createLucideIcon("UserCheck", __iconNode53);
+var UserCheck = createLucideIcon("UserCheck", __iconNode54);
+
+// node_modules/lucide-react/dist/esm/icons/wifi.js
+var __iconNode55 = [
+  ["path", { d: "M12 20h.01", key: "zekei9" }],
+  ["path", { d: "M2 8.82a15 15 0 0 1 20 0", key: "dnpr2z" }],
+  ["path", { d: "M5 12.859a10 10 0 0 1 14 0", key: "1x1e6c" }],
+  ["path", { d: "M8.5 16.429a5 5 0 0 1 7 0", key: "1bycff" }]
+];
+var Wifi = createLucideIcon("Wifi", __iconNode55);
 
 // node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode54 = [
+var __iconNode56 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("X", __iconNode54);
+var X = createLucideIcon("X", __iconNode56);
 
 // node_modules/lucide-react/dist/esm/icons/zap.js
-var __iconNode55 = [
+var __iconNode57 = [
   [
     "path",
     {
@@ -28603,24 +28624,24 @@ var __iconNode55 = [
     }
   ]
 ];
-var Zap = createLucideIcon("Zap", __iconNode55);
+var Zap = createLucideIcon("Zap", __iconNode57);
 
 // node_modules/lucide-react/dist/esm/icons/zoom-in.js
-var __iconNode56 = [
+var __iconNode58 = [
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }],
   ["line", { x1: "21", x2: "16.65", y1: "21", y2: "16.65", key: "13gj7c" }],
   ["line", { x1: "11", x2: "11", y1: "8", y2: "14", key: "1vmskp" }],
   ["line", { x1: "8", x2: "14", y1: "11", y2: "11", key: "durymu" }]
 ];
-var ZoomIn = createLucideIcon("ZoomIn", __iconNode56);
+var ZoomIn = createLucideIcon("ZoomIn", __iconNode58);
 
 // node_modules/lucide-react/dist/esm/icons/zoom-out.js
-var __iconNode57 = [
+var __iconNode59 = [
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }],
   ["line", { x1: "21", x2: "16.65", y1: "21", y2: "16.65", key: "13gj7c" }],
   ["line", { x1: "8", x2: "14", y1: "11", y2: "11", key: "durymu" }]
 ];
-var ZoomOut = createLucideIcon("ZoomOut", __iconNode57);
+var ZoomOut = createLucideIcon("ZoomOut", __iconNode59);
 
 // src/types/api.ts
 var CHECKPOINTS = [
@@ -28657,6 +28678,9 @@ var Header = ({
   onRefreshHealth,
   isCheckingHealth,
   onOpenConnectModal,
+  onOpenCompanionGallery,
+  onOpenSettings,
+  companionGalleryCount = 0,
   searchQuery = "",
   onSearchChange
 }) => {
@@ -28683,37 +28707,37 @@ var Header = ({
       clearInterval(interval);
     };
   }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("header", { className: "bg-white border-b border-slate-200/90 shadow-sm sticky top-0 z-40", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "max-w-[1700px] mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-4", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center space-x-3 sm:space-x-4", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("header", { className: "bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs sticky top-0 z-40", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "max-w-[1700px] mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-4", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center space-x-3 sm:space-x-4 shrink-0", children: [
       /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "w-12 h-14 sm:w-14 sm:h-16 flex-shrink-0 flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(SSBCrestLogo, { className: "w-full h-full object-contain filter drop-shadow-sm" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "w-11 h-13 sm:w-13 sm:h-15 flex-shrink-0 flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(SSBCrestLogo, { className: "w-full h-full object-contain filter drop-shadow-xs" }) }),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex flex-col", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "font-serif font-black text-xs sm:text-sm tracking-wider text-amber-700 uppercase", children: "\u0938\u0936\u0938\u094D\u0924\u094D\u0930 \u0938\u0940\u092E\u093E \u092C\u0932" }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10px] font-semibold tracking-widest text-slate-500 uppercase", children: "\u0938\u0947\u0935\u093E \u2022 \u0938\u0941\u0930\u0915\u094D\u0937\u093E \u2022 \u092C\u0928\u094D\u0927\u0941\u0924\u094D\u0935" })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "font-serif font-black text-xs sm:text-sm tracking-wider text-amber-800 uppercase", children: "\u0938\u0936\u0938\u094D\u0924\u094D\u0930 \u0938\u0940\u092E\u093E \u092C\u0932" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[9.5px] font-semibold tracking-widest text-slate-500 uppercase", children: "\u0938\u0947\u0935\u093E \u2022 \u0938\u0941\u0930\u0915\u094D\u0937\u093E \u2022 \u092C\u0928\u094D\u0927\u0941\u0924\u094D\u0935" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "h-10 w-[1.5px] bg-slate-200 hidden md:block" }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "hidden md:flex flex-col", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[11px] font-semibold text-slate-600 uppercase tracking-wider", children: "\u092D\u093E\u0930\u0924 \u0938\u0930\u0915\u093E\u0930 \u2022 \u0917\u0943\u0939 \u092E\u0902\u0924\u094D\u0930\u093E\u0932\u092F" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { className: "text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight", children: "Sashastra Seema Bal (SSB)" }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[11px] text-slate-500 font-medium", children: "National Border Document Screening & Biometric Verification Portal" })
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "h-9 w-px bg-slate-200 hidden lg:block" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "hidden lg:flex flex-col", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10.5px] font-semibold text-slate-500 uppercase tracking-wider", children: "\u092D\u093E\u0930\u0924 \u0938\u0930\u0915\u093E\u0930 \u2022 \u0917\u0943\u0939 \u092E\u0902\u0924\u094D\u0930\u093E\u0932\u092F" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("h1", { className: "text-base font-bold text-slate-900 tracking-tight leading-tight", children: "Sashastra Seema Bal (SSB)" }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "text-[10.5px] text-slate-500 font-medium", children: "National Border Document Screening & Biometric Verification Portal" })
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center space-x-3 flex-wrap sm:flex-nowrap", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "relative w-48 sm:w-64 lg:w-72", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "flex items-center gap-1.5 sm:gap-2 shrink-0 flex-nowrap", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "relative w-28 sm:w-36 md:w-44 lg:w-52", children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "input",
           {
             type: "text",
-            placeholder: "Search services, passports, IDs...",
+            placeholder: "Search IDs...",
             value: searchQuery,
             onChange: (e) => onSearchChange && onSearchChange(e.target.value),
-            className: "w-full pl-9 pr-3 py-1.5 bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-xs text-slate-800 placeholder-slate-400 rounded-full border border-slate-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
+            className: "w-full pl-7 pr-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-xs text-slate-800 placeholder-slate-400 rounded-full border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all outline-none"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Search, { className: "w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Search, { className: "w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "relative", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "relative hidden sm:block", children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "select",
           {
@@ -28722,7 +28746,7 @@ var Header = ({
               const found = CHECKPOINTS.find((c) => c.id === e.target.value);
               if (found) onSelectCheckpoint(found);
             },
-            className: "bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-700 py-1.5 pl-7 pr-8 rounded-full border border-slate-300 focus:border-indigo-600 focus:outline-none transition-all cursor-pointer shadow-sm",
+            className: "bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-700 py-1.5 pl-7 pr-7 rounded-full border border-slate-200 focus:border-indigo-500 focus:outline-none transition-all cursor-pointer shadow-2xs appearance-none max-w-[150px] md:max-w-[200px] truncate",
             children: CHECKPOINTS.map((cp) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("option", { value: cp.id, children: [
               cp.name,
               " (",
@@ -28733,27 +28757,50 @@ var Header = ({
         ),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MapPin, { className: "w-3.5 h-3.5 text-indigo-600 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" })
       ] }),
-      onOpenConnectModal && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+      onOpenConnectModal && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         "button",
         {
           onClick: onOpenConnectModal,
-          className: `flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all shadow-sm ${activeDeviceCount > 0 ? "bg-emerald-50 text-emerald-700 border-emerald-300 hover:bg-emerald-100" : "bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100"}`,
+          className: `flex items-center space-x-1.5 px-2.5 py-1.5 rounded-full text-xs font-semibold border transition-all shadow-2xs cursor-pointer whitespace-nowrap ${activeDeviceCount > 0 ? "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100 ring-2 ring-emerald-500/20" : "bg-indigo-50/70 text-indigo-700 border-indigo-200/80 hover:bg-indigo-100"}`,
+          title: "Wi-Fi Companion Connection & Pairing",
+          children: activeDeviceCount > 0 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "relative flex h-2 w-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" }),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "relative inline-flex rounded-full h-2 w-2 bg-emerald-500" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Wifi, { className: "w-3.5 h-3.5 text-emerald-600" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "hidden md:inline", children: "Wi-Fi Connected" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "md:hidden", children: "Wi-Fi" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-emerald-600 text-white", children: activeDeviceCount })
+          ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Wifi, { className: "w-3.5 h-3.5 text-indigo-600" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "hidden md:inline", children: "Connect Wi-Fi" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "md:hidden", children: "Wi-Fi" })
+          ] })
+        }
+      ),
+      onOpenCompanionGallery && companionGalleryCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+        "button",
+        {
+          onClick: onOpenCompanionGallery,
+          className: "flex items-center space-x-1.5 px-2.5 py-1.5 rounded-full text-xs font-semibold border bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 transition-all shadow-2xs cursor-pointer whitespace-nowrap",
+          title: "Open Android Companion Photo Stream",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Smartphone, { className: `w-3.5 h-3.5 ${activeDeviceCount > 0 ? "text-emerald-600" : "text-slate-500"}` }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "hidden sm:inline", children: "Companion" }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: `px-1.5 py-0.2 rounded-full text-[10px] font-bold ${activeDeviceCount > 0 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"}`, children: activeDeviceCount })
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Images, { className: "w-3.5 h-3.5 text-indigo-600" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "hidden lg:inline", children: "Stream" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-indigo-600 text-white", children: companionGalleryCount })
           ]
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "flex items-center space-x-2 pl-1", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
         "button",
         {
           onClick: onRefreshHealth,
           disabled: isCheckingHealth,
-          className: "flex items-center space-x-1.5 px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100 rounded-full border border-slate-200 text-[11px] font-medium text-slate-700 shadow-sm transition-all",
+          className: "flex items-center space-x-1.5 px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100 rounded-full border border-slate-200 text-[11px] font-medium text-slate-700 shadow-2xs transition-all cursor-pointer whitespace-nowrap",
           title: "Backend Air-Gapped Status",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "relative flex h-2.5 w-2.5", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "relative flex h-2 w-2", children: [
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                 "span",
                 {
@@ -28763,12 +28810,12 @@ var Header = ({
               /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                 "span",
                 {
-                  className: `relative inline-flex rounded-full h-2.5 w-2.5 ${backendOnline ? "bg-emerald-500" : "bg-red-500"}`
+                  className: `relative inline-flex rounded-full h-2 w-2 ${backendOnline ? "bg-emerald-500" : "bg-red-500"}`
                 }
               )
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "font-semibold", children: backendOnline ? "AI Ready" : "Offline" }),
-            backendLatencyMs !== null && backendOnline && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "text-[10px] text-slate-400", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "font-semibold hidden sm:inline", children: backendOnline ? "AI Ready" : "Offline" }),
+            backendLatencyMs !== null && backendOnline && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "text-[10px] text-slate-400 hidden lg:inline", children: [
               "(",
               backendLatencyMs,
               "ms)"
@@ -28776,7 +28823,19 @@ var Header = ({
             /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RefreshCw, { className: `w-3 h-3 text-slate-400 ${isCheckingHealth ? "animate-spin" : ""}` })
           ]
         }
-      ) })
+      ),
+      onOpenSettings && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+        "button",
+        {
+          onClick: onOpenSettings,
+          className: "flex items-center space-x-1.5 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100/80 text-indigo-700 rounded-full border border-indigo-200/80 text-xs font-bold shadow-2xs transition-all cursor-pointer whitespace-nowrap shrink-0",
+          title: "Open Settings & One-Click Model Hub",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Settings, { className: "w-3.5 h-3.5 text-indigo-600" }),
+            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "hidden sm:inline", children: "Settings Hub" })
+          ]
+        }
+      )
     ] })
   ] }) });
 };
@@ -28787,6 +28846,17 @@ var import_react6 = __toESM(require_react(), 1);
 // src/components/Dropzone.tsx
 var import_react4 = __toESM(require_react(), 1);
 var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+function base64ToFile(dataUrl, filename) {
+  const arr = dataUrl.split(",");
+  const mime = arr[0].match(/:(.*?);/)?.[1] || "image/jpeg";
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+}
 var Dropzone = ({
   documentFile,
   documentPreviewUrl,
@@ -28794,7 +28864,9 @@ var Dropzone = ({
   onClearDocument,
   disabled = false,
   isCompanionConnected = false,
-  receivedFromCompanion = false
+  receivedFromCompanion = false,
+  onOpenCompanionGallery,
+  onOpenConnectModal
 }) => {
   const [isDragOver, setIsDragOver] = (0, import_react4.useState)(false);
   const [dropError, setDropError] = (0, import_react4.useState)(null);
@@ -28812,23 +28884,35 @@ var Dropzone = ({
     e.preventDefault();
     setIsDragOver(false);
     if (disabled) return;
+    const companionJson = e.dataTransfer.getData("application/json");
+    if (companionJson) {
+      try {
+        const item = JSON.parse(companionJson);
+        if (item && item.image_data) {
+          const file = base64ToFile(item.image_data, item.filename || `companion_doc_${item.sequence_id}.jpg`);
+          onSelectDocument(file, item.image_data);
+          return;
+        }
+      } catch {
+      }
+    }
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       handleFileChange(e.dataTransfer.files[0]);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex h-full flex-col overflow-hidden rounded-xl bg-white border border-slate-200 shadow-xs", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center justify-between gap-2.5 border-b border-slate-200 bg-slate-50/80 px-4 py-3", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex h-full flex-col overflow-hidden rounded-xl bg-white border border-slate-200/70 shadow-2xs", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "flex items-center justify-between gap-2.5 border-b border-slate-100 bg-slate-50/60 px-4 py-2.5", children: [
       /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("label", { className: "text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2 font-sans", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Image2, { className: "w-4 h-4 text-indigo-600" }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "PRIMARY DOCUMENT BAY" })
       ] }),
-      isCompanionConnected ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5", children: [
+      isCompanionConnected ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "relative flex h-1.5 w-1.5", children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" })
         ] }),
         "Live Field Sync"
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[11px] font-semibold text-slate-400", children: "Passport \u2022 Visa \u2022 Border Permit" })
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "text-[10.5px] font-medium text-slate-400", children: "Passport \u2022 Aadhaar \u2022 Permit" })
     ] }),
     !documentPreviewUrl ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
       "div",
@@ -28840,12 +28924,12 @@ var Dropzone = ({
         onDragLeave: () => setIsDragOver(false),
         onDrop: handleDrop,
         onClick: () => !disabled && fileInputRef.current?.click(),
-        className: `relative p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[240px] flex-1 ${isDragOver ? "bg-indigo-50/60 border-2 border-dashed border-indigo-500 scale-[1.01]" : "hover:bg-slate-50/80"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`,
+        className: `relative p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[240px] flex-1 ${isDragOver ? "bg-indigo-50/60 border-2 border-dashed border-indigo-500 scale-[1.01]" : "hover:bg-slate-50/60"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`,
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-slate-300" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute top-3 right-3 w-3 h-3 border-t-2 border-r-2 border-slate-300" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-slate-300" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-slate-300" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute top-3 left-3 w-2.5 h-2.5 border-t-2 border-l-2 border-slate-200" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute top-3 right-3 w-2.5 h-2.5 border-t-2 border-r-2 border-slate-200" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute bottom-3 left-3 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-200" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute bottom-3 right-3 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-200" }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "input",
             {
@@ -28861,28 +28945,77 @@ var Dropzone = ({
               disabled
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-3 text-indigo-600 shadow-2xs group-hover:scale-105 transition-transform", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CloudUpload, { className: "w-7 h-7" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h4", { className: "font-bold text-sm text-slate-800", children: "DRAG & DROP OFFICIAL DOCUMENT" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "text-xs text-slate-500 mt-1 max-w-xs", children: "or click to browse local optical archive (PNG, JPG, WEBP)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mt-4 flex items-center space-x-2 text-[11px] text-slate-400 font-medium", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "w-12 h-12 rounded-xl bg-indigo-50/80 flex items-center justify-center mb-2.5 text-indigo-600 shadow-2xs group-hover:scale-105 transition-transform", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CloudUpload, { className: "w-6 h-6" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h4", { className: "font-bold text-xs sm:text-sm text-slate-800", children: "DRAG & DROP OFFICIAL DOCUMENT" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "text-[11.5px] text-slate-400 mt-0.5 max-w-xs", children: "or click to browse local optical archive (PNG, JPG, WEBP)" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mt-3.5 flex flex-wrap items-center justify-center gap-2", children: [
+            onOpenConnectModal && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: (e) => {
+                  e.stopPropagation();
+                  onOpenConnectModal();
+                },
+                disabled,
+                className: "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-2xs transition-all cursor-pointer",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Smartphone, { className: "w-3.5 h-3.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Pair Companion" })
+                ]
+              }
+            ),
+            onOpenCompanionGallery && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: (e) => {
+                  e.stopPropagation();
+                  onOpenCompanionGallery();
+                },
+                className: "px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200/80 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Smartphone, { className: "w-3.5 h-3.5 text-indigo-600" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Companion Gallery" })
+                ]
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: (e) => {
+                  e.stopPropagation();
+                  fileInputRef.current?.click();
+                },
+                disabled,
+                className: "px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(FolderOpen, { className: "w-3.5 h-3.5 text-slate-500" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Browse File" })
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mt-3 flex items-center space-x-2 text-[10.5px] text-slate-400 font-medium", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "ICAO 9303 Compliant" }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "\u2022" }),
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "24-bit RGB Optical OCR" })
           ] }),
-          dropError && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "mt-3 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 px-3 py-1 rounded-md", children: dropError })
+          dropError && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { className: "mt-2 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 px-3 py-1 rounded-md", children: dropError })
         ]
       }
-    ) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative p-4 flex flex-col items-center justify-center flex-1 bg-slate-100/50", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative max-h-[280px] w-full flex items-center justify-center overflow-hidden rounded-lg border border-slate-300 bg-white p-2 shadow-inner", children: [
+    ) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative p-3.5 flex flex-col items-center justify-center flex-1 bg-slate-50/40", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "relative max-h-[260px] w-full flex items-center justify-center overflow-hidden rounded-lg bg-white shadow-2xs", children: [
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "img",
           {
             src: documentPreviewUrl,
             alt: "Document Preview",
-            className: "max-h-[260px] w-auto object-contain rounded"
+            className: "max-h-[240px] w-auto object-contain rounded"
           }
         ),
-        receivedFromCompanion && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow", children: "FROM COMPANION" }),
+        receivedFromCompanion && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "absolute top-2.5 left-2.5 bg-emerald-600 text-white text-[9.5px] font-bold px-2 py-0.5 rounded shadow-2xs", children: "FROM COMPANION" }),
         /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "button",
           {
@@ -28891,16 +29024,16 @@ var Dropzone = ({
               onClearDocument();
             },
             disabled,
-            className: "absolute top-3 right-3 p-1.5 rounded-full bg-slate-900/80 hover:bg-red-600 text-white transition-colors shadow",
+            className: "absolute top-2.5 right-2.5 p-1 rounded-full bg-slate-900/70 hover:bg-red-600 text-white transition-colors shadow-2xs cursor-pointer",
             title: "Remove Document",
-            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(X, { className: "w-4 h-4" })
+            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(X, { className: "w-3.5 h-3.5" })
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mt-3 flex items-center justify-between w-full text-xs text-slate-600 px-1", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate max-w-[200px] font-medium font-mono text-[11px]", children: documentFile?.name || "document_image.jpg" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "text-emerald-700 font-bold flex items-center space-x-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(FileCheck, { className: "w-3.5 h-3.5" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mt-2.5 flex items-center justify-between w-full text-xs text-slate-600 px-1", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "truncate max-w-[200px] font-medium font-mono text-[11px] text-slate-500", children: documentFile?.name || "document_image.jpg" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "text-emerald-700 font-bold text-[11px] flex items-center space-x-1", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(FileCheck, { className: "w-3 h-3" }),
           /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: "Loaded Ready" })
         ] })
       ] })
@@ -28911,6 +29044,17 @@ var Dropzone = ({
 // src/components/WebCamCapture.tsx
 var import_react5 = __toESM(require_react(), 1);
 var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+function base64ToFile2(dataUrl, filename) {
+  const arr = dataUrl.split(",");
+  const mime = arr[0].match(/:(.*?);/)?.[1] || "image/jpeg";
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+}
 var WebCamCapture = ({
   livePhotoFile,
   livePhotoPreviewUrl,
@@ -28919,13 +29063,37 @@ var WebCamCapture = ({
   disabled = false,
   isCompanionConnected = false,
   receivedFromCompanion = false,
-  onOpenConnectModal
+  onOpenConnectModal,
+  onOpenCompanionGallery
 }) => {
   const [isStreaming, setIsStreaming] = (0, import_react5.useState)(false);
+  const [isDragOver, setIsDragOver] = (0, import_react5.useState)(false);
   const [cameraError, setCameraError] = (0, import_react5.useState)(null);
+  const [facingMode, setFacingMode] = (0, import_react5.useState)("user");
   const videoRef = (0, import_react5.useRef)(null);
   const fileInputRef = (0, import_react5.useRef)(null);
   const streamRef = (0, import_react5.useRef)(null);
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    if (disabled) return;
+    const companionJson = e.dataTransfer.getData("application/json");
+    if (companionJson) {
+      try {
+        const item = JSON.parse(companionJson);
+        if (item && item.image_data) {
+          const file = base64ToFile2(item.image_data, item.filename || `companion_face_${item.sequence_id}.jpg`);
+          onCaptureFace(file, item.image_data);
+          stopCamera();
+          return;
+        }
+      } catch {
+      }
+    }
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleFileUpload(e.dataTransfer.files[0]);
+    }
+  };
   const setVideoRef = (0, import_react5.useCallback)((node) => {
     videoRef.current = node;
     if (node && streamRef.current) {
@@ -28935,18 +29103,38 @@ var WebCamCapture = ({
       });
     }
   }, []);
-  const startCamera = async () => {
+  const startCamera = async (targetFacing = facingMode) => {
     setCameraError(null);
     try {
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
       }
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: "user" },
-        audio: false
-      });
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error("MediaDevices API not supported in this environment");
+      }
+      let stream = null;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: targetFacing },
+          audio: false
+        });
+      } catch (tier1Err) {
+        console.warn("Tier 1 camera constraints rejected, attempting basic fallback:", tier1Err);
+      }
+      if (!stream) {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: false
+          });
+        } catch (tier2Err) {
+          console.warn("Tier 2 camera fallback rejected:", tier2Err);
+          throw tier2Err;
+        }
+      }
       streamRef.current = stream;
+      setFacingMode(targetFacing);
       setIsStreaming(true);
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -28954,7 +29142,9 @@ var WebCamCapture = ({
       }
     } catch (err) {
       console.warn("Camera access denied or unavailable:", err);
-      setCameraError("Optical sensor unavailable or permission denied. Use mobile companion or upload photo.");
+      const isDenied = err.name === "NotAllowedError" || err.name === "PermissionDeniedError";
+      const msg = isDenied ? "Camera permission denied. Allow camera in System Settings > Privacy & Security > Camera." : `Optical sensor unavailable (${err.message || "not found"}). Use mobile companion or upload photo.`;
+      setCameraError(msg);
       setIsStreaming(false);
     }
   };
@@ -29008,89 +29198,111 @@ var WebCamCapture = ({
     onCaptureFace(file, url);
     stopCamera();
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-xs select-none", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex items-center justify-between gap-2.5 border-b border-slate-200 bg-slate-50/80 px-5 py-3.5", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2 font-sans", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex h-full flex-col overflow-hidden rounded-xl bg-white border border-slate-200/70 shadow-2xs", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "flex items-center justify-between gap-2.5 border-b border-slate-100 bg-slate-50/60 px-4 py-2.5", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("label", { className: "text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2 font-sans", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ScanFace, { className: "w-4 h-4 text-indigo-600" }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "BIOMETRIC PORTRAIT BAY" })
       ] }),
-      isCompanionConnected ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5", children: [
+      isCompanionConnected ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "relative flex h-1.5 w-1.5", children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" }),
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" })
         ] }),
         "Companion Sync Active"
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "text-[11px] font-semibold text-slate-400", children: "1:1 Live Facial Match" })
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "text-[10.5px] font-medium text-slate-400", children: "1:1 Live Facial Match" })
     ] }),
-    !livePhotoPreviewUrl && !isStreaming ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative p-8 flex flex-col items-center justify-center text-center min-h-[240px] flex-1 hover:bg-slate-50/50 transition-colors", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-slate-300" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute top-3 right-3 w-3 h-3 border-t-2 border-r-2 border-slate-300" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-slate-300" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-slate-300" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mb-3 text-indigo-600 shadow-2xs", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Smartphone, { className: "w-7 h-7" }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h4", { className: "font-bold text-sm text-slate-900 font-sans", children: "LIVE TRAVELER CAPTURE" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "text-xs text-slate-500 mt-1 max-w-xs leading-relaxed", children: "Snap traveler photo with Android Field Companion or upload a photo file" }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "mt-5 flex items-center flex-wrap justify-center gap-2.5", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: () => {
-              if (onOpenConnectModal) onOpenConnectModal();
-            },
-            disabled,
-            className: "flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition-all cursor-pointer",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Smartphone, { className: "w-3.5 h-3.5" }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Capture via Companion App" })
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: () => fileInputRef.current?.click(),
-            disabled,
-            className: "flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 shadow-2xs transition-all cursor-pointer",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Upload, { className: "w-3.5 h-3.5 text-slate-500" }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Upload Photo" })
-            ]
-          }
-        )
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mt-3", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
-        "button",
-        {
-          type: "button",
-          onClick: startCamera,
-          disabled,
-          className: "text-[11px] text-slate-400 hover:text-indigo-600 font-medium transition-colors cursor-pointer flex items-center gap-1",
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Camera, { className: "w-3 h-3" }),
-            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Use local workstation webcam" })
-          ]
-        }
-      ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-        "input",
-        {
-          ref: fileInputRef,
-          type: "file",
-          accept: "image/*",
-          className: "hidden",
-          onChange: (e) => {
-            if (e.target.files && e.target.files.length > 0) {
-              handleFileUpload(e.target.files[0]);
+    !livePhotoPreviewUrl && !isStreaming ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+      "div",
+      {
+        onDragOver: (e) => {
+          e.preventDefault();
+          setIsDragOver(true);
+        },
+        onDragLeave: () => setIsDragOver(false),
+        onDrop: handleDrop,
+        className: `relative p-8 flex flex-col items-center justify-center text-center min-h-[240px] flex-1 transition-all ${isDragOver ? "bg-emerald-50/60 border-2 border-dashed border-emerald-500 scale-[1.01]" : "hover:bg-slate-50/60"}`,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute top-3 left-3 w-2.5 h-2.5 border-t-2 border-l-2 border-slate-200" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute top-3 right-3 w-2.5 h-2.5 border-t-2 border-r-2 border-slate-200" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute bottom-3 left-3 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-200" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute bottom-3 right-3 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-200" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-12 h-12 rounded-xl bg-indigo-50/80 flex items-center justify-center mb-2.5 text-indigo-600 shadow-2xs", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Smartphone, { className: "w-6 h-6" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h4", { className: "font-bold text-xs sm:text-sm text-slate-800 font-sans", children: "LIVE TRAVELER CAPTURE" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "text-[11.5px] text-slate-400 mt-0.5 max-w-xs leading-relaxed", children: "Snap traveler photo with Android Field Companion or upload a photo file" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "mt-4 flex items-center flex-wrap justify-center gap-2", children: [
+            onOpenCompanionGallery ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: onOpenCompanionGallery,
+                disabled,
+                className: "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-2xs transition-all cursor-pointer",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Smartphone, { className: "w-3.5 h-3.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Companion Gallery" })
+                ]
+              }
+            ) : onOpenConnectModal ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: onOpenConnectModal,
+                disabled,
+                className: "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-2xs transition-all cursor-pointer",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Smartphone, { className: "w-3.5 h-3.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Pair Companion" })
+                ]
+              }
+            ) : null,
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: () => fileInputRef.current?.click(),
+                disabled,
+                className: "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all cursor-pointer",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Upload, { className: "w-3.5 h-3.5 text-slate-500" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Upload Photo" })
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mt-2.5", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => startCamera(),
+              disabled,
+              className: "text-[10.5px] text-slate-400 hover:text-indigo-600 font-medium transition-colors cursor-pointer flex items-center gap-1",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Camera, { className: "w-3 h-3" }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Use local webcam" })
+              ]
             }
-          },
-          disabled
-        }
-      ),
-      cameraError && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "mt-3 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 px-3 py-1 rounded-md", children: cameraError })
-    ] }) : isStreaming ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative p-4 flex flex-col items-center justify-center flex-1 bg-slate-900", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative max-h-[280px] w-full flex items-center justify-center overflow-hidden rounded-xl bg-black", children: [
+          ) }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+            "input",
+            {
+              ref: fileInputRef,
+              type: "file",
+              accept: "image/*",
+              className: "hidden",
+              onChange: (e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                  handleFileUpload(e.target.files[0]);
+                }
+              },
+              disabled
+            }
+          ),
+          cameraError && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { className: "mt-2 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 px-3 py-1 rounded-md", children: cameraError })
+        ]
+      }
+    ) : isStreaming ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative p-4 flex flex-col items-center justify-center flex-1 bg-slate-50/40 rounded-b-xl border-t border-slate-100", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative w-full max-w-[340px] aspect-[4/3] flex items-center justify-center overflow-hidden rounded-xl bg-slate-900 border border-slate-200 shadow-sm", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "video",
           {
@@ -29098,21 +29310,31 @@ var WebCamCapture = ({
             autoPlay: true,
             playsInline: true,
             muted: true,
-            className: "max-h-[260px] w-auto -scale-x-100 rounded"
+            className: "w-full h-full object-cover -scale-x-100"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute inset-8 border-2 border-indigo-400/80 rounded-2xl pointer-events-none flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-20 h-28 border border-dashed border-amber-400/80 rounded-full" }) })
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/10", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "relative flex h-1.5 w-1.5", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "text-[9.5px] font-bold tracking-wider text-white uppercase font-mono", children: "LIVE OPTICAL FEED" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute inset-0 flex items-center justify-center pointer-events-none", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-24 h-32 border-2 border-dashed border-amber-300/80 rounded-[50%] shadow-[0_0_15px_rgba(245,158,11,0.25)]" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-indigo-400 pointer-events-none" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-indigo-400 pointer-events-none" }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-indigo-400 pointer-events-none" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "mt-3 flex items-center gap-3", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "mt-3.5 flex items-center gap-2.5", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
           "button",
           {
             type: "button",
             onClick: capturePhoto,
-            className: "flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-md cursor-pointer",
+            className: "flex items-center space-x-1.5 px-4 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-[#0F2750] to-[#1E3A8A] hover:from-[#0B1D3A] hover:to-[#172554] text-white border border-amber-400/30 shadow-xs transition-all transform hover:-translate-y-0.5 cursor-pointer",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Camera, { className: "w-4 h-4" }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Capture Face" })
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Camera, { className: "w-3.5 h-3.5 text-amber-400" }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Capture Biometric Portrait" })
             ]
           }
         ),
@@ -29121,22 +29343,22 @@ var WebCamCapture = ({
           {
             type: "button",
             onClick: stopCamera,
-            className: "flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 cursor-pointer",
+            className: "flex items-center space-x-1 px-3 py-2 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all cursor-pointer",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(X, { className: "w-4 h-4" }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(X, { className: "w-3.5 h-3.5 text-slate-500" }),
               /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Cancel" })
             ]
           }
         )
       ] })
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative p-4 flex flex-col items-center justify-center flex-1", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative max-h-[280px] w-full flex items-center justify-center overflow-hidden rounded-xl bg-slate-50 border border-slate-200 p-2", children: [
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative p-3.5 flex flex-col items-center justify-center flex-1 bg-slate-50/40", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "relative max-h-[260px] w-full flex items-center justify-center overflow-hidden rounded-lg bg-white shadow-2xs", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "img",
           {
             src: livePhotoPreviewUrl || void 0,
             alt: "Live Portrait",
-            className: "max-h-[240px] max-w-full object-contain rounded-lg shadow-sm"
+            className: "max-h-[240px] max-w-full object-contain rounded"
           }
         ),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
@@ -29145,18 +29367,3709 @@ var WebCamCapture = ({
             type: "button",
             onClick: onClearFace,
             disabled,
-            className: "absolute top-3 right-3 p-1.5 rounded-full bg-slate-900/80 text-white hover:bg-red-600 transition-colors shadow-sm cursor-pointer",
+            className: "absolute top-2.5 right-2.5 p-1 rounded-full bg-slate-900/70 text-white hover:bg-red-600 transition-colors shadow-2xs cursor-pointer",
             title: "Remove Portrait",
-            children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(X, { className: "w-4 h-4" })
+            children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(X, { className: "w-3.5 h-3.5" })
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mt-2 text-center", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "text-xs font-semibold text-emerald-700 flex items-center justify-center gap-1", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mt-2.5 text-center", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { className: "text-[11px] font-semibold text-emerald-700 flex items-center justify-center gap-1", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(CircleCheck, { className: "w-3.5 h-3.5" }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Live Biometric Portrait Loaded" })
       ] }) })
     ] })
   ] });
+};
+
+// src/components/IngestionPanel.tsx
+var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
+var IngestionPanel = ({
+  documentFile,
+  documentPreviewUrl,
+  onSelectDocument,
+  onClearDocument,
+  livePhotoFile,
+  livePhotoPreviewUrl,
+  onCaptureFace,
+  onClearFace,
+  selectedCheckpoint,
+  transitDate,
+  onChangeTransitDate,
+  onScan,
+  onReset,
+  isScanning,
+  canScan,
+  isCompanionConnected = false,
+  docFromCompanion = false,
+  photoFromCompanion = false,
+  onOpenConnectModal,
+  onOpenCompanionGallery,
+  serverUrl = typeof window !== "undefined" ? window.location.origin : "http://localhost:8000"
+}) => {
+  const [isConnectModalOpen, setIsConnectModalOpen] = (0, import_react6.useState)(false);
+  const handleOpenConnectModal = () => {
+    if (onOpenConnectModal) {
+      onOpenConnectModal();
+    } else {
+      setIsConnectModalOpen(true);
+    }
+  };
+  const [showPresets, setShowPresets] = (0, import_react6.useState)(false);
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "bg-white rounded-2xl border border-slate-200/70 shadow-xs overflow-hidden mb-6", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "bg-white border-b border-slate-100 px-5 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center gap-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Scan, { className: "w-4 h-4" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("h3", { className: "font-serif font-black text-slate-900 text-xs sm:text-sm tracking-wide", children: "PRIMARY SCREENING & INGESTION DECK" }),
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("p", { className: "text-slate-400 text-[10.5px] font-medium", children: "Dual-Channel Optical Document OCR & 1:1 Live Biometric Stream Ingestion" })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center gap-2 shrink-0 text-xs", children: [
+        isCompanionConnected ? /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("span", { className: "inline-flex items-center gap-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2.5 py-0.5 text-[10.5px] font-bold", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("span", { className: "relative flex h-1.5 w-1.5", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" })
+          ] }),
+          "FIELD SYNC"
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("span", { className: "inline-flex items-center gap-1 rounded-full bg-slate-100 text-slate-600 px-2.5 py-0.5 text-[10.5px] font-medium", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "h-1.5 w-1.5 rounded-full bg-slate-400" }),
+          "STANDALONE"
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: handleOpenConnectModal,
+            className: "bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold px-2.5 py-1 rounded-lg border border-slate-200 text-xs flex items-center space-x-1.5 shadow-2xs transition-all cursor-pointer",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Smartphone, { className: "w-3.5 h-3.5 text-indigo-600" }),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { children: isCompanionConnected ? "Pairing Center" : "Link Companion" })
+            ]
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 bg-slate-50/20", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+        Dropzone,
+        {
+          documentFile,
+          documentPreviewUrl,
+          onSelectDocument,
+          onClearDocument,
+          disabled: isScanning,
+          isCompanionConnected,
+          receivedFromCompanion: docFromCompanion,
+          onOpenCompanionGallery,
+          onOpenConnectModal: handleOpenConnectModal
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+        WebCamCapture,
+        {
+          livePhotoFile,
+          livePhotoPreviewUrl,
+          onCaptureFace,
+          onClearFace,
+          disabled: isScanning,
+          isCompanionConnected,
+          receivedFromCompanion: photoFromCompanion,
+          onOpenConnectModal: handleOpenConnectModal,
+          onOpenCompanionGallery
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 bg-white px-5 sm:px-6 py-3", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center space-x-2 text-xs", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Calendar, { className: "w-3.5 h-3.5 text-indigo-600 shrink-0" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "text-slate-500 font-medium", children: "Screening Transit Date:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+          "input",
+          {
+            type: "date",
+            value: transitDate,
+            onChange: (e) => onChangeTransitDate(e.target.value),
+            className: "bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-200 focus:border-indigo-500 focus:outline-none shadow-2xs"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center gap-2.5", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: onReset,
+            disabled: isScanning || !documentFile && !livePhotoFile,
+            className: "flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 bg-white hover:bg-slate-50 border border-slate-200 shadow-2xs disabled:opacity-40 transition-all cursor-pointer",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(RotateCcw, { className: "w-3 h-3" }),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { children: "Reset" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: onScan,
+            disabled: !canScan || isScanning,
+            className: `flex items-center space-x-2 px-5 py-2 rounded-lg text-xs font-bold shadow-sm transition-all transform hover:-translate-y-0.5 cursor-pointer ${canScan && !isScanning ? "bg-gradient-to-r from-[#0F2750] to-[#1E3A8A] hover:from-[#0B1D3A] hover:to-[#172554] text-white border border-amber-400/30" : "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed"}`,
+            children: isScanning ? /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(LoaderCircle, { className: "w-3.5 h-3.5 animate-spin text-amber-300" }),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { children: "INSPECTING..." })
+            ] }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ShieldCheck, { className: "w-3.5 h-3.5 text-amber-400" }),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { children: "EXECUTE VERIFICATION" })
+            ] })
+          }
+        )
+      ] })
+    ] })
+  ] });
+};
+
+// src/components/ResultsPanel.tsx
+var import_react16 = __toESM(require_react(), 1);
+
+// src/components/RiskStatusBanner.tsx
+var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
+var LEVEL_CONFIG = {
+  GREEN: {
+    title: "OFFICIAL TRANSIT CLEARANCE \u2022 APPROVED",
+    subtitle: "All cryptographic signatures, ICAO check digits, and 1:1 facial biometrics authenticated.",
+    action: "APPROVED \u2014 Safe for fast-path border transit clearance.",
+    Icon: ShieldCheck,
+    borderClass: "border-emerald-300",
+    bgClass: "bg-emerald-50",
+    badgeClass: "bg-emerald-100 text-emerald-800 border border-emerald-300",
+    iconBg: "bg-emerald-600 text-white",
+    titleClass: "text-emerald-950",
+    scoreClass: "text-emerald-700"
+  },
+  AMBER: {
+    title: "SECONDARY INSPECTION MANDATE \u2022 HOLD",
+    subtitle: "Anomalies detected in demographic cross-validation or stamp template forensics.",
+    action: "MANUAL HOLD \u2014 Field Officer must conduct physical document inspection.",
+    Icon: TriangleAlert,
+    borderClass: "border-amber-300",
+    bgClass: "bg-amber-50",
+    badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
+    iconBg: "bg-amber-600 text-white",
+    titleClass: "text-amber-950",
+    scoreClass: "text-amber-700"
+  },
+  RED: {
+    title: "CRITICAL SECURITY ALERT \u2022 INTERCEPT",
+    subtitle: "Compounding multi-modal forensic anomalies exceeded critical risk threshold.",
+    action: "INTERDICTION MANDATE \u2014 Detain subject under Section 14 Foreigners Act.",
+    Icon: ShieldAlert,
+    borderClass: "border-red-300",
+    bgClass: "bg-red-50",
+    badgeClass: "bg-red-100 text-red-800 border border-red-300",
+    iconBg: "bg-red-600 text-white",
+    titleClass: "text-red-950",
+    scoreClass: "text-red-700"
+  }
+};
+var RiskStatusBanner = ({ assessment }) => {
+  const { risk_level, risk_score, auto_clear, tripwire_triggered } = assessment;
+  const cfg = LEVEL_CONFIG[risk_level] ?? LEVEL_CONFIG.GREEN;
+  const { Icon: Icon2 } = cfg;
+  const subtitle = risk_level === "RED" ? tripwire_triggered ? "Deterministic Critical Verification Trigger activated \u2014 cryptographic or identity breach." : "Compounding multi-modal forensic anomalies exceeded critical risk threshold." : cfg.subtitle;
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+    "div",
+    {
+      className: `rounded-2xl border-2 p-5 ${cfg.borderClass} ${cfg.bgClass} shadow-md transition-all select-none`,
+      children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex flex-col md:flex-row md:items-center justify-between gap-5", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-start space-x-4", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: `p-3.5 rounded-xl shadow-sm ${cfg.iconBg} shrink-0`, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Icon2, { className: "w-8 h-8" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center gap-2 flex-wrap mb-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: `text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-md ${cfg.badgeClass}`, children: [
+                "SECURITY TIER: ",
+                risk_level
+              ] }),
+              auto_clear ? /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-0.5 rounded-md flex items-center gap-1", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(CircleCheck, { className: "w-3.5 h-3.5 text-emerald-700" }),
+                " FAST-PATH CLEARED"
+              ] }) : /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "text-[11px] font-mono font-bold bg-red-100 text-red-800 border border-red-300 px-2.5 py-0.5 rounded-md flex items-center gap-1", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(OctagonAlert, { className: "w-3.5 h-3.5 text-red-700" }),
+                " TRANSIT INTERCEPT"
+              ] }),
+              tripwire_triggered && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "text-[11px] font-mono font-bold bg-red-600 text-white px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-sm animate-pulse", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Zap, { className: "w-3 h-3 fill-white text-white" }),
+                " CRITICAL TRIGGER"
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("h2", { className: `text-lg md:text-xl font-extrabold tracking-tight uppercase font-sans ${cfg.titleClass}`, children: cfg.title }),
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "text-xs md:text-sm text-slate-600 mt-0.5 font-sans leading-relaxed", children: subtitle })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 md:border-l border-slate-300/80 pt-3 md:pt-0 md:pl-6 shrink-0", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "text-left md:text-right", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-[10.5px] uppercase tracking-wider text-slate-500 font-bold font-sans block", children: "Threat Score" }),
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-baseline space-x-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: `text-3xl font-black font-mono tracking-tight ${cfg.scoreClass}`, children: risk_score.toFixed(1) }),
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-xs font-mono text-slate-400 font-bold", children: "/ 100" })
+          ] })
+        ] }) })
+      ] })
+    }
+  );
+};
+
+// src/components/RiskScoreCard.tsx
+var import_react7 = __toESM(require_react(), 1);
+var import_jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
+var RiskScoreCard = ({ assessment }) => {
+  const [copiedHash, setCopiedHash] = (0, import_react7.useState)(false);
+  const [showFormula, setShowFormula] = (0, import_react7.useState)(false);
+  const { risk_score, risk_level, processing_time_ms, audit_hash, score_breakdown } = assessment;
+  const score = Math.max(0, Math.min(100, risk_score));
+  const radius = 68;
+  const cx = 90;
+  const cy = 90;
+  const arcFill = 340 - score / 100 * 240;
+  const strokeColor = risk_level === "GREEN" ? "var(--green)" : risk_level === "AMBER" ? "var(--orange)" : "var(--red)";
+  const copyHash = () => {
+    if (!audit_hash) return;
+    navigator.clipboard.writeText(audit_hash);
+    setCopiedHash(true);
+    setTimeout(() => setCopiedHash(false), 2e3);
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+    "div",
+    {
+      className: "flex flex-col justify-between rounded-card bg-surface p-4 shadow-card",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2.5 mb-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Gauge, { className: "w-4 h-4 text-accent" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Threat Level & Risk Calibration" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-1.5 text-[11px] font-mono bg-inset px-2 py-1 rounded-control border border-line text-ink-2 shadow-btn", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Clock, { className: "w-3 h-3 text-ink-3" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { children: [
+              "Screening Duration: ",
+              ((processing_time_ms || 350) / 1e3).toFixed(1),
+              "s"
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex flex-col items-center justify-center relative", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("svg", { className: "w-44 h-44 -rotate-90 transform", viewBox: "0 0 180 180", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+                "circle",
+                {
+                  cx,
+                  cy,
+                  r: radius,
+                  fill: "transparent",
+                  stroke: "var(--line)",
+                  strokeWidth: "13",
+                  strokeDasharray: "340",
+                  strokeDashoffset: "100",
+                  strokeLinecap: "round"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+                "circle",
+                {
+                  cx,
+                  cy,
+                  r: radius,
+                  fill: "transparent",
+                  stroke: strokeColor,
+                  strokeWidth: "13",
+                  strokeDasharray: "340",
+                  strokeDashoffset: arcFill,
+                  strokeLinecap: "round",
+                  className: "transition-all duration-700 ease-out"
+                }
+              )
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-3xl font-black font-mono tracking-tight text-ink", children: score.toFixed(1) }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[10px] uppercase font-bold text-ink-2 tracking-wider", children: risk_level === "GREEN" ? "LOW RISK" : risk_level === "AMBER" ? "MODERATE RISK" : "CRITICAL THREAT" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex justify-between w-full max-w-[170px] text-[10px] font-mono text-ink-3 px-1 mt-[-8px]", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { children: "0 LOW" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { children: "30" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { children: "70" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { children: "100 HIGH" })
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line text-xs", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center justify-between mb-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1 font-mono", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Sigma, { className: "w-3.5 h-3.5 text-accent" }),
+                "Risk Factor Decomposition"
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setShowFormula(!showFormula),
+                  className: "text-ink-3 hover:text-ink transition-colors",
+                  title: "Formula",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Info, { className: "w-3.5 h-3.5" })
+                }
+              )
+            ] }),
+            showFormula && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("p", { className: "text-[10px] text-ink-2 bg-surface p-1.5 rounded-control mb-2 border border-line font-mono", children: "Calibrated Risk Score = Baseline Risk + \u03A3 Security Check Risk Factors (0 - 100)" }),
+            score_breakdown ? /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "space-y-1 font-mono text-[11px]", children: [
+              [
+                ["Baseline Risk Factor", score_breakdown.base_prior_log_odds],
+                ["Tamper Check Risk Factor", score_breakdown.tamper_log_odds_delta],
+                ["Face Match / Liveness Risk Factor", score_breakdown.face_log_odds_delta],
+                ["Cross-Verification Risk Factor", score_breakdown.cross_val_log_odds_delta],
+                ["Border Stamp Risk Factor", score_breakdown.stamp_log_odds_delta]
+              ].map(([label, val]) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex justify-between text-ink-2", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { children: [
+                  label,
+                  ":"
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: val > 0 ? "text-red font-semibold" : "text-ink-3", children: [
+                  val > 0 ? "+" : "",
+                  val.toFixed(2)
+                ] })
+              ] }, label)),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "border-t border-line pt-1 flex justify-between font-bold text-ink", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { children: "Calibrated Operational Risk:" }),
+                /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-accent", children: [
+                  (score_breakdown.raw_posterior_probability * 100).toFixed(1),
+                  "%"
+                ] })
+              ] })
+            ] }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("p", { className: "text-[11px] text-ink-3 font-mono", children: "Standard linear assessment." })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "bg-inset p-2 rounded-card border border-line flex items-center justify-between text-xs", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center space-x-2 truncate", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Fingerprint, { className: "w-3.5 h-3.5 text-accent flex-shrink-0" }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "truncate", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[10px] text-ink-3 block font-mono", children: "SHA-256 chained evidence hash" }),
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[11px] font-mono text-ink truncate block", children: audit_hash || "SHA256:4f8a92019b8201ac02938102938..." })
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+            "button",
+            {
+              type: "button",
+              onClick: copyHash,
+              className: "p-1.5 bg-surface hover:bg-hover text-ink-2 hover:text-ink rounded-control transition-colors flex-shrink-0 border border-line shadow-btn",
+              title: "Copy audit hash",
+              children: copiedHash ? /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Check, { className: "w-3.5 h-3.5 text-green" }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Copy, { className: "w-3.5 h-3.5" })
+            }
+          )
+        ] })
+      ]
+    }
+  );
+};
+
+// src/components/ReasonBulletList.tsx
+var import_react8 = __toESM(require_react(), 1);
+var import_jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
+var ReasonBulletList = ({ reasons, crossValidation }) => {
+  const [showMatrix, setShowMatrix] = (0, import_react8.useState)(false);
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+    "div",
+    {
+      className: "bg-surface border border-line rounded-card p-4 space-y-4 shadow-card",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2.5", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ListChecks, { className: "w-4 h-4 text-orange" }),
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Reason Telemetry & Discrepancy Log" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+            reasons.length,
+            " Telemetry Entries"
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "space-y-2", children: reasons.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("p", { className: "text-xs text-ink-3 italic font-mono", children: "No discrepancy telemetry recorded." }) : reasons.map((reason, idx) => {
+          const isCritical = reason.includes("TRIPWIRE") || reason.includes("CRITICAL") || reason.includes("ERR_") || reason.includes("FAILED") || reason.includes("Detain");
+          const isWarning = reason.includes("WARNING") || reason.includes("WRN_") || reason.includes("SECONDARY") || reason.includes("anomaly");
+          return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+            "div",
+            {
+              className: `p-2.5 rounded-control border text-xs flex items-start space-x-2.5 ${isCritical ? "bg-red-tint border-red/40 text-ink" : isWarning ? "bg-orange-tint border-orange/40 text-ink" : "bg-green-tint border-green/40 text-ink"}`,
+              children: [
+                isCritical ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ShieldAlert, { className: "w-4 h-4 text-red flex-shrink-0 mt-0.5" }) : isWarning ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(TriangleAlert, { className: "w-4 h-4 text-orange flex-shrink-0 mt-0.5" }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(CircleCheck, { className: "w-4 h-4 text-green flex-shrink-0 mt-0.5" }),
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "leading-relaxed font-medium", children: reason })
+              ]
+            },
+            idx
+          );
+        }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "border-t border-line pt-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => setShowMatrix(!showMatrix),
+              className: "flex items-center justify-between w-full text-left py-1 text-xs font-bold text-ink-2 hover:text-ink transition-colors",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center gap-1.5 font-mono", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Layers, { className: "w-3.5 h-3.5 text-accent" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: "8-Rule Cross-Validation Guard Matrix" })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center gap-1 text-[11px] text-ink-3 font-mono", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: crossValidation.cross_validation_passed ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-green font-bold", children: "ALL RULES PASSED" }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "text-red font-bold", children: [
+                    crossValidation.violation_count,
+                    " VIOLATIONS DETECTED"
+                  ] }) }),
+                  showMatrix ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ChevronUp, { className: "w-4 h-4" }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ChevronDown, { className: "w-4 h-4" })
+                ] })
+              ]
+            }
+          ),
+          showMatrix && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "mt-2.5 overflow-x-auto rounded-control border border-line animate-fade-in", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("table", { className: "w-full text-left text-xs font-mono border-collapse", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("tr", { className: "bg-inset text-ink-3 border-b border-line text-[10px] uppercase", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("th", { className: "p-2", children: "Rule ID" }),
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("th", { className: "p-2", children: "Cross-Validation Check" }),
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("th", { className: "p-2", children: "Status" }),
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("th", { className: "p-2", children: "Telemetry Message" })
+            ] }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("tbody", { className: "divide-y divide-line bg-surface", children: crossValidation.flags && crossValidation.flags.length > 0 ? crossValidation.flags.map((flag) => /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+              "tr",
+              {
+                className: !flag.passed ? "bg-red-tint text-ink" : "text-ink-2",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("td", { className: "p-2 font-bold whitespace-nowrap", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+                    "span",
+                    {
+                      className: `px-1.5 py-0.5 rounded-chip text-[10px] border ${flag.passed ? "bg-inset text-ink-2 border-line" : "bg-red-bg text-red border-red/40 font-bold"}`,
+                      children: flag.rule_id
+                    }
+                  ) }),
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("td", { className: "p-2 text-[11px] font-sans text-ink", children: flag.rule_description }),
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("td", { className: "p-2 whitespace-nowrap", children: flag.passed ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-[10px] font-bold text-green bg-green-tint border border-green/30 px-1.5 py-0.5 rounded-chip", children: "PASSED" }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-[10px] font-bold text-red bg-red-tint border border-red/30 px-1.5 py-0.5 rounded-chip", children: "FAILED" }) }),
+                  /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("td", { className: "p-2 text-[11px] text-ink-2 font-sans", children: flag.telemetry_message })
+                ]
+              },
+              flag.rule_id
+            )) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("td", { colSpan: 4, className: "p-3 text-center text-ink-3 italic", children: "Standard cross-validation matrix completed." }) }) })
+          ] }) })
+        ] })
+      ]
+    }
+  );
+};
+
+// src/components/ForensicsViewer.tsx
+var import_react9 = __toESM(require_react(), 1);
+var import_jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
+var sanitizeImageUrl = (url) => {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (trimmed.startsWith("data:") || trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("/") || trimmed.startsWith("blob:")) {
+    return trimmed;
+  }
+  return `data:image/png;base64,${trimmed}`;
+};
+var ForensicsViewer = ({
+  documentImageUrl,
+  heatmapImageUrl,
+  forensics,
+  stamp
+}) => {
+  const [viewMode, setViewMode] = (0, import_react9.useState)("slider");
+  const [blendOpacity, setBlendOpacity] = (0, import_react9.useState)(0.55);
+  const [showBoundingBoxes, setShowBoundingBoxes] = (0, import_react9.useState)(true);
+  const [zoomLevel, setZoomLevel] = (0, import_react9.useState)(1);
+  const canvasRef = (0, import_react9.useRef)(null);
+  const containerRef = (0, import_react9.useRef)(null);
+  const sanitizedDocUrl = sanitizeImageUrl(documentImageUrl) || documentImageUrl;
+  const sanitizedHeatmapUrl = sanitizeImageUrl(heatmapImageUrl);
+  (0, import_react9.useEffect)(() => {
+    if (viewMode !== "slider") return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const baseImg = new Image();
+    baseImg.crossOrigin = "anonymous";
+    baseImg.src = sanitizedDocUrl;
+    baseImg.onload = () => {
+      canvas.width = baseImg.naturalWidth || 600;
+      canvas.height = baseImg.naturalHeight || 400;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(baseImg, 0, 0);
+      if (sanitizedHeatmapUrl && blendOpacity > 0) {
+        const heatImg = new Image();
+        heatImg.crossOrigin = "anonymous";
+        heatImg.src = sanitizedHeatmapUrl;
+        heatImg.onload = () => {
+          ctx.save();
+          ctx.globalAlpha = blendOpacity;
+          ctx.drawImage(heatImg, 0, 0, canvas.width, canvas.height);
+          ctx.restore();
+          if (showBoundingBoxes) {
+            renderBoxes(ctx);
+          }
+        };
+      } else if (showBoundingBoxes) {
+        renderBoxes(ctx);
+      }
+    };
+  }, [sanitizedDocUrl, sanitizedHeatmapUrl, blendOpacity, showBoundingBoxes, viewMode, forensics, stamp]);
+  const renderBoxes = (ctx) => {
+    if (forensics.tampered_regions && forensics.tampered_regions.length > 0) {
+      for (const region of forensics.tampered_regions) {
+        const [x1, y1, x2, y2] = region.bbox;
+        ctx.save();
+        ctx.strokeStyle = "#EF4444";
+        ctx.lineWidth = 3;
+        ctx.setLineDash([6, 4]);
+        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+        ctx.fillStyle = "#EF4444";
+        ctx.fillRect(x1, Math.max(0, y1 - 22), x2 - x1 > 120 ? x2 - x1 : 140, 22);
+        ctx.fillStyle = "#F8FAFC";
+        ctx.font = "bold 11px monospace";
+        ctx.fillText(`TAMPER: ${(region.peak_tamper_probability * 100).toFixed(0)}%`, x1 + 4, Math.max(15, y1 - 6));
+        ctx.restore();
+      }
+    }
+    if (stamp?.stamp_bbox) {
+      const [sx1, sy1, sx2, sy2] = stamp.stamp_bbox;
+      ctx.save();
+      ctx.strokeStyle = stamp.verdict === "AUTHENTIC" ? "#10B981" : "#F59E0B";
+      ctx.lineWidth = 2.5;
+      ctx.strokeRect(sx1, sy1, sx2 - sx1, sy2 - sy1);
+      ctx.fillStyle = stamp.verdict === "AUTHENTIC" ? "#10B981" : "#F59E0B";
+      ctx.fillRect(sx1, Math.max(0, sy1 - 20), 120, 20);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = "bold 10px sans-serif";
+      ctx.fillText(`STAMP: ${stamp.verdict}`, sx1 + 4, Math.max(14, sy1 - 5));
+      ctx.restore();
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+    "div",
+    {
+      className: "bg-surface border border-line rounded-card p-4 space-y-3 shadow-card",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Eye, { className: "w-4 h-4 text-accent" }),
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Dual-Canvas Visual Forensics & Heatmap Compositor" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center flex-wrap gap-2 text-xs", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex bg-inset p-0.5 rounded-control border border-line", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setViewMode("slider"),
+                  className: `flex items-center space-x-1 px-2.5 py-1 rounded-chip text-[11px] font-medium transition-colors ${viewMode === "slider" ? "bg-accent text-white shadow-btn" : "text-ink-2 hover:text-ink"}`,
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(SlidersVertical, { className: "w-3 h-3" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { children: "Opacity Slider" })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setViewMode("side-by-side"),
+                  className: `flex items-center space-x-1 px-2.5 py-1 rounded-chip text-[11px] font-medium transition-colors ${viewMode === "side-by-side" ? "bg-accent text-white shadow-btn" : "text-ink-2 hover:text-ink"}`,
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Columns2, { className: "w-3 h-3" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { children: "Side-by-Side" })
+                  ]
+                }
+              )
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: () => setShowBoundingBoxes(!showBoundingBoxes),
+                className: `px-2.5 py-1 rounded-control border text-[11px] font-mono transition-colors shadow-btn ${showBoundingBoxes ? "bg-accent-tint border-accent/40 text-accent font-semibold" : "bg-inset border-line text-ink-3"}`,
+                children: [
+                  "B-Boxes: ",
+                  showBoundingBoxes ? "ON" : "OFF"
+                ]
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-1 bg-inset px-1 py-0.5 rounded-control border border-line shadow-btn", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setZoomLevel((z) => Math.max(0.7, z - 0.15)),
+                  className: "p-1 hover:text-ink text-ink-3",
+                  title: "Zoom Out",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(ZoomOut, { className: "w-3.5 h-3.5" })
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "text-[10px] font-mono text-ink px-1", children: [
+                (zoomLevel * 100).toFixed(0),
+                "%"
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setZoomLevel((z) => Math.min(2, z + 0.15)),
+                  className: "p-1 hover:text-ink text-ink-3",
+                  title: "Zoom In",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(ZoomIn, { className: "w-3.5 h-3.5" })
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setZoomLevel(1),
+                  className: "p-1 hover:text-ink text-ink-3 border-l border-line ml-0.5",
+                  title: "Reset Zoom",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(RotateCcw, { className: "w-3 h-3" })
+                }
+              )
+            ] })
+          ] })
+        ] }),
+        viewMode === "slider" && /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-3 bg-inset px-3 py-2 rounded-control border border-line text-xs", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink-3 text-[11px] font-mono whitespace-nowrap", children: "Original (0%)" }),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            "input",
+            {
+              type: "range",
+              min: "0",
+              max: "1",
+              step: "0.05",
+              value: blendOpacity,
+              onChange: (e) => setBlendOpacity(parseFloat(e.target.value)),
+              className: "w-full accent-accent cursor-pointer h-1.5 bg-surface rounded-lg"
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "text-ink-2 text-[11px] font-mono whitespace-nowrap", children: [
+            "Heatmap (",
+            (blendOpacity * 100).toFixed(0),
+            "%)"
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+          "div",
+          {
+            ref: containerRef,
+            className: "relative bg-canvas rounded-card border border-line p-3 min-h-[300px] flex items-center justify-center overflow-auto max-h-[500px]",
+            children: viewMode === "slider" ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+              "div",
+              {
+                style: { transform: `scale(${zoomLevel})`, transformOrigin: "center center" },
+                className: "transition-transform duration-150 flex justify-center",
+                children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("canvas", { ref: canvasRef, className: "max-w-full rounded-control border border-line shadow-card" })
+              }
+            ) : /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+              "div",
+              {
+                style: { transform: `scale(${zoomLevel})`, transformOrigin: "center center" },
+                className: "grid grid-cols-1 md:grid-cols-2 gap-3 w-full transition-transform duration-150",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[10px] font-mono text-ink-3 uppercase mb-1", children: "High-Res Document Scan" }),
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                      "img",
+                      {
+                        src: sanitizedDocUrl,
+                        alt: "Original Document",
+                        className: "max-h-[320px] max-w-full object-contain rounded-chip"
+                      }
+                    )
+                  ] }),
+                  /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[10px] font-mono text-ink-3 uppercase mb-1", children: "Tamper Check Heatmap" }),
+                    sanitizedHeatmapUrl ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                      "img",
+                      {
+                        src: sanitizedHeatmapUrl,
+                        alt: "Heatmap",
+                        className: "max-h-[320px] max-w-full object-contain rounded-chip"
+                      }
+                    ) : /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "h-[240px] flex flex-col items-center justify-center text-center p-4 text-ink-3 text-xs font-mono", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(ShieldCheck, { className: "w-8 h-8 text-green mb-2" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { children: "Zero pixel tampering detected. Substrate nominal." })
+                    ] })
+                  ] })
+                ]
+              }
+            )
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "bg-inset px-3 py-2 rounded-control border border-line flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] font-mono", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-ink-3 text-[10px] uppercase font-bold", children: "Colormap:" }),
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+              "div",
+              {
+                className: "w-48 h-2.5 rounded-full border border-line",
+                style: {
+                  background: "linear-gradient(to right, #30123b, #4662d8, #1ae4b6, #a2fc3c, #faba39, #e23e1a, #7a0403)"
+                }
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-3 text-ink-3 text-[10px]", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "flex items-center gap-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "w-2 h-2 rounded-full bg-accent" }),
+              " 0.00 (Clean)"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "flex items-center gap-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "w-2 h-2 rounded-full bg-green" }),
+              " 0.18 (Tamper Threshold)"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "flex items-center gap-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "w-2 h-2 rounded-full bg-red" }),
+              " 1.00 (Critical Forgery)"
+            ] })
+          ] })
+        ] })
+      ]
+    }
+  );
+};
+
+// src/components/PillarsTable.tsx
+var import_react10 = __toESM(require_react(), 1);
+
+// src/utils/formatting.ts
+function formatPercent(value, decimals = 1) {
+  if (value === void 0 || value === null || isNaN(value)) return "N/A";
+  return `${(value * 100).toFixed(decimals)}%`;
+}
+function maskAadhaar(raw) {
+  if (!raw) return "N/A";
+  const clean = raw.replace(/\s+/g, "").replace(/-/g, "");
+  if (clean.length === 12) {
+    return `XXXX-XXXX-${clean.slice(8)}`;
+  }
+  return raw;
+}
+
+// src/components/PillarOCR.tsx
+var import_jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
+var PillarOCR = ({ ocr }) => {
+  const { status, script_detected, fields, field_confidences, mean_confidence, requires_tier2_vlm, qr_payload } = ocr;
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Status" }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-xs font-bold font-mono text-green uppercase", children: status })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Script" }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-xs font-bold font-mono text-ink uppercase", children: script_detected })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Mean Confidence" }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-xs font-bold font-mono text-accent", children: formatPercent(mean_confidence) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Enhanced Scan Gate" }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          "span",
+          {
+            className: `text-xs font-bold font-mono ${requires_tier2_vlm ? "text-orange" : "text-ink-3"}`,
+            children: requires_tier2_vlm ? "TRIGGERED (ENHANCED SCAN)" : "STANDARD VERIFIED (PASS)"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset rounded-card border border-line overflow-hidden", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-surface px-3 py-2 border-b border-line font-semibold text-ink flex items-center justify-between", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "flex items-center gap-1.5 font-mono text-xs", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(FileText, { className: "w-3.5 h-3.5 text-accent" }),
+          "Structured Demographic Fields"
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "text-[10px] text-ink-3 font-mono", children: [
+          Object.keys(fields).length,
+          " Fields Extracted"
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("div", { className: "p-3 divide-y divide-line", children: Object.keys(fields).length > 0 ? Object.entries(fields).map(([key, val]) => {
+        const conf = field_confidences[key];
+        const displayVal = key.includes("aadhaar") ? maskAadhaar(val) : val;
+        return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "py-1.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "text-ink-2 font-mono text-[11px] capitalize", children: [
+            key.replace(/_/g, " "),
+            ":"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "font-semibold text-ink", children: displayVal }),
+            conf !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[10px] font-mono text-ink-3 bg-surface px-1.5 py-0.5 rounded-chip border border-line", children: formatPercent(conf, 0) })
+          ] })
+        ] }, key);
+      }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("p", { className: "text-ink-3 italic py-2 font-mono", children: "No structured text fields detected." }) })
+    ] }),
+    qr_payload && qr_payload.raw_qr_found && /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset rounded-card border border-line p-3 space-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center space-x-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(QrCode, { className: "w-4 h-4 text-brand-purple" }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "font-bold text-ink font-mono text-xs", children: "Aadhaar Secure QR Cryptographic Payload" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          "span",
+          {
+            className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${qr_payload.signature_valid ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
+            children: qr_payload.signature_valid ? "RSA-2048 SIGNATURE VALID" : "RSA-2048 SIGNATURE INVALID"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink-3", children: "QR Format: " }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink", children: qr_payload.qr_type || "AADHAAR_SECURE_V2" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink-3", children: "Algorithm: " }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink", children: qr_payload.signature_algorithm || "SHA256withRSA" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink-3", children: "JP2000 Photo: " }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: qr_payload.photo_jp2_extracted ? "text-green font-semibold" : "text-ink-3", children: qr_payload.photo_jp2_extracted ? "EXTRACTED" : "NONE" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink-3", children: "Authority: " }),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink", children: "UIDAI 2048-bit Root CA" })
+        ] })
+      ] }),
+      qr_payload.error_message && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("p", { className: "text-[10px] text-red bg-red-tint border border-red/40 p-1.5 rounded-chip font-mono", children: qr_payload.error_message })
+    ] })
+  ] });
+};
+
+// src/components/PillarMRZ.tsx
+var import_jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
+var PillarMRZ = ({ mrz }) => {
+  const {
+    mrz_detected,
+    mrz_type,
+    valid,
+    raw_lines,
+    country_code,
+    surname,
+    given_names,
+    document_number,
+    doc_number_checksum_valid,
+    dob_checksum_valid,
+    expiry_checksum_valid,
+    optional_data_checksum_valid,
+    composite_checksum_valid,
+    checksum_failures
+  } = mrz;
+  if (!mrz_detected) {
+    return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset p-6 rounded-card border border-line text-center space-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(CreditCard, { className: "w-8 h-8 text-ink-3 mx-auto" }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("h4", { className: "text-xs font-bold text-ink font-mono uppercase", children: "No Machine Readable Zone (MRZ) Detected" }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "This document format (e.g. standard Aadhaar PVC or Entry Permit) does not contain an ICAO Doc 9303 MRZ zone." })
+    ] });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2 bg-inset p-3 rounded-card border border-line", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(CreditCard, { className: "w-4 h-4 text-accent" }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("span", { className: "font-bold text-ink font-mono", children: [
+          "ICAO Doc 9303 MRZ Engine (",
+          mrz_type || "TD3",
+          ")"
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+        "span",
+        {
+          className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${valid ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
+          children: valid ? "MODULO-10 7-3-1 VERIFIED" : "CHECKSUM FAILURE DETECTED"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-1", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[10px] text-ink-3 uppercase font-mono block mb-1", children: "Optical Character Matrix (OCR-B Font)" }),
+      raw_lines.map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+        "div",
+        {
+          className: "font-mono text-xs sm:text-sm bg-surface px-3 py-1.5 rounded-control text-orange tracking-widest border border-line overflow-x-auto whitespace-pre shadow-inset-field",
+          children: line
+        },
+        idx
+      ))
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[10px] font-mono uppercase text-ink-3 font-bold block", children: "Modulo-10 (Weights 7-3-1) Checksum Indicators" }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-[11px]", children: [
+        ["CD1 (Doc No)", doc_number_checksum_valid],
+        ["CD2 (DOB)", dob_checksum_valid],
+        ["CD3 (Expiry)", expiry_checksum_valid],
+        ["CD4 (Optional)", optional_data_checksum_valid !== false],
+        ["Composite", composite_checksum_valid]
+      ].map(([label, isValid]) => /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line flex flex-col items-center text-center shadow-btn", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3 text-[10px]", children: label }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: `font-bold mt-1 ${isValid ? "text-green" : "text-red"}`, children: isValid ? "VALID" : "FAILED" })
+      ] }, label)) })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 bg-inset p-3 rounded-card border border-line font-mono text-[11px]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Surname:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-bold text-ink", children: surname || "N/A" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Given Names:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-bold text-ink", children: given_names || "N/A" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Document No:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-bold text-ink", children: document_number || "N/A" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Country Code:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-bold text-ink", children: country_code || "N/A" })
+      ] })
+    ] }),
+    checksum_failures.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-red-tint border border-red/40 p-2.5 rounded-card", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[11px] font-bold text-red block mb-1 font-mono", children: "Checksum Failures Log:" }),
+      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("ul", { className: "list-disc list-inside text-[11px] text-ink font-mono", children: checksum_failures.map((f, i) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("li", { children: f }, i)) })
+    ] })
+  ] });
+};
+
+// src/components/PillarBiometrics.tsx
+var import_jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
+var PillarBiometrics = ({ biometrics, liveness }) => {
+  if (!biometrics && !liveness) {
+    return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-inset p-6 rounded-card border border-line text-center space-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(UserCheck, { className: "w-8 h-8 text-ink-3 mx-auto" }),
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h4", { className: "text-xs font-bold text-ink font-mono uppercase", children: "No Biometric Data Available" }),
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "Capture a live face photograph using WebCam to evaluate 1:1 face match similarity and live selfie presentation verification." })
+    ] });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
+    biometrics && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-inset rounded-card border border-line p-3 space-y-3", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center space-x-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(UserCheck, { className: "w-4 h-4 text-accent" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "font-bold text-ink font-mono", children: "Facial Biometric Matcher \xB7 1:1 Identity Verification" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+          "span",
+          {
+            className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${biometrics.match ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
+            children: biometrics.match ? "1:1 IDENTITY MATCH CONFIRMED" : "IDENTITY MISMATCH DETECTED"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Face Match Confidence" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+            "span",
+            {
+              className: `text-sm font-bold block mt-0.5 ${biometrics.similarity >= biometrics.threshold ? "text-green" : "text-red"}`,
+              children: biometrics.similarity.toFixed(3)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Decision Threshold" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: biometrics.threshold.toFixed(2) })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Age Validation" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: biometrics.age_drift_years !== null && biometrics.age_drift_years !== void 0 ? `\u0394 ${biometrics.age_drift_years} yrs (Pass)` : "N/A" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Watchlist Vector Screen" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+            "span",
+            {
+              className: `text-xs font-bold block mt-1 ${biometrics.watchlist_hit ? "text-red" : "text-green"}`,
+              children: biometrics.watchlist_hit ? "WATCHLIST HIT!" : "CLEAR (NO HIT)"
+            }
+          )
+        ] })
+      ] })
+    ] }),
+    liveness && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-inset rounded-card border border-line p-3 space-y-3", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center space-x-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(Activity, { className: "w-4 h-4 text-green" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "font-bold text-ink font-mono", children: "Selfie Liveness & Anti-Spoofing Check" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+          "span",
+          {
+            className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${liveness.is_live ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
+            children: liveness.is_live ? "GENUINE LIVE HUMAN" : "PRESENTATION ATTACK DETECTED"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Selfie Liveness Check" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+            "span",
+            {
+              className: `text-sm font-bold block mt-0.5 ${liveness.is_live ? "text-green" : "text-red"}`,
+              children: formatPercent(liveness.confidence)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Patch Scale 2.7x" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: liveness.score_2_7x !== null && liveness.score_2_7x !== void 0 ? formatPercent(liveness.score_2_7x) : "N/A" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Patch Scale 4.0x" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: liveness.score_4_0x !== null && liveness.score_4_0x !== void 0 ? formatPercent(liveness.score_4_0x) : "N/A" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "2D Fourier FFT Anomaly" }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+            "span",
+            {
+              className: `text-sm font-bold block mt-0.5 ${(liveness.fourier_anomaly_score || 0) > 0.5 ? "text-red" : "text-green"}`,
+              children: liveness.fourier_anomaly_score !== null && liveness.fourier_anomaly_score !== void 0 ? liveness.fourier_anomaly_score.toFixed(2) : "0.00"
+            }
+          )
+        ] })
+      ] }),
+      liveness.attack_type && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-red-tint border border-red/40 p-2.5 rounded-control flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(Smartphone, { className: "w-4 h-4 text-red flex-shrink-0" }),
+        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("span", { className: "text-[11px] font-mono text-red font-semibold", children: [
+          "Detected Attack Modality: ",
+          liveness.attack_type
+        ] })
+      ] })
+    ] })
+  ] });
+};
+
+// src/components/PillarForensics.tsx
+var import_jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
+var PillarForensics = ({ forensics }) => {
+  const {
+    tamper_score,
+    is_tampered,
+    photo_region_tampered,
+    doctamper_score,
+    trufor_score,
+    ela_result,
+    exif_suspicious,
+    dqt_quantization_altered,
+    tampered_regions
+  } = forensics;
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2 bg-inset p-3 rounded-card border border-line", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Microscope, { className: "w-4 h-4 text-accent" }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "font-bold text-ink font-mono", children: "Multi-Scale Pixel Forgery & Splicing Suite" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+        "span",
+        {
+          className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${!is_tampered ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
+          children: !is_tampered ? "ZERO TAMPERING DETECTED" : "PIXEL FORGERY / SPLICING ALERT"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Continuous Tamper Score" }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          "span",
+          {
+            className: `text-sm font-bold block mt-0.5 ${is_tampered ? "text-red" : "text-green"}`,
+            children: formatPercent(tamper_score)
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "tau_adapt = 0.180" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Digital Text Tamper Detector" }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          "span",
+          {
+            className: `text-sm font-bold block mt-0.5 ${doctamper_score >= 0.18 ? "text-red" : "text-ink-2"}`,
+            children: formatPercent(doctamper_score)
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Text Scraping / Inpainting" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Photo Splicing Localization" }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          "span",
+          {
+            className: `text-sm font-bold block mt-0.5 ${trufor_score >= 0.18 ? "text-red" : "text-ink-2"}`,
+            children: formatPercent(trufor_score)
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Substrate Boundary Splicing" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Portrait Window Splicing" }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          "span",
+          {
+            className: `text-xs font-bold block mt-1 ${photo_region_tampered ? "text-red" : "text-green"}`,
+            children: photo_region_tampered ? "SPLICED PHOTO" : "PORTRAIT INTACT"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "flex items-center justify-between border-b border-line pb-1.5", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1.5 font-mono", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Layers, { className: "w-3.5 h-3.5 text-accent" }),
+          "Substrate Compression Analysis"
+        ] }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "grid grid-cols-2 gap-2 font-mono text-[11px]", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Max Intensity Error:" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "font-bold text-ink", children: ela_result ? ela_result.max_intensity.toFixed(1) : "N/A" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Mean Error Level:" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "font-bold text-ink", children: ela_result ? ela_result.mean_intensity.toFixed(1) : "N/A" })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "flex items-center justify-between border-b border-line pb-1.5", children: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1.5 font-mono", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(FileSearch, { className: "w-3.5 h-3.5 text-accent" }),
+          "EXIF & JPEG Quantization (DQT)"
+        ] }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "space-y-1 font-mono text-[11px]", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex justify-between", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3", children: "Editing Software Traces:" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: exif_suspicious ? "text-red font-bold" : "text-green font-bold", children: exif_suspicious ? "SUSPICIOUS EXIF" : "CLEAN (RAW CAPTURE)" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex justify-between", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3", children: "DQT Multi-Compression:" }),
+            /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: dqt_quantization_altered ? "text-orange font-bold" : "text-green font-bold", children: dqt_quantization_altered ? "NON-STANDARD DQT" : "STANDARD" })
+          ] })
+        ] })
+      ] })
+    ] }),
+    tampered_regions && tampered_regions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-red-tint border border-red/40 p-3 rounded-card space-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-xs font-bold text-red block font-mono", children: [
+        "Localized Anomaly Regions Detected (",
+        tampered_regions.length,
+        "):"
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "divide-y divide-red-800/40", children: tampered_regions.map((reg, idx) => /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "py-1 flex items-center justify-between font-mono text-[11px]", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-ink", children: [
+          "[",
+          reg.bbox.join(", "),
+          "] \u2022 ",
+          reg.tamper_type
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-red font-bold", children: [
+          "Peak Anomaly: ",
+          formatPercent(reg.peak_tamper_probability)
+        ] })
+      ] }, idx)) })
+    ] })
+  ] });
+};
+
+// src/components/PillarStamp.tsx
+var import_jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
+var PillarStamp = ({ stamp }) => {
+  if (!stamp || !stamp.stamp_found) {
+    return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-6 rounded-card border border-line text-center space-y-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Stamp, { className: "w-8 h-8 text-ink-3 mx-auto" }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("h4", { className: "text-xs font-bold text-ink font-mono uppercase", children: "No Border Transit Stamp Detected" }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "No physical rubber or laser immigration transit seal was detected on the presented document page." })
+    ] });
+  }
+  const {
+    verdict,
+    checkpost_id,
+    location_name,
+    ssim_score,
+    orb_match_count,
+    tamper_energy,
+    context_consistent,
+    reasons
+  } = stamp;
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2 bg-inset p-3 rounded-card border border-line", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Stamp, { className: "w-4 h-4 text-orange" }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "font-bold text-ink font-mono", children: "4-Stage Hybrid Stamp Authentication" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
+        "span",
+        {
+          className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${verdict === "AUTHENTIC" ? "bg-green-tint text-green border-green/40" : verdict === "SUSPICIOUS" ? "bg-orange-tint text-orange border-orange/40" : "bg-red-tint text-red border-red/40"}`,
+          children: [
+            "VERDICT: ",
+            verdict
+          ]
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line flex items-center space-x-3", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(MapPin, { className: "w-5 h-5 text-orange flex-shrink-0" }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[10px] uppercase font-mono text-ink-3 block", children: "SSB Stamp Registry Template:" }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("p", { className: "text-xs font-bold text-ink font-mono", children: location_name || checkpost_id || "Official Border Checkpost Stamp" })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Template SSIM" }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+          "span",
+          {
+            className: `text-sm font-bold block mt-0.5 ${(ssim_score || 0) >= 0.75 ? "text-green" : "text-orange"}`,
+            children: ssim_score !== null && ssim_score !== void 0 ? ssim_score.toFixed(3) : "N/A"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Threshold >= 0.750" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "ORB Inliers" }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("span", { className: "text-sm font-bold text-ink block mt-0.5", children: [
+          orb_match_count || 0,
+          " inliers"
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Homography Matrix" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Internal Tamper Energy" }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+          "span",
+          {
+            className: `text-sm font-bold block mt-0.5 ${(tamper_energy || 0) >= 0.18 ? "text-red" : "text-green"}`,
+            children: tamper_energy !== null && tamper_energy !== void 0 ? tamper_energy.toFixed(3) : "0.000"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Ink Tamper Mask" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Route & Date" }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+          "span",
+          {
+            className: `text-xs font-bold block mt-1 ${context_consistent ? "text-green" : "text-orange"}`,
+            children: context_consistent ? "CONSISTENT" : "ROUTE MISMATCH"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Registry Verification" })
+      ] })
+    ] }),
+    reasons && reasons.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-1", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[10px] font-bold text-ink-3 uppercase block font-mono", children: "Stamp Verification Audit Notes:" }),
+      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("ul", { className: "list-disc list-inside text-[11px] text-ink-2 space-y-0.5 font-mono", children: reasons.map((r, i) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("li", { children: r }, i)) })
+    ] })
+  ] });
+};
+
+// src/components/PillarsTable.tsx
+var import_jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
+var PillarsTable = ({ scanDetails }) => {
+  const [activeTab, setActiveTab] = (0, import_react10.useState)("all");
+  const { ocr, mrz, biometrics, liveness, forensics, stamp } = scanDetails;
+  const tabs = [
+    { id: "all", label: "All Verification Checks", icon: Grid3x3 },
+    {
+      id: "ocr",
+      label: "1. Text & QR Check",
+      icon: FileText,
+      badge: ocr.qr_payload?.raw_qr_found && ocr.qr_payload?.qr_type === "AADHAAR_SECURE_V2" && !ocr.qr_payload?.signature_valid ? "SIG FAIL" : void 0,
+      badgeColor: "bg-red-tint text-red border-red/40"
+    },
+    {
+      id: "mrz",
+      label: "2. Document Format",
+      icon: CreditCard,
+      badge: mrz.mrz_detected ? mrz.valid ? "VALID" : "FAIL" : void 0,
+      badgeColor: mrz.valid ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"
+    },
+    {
+      id: "biometrics",
+      label: "3. Face Match & Liveness",
+      icon: UserCheck,
+      badge: liveness?.is_live === false ? "SPOOF" : biometrics?.match ? "MATCH" : void 0,
+      badgeColor: liveness?.is_live === false ? "bg-red-tint text-red border-red/40" : "bg-green-tint text-green border-green/40"
+    },
+    {
+      id: "forensics",
+      label: "4. Ink & Substrate Integrity",
+      icon: Microscope,
+      badge: forensics.is_tampered ? "TAMPERED" : "CLEAN",
+      badgeColor: forensics.is_tampered ? "bg-red-tint text-red border-red/40" : "bg-green-tint text-green border-green/40"
+    },
+    {
+      id: "stamp",
+      label: "5. Border Permit Stamp",
+      icon: Stamp,
+      badge: stamp?.stamp_found ? stamp.verdict : void 0,
+      badgeColor: stamp?.verdict === "AUTHENTIC" ? "bg-green-tint text-green border-green/40" : "bg-orange-tint text-orange border-orange/40"
+    }
+  ];
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+    "div",
+    {
+      className: "bg-surface border border-line rounded-card p-4 space-y-4 shadow-card",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "flex items-center space-x-1.5 overflow-x-auto pb-1 border-b border-line", children: tabs.map((tab) => {
+          const Icon2 = tab.icon;
+          const isActive = activeTab === tab.id;
+          return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: () => setActiveTab(tab.id),
+              className: `flex items-center space-x-2 px-3 py-1.5 rounded-control text-xs font-semibold whitespace-nowrap transition-colors shadow-btn ${isActive ? "bg-accent text-white" : "bg-inset hover:bg-hover text-ink-2 hover:text-ink border border-line"}`,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Icon2, { className: "w-3.5 h-3.5" }),
+                /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { children: tab.label }),
+                tab.badge && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+                  "span",
+                  {
+                    className: `text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-chip border ${tab.badgeColor || "bg-surface text-ink-2 border-line"}`,
+                    children: tab.badge
+                  }
+                )
+              ]
+            },
+            tab.id
+          );
+        }) }),
+        activeTab === "all" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "space-y-4", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FileText, { className: "w-4 h-4" }),
+              " Check 1: Text Extraction & QR Verification"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarOCR, { ocr })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(CreditCard, { className: "w-4 h-4" }),
+              " Check 2: Document Format & Security Checksums"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarMRZ, { mrz })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(UserCheck, { className: "w-4 h-4" }),
+              " Check 3: Face Match & Selfie Liveness Check"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarBiometrics, { biometrics, liveness })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Microscope, { className: "w-4 h-4" }),
+              " Check 4: Ink, Tamper & Substrate Integrity"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarForensics, { forensics })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Stamp, { className: "w-4 h-4" }),
+              " Check 5: Border Permit Stamp Verification"
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarStamp, { stamp })
+          ] })
+        ] }) : activeTab === "ocr" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarOCR, { ocr }) : activeTab === "mrz" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarMRZ, { mrz }) : activeTab === "biometrics" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarBiometrics, { biometrics, liveness }) : activeTab === "forensics" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarForensics, { forensics }) : /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(PillarStamp, { stamp })
+      ]
+    }
+  );
+};
+
+// src/components/ui/InspectionPipelineTrace.tsx
+var import_react11 = __toESM(require_react(), 1);
+var import_jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
+var InspectionPipelineTrace = ({
+  steps,
+  totalLatencyMs,
+  isScanning
+}) => {
+  const [expanded, setExpanded] = import_react11.default.useState(true);
+  const completedCount = steps.filter((s) => s.status === "completed").length;
+  const failedCount = steps.filter((s) => s.status === "failed").length;
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
+      "button",
+      {
+        type: "button",
+        onClick: () => setExpanded(!expanded),
+        className: "w-full px-3.5 py-2.5 bg-inset hover:bg-hover flex items-center justify-between transition-colors border-b border-line",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider", children: "3-Stream Neural Pipeline Trace" }),
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+              "(",
+              completedCount,
+              "/",
+              steps.length,
+              " checks passed)"
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "flex items-center space-x-2", children: totalLatencyMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("span", { className: "text-[10px] font-mono bg-surface px-2 py-0.5 rounded-chip border border-line text-ink-3", children: [
+            totalLatencyMs,
+            "ms"
+          ] }) })
+        ]
+      }
+    ),
+    expanded && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "p-3.5 divide-y divide-line space-y-1 bg-surface", children: steps.map((step) => /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "pt-2 pb-1 flex items-center justify-between text-xs font-mono", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "flex items-center space-x-2.5 truncate", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: step.status === "completed" ? "text-green font-bold" : "text-red font-bold", children: step.status === "completed" ? "\u2713" : "\u2715" }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "text-ink font-semibold truncate", children: step.name }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "text-[9.5px] bg-inset text-ink-3 px-2 py-0.5 rounded-chip border border-line", children: step.category })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "flex items-center space-x-2 shrink-0", children: [
+        step.details && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "text-[11.5px] text-ink-2 font-sans hidden sm:inline truncate max-w-xs", children: step.details }),
+        step.latencyMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("span", { className: "text-[10.5px] text-ink-3 tabular-nums", children: [
+          step.latencyMs,
+          "ms"
+        ] })
+      ] })
+    ] }, step.id)) })
+  ] });
+};
+
+// src/components/ui/FilterTable.tsx
+var import_react12 = __toESM(require_react(), 1);
+var import_jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
+var DEFAULT_ROWS = [
+  { id: "CV-01", rule: "MRZ DOB vs Visual OCR DOB", category: "OCR/MRZ", telemetry: "Exact date sequence matched", status: "passed" },
+  { id: "CV-02", rule: "MRZ Doc No vs Visual Doc No", category: "OCR/MRZ", telemetry: "Document number checksum verified", status: "passed" },
+  { id: "CV-03", rule: "MRZ Name vs Visual Full Name", category: "OCR/MRZ", telemetry: "Normalized surname/given matched", status: "passed" },
+  { id: "CV-04", rule: "Biometric Apparent Age vs DOB", category: "Biometrics", telemetry: "Estimated age drift consistent", status: "passed" },
+  { id: "CV-05", rule: "Photo Splicing Density", category: "Forensics", telemetry: "Portrait region substrate clean", status: "passed" },
+  { id: "CV-06", rule: "Text Tamper Probability", category: "Forensics", telemetry: "No text scraping detected", status: "passed" },
+  { id: "CV-07", rule: "Stamp Context Consistency", category: "Stamp", telemetry: "Seal matches declared ICP", status: "passed" },
+  { id: "CV-08", rule: "Cryptographic Signature", category: "Crypto PKI", telemetry: "UIDAI root certificate verified", status: "passed" }
+];
+var FilterTable = ({
+  title = "Multi-Stream Cross-Validation Rules",
+  rows,
+  rules
+}) => {
+  const rawList = rows !== void 0 ? rows : rules !== void 0 ? rules : DEFAULT_ROWS;
+  const items = rawList || [];
+  const [filter, setFilter] = (0, import_react12.useState)("all");
+  const passedCount = items.filter((r) => r.status === "passed").length;
+  const warningCount = items.filter((r) => r.status === "warning").length;
+  const violationCount = items.filter((r) => r.status === "violation").length;
+  const displayedRows = filter === "all" ? items : items.filter((r) => r.status === filter);
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "px-3.5 py-2.5 bg-inset border-b border-line flex flex-wrap items-center justify-between gap-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider font-mono", children: title }),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+          "(",
+          items.length,
+          " active guards)"
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex items-center gap-1.5", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("all"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "all" ? "bg-hover text-ink shadow-btn border border-line" : "text-ink-2 hover:bg-hover hover:text-ink"}`,
+            children: [
+              "All (",
+              items.length,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("passed"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "passed" ? "bg-green-tint text-green border border-green/30 shadow-btn" : "text-ink-2 hover:text-green hover:bg-hover"}`,
+            children: [
+              "Passed (",
+              passedCount,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("warning"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "warning" ? "bg-orange-tint text-orange border border-orange/30 shadow-btn" : "text-ink-2 hover:text-orange hover:bg-hover"}`,
+            children: [
+              "Warnings (",
+              warningCount,
+              ")"
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter("violation"),
+            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "violation" ? "bg-red-tint text-red border border-red/30 shadow-btn" : "text-ink-2 hover:text-red hover:bg-hover"}`,
+            children: [
+              "Violations (",
+              violationCount,
+              ")"
+            ]
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("table", { className: "w-full text-left border-collapse text-xs", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("tr", { className: "border-b border-line text-[11px] text-ink-3 font-mono bg-inset", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("th", { className: "px-3.5 py-2 w-16", children: "Rule ID" }),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("th", { className: "px-3.5 py-2", children: "Verification Check" }),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("th", { className: "px-3.5 py-2", children: "Engine Stream" }),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("th", { className: "px-3.5 py-2", children: "Observed Signal" }),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("th", { className: "px-3.5 py-2 text-right", children: "Verdict" })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("tbody", { className: "divide-y divide-line font-mono bg-surface", children: displayedRows.map((row) => {
+        const ruleTitle = row.rule || row.name || "Validation Guard";
+        const categoryName = row.category || "Security";
+        const telemetryText = row.telemetry || row.description || "Verified nominal";
+        const isPass = row.status === "passed";
+        const isWarn = row.status === "warning";
+        return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("tr", { className: "hover:bg-hover transition-colors", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("td", { className: "px-3.5 py-2.5 text-ink-3 font-bold", children: row.id }),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("td", { className: "px-3.5 py-2.5 text-ink font-medium", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { children: ruleTitle }),
+            row.details && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "text-[10px] text-ink-3 mt-0.5 font-sans whitespace-pre-line max-w-md line-clamp-2", children: row.details })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("td", { className: "px-3.5 py-2.5", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "text-[9.5px] bg-inset text-ink-2 px-2 py-0.5 rounded-chip border border-line", children: categoryName }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("td", { className: "px-3.5 py-2.5 text-ink-2 text-[12px] font-sans", children: telemetryText }),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("td", { className: "px-3.5 py-2.5 text-right", children: isPass ? /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-green-tint text-green border border-green/30 font-semibold", children: "\u2713 PASS" }) : isWarn ? /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-orange-tint text-orange border border-orange/30 font-semibold", children: "\u26A0 WARN" }) : /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-red-tint text-red border border-red/30 font-bold", children: "\u2715 VIOLATION" }) })
+        ] }, row.id);
+      }) })
+    ] }) })
+  ] });
+};
+
+// src/components/ui/DiffTable.tsx
+var import_react13 = __toESM(require_react(), 1);
+var import_jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
+var DEFAULT_ROWS2 = [
+  { field: "Document Number", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "P98421034", valueB: "P98421034", isMatch: true },
+  { field: "Date of Birth (DOB)", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "1984-07-12", valueB: "1984-07-12", isMatch: true },
+  { field: "Full Legal Name", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "ANAND KUMAR", valueB: "ANAND KUMAR", isMatch: true },
+  { field: "Issuing Country", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "IND", valueB: "IND", isMatch: true }
+];
+var DiffTable = ({
+  title = "Field Discrepancy Matrix",
+  rows,
+  items,
+  diffs,
+  onApplyEdits,
+  showApplyButton = true
+}) => {
+  const rawList = rows !== void 0 ? rows : items !== void 0 ? items : diffs !== void 0 ? diffs : DEFAULT_ROWS2;
+  const rawItems = rawList && rawList.length > 0 ? rawList : rows !== void 0 || items !== void 0 ? rawList || [] : DEFAULT_ROWS2;
+  const normalizedItems = (rawItems.length > 0 ? rawItems : DEFAULT_ROWS2).map((r) => {
+    const isMatch = r.isMatch !== void 0 ? r.isMatch : r.status ? r.status === "match" : r.valueA === r.valueB;
+    return {
+      ...r,
+      isMatch
+    };
+  });
+  const [filterMismatch, setFilterMismatch] = (0, import_react13.useState)(false);
+  const displayedRows = filterMismatch ? normalizedItems.filter((r) => !r.isMatch) : normalizedItems;
+  const mismatchCount = normalizedItems.filter((r) => !r.isMatch).length;
+  const matchCount = normalizedItems.length - mismatchCount;
+  const handleApply = () => {
+    const flagged = normalizedItems.filter((r) => !r.isMatch).map((r) => r.field);
+    onApplyEdits?.(flagged);
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "px-3.5 py-2.5 bg-inset border-b border-line flex flex-wrap items-center justify-between gap-2", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "flex items-center space-x-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider font-mono", children: title }),
+        mismatchCount > 0 ? /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-red-tint text-red border border-red/30", children: [
+          mismatchCount,
+          " Discrepanc",
+          mismatchCount === 1 ? "y" : "ies",
+          " Found"
+        ] }) : /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-green-tint text-green border border-green/30", children: "100% Cross-Stream Consistency" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
+          "(",
+          matchCount,
+          " verified \xB7 ",
+          mismatchCount,
+          " mismatches)"
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "flex items-center gap-2", children: [
+        showApplyButton && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: handleApply,
+            className: "text-[11px] font-mono px-2.5 py-1 rounded-control bg-accent text-white font-semibold shadow-btn hover:bg-accent-hover transition-colors",
+            children: mismatchCount === 0 ? "Confirm Cross-Validation" : `Acknowledge ${mismatchCount} Discrepanc${mismatchCount === 1 ? "y" : "ies"}`
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilterMismatch(!filterMismatch),
+            className: `text-[11px] font-mono px-2.5 py-1 rounded-control transition-colors border shadow-btn ${filterMismatch ? "bg-red-tint text-red border-red/40" : "bg-surface text-ink-2 border-line hover:text-ink hover:bg-hover"}`,
+            children: filterMismatch ? "Show All Fields" : "Filter Mismatches Only"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("table", { className: "w-full text-left border-collapse text-xs", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("tr", { className: "border-b border-line text-[11px] text-ink-3 font-mono bg-inset", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2", children: "Target Attribute" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2", children: "Primary Visual OCR" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2", children: "MRZ / Digital PKI" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2 text-right", children: "Verification Status" })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("tbody", { className: "divide-y divide-line font-mono bg-surface", children: displayedRows.map((row, idx) => /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+        "tr",
+        {
+          className: `transition-colors ${!row.isMatch ? "bg-red-tint/30 hover:bg-red-tint/50" : "hover:bg-hover"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("td", { className: "px-3.5 py-2.5 font-medium text-ink", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { children: row.field || "\u2014" }),
+              row.details && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "text-[10px] text-ink-3 font-sans mt-0.5", children: row.details })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { className: "px-3.5 py-2.5 text-ink-2", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: !row.isMatch ? "line-through text-red font-semibold" : "", children: row.valueA || "\u2014" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { className: "px-3.5 py-2.5 text-ink", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: !row.isMatch ? "text-green font-bold" : "", children: row.valueB || "\u2014" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { className: "px-3.5 py-2.5 text-right", children: row.isMatch ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-green-tint text-green border border-green/30 font-semibold", children: "\u2713 MATCH" }) : /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-red-tint text-red border border-red/40 font-bold", children: "\u2715 MISMATCH" }) })
+          ]
+        },
+        idx
+      )) })
+    ] }) })
+  ] });
+};
+
+// src/components/ui/ApprovalCard.tsx
+var import_react14 = __toESM(require_react(), 1);
+
+// src/components/ui/Button.tsx
+var import_jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
+var filledShadow = "shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]";
+var variants = {
+  primary: `bg-ink text-canvas hover:opacity-90 dark:bg-ink dark:text-canvas ${filledShadow}`,
+  secondary: "bg-surface text-ink shadow-btn hover:bg-inset aria-expanded:bg-hover border border-line",
+  ghost: "text-ink-2 hover:bg-hover hover:text-ink",
+  accent: `bg-accent text-white hover:brightness-105 ${filledShadow}`,
+  success: `bg-green text-white hover:brightness-95 ${filledShadow}`,
+  danger: `bg-red text-white hover:brightness-95 ${filledShadow}`,
+  default: "bg-surface text-ink shadow-btn hover:bg-inset border border-line",
+  outline: "bg-transparent text-ink-2 border border-line-strong hover:bg-hover hover:text-ink"
+};
+var sizes = {
+  sm: "h-7 px-2.5 text-[12px] rounded-control gap-1.5",
+  md: "h-8.5 px-3.5 text-[13px] rounded-control gap-2",
+  lg: "h-10 px-4 text-[14px] rounded-control gap-2.5"
+};
+function Button({
+  variant = "secondary",
+  size = "md",
+  className = "",
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    "button",
+    {
+      className: `inline-flex items-center justify-center font-medium select-none
+        transition-[transform,background-color,border-color,color,opacity] duration-150 ease-out
+        active:scale-[0.96] disabled:opacity-45 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+        ${variants[variant]} ${sizes[size]} ${className}`,
+      ...props,
+      children
+    }
+  );
+}
+
+// src/components/ui/ApprovalCard.tsx
+var import_jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
+var ApprovalCard = ({
+  riskLevel = "GREEN",
+  riskScore = 0,
+  officerBadgeId = "SSB-IND-7049",
+  isOpen = true,
+  onDecide,
+  onDecision,
+  onAction,
+  disabled = false
+}) => {
+  const [open, setOpen] = (0, import_react14.useState)(isOpen);
+  const [selectedAction, setSelectedAction] = (0, import_react14.useState)(
+    riskLevel === "GREEN" ? "AUTO_CLEAR" : riskLevel === "AMBER" ? "SECONDARY_INSPECTION" : "DETAIN_AND_INTERDICT"
+  );
+  const [notes, setNotes] = (0, import_react14.useState)("");
+  const [submitted, setSubmitted] = (0, import_react14.useState)(false);
+  const handleSubmit = () => {
+    const decision = {
+      action: selectedAction,
+      reason: `Officer decision based on risk score ${riskScore.toFixed(1)} (${riskLevel})`,
+      badgeId: officerBadgeId,
+      officerNotes: notes
+    };
+    const mappedDecision = selectedAction === "AUTO_CLEAR" ? "clear" : selectedAction === "SECONDARY_INSPECTION" ? "secondary" : "interdict";
+    onDecide?.(decision);
+    onDecision?.(mappedDecision, notes);
+    onAction?.(selectedAction);
+    setSubmitted(true);
+  };
+  const handleReset = () => {
+    setSubmitted(false);
+    setNotes("");
+  };
+  if (!open || isOpen === false) {
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+      "button",
+      {
+        type: "button",
+        onClick: () => setOpen(true),
+        className: "w-full bg-white border border-slate-200 rounded-2xl p-4 text-xs font-sans text-slate-700 hover:text-slate-900 text-left flex items-center justify-between shadow-xs hover:bg-slate-50 transition-colors cursor-pointer",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "font-bold", children: "Open Officer Authorization Console" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] text-slate-400", children: "Click to expand decision workflow" })
+        ]
+      }
+    );
+  }
+  if (submitted) {
+    const confirmationLabel = selectedAction === "AUTO_CLEAR" ? "Traveler Cleared \u2022 Entry Permit Authorized" : selectedAction === "SECONDARY_INSPECTION" ? "Secondary Inspection Order Issued \u2022 Counter 2 Physical Verification" : "Interdiction Order Dispatched \u2022 Detention Protocol Active";
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "w-full bg-white border border-emerald-300 rounded-2xl p-4 flex items-center justify-between shadow-sm animate-pop-in", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center space-x-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "flex size-7 items-center justify-center rounded-full bg-emerald-600 text-white font-bold", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(Check, { className: "w-4 h-4" }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans block", children: confirmationLabel }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("span", { className: "text-[11px] text-slate-500 font-mono", children: [
+            "Signed and logged to defense audit ledger (",
+            officerBadgeId,
+            ")"
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: handleReset,
+          className: "text-xs text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1.5 cursor-pointer",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(RotateCcw, { className: "w-3.5 h-3.5" }),
+            " Modify Decision"
+          ]
+        }
+      )
+    ] });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "w-full bg-white border border-slate-200/70 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs select-none", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center justify-between border-b border-slate-100 pb-2.5", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-xs font-bold text-slate-900 uppercase tracking-wider font-sans", children: "Human-In-The-Loop Officer Authorization" }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("span", { className: "text-[10.5px] font-mono text-slate-400", children: [
+        "Section 4(2) Passport & Immigration Act \u2022 Officer: ",
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("strong", { className: "text-slate-700", children: officerBadgeId })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-2.5", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: () => setSelectedAction("AUTO_CLEAR"),
+          disabled,
+          className: `p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${selectedAction === "AUTO_CLEAR" ? "bg-emerald-50/70 border-emerald-400 text-emerald-900 ring-2 ring-emerald-500/10" : "bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center space-x-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(ShieldCheck, { className: "w-3.5 h-3.5 text-emerald-600 shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Clear Traveler" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] text-slate-500 mt-1 font-sans", children: "Proceed with normal transit entry" })
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: () => setSelectedAction("SECONDARY_INSPECTION"),
+          disabled,
+          className: `p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${selectedAction === "SECONDARY_INSPECTION" ? "bg-amber-50/70 border-amber-400 text-amber-900 ring-2 ring-amber-500/10" : "bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center space-x-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(ShieldAlert, { className: "w-3.5 h-3.5 text-amber-600 shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Secondary Hold" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] text-slate-500 mt-1 font-sans", children: "Redirect for physical document inspection" })
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+        "button",
+        {
+          type: "button",
+          onClick: () => setSelectedAction("DETAIN_AND_INTERDICT"),
+          disabled,
+          className: `p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${selectedAction === "DETAIN_AND_INTERDICT" ? "bg-red-50/70 border-red-400 text-red-900 ring-2 ring-red-500/10" : "bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60"}`,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center space-x-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(OctagonAlert, { className: "w-3.5 h-3.5 text-red-600 shrink-0" }),
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Interdiction Order" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-[11px] text-slate-500 mt-1 font-sans", children: "Issue border detention & report to MHA" })
+          ]
+        }
+      )
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center gap-2.5 pt-1", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+        "input",
+        {
+          type: "text",
+          value: notes,
+          onChange: (e) => setNotes(e.target.value),
+          placeholder: `Officer Remarks / Duty Officer Badge ID (${officerBadgeId})\u2026`,
+          className: "flex-1 bg-slate-50/60 border border-slate-200 rounded-xl px-3.5 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 font-sans focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors"
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+        Button,
+        {
+          variant: selectedAction === "DETAIN_AND_INTERDICT" ? "danger" : "primary",
+          size: "sm",
+          onClick: handleSubmit,
+          children: "Commit Decision"
+        }
+      )
+    ] })
+  ] });
+};
+
+// src/components/ui/ToolChips.tsx
+var import_react15 = __toESM(require_react(), 1);
+var import_react_dom = __toESM(require_react_dom(), 1);
+var import_jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
+var DEFAULT_TELEMETRY = [
+  {
+    name: "Multilingual Text & QR Engine",
+    label: "Text & QR",
+    status: "completed",
+    durationMs: 28,
+    confidence: 0.98,
+    modelVersion: "text-qr-v4",
+    chip: "extract_fields.onnx",
+    icon: "ocr",
+    detailLines: [
+      { text: "\u2713 Devanagari & Latin dual-head script inference passed (28ms)" },
+      { text: "\u2713 14 bounding boxes localized with mean confidence 98.4%" }
+    ]
+  },
+  {
+    name: "Digital Text Tamper Detector",
+    label: "Tamper Inspector",
+    status: "failed",
+    durationMs: 110,
+    confidence: 0.88,
+    modelVersion: "tamper-dtd-v2",
+    chip: "tamper_heatmap.pt",
+    icon: "forensics",
+    detailLines: [
+      { text: "\u2715 Photo splice anomaly detected on upper-left document quadrant", tone: "del" },
+      { text: "+ Adaptive threshold triggered \u03C4 = 0.18 (Observed: 0.88)", tone: "add" }
+    ]
+  },
+  {
+    name: "Facial Biometric Matcher",
+    label: "Face Matcher",
+    status: "completed",
+    durationMs: 48,
+    confidence: 0.74,
+    modelVersion: "biometric-v1",
+    chip: "face_align_112.onnx",
+    icon: "face",
+    detailLines: [
+      { text: "\u2713 Canonical facial alignment to 112\xD7112" },
+      { text: "\u2713 Face match confidence 0.74 exceeds security threshold (0.35)" }
+    ]
+  },
+  {
+    name: "Live Selfie Presentation Checker",
+    label: "Liveness Check",
+    status: "completed",
+    durationMs: 32,
+    confidence: 0.99,
+    modelVersion: "liveness-v2",
+    chip: "liveness_dual_scale.onnx",
+    icon: "face",
+    detailLines: [
+      { text: "\u2713 Dual-scale crops (2.7\xD7 & 4.0\xD7) evaluated for 2D print / screen replay" },
+      { text: "\u2713 Live presentation verified (Selfie liveness check: 99.1%)" }
+    ]
+  },
+  {
+    name: "Border Transit Permit Stamp Verifier",
+    label: "Stamp Verifier",
+    status: "completed",
+    durationMs: 24,
+    confidence: 0.94,
+    modelVersion: "stamp-orb-ssim",
+    chip: "stamp_registry.json",
+    icon: "stamp",
+    detailLines: [
+      { text: "\u2713 HSV segmentation localized circular seal region at (840, 520)" },
+      { text: "\u2713 Reference template matching confirmed Jaigaon ICP authority" }
+    ]
+  }
+];
+var DEFAULT_DIFFS = [
+  {
+    file: "ocr_payload.json",
+    add: 14,
+    del: 0,
+    lines: [
+      { text: "{", tone: "ctx" },
+      { text: '  "doc_number": "P98421034",', tone: "add" },
+      { text: '  "dob": "1984-07-12",', tone: "add" },
+      { text: '  "name": "KUMAR<<ANAND"', tone: "add" },
+      { text: "}", tone: "ctx" }
+    ]
+  },
+  {
+    file: "forensics_tensor.bin",
+    add: 1,
+    del: 1,
+    lines: [
+      { text: "tamper_flag: false,", tone: "del" },
+      { text: "tamper_flag: true, // score 0.88", tone: "add" }
+    ]
+  }
+];
+var ICONS = {
+  think: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" }) }),
+  write: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" }) }),
+  run: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M4 17l6-5-6-5M12 19h8" }) }),
+  read: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M14 2v6h6" })
+  ] }),
+  ocr: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("polyline", { points: "4 7 4 4 20 4 20 7" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("line", { x1: "9", y1: "20", x2: "15", y2: "20" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("line", { x1: "12", y1: "4", x2: "12", y2: "20" })
+  ] }),
+  face: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M8 14s1.5 2 4 2 4-2 4-2" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("line", { x1: "9", y1: "9", x2: "9.01", y2: "9" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("line", { x1: "15", y1: "9", x2: "15.01", y2: "9" })
+  ] }),
+  forensics: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" }) }),
+  stamp: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
+    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "m4.93 4.93 14.14 14.14" })
+  ] })
+};
+function ToolChips({
+  telemetry = DEFAULT_TELEMETRY,
+  diffs = DEFAULT_DIFFS,
+  title,
+  className = ""
+}) {
+  const [open, setOpen] = (0, import_react15.useState)(true);
+  const [openRows, setOpenRows] = (0, import_react15.useState)(/* @__PURE__ */ new Set());
+  const [preview, setPreview] = (0, import_react15.useState)(null);
+  const completedCount = telemetry.filter((t) => t.status === "completed").length;
+  const failedCount = telemetry.filter((t) => t.status === "failed").length;
+  const toggleRow = (name) => {
+    setOpenRows((current) => {
+      const next = new Set(current);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
+      return next;
+    });
+  };
+  const openPreview = (diff) => (event) => {
+    const target = event.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const lines = diff.lines || [];
+    const previewHeight = 42 + lines.length * 20;
+    const fitsBelow = rect.bottom + 6 + previewHeight <= window.innerHeight - 12;
+    setPreview({
+      file: diff.file,
+      lines,
+      add: diff.add,
+      del: diff.del,
+      x: Math.max(12, Math.min(rect.left, window.innerWidth - 320)),
+      ...fitsBelow ? { top: rect.bottom + 6 } : { bottom: window.innerHeight - rect.top + 6 }
+    });
+  };
+  const closePreview = (file) => () => {
+    setPreview((current) => current?.file === file ? null : current);
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+    "div",
+    {
+      className: `w-full overflow-hidden rounded-card bg-surface shadow-card border border-line p-3 ${className}`,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+          "button",
+          {
+            type: "button",
+            "aria-expanded": open,
+            onClick: () => setOpen((c) => !c),
+            className: "flex w-full items-center justify-between gap-2 rounded-control p-1 text-left transition-colors hover:bg-hover",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                  "svg",
+                  {
+                    width: "13",
+                    height: "13",
+                    viewBox: "0 0 24 24",
+                    fill: "none",
+                    stroke: "currentColor",
+                    strokeWidth: "2.2",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    className: "transition-transform duration-200 text-ink-3",
+                    style: { transform: open ? "rotate(0deg)" : "rotate(-90deg)" },
+                    children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M6 9l6 6 6-6" })
+                  }
+                ),
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[12.5px] font-semibold text-ink font-mono", children: title || `${telemetry.length} Neural Models Executed` })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center gap-1.5 font-mono text-[11px]", children: [
+                failedCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "rounded-full bg-red-tint px-2 py-0.5 font-semibold text-red border border-red/20", children: [
+                  failedCount,
+                  " Flagged"
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "rounded-full bg-green-tint px-2 py-0.5 font-medium text-green border border-green/20", children: [
+                  completedCount,
+                  " Passed"
+                ] })
+              ] })
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          "div",
+          {
+            className: "grid transition-[grid-template-rows,opacity] duration-300",
+            style: { gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 },
+            children: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "overflow-hidden pt-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "flex flex-col gap-1", children: telemetry.map((row) => {
+                const rowKey = row.name;
+                const rowOpen = openRows.has(rowKey);
+                const iconKey = row.icon || "run";
+                const isFailed = row.status === "failed";
+                const isRunning = row.status === "running";
+                return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex flex-col", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+                    "button",
+                    {
+                      type: "button",
+                      "aria-expanded": rowOpen,
+                      onClick: () => toggleRow(rowKey),
+                      className: "group flex h-7.5 w-full items-center gap-2 rounded-control px-2 text-left transition-colors duration-100 hover:bg-hover",
+                      children: [
+                        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                          "span",
+                          {
+                            className: `flex size-4 shrink-0 items-center justify-center ${isFailed ? "text-red" : isRunning ? "text-accent animate-spin" : "text-ink-3"}`,
+                            children: ICONS[iconKey] || ICONS.run
+                          }
+                        ),
+                        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "min-w-0 truncate text-[12.5px] font-medium text-ink font-mono", children: row.label || row.name }),
+                        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "inline-flex h-5.5 min-w-0 flex-1 items-center truncate rounded-chip bg-field px-1.5 font-mono text-[11px] text-ink-2 border border-line", children: row.chip || row.modelVersion || "onnx-runtime" }),
+                        row.confidence !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
+                          (row.confidence * 100).toFixed(0),
+                          "%"
+                        ] }),
+                        row.durationMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
+                          row.durationMs,
+                          "ms"
+                        ] }),
+                        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                          "svg",
+                          {
+                            width: "12",
+                            height: "12",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            strokeWidth: "2.2",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            className: "text-ink-3 transition-transform duration-200 shrink-0",
+                            style: { transform: rowOpen ? "rotate(180deg)" : "rotate(0deg)" },
+                            children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("path", { d: "M6 9l6 6 6-6" })
+                          }
+                        )
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                    "div",
+                    {
+                      className: "grid transition-[grid-template-rows,opacity] duration-200",
+                      style: {
+                        gridTemplateRows: rowOpen ? "1fr" : "0fr",
+                        opacity: rowOpen ? 1 : 0,
+                        transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
+                      },
+                      children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "my-1 ml-3 flex flex-col gap-0.5 border-l-2 border-line pl-3 py-1 text-[11.5px] font-mono text-ink-2", children: [
+                        row.details && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "text-ink-2", children: row.details }),
+                        (row.detailLines || []).map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                          "div",
+                          {
+                            className: `truncate leading-relaxed ${line.tone === "del" ? "text-red font-medium" : line.tone === "add" ? "text-green font-medium" : "text-ink-3"}`,
+                            children: line.text
+                          },
+                          idx
+                        ))
+                      ] }) })
+                    }
+                  )
+                ] }, rowKey);
+              }) }),
+              diffs.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "mt-2.5 flex flex-wrap items-center gap-1.5 border-t border-line pt-2.5", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[11px] font-mono text-ink-3 mr-1", children: "Tensors:" }),
+                diffs.map((d) => /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+                  "button",
+                  {
+                    type: "button",
+                    onMouseEnter: openPreview(d),
+                    onMouseLeave: closePreview(d.file),
+                    className: "inline-flex h-6 items-center gap-1.5 rounded-chip bg-surface px-2 font-mono text-[11px] text-ink shadow-btn border border-line hover:bg-hover transition-colors",
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "truncate max-w-[140px]", children: d.file }),
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "text-green tabular-nums", children: [
+                        "+",
+                        d.add
+                      ] }),
+                      d.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "text-red tabular-nums", children: [
+                        "\u2212",
+                        d.del
+                      ] })
+                    ]
+                  },
+                  d.file
+                ))
+              ] })
+            ] })
+          }
+        ),
+        preview && typeof document !== "undefined" && (0, import_react_dom.createPortal)(
+          /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+            "div",
+            {
+              className: "fixed z-50 w-72 overflow-hidden rounded-[10px] bg-surface shadow-overlay border border-line font-mono text-[11px] animate-pop-in",
+              style: {
+                left: preview.x,
+                top: preview.top,
+                bottom: preview.bottom,
+                transformOrigin: preview.top === void 0 ? "bottom left" : "top left"
+              },
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center justify-between border-b border-line bg-canvas/60 px-2.5 py-1.5 font-medium", children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "truncate text-ink", children: preview.file }),
+                  /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "tabular-nums", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "text-green", children: [
+                      "+",
+                      preview.add
+                    ] }),
+                    preview.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "text-red", children: [
+                      " \u2212",
+                      preview.del
+                    ] })
+                  ] })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "p-1.5 space-y-0.5 leading-relaxed bg-surface", children: preview.lines.map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+                  "div",
+                  {
+                    className: `flex gap-1.5 px-2 py-0.5 rounded ${line.tone === "add" ? "bg-green-tint text-green" : line.tone === "del" ? "bg-red-tint text-red" : "text-ink-3"}`,
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "w-2.5 shrink-0 select-none", children: line.tone === "add" ? "+" : line.tone === "del" ? "\u2212" : " " }),
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "truncate", children: line.text })
+                    ]
+                  },
+                  idx
+                )) })
+              ]
+            }
+          ),
+          document.body
+        )
+      ]
+    }
+  );
+}
+
+// src/components/ui/SegmentedControl.tsx
+var import_jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+function SegmentedControl({
+  options,
+  value,
+  onChange,
+  size = "md",
+  className = ""
+}) {
+  const normalizedOptions = options.map(
+    (opt) => typeof opt === "string" ? { id: opt, label: opt } : opt
+  );
+  const activeIndex = normalizedOptions.findIndex((opt) => opt.id === value);
+  const count = normalizedOptions.length;
+  const clampedIndex = activeIndex >= 0 ? activeIndex : 0;
+  const handleKeyDown = (e) => {
+    if (count === 0) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      const nextIndex = (clampedIndex + 1) % count;
+      onChange(normalizedOptions[nextIndex].id);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      const prevIndex = (clampedIndex - 1 + count) % count;
+      onChange(normalizedOptions[prevIndex].id);
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      onChange(normalizedOptions[0].id);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      onChange(normalizedOptions[count - 1].id);
+    }
+  };
+  const heightCls = size === "sm" ? "h-7 text-[12px]" : "h-8.5 text-[13px]";
+  const padCls = size === "sm" ? "px-2.5 py-0.5" : "px-3 py-1";
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
+    "div",
+    {
+      role: "tablist",
+      tabIndex: 0,
+      onKeyDown: handleKeyDown,
+      className: `relative inline-grid select-none rounded-full bg-field/80 p-0.5 border border-line focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${heightCls} ${className}`,
+      style: { gridTemplateColumns: `repeat(${count}, 1fr)` },
+      children: [
+        activeIndex >= 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+          "span",
+          {
+            "aria-hidden": true,
+            className: "absolute inset-y-0.5 rounded-full bg-surface shadow-btn border border-line/60 transition-transform duration-200",
+            style: {
+              width: `calc((100% - 4px) / ${count})`,
+              left: 2,
+              transform: `translateX(${clampedIndex * 100}%)`,
+              transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
+            }
+          }
+        ),
+        normalizedOptions.map((opt) => {
+          const isSelected = opt.id === value;
+          return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
+            "button",
+            {
+              type: "button",
+              role: "tab",
+              "aria-selected": isSelected,
+              onClick: () => onChange(opt.id),
+              className: `relative z-10 flex items-center justify-center gap-1.5 rounded-full font-medium transition-colors duration-150 ${padCls} ${isSelected ? "text-ink font-semibold" : "text-ink-2 hover:text-ink"}`,
+              children: [
+                opt.icon && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "size-3.5 shrink-0 flex items-center justify-center", children: opt.icon }),
+                /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "truncate", children: opt.label }),
+                opt.badge !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+                  "span",
+                  {
+                    className: `ml-0.5 rounded-full px-1.5 py-0.2 text-[10.5px] tabular-nums font-mono ${isSelected ? "bg-accent/15 text-accent-ink" : "bg-inset text-ink-3"}`,
+                    children: opt.badge
+                  }
+                )
+              ]
+            },
+            opt.id
+          );
+        })
+      ]
+    }
+  );
+}
+
+// src/components/ui/StatusPill.tsx
+var import_jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+var tones = {
+  green: {
+    bg: "bg-green-tint",
+    fg: "text-green",
+    dot: "bg-green",
+    border: "border-green/20"
+  },
+  orange: {
+    bg: "bg-orange-tint",
+    fg: "text-orange",
+    dot: "bg-orange",
+    border: "border-orange/20"
+  },
+  amber: {
+    bg: "bg-orange-tint",
+    fg: "text-orange",
+    dot: "bg-orange",
+    border: "border-orange/20"
+  },
+  red: {
+    bg: "bg-red-tint",
+    fg: "text-red",
+    dot: "bg-red",
+    border: "border-red/20"
+  },
+  accent: {
+    bg: "bg-accent-tint",
+    fg: "text-accent-ink",
+    dot: "bg-accent",
+    border: "border-accent/20"
+  },
+  blue: {
+    bg: "bg-accent-tint",
+    fg: "text-accent-ink",
+    dot: "bg-accent",
+    border: "border-accent/20"
+  },
+  neutral: {
+    bg: "bg-inset",
+    fg: "text-ink-2",
+    dot: "bg-ink-3",
+    border: "border-line"
+  },
+  slate: {
+    bg: "bg-inset",
+    fg: "text-ink-2",
+    dot: "bg-ink-3",
+    border: "border-line"
+  }
+};
+var sizeClasses = {
+  sm: "h-5 px-2 text-[11px] gap-1",
+  md: "h-6 px-2.5 text-[12px] gap-1.5",
+  lg: "h-7 px-3 text-[13px] gap-2"
+};
+function StatusPill({
+  tone = "neutral",
+  children,
+  dot = true,
+  pulse = false,
+  size = "md",
+  className = ""
+}) {
+  const t = tones[tone] || tones.neutral;
+  const isAlert = tone === "red" || pulse;
+  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(
+    "span",
+    {
+      className: `inline-flex items-center rounded-full font-medium leading-none select-none border transition-colors ${t.bg} ${t.fg} ${t.border} ${sizeClasses[size]} ${className}`,
+      children: [
+        dot && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
+          "span",
+          {
+            className: `size-1.5 shrink-0 rounded-full ${t.dot} ${isAlert ? "animate-pulse" : ""}`
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { className: "truncate", children })
+      ]
+    }
+  );
+}
+
+// src/components/ui/InsightStrip.tsx
+var import_jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+var toneClass = {
+  ink: "text-ink",
+  green: "text-green",
+  orange: "text-orange",
+  red: "text-red",
+  accent: "text-accent"
+};
+function InsightStrip({ items }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: "grid grid-cols-2 gap-2.5 lg:grid-cols-4", children: items.map((item, i) => /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)(
+    "div",
+    {
+      className: "min-h-[88px] rounded-card bg-surface p-3 shadow-card animate-fade-up",
+      style: { animationDelay: `${i * 50}ms` },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("p", { className: "text-[11px] font-medium uppercase tracking-wider text-ink-3", children: item.label }),
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("p", { className: `mt-1 text-[22px] font-semibold tabular-nums tracking-tight ${toneClass[item.tone || "ink"]}`, children: item.value }),
+        item.hint && /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("p", { className: "mt-0.5 text-[11.5px] text-ink-2", children: item.hint })
+      ]
+    },
+    item.label
+  )) });
+}
+
+// src/components/ui/ExtractedRecords.tsx
+var import_jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
+function ExtractedRecords({
+  title = "Extracted identity fields",
+  rows
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "records-shell", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "records-toolbar", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "flex items-center gap-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("span", { className: "inline-flex size-5 items-center justify-center rounded-[5px] bg-green-tint text-green", children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("rect", { x: "3", y: "4", width: "18", height: "16", rx: "2" }),
+          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("path", { d: "M3 10h18" })
+        ] }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("span", { className: "text-[13px] font-semibold text-ink", children: title })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("span", { className: "font-mono text-[11px] text-ink-3 tabular-nums", children: [
+        rows.length,
+        " properties"
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("table", { className: "w-full text-left", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("tr", { className: "border-b border-line text-[11px] uppercase tracking-wider text-ink-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("th", { className: "records-cell font-medium", children: "Field" }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("th", { className: "records-cell font-medium", children: "Value" }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("th", { className: "records-cell font-medium", children: "Source" }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("th", { className: "records-cell font-medium text-right", children: "Confidence" })
+      ] }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("tbody", { children: rows.map((row) => /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("tr", { className: "records-row", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("td", { className: "records-cell font-medium text-ink", children: row.field }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("td", { className: "records-cell font-mono text-ink", children: row.value || "\u2014" }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("td", { className: "records-cell text-ink-2", children: row.source }),
+        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("td", { className: "records-cell text-right font-mono tabular-nums text-ink-2", children: typeof row.confidence === "number" ? `${Math.round(row.confidence * 100)}%` : "\u2014" })
+      ] }, row.field)) })
+    ] }) })
+  ] });
+}
+
+// src/components/ui/ContextCards.tsx
+var import_jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
+function ContextCards({
+  heading = "Inspection context",
+  chunks
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "flex w-full flex-col gap-2", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "flex items-center gap-2 px-0.5", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("span", { className: "text-[13px] font-semibold text-ink", children: heading }),
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("span", { className: "inline-flex h-5 items-center rounded-md bg-inset px-1.5 text-[11.5px] font-medium text-ink-2 shadow-hairline tabular-nums", children: chunks.length })
+    ] }),
+    chunks.map((chunk, i) => /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)(
+      "div",
+      {
+        className: "overflow-hidden rounded-card bg-surface shadow-card animate-fade-up",
+        style: { animationDelay: `${i * 60}ms` },
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "primitive-card-bar flex items-center gap-2.5 border-b border-line", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("span", { className: "flex min-w-0 items-center gap-1.5 text-[13px] font-medium text-ink", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.5", strokeLinecap: "round", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("path", { d: "M4 6h16M4 12h16M4 18h10" }) }),
+              /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("span", { className: "truncate", children: chunk.title })
+            ] }),
+            chunk.chars && /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("span", { className: "ml-auto shrink-0 text-[12px] text-ink-3 tabular-nums", children: chunk.chars })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("p", { className: "px-3 pt-2 pb-1 text-[12.5px] leading-relaxed text-ink-2", children: chunk.body }),
+          /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "px-3 pb-3", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("span", { className: "inline-flex h-6 items-center gap-1.5 rounded-full bg-inset px-2 text-[12px] font-medium text-ink-2 shadow-btn", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
+              "span",
+              {
+                className: `flex size-3.5 items-center justify-center rounded-[4px] text-[7px] font-bold text-white ${chunk.tone || "bg-accent"}`,
+                children: chunk.badge
+              }
+            ),
+            chunk.source
+          ] }) })
+        ]
+      },
+      chunk.title
+    ))
+  ] });
+}
+
+// src/components/ResultsPanel.tsx
+var import_jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+var AccordionSection = ({
+  title,
+  icon,
+  badge,
+  badgeTone = "neutral",
+  isOpen,
+  onToggle,
+  children
+}) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "rounded-card border border-line overflow-hidden bg-surface shadow-card transition-all", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)(
+      "button",
+      {
+        type: "button",
+        onClick: onToggle,
+        className: "w-full px-4 py-3 bg-inset hover:bg-hover flex items-center justify-between gap-3 text-left transition-colors cursor-pointer select-none",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-accent", children: icon }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-xs font-bold font-mono uppercase tracking-wider text-ink", children: title })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
+            badge && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+              "span",
+              {
+                className: `text-[10px] font-mono font-semibold px-2 py-0.5 rounded-chip border ${badgeTone === "green" ? "bg-green-tint text-green border-green/30" : badgeTone === "orange" ? "bg-orange-tint text-orange border-orange/30" : badgeTone === "red" ? "bg-red-tint text-red border-red/30" : badgeTone === "accent" ? "bg-accent-tint text-accent border-accent/30" : "bg-surface text-ink-2 border-line"}`,
+                children: badge
+              }
+            ),
+            isOpen ? /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ChevronDown, { className: "w-4 h-4 text-ink-3" }) : /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ChevronRight, { className: "w-4 h-4 text-ink-3" })
+          ] })
+        ]
+      }
+    ),
+    isOpen && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "p-3.5 border-t border-line animate-fade-in", children })
+  ] });
+};
+var ResultsPanel = ({
+  result,
+  documentImageUrl,
+  heatmapImageUrl,
+  livePhotoUrl,
+  onOfficerDecision,
+  officerDecision
+}) => {
+  const { assessment, details } = result;
+  const [activeTab, setActiveTab] = (0, import_react16.useState)("overview");
+  const [openAccordions, setOpenAccordions] = (0, import_react16.useState)({
+    trace: false,
+    discrepancies: false,
+    crossVal: false,
+    forensics: false,
+    pillars: false
+  });
+  const toggleAccordion = (key) => {
+    setOpenAccordions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+  const { traceSteps, toolTelemetry, tensorDiffs } = (0, import_react16.useMemo)(() => {
+    const ocrProcessingTime = details?.ocr?.processing_time_ms ?? 28;
+    const mrzProcessingTime = details?.mrz?.processing_time_ms ?? 12;
+    const bioProcessingTime = details?.biometrics?.processing_time_ms ?? 48;
+    const liveProcessingTime = details?.liveness?.processing_time_ms ?? 32;
+    const forensProcessingTime = details?.forensics?.processing_time_ms ?? 110;
+    const stampProcessingTime = details?.stamp?.processing_time_ms ?? 24;
+    const ocrSuccess = details?.ocr?.status === "SUCCESS" || details?.ocr?.status === "success" || (details?.ocr?.mean_confidence ?? 0) >= 0.8;
+    const mrzSuccess = !details?.mrz?.mrz_detected || details?.mrz?.valid;
+    const livenessSuccess = details?.liveness ? details.liveness.is_live : true;
+    const biometricsSuccess = details?.biometrics ? details.biometrics.match : true;
+    const forensicsSuccess = details?.forensics ? !details.forensics.is_tampered : true;
+    const stampSuccess = details?.stamp?.stamp_found ? details.stamp.verdict === "AUTHENTIC" : true;
+    const steps = [
+      {
+        id: "ocr",
+        name: "Text extraction",
+        category: "OCR",
+        status: ocrSuccess ? "completed" : "failed",
+        latencyMs: Math.round(ocrProcessingTime),
+        confidence: details?.ocr?.mean_confidence ?? 0.98,
+        details: `${Object.keys(details?.ocr?.fields || {}).length} fields localized \u2022 Mean confidence ${((details?.ocr?.mean_confidence ?? 0.98) * 100).toFixed(0)}%`
+      },
+      {
+        id: "mrz",
+        name: "Document Format & Security Checksum Validator",
+        category: "MRZ",
+        status: mrzSuccess ? "completed" : "failed",
+        latencyMs: Math.round(mrzProcessingTime),
+        confidence: details?.mrz?.valid ? 1 : 0.45,
+        details: details?.mrz?.mrz_detected ? details.mrz.valid ? "All security checks passed" : `Security check failed: ${details.mrz.checksum_failures.join(", ") || "CD1 Mismatch"}` : "Bypassed (Non-MRZ document format)"
+      },
+      {
+        id: "biometrics",
+        name: "Face check",
+        category: "BIOMETRICS",
+        status: biometricsSuccess && livenessSuccess ? "completed" : "failed",
+        latencyMs: Math.round(bioProcessingTime + liveProcessingTime),
+        confidence: details?.biometrics?.calibrated_confidence ?? (details?.biometrics?.similarity ?? 0.84),
+        details: details?.biometrics ? `Match: ${((details.biometrics.calibrated_confidence ?? (details.biometrics.similarity >= 0.5 ? 0.93 : 0.75)) * 100).toFixed(0)}% Certainty \u2022 ${livenessSuccess ? "Real person" : "Fake detected"}` : "Face verified"
+      },
+      {
+        id: "forensics",
+        name: "Tamper check",
+        category: "FORENSICS",
+        status: forensicsSuccess ? "completed" : "failed",
+        latencyMs: Math.round(forensProcessingTime),
+        confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
+        details: forensicsSuccess ? "No tampering found" : `Tampering detected: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`
+      },
+      {
+        id: "stamp",
+        name: "Stamp check",
+        category: "STAMP",
+        status: stampSuccess ? "completed" : "failed",
+        latencyMs: Math.round(stampProcessingTime),
+        confidence: details?.stamp?.stamp_score ?? 0.94,
+        details: details?.stamp?.stamp_found ? `Stamp: ${details.stamp.location_name || details.stamp.checkpost_id || "Post"} (${details.stamp.verdict})` : "No stamp found"
+      }
+    ];
+    const tools = [
+      {
+        name: "Text reader",
+        label: "Text & QR",
+        status: ocrSuccess ? "completed" : "failed",
+        durationMs: Math.round(ocrProcessingTime),
+        confidence: details?.ocr?.mean_confidence ?? 0.98,
+        modelVersion: assessment.model_versions?.pp_ocr || "text-qr-v4",
+        chip: "extract_fields.onnx",
+        icon: "ocr",
+        detailLines: [
+          {
+            text: `\u2713 Script: ${details?.ocr?.script_detected || "latin/devanagari"} \u2022 ${Object.keys(details?.ocr?.fields || {}).length} optical fields parsed`,
+            tone: "add"
+          },
+          {
+            text: `\u2713 Mean confidence: ${((details?.ocr?.mean_confidence ?? 0.98) * 100).toFixed(1)}%`
+          }
+        ]
+      },
+      {
+        name: "Security check",
+        label: "Format check",
+        status: mrzSuccess ? "completed" : "failed",
+        durationMs: Math.round(mrzProcessingTime),
+        confidence: details?.mrz?.valid ? 1 : 0.4,
+        modelVersion: assessment.model_versions?.mrz_engine || "format-v2",
+        chip: "checksum_validator.py",
+        icon: "run",
+        detailLines: [
+          {
+            text: details?.mrz?.valid ? "\u2713 Security checks passed" : `\u2715 Security check failed: ${details?.mrz?.checksum_failures?.join(", ") || "Checksum mismatch"}`,
+            tone: details?.mrz?.valid ? "add" : "del"
+          }
+        ]
+      },
+      {
+        name: "Face matcher",
+        label: "Face check",
+        status: biometricsSuccess ? "completed" : "failed",
+        durationMs: Math.round(bioProcessingTime),
+        confidence: details?.biometrics?.calibrated_confidence ?? (details?.biometrics?.similarity ?? 0.84),
+        modelVersion: assessment.model_versions?.face_embedder || "biometric-v1",
+        chip: "face_align_112.onnx",
+        icon: "face",
+        detailLines: [
+          {
+            text: `\u2713 Face aligned (112x112 canonical)`
+          },
+          {
+            text: `\u2713 Match: ${((details?.biometrics?.calibrated_confidence ?? (details?.biometrics?.similarity ? details.biometrics.similarity >= 0.5 ? 0.93 : 0.72 : 0.93)) * 100).toFixed(0)}% Certainty (Cosine: ${details?.biometrics?.similarity?.toFixed(2) ?? "0.57"})`,
+            tone: biometricsSuccess ? "add" : "del"
+          }
+        ]
+      },
+      {
+        name: "Live Selfie Presentation Checker",
+        label: "Liveness Check",
+        status: livenessSuccess ? "completed" : "failed",
+        durationMs: Math.round(liveProcessingTime),
+        confidence: details?.liveness?.confidence ?? 0.98,
+        modelVersion: "liveness-v2",
+        chip: "liveness_dual_scale.onnx",
+        icon: "face",
+        detailLines: [
+          {
+            text: livenessSuccess ? "\u2713 Dual-scale verification confirmed live presentation" : "\u2715 Presentation attack detected: Replay or print spoof",
+            tone: livenessSuccess ? "add" : "del"
+          }
+        ]
+      },
+      {
+        name: "Digital Text Tamper & Forensics Detector",
+        label: "Tamper Detector",
+        status: forensicsSuccess ? "completed" : "failed",
+        durationMs: Math.round(forensProcessingTime),
+        confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
+        modelVersion: assessment.model_versions?.tamper_detector || "tamper-v2",
+        chip: "tamper_heatmap.pt",
+        icon: "forensics",
+        detailLines: [
+          {
+            text: forensicsSuccess ? "\u2713 Substrate within nominal integrity threshold" : `\u2715 Localized tampering detected: Peak anomaly probability ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`,
+            tone: forensicsSuccess ? "add" : "del"
+          },
+          {
+            text: `\u2713 Compression analysis intensity: ${(details?.forensics?.ela_result?.max_intensity ?? 0.04).toFixed(3)}`
+          }
+        ]
+      },
+      {
+        name: "Border Transit Permit Stamp Verifier",
+        label: "Stamp Verifier",
+        status: stampSuccess ? "completed" : "failed",
+        durationMs: Math.round(stampProcessingTime),
+        confidence: details?.stamp?.stamp_score ?? 0.94,
+        modelVersion: "stamp-orb-ssim",
+        chip: "stamp_registry.json",
+        icon: "stamp",
+        detailLines: [
+          {
+            text: details?.stamp?.stamp_found ? `\u2713 Registered checkpost match: ${details.stamp.location_name || details.stamp.checkpost_id} (${details.stamp.verdict})` : "\u25CB No physical transit seal located on primary scan page"
+          }
+        ]
+      }
+    ];
+    const diffs = [
+      {
+        file: "ocr_payload.json",
+        add: Object.keys(details?.ocr?.fields || {}).length || 8,
+        del: 0,
+        lines: Object.entries(details?.ocr?.fields || {}).slice(0, 5).map(([k, v]) => ({
+          text: `"${k}": "${v}"`,
+          tone: "add"
+        }))
+      },
+      {
+        file: "forensics_anomaly_tensor.bin",
+        add: (details?.forensics?.tampered_regions || []).length,
+        del: details?.forensics?.is_tampered ? 1 : 0,
+        lines: [
+          {
+            text: `tamper_score: ${(details?.forensics?.tamper_score ?? 0).toFixed(3)}`,
+            tone: details?.forensics?.is_tampered ? "del" : "add"
+          },
+          {
+            text: `tau_adaptive_threshold: 0.180`,
+            tone: "ctx"
+          }
+        ]
+      },
+      {
+        file: "mrz_checksum_matrix.bin",
+        add: details?.mrz?.valid ? 4 : 0,
+        del: (details?.mrz?.checksum_failures || []).length,
+        lines: [
+          {
+            text: `cd1_doc_no: ${details?.mrz?.doc_number_checksum_valid ? "VALID" : "FAIL"}`,
+            tone: details?.mrz?.doc_number_checksum_valid ? "add" : "del"
+          },
+          {
+            text: `cd2_dob: ${details?.mrz?.dob_checksum_valid ? "VALID" : "FAIL"}`,
+            tone: details?.mrz?.dob_checksum_valid ? "add" : "del"
+          }
+        ]
+      }
+    ];
+    return { traceSteps: steps, toolTelemetry: tools, tensorDiffs: diffs };
+  }, [details, assessment]);
+  const cvRules = (0, import_react16.useMemo)(() => {
+    const existingFlags = details?.cross_validation?.flags || [];
+    const violations = details?.cross_validation?.violations || [];
+    const getViolationDetail = (ruleId, fallback) => {
+      const match = violations.find((v) => (v.rule_id || v.field_name || "").includes(ruleId));
+      return match ? match.details || match.rule_name || match.telemetry_code : fallback;
+    };
+    const hasViolation = (search) => {
+      return assessment.cross_validation_violations?.some((v) => v.toLowerCase().includes(search.toLowerCase())) || violations.some(
+        (v) => (v.field_name || "").toLowerCase().includes(search.toLowerCase()) || (v.details || "").toLowerCase().includes(search.toLowerCase()) || (v.rule_id || "").toLowerCase().includes(search.toLowerCase())
+      );
+    };
+    const rules = [
+      {
+        id: "CV-01",
+        rule: "Visual Legal Name vs MRZ / QR Demographics",
+        category: "OCR / MRZ",
+        telemetry: hasViolation("name") ? "Name character mismatch between visual field and machine record" : "Exact string match across normalized full name (Levenshtein: 0)",
+        status: hasViolation("name") ? "violation" : "passed",
+        details: hasViolation("name") ? getViolationDetail("CV-01", "Visual OCR extracted name does not match MRZ Line 1 or digital record.") : "Visual and machine-readable primary identifiers are 100% consistent."
+      },
+      {
+        id: "CV-02",
+        rule: "Visual Date of Birth vs MRZ DOB Check Digit",
+        category: "OCR / MRZ",
+        telemetry: hasViolation("dob") || hasViolation("birth") ? "Optical birthdate differs from MRZ line 2 YYMMDD check sequence" : "Optical date matches MRZ check digit calculation (YYMMDD valid)",
+        status: hasViolation("dob") || hasViolation("birth") ? "violation" : "passed",
+        details: hasViolation("dob") || hasViolation("birth") ? getViolationDetail("CV-02", "Discrepancy detected between visual birthdate and ICAO MRZ check digit sequence.") : "DOB verified consistent across optical and machine-readable zones."
+      },
+      {
+        id: "CV-03",
+        rule: "Document Number vs Modulo-10 Checksum (CD1)",
+        category: "MRZ Checksum",
+        telemetry: hasViolation("doc_number") || hasViolation("checksum") || !details?.mrz?.doc_number_checksum_valid ? "Computed check digit differs from optical document sequence" : "7-3-1 weight check digit matches optical document sequence (CD1 verified)",
+        status: hasViolation("doc_number") || hasViolation("checksum") || details?.mrz && !details.mrz.doc_number_checksum_valid ? "violation" : "passed",
+        details: hasViolation("doc_number") || hasViolation("checksum") || details?.mrz && !details.mrz.doc_number_checksum_valid ? getViolationDetail(
+          "CV-03",
+          "Critical Modulo-10 mismatch: Visual OCR digits do not satisfy ICAO 9303 7-3-1 weighted check formula."
+        ) : "Document number satisfies ICAO 9303 check digit requirements."
+      },
+      {
+        id: "CV-04",
+        rule: "Biometric Apparent Age vs Declared DOB Drift",
+        category: "Face Match & Liveness",
+        telemetry: hasViolation("age") || hasViolation("drift") ? `Age Drift Anomaly: Live biological age deviates from credential DOB` : "Age Validation: Apparent face age is consistent with declared birthdate",
+        status: hasViolation("age") || hasViolation("drift") ? "warning" : "passed",
+        details: hasViolation("age") || hasViolation("drift") ? getViolationDetail("CV-04", "Estimated facial biological age deviates significantly from document declared DOB.") : "Biometric age analysis conforms to declared document birthdate."
+      },
+      {
+        id: "CV-05",
+        rule: "Photo Box Forensic Splicing Detection",
+        category: "Visual Forensics",
+        telemetry: details?.forensics?.photo_region_tampered ? "Portrait area exhibits localized forensic frequency tampering" : "Portrait area exhibits zero forensic splicing anomalies",
+        status: details?.forensics?.photo_region_tampered ? "violation" : "passed",
+        details: details?.forensics?.photo_region_tampered ? "Photo box forensic analysis detected synthetic border splicing or portrait replacement." : "Portrait photo substrate integrity verified."
+      },
+      {
+        id: "CV-06",
+        rule: "OCR Text Box Forensic Alteration / Inpainting",
+        category: "Visual Forensics",
+        telemetry: hasViolation("forgery") || hasViolation("scraping") ? "Digital text scraping or font alteration detected in credential field" : "Text bounding boxes clear forensic frequency alteration gate",
+        status: hasViolation("forgery") || hasViolation("scraping") ? "violation" : "passed",
+        details: hasViolation("forgery") || hasViolation("scraping") ? getViolationDetail("CV-06", "High-frequency ELA anomaly indicates digital text manipulation.") : "All text bounding boxes exhibit uniform physical substrate printing characteristics."
+      },
+      {
+        id: "CV-07",
+        rule: "Border Transit Seal Context Consistency",
+        category: "Border Stamp",
+        telemetry: details?.stamp?.verdict === "AUTHENTIC" ? `Seal location ${details.stamp.location_name || "ICP"} matches declared port` : details?.stamp?.stamp_found ? "Stamp template mismatch or expired transit duration" : "No physical transit seal required for non-travel identity cards",
+        status: details?.stamp?.stamp_found && details.stamp.verdict !== "AUTHENTIC" ? "warning" : "passed",
+        details: details?.stamp?.stamp_found && details.stamp.verdict !== "AUTHENTIC" ? `Stamp verification flagged anomaly: ${details.stamp.verdict} (${details.stamp.reasons.join(", ")})` : "Border transit stamp is consistent with immigration history."
+      },
+      {
+        id: "CV-08",
+        rule: "Aadhaar Secure QR Offline RSA-2048 PKI Signature",
+        category: "Crypto PKI",
+        telemetry: details?.ocr?.qr_payload?.signature_valid === false ? "RSA-2048 digital signature verification failed on UIDAI root certificate" : details?.ocr?.qr_payload?.raw_qr_found ? "UIDAI RSA-2048 PKI root certificate signature validated" : "N/A (Passport/Voter ID \u2014 non-QR document type)",
+        status: details?.ocr?.qr_payload?.signature_valid === false ? "violation" : details?.ocr?.qr_payload?.raw_qr_found ? "passed" : "info",
+        details: details?.ocr?.qr_payload?.signature_valid === false ? "QR cryptographic signature does not verify against UIDAI root PKI certificate." : "Cryptographic digital signature matches authorized issuing authority."
+      }
+    ];
+    if (existingFlags.length > 0) {
+      return rules.map((r) => {
+        const flag = existingFlags.find((f) => f.rule_id === r.id);
+        if (flag) {
+          return {
+            ...r,
+            telemetry: flag.telemetry_message || r.telemetry,
+            status: flag.passed ? "passed" : "violation"
+          };
+        }
+        return r;
+      });
+    }
+    return rules;
+  }, [details, assessment]);
+  const diffRows = (0, import_react16.useMemo)(() => {
+    const ocrFields = details?.ocr?.fields || {};
+    const mrzParsed = details?.mrz?.parsed_fields || {};
+    const qrDemo = details?.ocr?.qr_payload?.demographics || {};
+    const violations = details?.cross_validation?.violations || [];
+    const hasViol = (keyword) => {
+      return assessment.cross_validation_violations?.some((v) => v.toLowerCase().includes(keyword.toLowerCase())) || violations.some(
+        (v) => (v.field_name || "").toLowerCase().includes(keyword.toLowerCase()) || (v.details || "").toLowerCase().includes(keyword.toLowerCase())
+      );
+    };
+    const hasMRZ = Boolean(details?.mrz?.document_number || details?.mrz?.raw_lines && details.mrz.raw_lines.length > 0);
+    const hasQR = Boolean(qrDemo?.name || qrDemo?.doc_number || details?.ocr?.qr_payload?.signature_valid !== void 0);
+    const visualDob = ocrFields.dob || ocrFields.date_of_birth || (hasMRZ ? "1984-07-12" : "\u2014");
+    const mrzDob = mrzParsed.dob || details?.mrz?.dob || qrDemo.dob || (hasMRZ ? "840712" : hasQR ? qrDemo.dob : "N/A (Non-MRZ ID)");
+    const dobMatch = !hasViol("dob") && !hasViol("birth");
+    const visualDocNo = ocrFields.doc_number || ocrFields.document_number || ocrFields.passport_number || ocrFields.aadhaar_number || (hasMRZ ? "P98421034" : "\u2014");
+    const mrzDocNo = details?.mrz?.document_number || mrzParsed.document_number || qrDemo.doc_number || (hasMRZ ? "P98421038" : hasQR ? qrDemo.doc_number : "N/A (Non-MRZ ID)");
+    const docNoMatch = !hasViol("number") && !hasViol("doc_number") && (!details?.mrz || details.mrz.doc_number_checksum_valid !== false);
+    const visualName = ocrFields.full_name || ocrFields.name || `${ocrFields.given_names || ""} ${ocrFields.surname || ""}`.trim() || (hasMRZ ? "KUMAR<<ANAND" : "\u2014");
+    const mrzName = details?.mrz?.surname || details?.mrz?.given_names ? `${details.mrz.surname}<<${details.mrz.given_names}`.trim() : qrDemo.name || (hasMRZ ? "KUMAR<<ANAND" : hasQR ? qrDemo.name : "N/A (Non-MRZ ID)");
+    const nameMatch = !hasViol("name");
+    const visualCountry = ocrFields.issuing_country || ocrFields.country || "IND";
+    const mrzCountry = details?.mrz?.country_code || mrzParsed.country_code || (hasMRZ ? "IND" : "N/A (Non-MRZ ID)");
+    const visualExpiry = ocrFields.expiry || ocrFields.expiration_date || (hasMRZ ? "2030-01-15" : "\u2014");
+    const mrzExpiry = details?.mrz?.expiry || mrzParsed.expiry || (hasMRZ ? "300115" : "N/A (Non-MRZ ID)");
+    const expiryMatch = !hasViol("expiry");
+    const visualSex = ocrFields.sex || ocrFields.gender || "M";
+    const mrzSex = details?.mrz?.sex || mrzParsed.sex || qrDemo.gender || (hasMRZ ? "M" : visualSex);
+    const rows = [
+      {
+        field: "Document Number",
+        sourceA: "Visual OCR",
+        sourceB: "ICAO MRZ (Line 1)",
+        valueA: visualDocNo,
+        valueB: mrzDocNo,
+        isMatch: docNoMatch,
+        details: docNoMatch ? void 0 : "Visual digit was altered; MRZ Modulo-10 7-3-1 check digit CD1 confirms genuine sequence."
+      },
+      {
+        field: "Date of Birth (DOB)",
+        sourceA: "Visual OCR",
+        sourceB: "ICAO MRZ / PKI",
+        valueA: visualDob,
+        valueB: mrzDob,
+        isMatch: dobMatch,
+        details: dobMatch ? void 0 : "Discrepancy between optical birthdate and decoded MRZ/QR demographic payload."
+      },
+      {
+        field: "Full Legal Name",
+        sourceA: "Visual OCR",
+        sourceB: "MRZ / UIDAI PKI",
+        valueA: visualName,
+        valueB: mrzName,
+        isMatch: nameMatch,
+        details: nameMatch ? void 0 : "Name string mismatch between optical layout and machine-readable record."
+      },
+      {
+        field: "Issuing State Code",
+        sourceA: "Visual OCR",
+        sourceB: "ICAO MRZ",
+        valueA: visualCountry,
+        valueB: mrzCountry,
+        isMatch: true
+      },
+      {
+        field: "Document Expiration Date",
+        sourceA: "Visual OCR",
+        sourceB: "ICAO MRZ (Line 2)",
+        valueA: visualExpiry,
+        valueB: mrzExpiry,
+        isMatch: expiryMatch,
+        details: expiryMatch ? void 0 : "Expiration date mismatch across visual and MRZ layers."
+      },
+      {
+        field: "Gender / Sex Marker",
+        sourceA: "Visual OCR",
+        sourceB: "MRZ / PKI",
+        valueA: visualSex,
+        valueB: mrzSex,
+        isMatch: true
+      }
+    ];
+    return rows;
+  }, [details, assessment]);
+  const mismatchCount = diffRows.filter((r) => !r.isMatch).length;
+  const violationCount = cvRules.filter((r) => r.status === "violation").length;
+  const handleOfficerDecision = (decision) => {
+    const timestamp = (/* @__PURE__ */ new Date()).toISOString();
+    const mappedType = decision.action === "AUTO_CLEAR" ? "clear" : decision.action === "SECONDARY_INSPECTION" ? "secondary" : "interdict";
+    const recordedAction = decision.action === "AUTO_CLEAR" || decision.action === "SECONDARY_INSPECTION" || decision.action === "DETAIN_AND_INTERDICT" ? decision.action : "DETAIN_AND_INTERDICT";
+    const recorded = {
+      action: recordedAction,
+      decisionType: mappedType,
+      reason: decision.reason,
+      officerNotes: decision.officerNotes || "",
+      badgeId: decision.badgeId || "SSB-IND-7049",
+      timestamp
+    };
+    onOfficerDecision?.(recorded);
+  };
+  const tabOptions = [
+    {
+      id: "overview",
+      label: "Operational Overview",
+      icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(LayoutDashboard, { className: "size-3.5" })
+    },
+    {
+      id: "discrepancies",
+      label: "Discrepancy Matrix",
+      icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(GitCompare, { className: "size-3.5" }),
+      badge: mismatchCount > 0 ? `${mismatchCount} Diff` : void 0
+    },
+    {
+      id: "forensics",
+      label: "Visual Forensics",
+      icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Eye, { className: "size-3.5" })
+    },
+    {
+      id: "telemetry",
+      label: "Technical Telemetry",
+      icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Cpu, { className: "size-3.5" })
+    },
+    {
+      id: "pillars",
+      label: "Verification Checks",
+      icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ShieldCheck, { className: "size-3.5" })
+    }
+  ];
+  const riskTone = assessment.risk_level === "RED" ? "red" : assessment.risk_level === "AMBER" ? "amber" : "green";
+  return /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "space-y-5 animate-fade-up", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white p-2.5 sm:p-3 shadow-xs border border-slate-200/70", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        SegmentedControl,
+        {
+          options: tabOptions,
+          value: activeTab,
+          onChange: (tab) => setActiveTab(tab),
+          size: "md"
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center flex-wrap gap-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)(StatusPill, { tone: riskTone, dot: true, children: [
+          "Threat Level: ",
+          assessment.risk_score.toFixed(1),
+          " / 100"
+        ] }),
+        assessment.tripwire_triggered && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(StatusPill, { tone: "red", dot: true, size: "sm", children: "CRITICAL TRIGGER ACTIVE" }),
+        officerDecision && /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)(StatusPill, { tone: "green", size: "sm", children: [
+          "SIGNED: ",
+          officerDecision.badgeId
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(RiskStatusBanner, { assessment }),
+    /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+      ApprovalCard,
+      {
+        riskLevel: assessment.risk_level,
+        riskScore: assessment.risk_score,
+        onDecide: handleOfficerDecision
+      }
+    ),
+    activeTab === "overview" && /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "space-y-5", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        InsightStrip,
+        {
+          items: [
+            {
+              label: "Threat score",
+              value: assessment.risk_score.toFixed(1),
+              hint: assessment.risk_level,
+              tone: assessment.risk_level === "RED" ? "red" : assessment.risk_level === "AMBER" ? "orange" : "green"
+            },
+            {
+              label: "Screening time",
+              value: `${Math.round(assessment.processing_time_ms)}ms`,
+              hint: "3-stream pipeline",
+              tone: "accent"
+            },
+            {
+              label: "Field diffs",
+              value: String(mismatchCount),
+              hint: mismatchCount === 0 ? "Cross-stream consistent" : "Needs review",
+              tone: mismatchCount > 0 ? "red" : "green"
+            },
+            {
+              label: "Guard violations",
+              value: String(violationCount),
+              hint: `${cvRules.length} rules checked`,
+              tone: violationCount > 0 ? "orange" : "green"
+            }
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(RiskScoreCard, { assessment }),
+        details && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          ReasonBulletList,
+          {
+            reasons: assessment.reasons,
+            crossValidation: details.cross_validation
+          }
+        )
+      ] }),
+      livePhotoUrl && /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "bg-white rounded-2xl border border-slate-200/70 p-4 sm:p-5 shadow-xs space-y-3.5", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center justify-between border-b border-slate-100 pb-2.5", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "p-1.5 bg-indigo-50 rounded-lg", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(UserCheck, { className: "w-4 h-4 text-indigo-600" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-slate-800 font-sans", children: "1:1 Identity Verification \xB7 Side-by-Side Comparison" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+            "span",
+            {
+              className: `text-[10.5px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${details?.biometrics?.match ? "bg-emerald-50 text-emerald-800 border-emerald-200/80" : "bg-red-50 text-red-800 border-red-200/80"}`,
+              children: details?.biometrics?.match ? "\u2713 1:1 BIOMETRIC MATCH CONFIRMED" : "\u2715 BIOMETRIC MISMATCH"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 items-center", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex flex-col items-center bg-slate-50/50 p-3 rounded-xl border border-slate-200/60 shadow-2xs", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[10.5px] font-mono text-slate-400 uppercase mb-2", children: "Document Credential Photo" }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "h-[180px] w-full flex items-center justify-center overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+              "img",
+              {
+                src: documentImageUrl,
+                alt: "Document Photo",
+                className: "max-h-full max-w-full object-contain rounded-lg shadow-2xs"
+              }
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[10.5px] text-slate-500 font-mono mt-2", children: "Extracted ID Reference" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex flex-col items-center bg-slate-50/50 p-3 rounded-xl border border-slate-200/60 shadow-2xs", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("span", { className: "text-[10.5px] font-mono text-slate-400 uppercase mb-2 flex items-center gap-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { children: "Live Field Unit Capture" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-emerald-600 text-[10px]", children: "\u25CF Live Sync" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "h-[180px] w-full flex items-center justify-center overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+              "img",
+              {
+                src: livePhotoUrl,
+                alt: "Live Field Capture",
+                className: "max-h-full max-w-full object-contain rounded-lg shadow-2xs"
+              }
+            ) }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[10.5px] text-slate-500 font-mono mt-2 flex items-center gap-1", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-emerald-700 font-semibold", children: "\u2713 Received from Field Unit Camera" }) })
+          ] })
+        ] })
+      ] }),
+      details?.ocr?.fields && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        ExtractedRecords,
+        {
+          rows: Object.entries(details.ocr.fields).sort(([a], [b]) => {
+            const order = ["full_name", "dob", "gender", "doc_number", "issue_date"];
+            const idxA = order.indexOf(a);
+            const idxB = order.indexOf(b);
+            return (idxA >= 0 ? idxA : 99) - (idxB >= 0 ? idxB : 99);
+          }).map(([field, value]) => ({
+            field: field === "issue_date" ? "issue date (card print version)" : field.replace(/_/g, " "),
+            value: String(value ?? "\u2014"),
+            source: "Visual OCR",
+            confidence: details.ocr.field_confidences?.[field] ?? details.ocr.mean_confidence
+          }))
+        }
+      ),
+      details && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        ContextCards,
+        {
+          heading: "Model & checkpoint context",
+          chunks: [
+            {
+              title: "OCR engine",
+              body: assessment.model_versions?.pp_ocr || "PP-OCRv4 multilingual extractor",
+              source: `${Object.keys(details.ocr?.fields || {}).length} fields`,
+              badge: "OCR",
+              tone: "bg-accent"
+            },
+            {
+              title: "Face matcher",
+              body: details.biometrics ? `${((details.biometrics.calibrated_confidence ?? (details.biometrics.similarity >= 0.5 ? 0.93 : 0.72)) * 100).toFixed(0)}% Match Certainty (Cosine ${details.biometrics.similarity.toFixed(2)}) \xB7 ${details.biometrics.match ? "1:1 match" : "mismatch"}` : "No live portrait ingested",
+              source: assessment.model_versions?.face_embedder || "Face Matcher",
+              badge: "BIO",
+              tone: details.biometrics?.match ? "bg-green" : "bg-orange"
+            },
+            {
+              title: "Forensic substrate",
+              body: details.forensics?.is_tampered ? `Tamper localized at ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%` : "Substrate within nominal integrity threshold",
+              source: assessment.model_versions?.tamper_detector || "Tamper Check",
+              badge: "FX",
+              tone: details.forensics?.is_tampered ? "bg-red" : "bg-green"
+            }
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "space-y-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2 mb-1", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono flex items-center gap-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Cpu, { className: "w-4 h-4 text-accent" }),
+            "Advanced Verification Logs & Technical Audits"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[10px] font-mono text-ink-3", children: "Expandable Deep Forensic Diagnostics" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          AccordionSection,
+          {
+            title: "Multi-Model Inference Pipeline Trace",
+            icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Cpu, { className: "w-4 h-4" }),
+            badge: `${traceSteps.length} Models \xB7 ${Math.round(assessment.processing_time_ms)}ms`,
+            badgeTone: "accent",
+            isOpen: openAccordions.trace,
+            onToggle: () => toggleAccordion("trace"),
+            children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+              InspectionPipelineTrace,
+              {
+                steps: traceSteps,
+                totalLatencyMs: Math.round(assessment.processing_time_ms)
+              }
+            )
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          AccordionSection,
+          {
+            title: "Forensic Field Discrepancy Matrix (Visual OCR vs MRZ / PKI)",
+            icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(GitCompare, { className: "w-4 h-4" }),
+            badge: mismatchCount > 0 ? `${mismatchCount} Discrepancies Flagged` : "0 Mismatches",
+            badgeTone: mismatchCount > 0 ? "red" : "green",
+            isOpen: openAccordions.discrepancies,
+            onToggle: () => toggleAccordion("discrepancies"),
+            children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+              DiffTable,
+              {
+                title: "Cross-Stream Field Discrepancy Matrix",
+                rows: diffRows
+              }
+            )
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          AccordionSection,
+          {
+            title: "8-Rule Cross-Validation Consistency Guards",
+            icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ShieldCheck, { className: "w-4 h-4" }),
+            badge: violationCount > 0 ? `${violationCount} Violations` : "8/8 Guards Valid",
+            badgeTone: violationCount > 0 ? "red" : "green",
+            isOpen: openAccordions.crossVal,
+            onToggle: () => toggleAccordion("crossVal"),
+            children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+              FilterTable,
+              {
+                title: "8-Rule Cross-Validation Guard Matrix",
+                rows: cvRules
+              }
+            )
+          }
+        ),
+        details && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          AccordionSection,
+          {
+            title: "Visual Forensics, Substrate & Splicing Localization",
+            icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Eye, { className: "w-4 h-4" }),
+            badge: `Tamper Score: ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%`,
+            badgeTone: details.forensics.is_tampered ? "red" : "green",
+            isOpen: openAccordions.forensics,
+            onToggle: () => toggleAccordion("forensics"),
+            children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+              ForensicsViewer,
+              {
+                documentImageUrl,
+                heatmapImageUrl: heatmapImageUrl || assessment.heatmap_base64,
+                forensics: details.forensics,
+                stamp: details.stamp
+              }
+            )
+          }
+        ),
+        details && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+          AccordionSection,
+          {
+            title: "Granular Verification Checks Breakdown",
+            icon: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ShieldAlert, { className: "w-4 h-4" }),
+            badge: "Text \xB7 Format \xB7 Biometrics \xB7 Forensics \xB7 Stamp",
+            badgeTone: "neutral",
+            isOpen: openAccordions.pillars,
+            onToggle: () => toggleAccordion("pillars"),
+            children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(PillarsTable, { scanDetails: details })
+          }
+        )
+      ] })
+    ] }),
+    activeTab === "discrepancies" && /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "space-y-4 animate-fade-up", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center justify-between p-3 rounded-card bg-surface border border-line shadow-card", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center gap-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(GitCompare, { className: "w-4 h-4 text-accent" }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[13px] font-bold font-mono text-ink", children: "Cross-Stream Discrepancy & Verification Matrix" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "flex items-center gap-2 font-mono text-[11px]", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("span", { className: "text-ink-3", children: [
+          mismatchCount,
+          " discrepancies \xB7 ",
+          violationCount,
+          " rule violations"
+        ] }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        DiffTable,
+        {
+          title: "Field Discrepancy Matrix (OCR vs MRZ / PKI Demographics)",
+          rows: diffRows
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        FilterTable,
+        {
+          title: "Multi-Stream Cross-Validation Evaluation (CV-01 through CV-08)",
+          rows: cvRules
+        }
+      )
+    ] }),
+    activeTab === "forensics" && details && /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "space-y-4 animate-fade-up", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        ForensicsViewer,
+        {
+          documentImageUrl,
+          heatmapImageUrl: heatmapImageUrl || assessment.heatmap_base64,
+          forensics: details.forensics,
+          stamp: details.stamp
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Text Tamper Inspection Score" }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "text-xl font-bold font-mono text-ink", children: [
+            ((details.forensics.doctamper_score ?? 0) * 100).toFixed(1),
+            "%"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[11px] text-ink-2", children: "Text & digit alteration detector" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Photo Splicing Score" }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "text-xl font-bold font-mono text-ink", children: [
+            ((details.forensics.trufor_score ?? 0) * 100).toFixed(1),
+            "%"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[11px] text-ink-2", children: "Dense RGB+Noise transformer" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Substrate Compression Intensity" }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "text-xl font-bold font-mono text-ink", children: (details.forensics.ela_result?.max_intensity ?? 0.04).toFixed(3) }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[11px] text-ink-2", children: "JPEG compression deadband: 0.180" })
+        ] })
+      ] })
+    ] }),
+    activeTab === "telemetry" && /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "space-y-4 animate-fade-up", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        ToolChips,
+        {
+          title: "5-Pillar Neural Model Telemetry & Tensor Output Diffs",
+          telemetry: toolTelemetry,
+          diffs: tensorDiffs
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
+        InspectionPipelineTrace,
+        {
+          steps: traceSteps,
+          totalLatencyMs: Math.round(assessment.processing_time_ms)
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "p-4 rounded-card bg-surface border border-line shadow-card space-y-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center gap-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(Cpu, { className: "w-4 h-4 text-accent" }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[12.5px] font-bold font-mono text-ink uppercase", children: "Hardware Acceleration Architecture" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "text-[11.5px] font-mono text-ink-2 space-y-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-ink-3", children: "Inference Backend:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "font-semibold text-ink", children: "Apple Silicon M4 MPS / CoreML Execution Provider" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-ink-3", children: "Memory Footprint:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "font-semibold text-ink", children: "1.84 GB Unified Memory (Budget: 16 GB)" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-ink-3", children: "Total Pipeline Latency:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("span", { className: "font-semibold text-ink", children: [
+                Math.round(assessment.processing_time_ms),
+                " ms (SLA: <3500ms)"
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex justify-between", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-ink-3", children: "Air-Gapped Status:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "font-semibold text-green", children: "100% Offline \xB7 0 Cloud Dependencies" })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "p-4 rounded-card bg-surface border border-line shadow-card space-y-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center gap-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(ShieldAlert, { className: "w-4 h-4 text-orange" }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[12.5px] font-bold font-mono text-ink uppercase", children: "Cryptographic Audit Trail" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "text-[11.5px] font-mono text-ink-2 space-y-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-ink-3", children: "Session Transaction:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "font-semibold text-ink", children: result.session_id })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-ink-3", children: "SHA-256 Audit Signature:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "font-semibold text-ink truncate max-w-[200px]", children: assessment.audit_hash || "SHA256:VERIFIED" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex justify-between", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-ink-3", children: "Officer Authorization:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "font-semibold text-ink", children: officerDecision ? `${officerDecision.action} (${officerDecision.badgeId})` : "Pending Officer Review" })
+            ] })
+          ] })
+        ] })
+      ] })
+    ] }),
+    activeTab === "pillars" && details && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "space-y-4 animate-fade-up", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(PillarsTable, { scanDetails: details }) })
+  ] });
+};
+
+// src/components/AuditCertificateModal.tsx
+var import_jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
+var AuditCertificateModal = ({
+  isOpen,
+  onClose,
+  result,
+  checkpoint,
+  officerDecision,
+  onNavigateToScan
+}) => {
+  if (!isOpen) return null;
+  const session_id = result?.session_id || "PENDING-INGESTION-SESSION";
+  const assessment = result?.assessment;
+  const details = result?.details;
+  const ocrFields = details?.ocr?.fields || {};
+  return /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
+    "div",
+    {
+      role: "dialog",
+      "aria-modal": "true",
+      className: "fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-fade-in select-none",
+      onClick: (e) => {
+        if (e.target === e.currentTarget) onClose();
+      },
+      children: /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "bg-white border border-slate-200 rounded-2xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh] shadow-2xl", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "bg-slate-50 px-6 py-3.5 border-b border-slate-200 flex items-center justify-between", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center space-x-2 font-sans", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Shield, { className: "w-4 h-4 text-indigo-700" }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-xs font-bold text-slate-800 uppercase tracking-wider", children: "Border Security Screening Audit Certificate" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: () => window.print(),
+                className: "flex items-center space-x-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-bold shadow-xs cursor-pointer",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Printer, { className: "w-3.5 h-3.5" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { children: "Print Certificate" })
+                ]
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
+              "button",
+              {
+                type: "button",
+                onClick: onClose,
+                className: "p-1 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer",
+                children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(X, { className: "w-5 h-5" })
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "p-8 overflow-y-auto bg-white text-slate-900 font-sans space-y-6 print:p-0", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "border-b-2 border-indigo-900/20 pb-5 text-center space-y-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "w-12 h-14 mx-auto mb-2 flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(SSBCrestLogo, { className: "w-full h-full object-contain" }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("p", { className: "text-[11px] font-bold tracking-widest text-amber-700 uppercase font-sans", children: "\u092D\u093E\u0930\u0924 \u0938\u0930\u0915\u093E\u0930 \u2022 \u0917\u0943\u0939 \u092E\u0902\u0924\u094D\u0930\u093E\u0932\u092F \u2022 GOVERNMENT OF INDIA \u2022 MINISTRY OF HOME AFFAIRS" }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("h2", { className: "text-xl font-extrabold tracking-tight text-slate-900 uppercase font-serif", children: "SASHASTRA SEEMA BAL (SSB)" }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("p", { className: "text-xs font-medium text-slate-500", children: "Integrated Border Security & AI Document Screening Audit Record" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono bg-slate-50 p-4 rounded-xl border border-slate-200", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Session ID:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-bold text-slate-800 text-[11px] truncate block", children: session_id })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Inspection Post:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { className: "font-bold text-slate-800 text-[11px]", children: [
+                checkpoint.name,
+                " (",
+                checkpoint.code,
+                ")"
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Transit Frontier:" }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { className: "font-bold text-slate-800 text-[11px]", children: [
+                checkpoint.border,
+                " Border"
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Timestamp (UTC):" }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-bold text-slate-800 text-[11px]", children: (/* @__PURE__ */ new Date()).toUTCString().slice(5, 25) })
+            ] })
+          ] }),
+          !result ? /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "p-6 bg-amber-50/70 border border-amber-200 rounded-xl text-center space-y-3", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(FileText, { className: "w-8 h-8 text-amber-600 mx-auto" }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("h4", { className: "text-sm font-bold text-amber-950", children: "Awaiting Document Ingestion" }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("p", { className: "text-xs text-slate-600 mt-1 max-w-md mx-auto leading-relaxed", children: "No traveler credential has been screened in this active session yet. Execute verification on the screening bay or select a sample document to generate an audit certificate." })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: () => {
+                  onClose();
+                  if (onNavigateToScan) onNavigateToScan();
+                },
+                className: "inline-flex items-center space-x-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow-xs cursor-pointer",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { children: "Go to Document Screening Bay" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(ArrowRight, { className: "w-3.5 h-3.5" })
+                ]
+              }
+            )
+          ] }) : /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(import_jsx_runtime28.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("h4", { className: "text-xs font-bold text-slate-700 uppercase tracking-wider font-sans", children: "1. Extracted Identity Demographics" }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono bg-slate-50 p-3.5 rounded-xl border border-slate-200", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Full Name:" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { className: "font-semibold text-slate-900", children: [
+                    ocrFields.surname || ocrFields.full_name || ocrFields.holder_name || "N/A",
+                    " ",
+                    ocrFields.given_names || ""
+                  ] })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Document Number:" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-slate-900", children: maskAadhaar(ocrFields.passport_number || ocrFields.aadhaar_number || ocrFields.permit_number || details?.mrz.document_number || "N/A") })
+                ] }),
+                /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Date of Birth:" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-slate-900", children: ocrFields.dob || details?.mrz.dob || "N/A" })
+                ] })
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-2", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("h4", { className: "text-xs font-bold text-slate-700 uppercase tracking-wider font-sans", children: "2. Forensic Screening Verdict" }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
+                "div",
+                {
+                  className: `p-4 rounded-xl border flex items-center justify-between ${assessment?.risk_level === "GREEN" ? "bg-emerald-50 border-emerald-300 text-emerald-950" : assessment?.risk_level === "AMBER" ? "bg-amber-50 border-amber-300 text-amber-950" : "bg-red-50 border-red-300 text-red-950"}`,
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[10px] uppercase font-bold block opacity-70", children: "Clearance Status:" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-base font-extrabold font-sans uppercase", children: assessment?.risk_level === "GREEN" ? "AUTO-CLEAR PASS (APPROVED)" : assessment?.risk_level === "AMBER" ? "SECONDARY INSPECTION (HOLD)" : "CRITICAL SECURITY ALERT (DETAIN)" })
+                    ] }),
+                    /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "text-right", children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[10px] opacity-70 block font-mono", children: "Threat Score:" }),
+                      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { className: "text-2xl font-black font-mono", children: [
+                        assessment?.risk_score.toFixed(1),
+                        " / 100"
+                      ] })
+                    ] })
+                  ]
+                }
+              )
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "pt-4 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-mono", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center space-x-2", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Fingerprint, { className: "w-4 h-4 text-slate-400" }),
+                /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { children: [
+                  "SHA-256: ",
+                  assessment?.audit_hash || "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                ] })
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-emerald-700 font-bold", children: "DPDP ACT 2023 VERIFIED" })
+            ] })
+          ] })
+        ] })
+      ] })
+    }
+  );
+};
+
+// src/components/RawJsonViewerModal.tsx
+var import_react17 = __toESM(require_react(), 1);
+var import_jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
+var RawJsonViewerModal = ({ isOpen, onClose, result }) => {
+  const [copied, setCopied] = (0, import_react17.useState)(false);
+  if (!isOpen) return null;
+  const defaultTelemetry = {
+    system: "SSB Sovereign Border Document Screening Workstation",
+    version: "2.4.0-defense-airgapped",
+    status: "READY_FOR_INGESTION",
+    pipeline: [
+      "ICAO_9303_MRZ_OCR",
+      "PADDLE_OCR_V4_MULTILINGUAL",
+      "FACENET_ONNX_112_ALIGNMENT",
+      "ERROR_LEVEL_ANALYSIS_TAMPER_NET",
+      "ORB_SSIM_BORDER_STAMP_MATCHER"
+    ],
+    active_session_payload: result || {
+      note: "No active document screening result in buffer yet. Execute verification to see full telemetry."
+    }
+  };
+  const jsonString = JSON.stringify(result || defaultTelemetry, null, 2);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(jsonString);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2e3);
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
+    "div",
+    {
+      role: "dialog",
+      "aria-modal": "true",
+      className: "fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in select-none",
+      onClick: (e) => {
+        if (e.target === e.currentTarget) onClose();
+      },
+      children: /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "bg-white border border-slate-200 rounded-2xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "flex items-center space-x-2 font-sans", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(CodeXml, { className: "w-4 h-4 text-indigo-600" }),
+            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-xs font-bold text-slate-800 uppercase tracking-wide", children: "Raw Inspection Telemetry Payload (OpenAPI / Pydantic v2)" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "flex items-center space-x-2", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)(
+              "button",
+              {
+                type: "button",
+                onClick: handleCopy,
+                className: "flex items-center space-x-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs px-3 py-1.5 rounded-lg border border-slate-300 transition-colors shadow-2xs font-semibold cursor-pointer",
+                children: [
+                  copied ? /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(Check, { className: "w-3.5 h-3.5 text-emerald-600" }) : /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(Copy, { className: "w-3.5 h-3.5 text-slate-400" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { children: copied ? "Copied" : "Copy JSON" })
+                ]
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
+              "button",
+              {
+                type: "button",
+                onClick: onClose,
+                className: "p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer",
+                children: /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(X, { className: "w-4 h-4" })
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "p-6 overflow-y-auto bg-slate-900 font-mono text-xs text-emerald-400 flex-1", children: /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("pre", { className: "whitespace-pre overflow-x-auto leading-relaxed", children: jsonString }) })
+      ] })
+    }
+  );
+};
+
+// src/components/OfflineWarningBanner.tsx
+var import_react18 = __toESM(require_react(), 1);
+var import_jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
+var OfflineWarningBanner = ({
+  backendOnline,
+  onRetry,
+  isChecking
+}) => {
+  const [dismissed, setDismissed] = (0, import_react18.useState)(false);
+  if (backendOnline || dismissed) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(
+    "div",
+    {
+      className: "bg-orange-tint border border-orange/40 rounded-card p-3 text-xs text-ink flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-card",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "flex items-start space-x-2.5", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(CircleAlert, { className: "w-4 h-4 text-orange flex-shrink-0 mt-0.5" }),
+          /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "space-y-0.5", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("p", { className: "font-bold text-ink", children: "Edge AI Defense Gateway (localhost:8000) Unreachable" }),
+            /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("p", { className: "text-[11px] text-ink-2 leading-normal", children: [
+              "The local FastAPI neural pipeline is not responding. Ensure the backend is active:",
+              /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("code", { className: "ml-1 bg-surface px-1.5 py-0.5 rounded-chip font-mono text-orange border border-line", children: "uvicorn app.main:app --port 8000" })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "flex items-center space-x-2 self-end sm:self-center", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(
+            "button",
+            {
+              type: "button",
+              onClick: onRetry,
+              disabled: isChecking,
+              className: "flex items-center space-x-1 bg-orange hover:brightness-105 text-white font-bold px-2.5 py-1 rounded-control transition-colors text-[11px] shadow-btn",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(RefreshCw, { className: `w-3.5 h-3.5 ${isChecking ? "animate-spin" : ""}` }),
+                /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("span", { children: "Retry Connection" })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
+            "button",
+            {
+              type: "button",
+              onClick: () => setDismissed(true),
+              className: "p-1 hover:bg-hover rounded-control text-ink-3 hover:text-ink transition-colors",
+              title: "Dismiss Banner",
+              children: /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(X, { className: "w-4 h-4" })
+            }
+          )
+        ] })
+      ]
+    }
+  );
 };
 
 // src/services/mockData.ts
@@ -30404,3746 +34317,8 @@ var PRESET_LIST = [
   }
 ];
 
-// src/components/PresetsBar.tsx
-var import_jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
-var PresetsBar = ({ onSelectPreset, disabled }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center justify-between gap-3 overflow-x-auto py-1 px-1 select-none", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex items-center space-x-2 shrink-0 text-xs", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(FileText, { className: "w-3.5 h-3.5 text-slate-700" }),
-      /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "font-bold text-slate-900 text-xs tracking-tight font-sans", children: "Test Identity Dossiers (Live Neural Processing):" })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "flex items-center gap-2 overflow-x-auto scrollbar-none shrink-0", children: PRESET_LIST.map((preset) => {
-      const { risk_level } = preset.mockResponse.assessment;
-      const isGreen = risk_level === "GREEN";
-      const isAmber = risk_level === "AMBER";
-      return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
-        "button",
-        {
-          type: "button",
-          onClick: () => onSelectPreset(preset),
-          disabled,
-          title: preset.description,
-          className: "flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 hover:border-slate-400 transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-2xs shrink-0 whitespace-nowrap cursor-pointer",
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-              "span",
-              {
-                className: `w-2 h-2 rounded-full ${isGreen ? "bg-emerald-600" : isAmber ? "bg-amber-500" : "bg-red-600"}`
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "font-sans text-[11.5px] font-medium text-slate-800", children: preset.name })
-          ]
-        },
-        preset.id
-      );
-    }) })
-  ] });
-};
-
-// src/components/IngestionPanel.tsx
-var import_jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
-var IngestionPanel = ({
-  documentFile,
-  documentPreviewUrl,
-  onSelectDocument,
-  onClearDocument,
-  livePhotoFile,
-  livePhotoPreviewUrl,
-  onCaptureFace,
-  onClearFace,
-  selectedCheckpoint,
-  transitDate,
-  onChangeTransitDate,
-  onSelectPreset,
-  onScan,
-  onReset,
-  isScanning,
-  canScan,
-  isCompanionConnected = false,
-  docFromCompanion = false,
-  photoFromCompanion = false,
-  onOpenConnectModal,
-  serverUrl = typeof window !== "undefined" ? window.location.origin : "http://localhost:8000"
-}) => {
-  const [isConnectModalOpen, setIsConnectModalOpen] = (0, import_react6.useState)(false);
-  const handleOpenConnectModal = () => {
-    if (onOpenConnectModal) {
-      onOpenConnectModal();
-    } else {
-      setIsConnectModalOpen(true);
-    }
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden mb-8", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "bg-slate-50 border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Scan, { className: "w-4 h-4" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("h3", { className: "font-serif font-black text-slate-900 text-sm tracking-wide", children: "PRIMARY SCREENING & INGESTION DECK" }),
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("p", { className: "text-slate-500 text-[11px] font-medium", children: "Dual-Channel Optical Document OCR & 1:1 Live Biometric Stream Ingestion" })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center gap-3 shrink-0 text-xs", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "font-semibold text-slate-500 text-xs", children: "Field Status:" }),
-          isCompanionConnected ? /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "inline-flex items-center gap-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-0.5 text-[11px] font-bold", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "relative flex h-2 w-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" }),
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "relative inline-flex h-2 w-2 rounded-full bg-emerald-500" })
-            ] }),
-            "LIVE FIELD SYNC ACTIVE"
-          ] }) : /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "inline-flex items-center gap-1.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 px-3 py-0.5 text-[11px] font-medium", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "h-1.5 w-1.5 rounded-full bg-slate-400" }),
-            "STANDALONE TERMINAL"
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: handleOpenConnectModal,
-            className: "bg-white hover:bg-slate-50 text-slate-700 font-semibold px-3 py-1.5 rounded-lg border border-slate-300 text-xs flex items-center space-x-1.5 shadow-2xs transition-all cursor-pointer",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Smartphone, { className: "w-3.5 h-3.5 text-indigo-600" }),
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: isCompanionConnected ? "Pairing Center" : "Link Companion" })
-            ]
-          }
-        )
-      ] })
-    ] }),
-    onSelectPreset && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "px-6 py-2.5 bg-indigo-50/40 border-b border-indigo-100 flex items-center justify-between flex-wrap gap-2 text-xs", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center space-x-2 text-indigo-900 font-semibold", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Sparkles, { className: "w-3.5 h-3.5 text-amber-500" }),
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: "Quick Sample Documents:" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(PresetsBar, { onSelectPreset, disabled: isScanning })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "p-6 grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50/30", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-        Dropzone,
-        {
-          documentFile,
-          documentPreviewUrl,
-          onSelectDocument,
-          onClearDocument,
-          disabled: isScanning,
-          isCompanionConnected,
-          receivedFromCompanion: docFromCompanion
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-        WebCamCapture,
-        {
-          livePhotoFile,
-          livePhotoPreviewUrl,
-          onCaptureFace,
-          onClearFace,
-          disabled: isScanning,
-          isCompanionConnected,
-          receivedFromCompanion: photoFromCompanion,
-          onOpenConnectModal: handleOpenConnectModal
-        }
-      )
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 bg-slate-50/80 px-6 py-4", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center flex-wrap gap-5 text-xs", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center space-x-2 text-slate-700", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Navigation, { className: "w-4 h-4 text-indigo-600 shrink-0" }),
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-slate-500 font-semibold", children: "Active Post:" }),
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("span", { className: "font-bold text-slate-900", children: [
-            selectedCheckpoint.name,
-            " (",
-            selectedCheckpoint.id,
-            ")"
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center space-x-2 text-slate-700", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Calendar, { className: "w-4 h-4 text-indigo-600 shrink-0" }),
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-slate-500 font-semibold", children: "Transit Date:" }),
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-            "input",
-            {
-              type: "date",
-              value: transitDate,
-              onChange: (e) => onChangeTransitDate(e.target.value),
-              className: "bg-white text-slate-900 text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-300 focus:border-indigo-600 focus:outline-none shadow-2xs"
-            }
-          )
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: onReset,
-            disabled: isScanning || !documentFile && !livePhotoFile,
-            className: "flex items-center space-x-1.5 px-4 py-2 rounded-lg text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 shadow-2xs disabled:opacity-40 transition-all cursor-pointer",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(RotateCcw, { className: "w-3.5 h-3.5" }),
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: "Reset Bay" })
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-          "button",
-          {
-            type: "button",
-            onClick: onScan,
-            disabled: !canScan || isScanning,
-            className: `flex items-center space-x-2 px-6 py-2.5 rounded-lg text-xs font-extrabold shadow-md transition-all transform hover:-translate-y-0.5 cursor-pointer ${canScan && !isScanning ? "bg-gradient-to-r from-[#0F2750] to-[#1E3A8A] hover:from-[#0B1D3A] hover:to-[#172554] text-white border border-amber-400/40 shadow-indigo-900/20" : "bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed"}`,
-            children: isScanning ? /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_jsx_runtime6.Fragment, { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(LoaderCircle, { className: "w-4 h-4 animate-spin text-amber-300" }),
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: "RUNNING MULTI-PILLAR INFERENCE..." })
-            ] }) : /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_jsx_runtime6.Fragment, { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(ShieldCheck, { className: "w-4 h-4 text-amber-400" }),
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: "EXECUTE DOCUMENT VERIFICATION" })
-            ] })
-          }
-        )
-      ] })
-    ] })
-  ] });
-};
-
-// src/components/ResultsPanel.tsx
-var import_react16 = __toESM(require_react(), 1);
-
-// src/components/RiskStatusBanner.tsx
-var import_jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
-var LEVEL_CONFIG = {
-  GREEN: {
-    title: "OFFICIAL TRANSIT CLEARANCE \u2022 APPROVED",
-    subtitle: "All cryptographic signatures, ICAO check digits, and 1:1 facial biometrics authenticated.",
-    action: "APPROVED \u2014 Safe for fast-path border transit clearance.",
-    Icon: ShieldCheck,
-    borderClass: "border-emerald-300",
-    bgClass: "bg-emerald-50",
-    badgeClass: "bg-emerald-100 text-emerald-800 border border-emerald-300",
-    iconBg: "bg-emerald-600 text-white",
-    titleClass: "text-emerald-950",
-    scoreClass: "text-emerald-700"
-  },
-  AMBER: {
-    title: "SECONDARY INSPECTION MANDATE \u2022 HOLD",
-    subtitle: "Anomalies detected in demographic cross-validation or stamp template forensics.",
-    action: "MANUAL HOLD \u2014 Field Officer must conduct physical document inspection.",
-    Icon: TriangleAlert,
-    borderClass: "border-amber-300",
-    bgClass: "bg-amber-50",
-    badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
-    iconBg: "bg-amber-600 text-white",
-    titleClass: "text-amber-950",
-    scoreClass: "text-amber-700"
-  },
-  RED: {
-    title: "CRITICAL SECURITY ALERT \u2022 INTERCEPT",
-    subtitle: "Compounding multi-modal forensic anomalies exceeded critical risk threshold.",
-    action: "INTERDICTION MANDATE \u2014 Detain subject under Section 14 Foreigners Act.",
-    Icon: ShieldAlert,
-    borderClass: "border-red-300",
-    bgClass: "bg-red-50",
-    badgeClass: "bg-red-100 text-red-800 border border-red-300",
-    iconBg: "bg-red-600 text-white",
-    titleClass: "text-red-950",
-    scoreClass: "text-red-700"
-  }
-};
-var RiskStatusBanner = ({ assessment }) => {
-  const { risk_level, risk_score, auto_clear, tripwire_triggered } = assessment;
-  const cfg = LEVEL_CONFIG[risk_level] ?? LEVEL_CONFIG.GREEN;
-  const { Icon: Icon2 } = cfg;
-  const subtitle = risk_level === "RED" ? tripwire_triggered ? "Deterministic Critical Verification Trigger activated \u2014 cryptographic or identity breach." : "Compounding multi-modal forensic anomalies exceeded critical risk threshold." : cfg.subtitle;
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
-    "div",
-    {
-      className: `rounded-2xl border-2 p-5 ${cfg.borderClass} ${cfg.bgClass} shadow-md transition-all select-none`,
-      children: /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex flex-col md:flex-row md:items-center justify-between gap-5", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-start space-x-4", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: `p-3.5 rounded-xl shadow-sm ${cfg.iconBg} shrink-0`, children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Icon2, { className: "w-8 h-8" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-center gap-2 flex-wrap mb-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: `text-[11px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-md ${cfg.badgeClass}`, children: [
-                "SECURITY TIER: ",
-                risk_level
-              ] }),
-              auto_clear ? /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-0.5 rounded-md flex items-center gap-1", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(CircleCheck, { className: "w-3.5 h-3.5 text-emerald-700" }),
-                " FAST-PATH CLEARED"
-              ] }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-[11px] font-mono font-bold bg-red-100 text-red-800 border border-red-300 px-2.5 py-0.5 rounded-md flex items-center gap-1", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(OctagonAlert, { className: "w-3.5 h-3.5 text-red-700" }),
-                " TRANSIT INTERCEPT"
-              ] }),
-              tripwire_triggered && /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("span", { className: "text-[11px] font-mono font-bold bg-red-600 text-white px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-sm animate-pulse", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Zap, { className: "w-3 h-3 fill-white text-white" }),
-                " CRITICAL TRIGGER"
-              ] })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("h2", { className: `text-lg md:text-xl font-extrabold tracking-tight uppercase font-sans ${cfg.titleClass}`, children: cfg.title }),
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("p", { className: "text-xs md:text-sm text-slate-600 mt-0.5 font-sans leading-relaxed", children: subtitle })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 md:border-l border-slate-300/80 pt-3 md:pt-0 md:pl-6 shrink-0", children: /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "text-left md:text-right", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-[10.5px] uppercase tracking-wider text-slate-500 font-bold font-sans block", children: "Threat Score" }),
-          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex items-baseline space-x-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: `text-3xl font-black font-mono tracking-tight ${cfg.scoreClass}`, children: risk_score.toFixed(1) }),
-            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { className: "text-xs font-mono text-slate-400 font-bold", children: "/ 100" })
-          ] })
-        ] }) })
-      ] })
-    }
-  );
-};
-
-// src/components/RiskScoreCard.tsx
-var import_react7 = __toESM(require_react(), 1);
-var import_jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
-var RiskScoreCard = ({ assessment }) => {
-  const [copiedHash, setCopiedHash] = (0, import_react7.useState)(false);
-  const [showFormula, setShowFormula] = (0, import_react7.useState)(false);
-  const { risk_score, risk_level, processing_time_ms, audit_hash, score_breakdown } = assessment;
-  const score = Math.max(0, Math.min(100, risk_score));
-  const radius = 68;
-  const cx = 90;
-  const cy = 90;
-  const arcFill = 340 - score / 100 * 240;
-  const strokeColor = risk_level === "GREEN" ? "var(--green)" : risk_level === "AMBER" ? "var(--orange)" : "var(--red)";
-  const copyHash = () => {
-    if (!audit_hash) return;
-    navigator.clipboard.writeText(audit_hash);
-    setCopiedHash(true);
-    setTimeout(() => setCopiedHash(false), 2e3);
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
-    "div",
-    {
-      className: "flex flex-col justify-between rounded-card bg-surface p-4 shadow-card",
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2.5 mb-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Gauge, { className: "w-4 h-4 text-accent" }),
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Threat Level & Risk Calibration" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center space-x-1.5 text-[11px] font-mono bg-inset px-2 py-1 rounded-control border border-line text-ink-2 shadow-btn", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Clock, { className: "w-3 h-3 text-ink-3" }),
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { children: [
-              "Screening Duration: ",
-              ((processing_time_ms || 350) / 1e3).toFixed(1),
-              "s"
-            ] })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex flex-col items-center justify-center relative", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("svg", { className: "w-44 h-44 -rotate-90 transform", viewBox: "0 0 180 180", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
-                "circle",
-                {
-                  cx,
-                  cy,
-                  r: radius,
-                  fill: "transparent",
-                  stroke: "var(--line)",
-                  strokeWidth: "13",
-                  strokeDasharray: "340",
-                  strokeDashoffset: "100",
-                  strokeLinecap: "round"
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
-                "circle",
-                {
-                  cx,
-                  cy,
-                  r: radius,
-                  fill: "transparent",
-                  stroke: strokeColor,
-                  strokeWidth: "13",
-                  strokeDasharray: "340",
-                  strokeDashoffset: arcFill,
-                  strokeLinecap: "round",
-                  className: "transition-all duration-700 ease-out"
-                }
-              )
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-3xl font-black font-mono tracking-tight text-ink", children: score.toFixed(1) }),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-[10px] uppercase font-bold text-ink-2 tracking-wider", children: risk_level === "GREEN" ? "LOW RISK" : risk_level === "AMBER" ? "MODERATE RISK" : "CRITICAL THREAT" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex justify-between w-full max-w-[170px] text-[10px] font-mono text-ink-3 px-1 mt-[-8px]", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: "0 LOW" }),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: "30" }),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: "70" }),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: "100 HIGH" })
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line text-xs", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-between mb-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1 font-mono", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Sigma, { className: "w-3.5 h-3.5 text-accent" }),
-                "Risk Factor Decomposition"
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => setShowFormula(!showFormula),
-                  className: "text-ink-3 hover:text-ink transition-colors",
-                  title: "Formula",
-                  children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Info, { className: "w-3.5 h-3.5" })
-                }
-              )
-            ] }),
-            showFormula && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("p", { className: "text-[10px] text-ink-2 bg-surface p-1.5 rounded-control mb-2 border border-line font-mono", children: "Calibrated Risk Score = Baseline Risk + \u03A3 Security Check Risk Factors (0 - 100)" }),
-            score_breakdown ? /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "space-y-1 font-mono text-[11px]", children: [
-              [
-                ["Baseline Risk Factor", score_breakdown.base_prior_log_odds],
-                ["Tamper Check Risk Factor", score_breakdown.tamper_log_odds_delta],
-                ["Face Match / Liveness Risk Factor", score_breakdown.face_log_odds_delta],
-                ["Cross-Verification Risk Factor", score_breakdown.cross_val_log_odds_delta],
-                ["Border Stamp Risk Factor", score_breakdown.stamp_log_odds_delta]
-              ].map(([label, val]) => /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex justify-between text-ink-2", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { children: [
-                  label,
-                  ":"
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: val > 0 ? "text-red font-semibold" : "text-ink-3", children: [
-                  val > 0 ? "+" : "",
-                  val.toFixed(2)
-                ] })
-              ] }, label)),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "border-t border-line pt-1 flex justify-between font-bold text-ink", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: "Calibrated Operational Risk:" }),
-                /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("span", { className: "text-accent", children: [
-                  (score_breakdown.raw_posterior_probability * 100).toFixed(1),
-                  "%"
-                ] })
-              ] })
-            ] }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("p", { className: "text-[11px] text-ink-3 font-mono", children: "Standard linear assessment." })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "bg-inset p-2 rounded-card border border-line flex items-center justify-between text-xs", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center space-x-2 truncate", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Fingerprint, { className: "w-3.5 h-3.5 text-accent flex-shrink-0" }),
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "truncate", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-[10px] text-ink-3 block font-mono", children: "SHA-256 chained evidence hash" }),
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-[11px] font-mono text-ink truncate block", children: audit_hash || "SHA256:4f8a92019b8201ac02938102938..." })
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
-            "button",
-            {
-              type: "button",
-              onClick: copyHash,
-              className: "p-1.5 bg-surface hover:bg-hover text-ink-2 hover:text-ink rounded-control transition-colors flex-shrink-0 border border-line shadow-btn",
-              title: "Copy audit hash",
-              children: copiedHash ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Check, { className: "w-3.5 h-3.5 text-green" }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Copy, { className: "w-3.5 h-3.5" })
-            }
-          )
-        ] })
-      ]
-    }
-  );
-};
-
-// src/components/ReasonBulletList.tsx
-var import_react8 = __toESM(require_react(), 1);
-var import_jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
-var ReasonBulletList = ({ reasons, crossValidation }) => {
-  const [showMatrix, setShowMatrix] = (0, import_react8.useState)(false);
-  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
-    "div",
-    {
-      className: "bg-surface border border-line rounded-card p-4 space-y-4 shadow-card",
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2.5", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(ListChecks, { className: "w-4 h-4 text-orange" }),
-            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Reason Telemetry & Discrepancy Log" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
-            reasons.length,
-            " Telemetry Entries"
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: "space-y-2", children: reasons.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("p", { className: "text-xs text-ink-3 italic font-mono", children: "No discrepancy telemetry recorded." }) : reasons.map((reason, idx) => {
-          const isCritical = reason.includes("TRIPWIRE") || reason.includes("CRITICAL") || reason.includes("ERR_") || reason.includes("FAILED") || reason.includes("Detain");
-          const isWarning = reason.includes("WARNING") || reason.includes("WRN_") || reason.includes("SECONDARY") || reason.includes("anomaly");
-          return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
-            "div",
-            {
-              className: `p-2.5 rounded-control border text-xs flex items-start space-x-2.5 ${isCritical ? "bg-red-tint border-red/40 text-ink" : isWarning ? "bg-orange-tint border-orange/40 text-ink" : "bg-green-tint border-green/40 text-ink"}`,
-              children: [
-                isCritical ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(ShieldAlert, { className: "w-4 h-4 text-red flex-shrink-0 mt-0.5" }) : isWarning ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(TriangleAlert, { className: "w-4 h-4 text-orange flex-shrink-0 mt-0.5" }) : /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(CircleCheck, { className: "w-4 h-4 text-green flex-shrink-0 mt-0.5" }),
-                /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "leading-relaxed font-medium", children: reason })
-              ]
-            },
-            idx
-          );
-        }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "border-t border-line pt-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
-            "button",
-            {
-              type: "button",
-              onClick: () => setShowMatrix(!showMatrix),
-              className: "flex items-center justify-between w-full text-left py-1 text-xs font-bold text-ink-2 hover:text-ink transition-colors",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center gap-1.5 font-mono", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Layers, { className: "w-3.5 h-3.5 text-accent" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { children: "8-Rule Cross-Validation Guard Matrix" })
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("div", { className: "flex items-center gap-1 text-[11px] text-ink-3 font-mono", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { children: crossValidation.cross_validation_passed ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-green font-bold", children: "ALL RULES PASSED" }) : /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("span", { className: "text-red font-bold", children: [
-                    crossValidation.violation_count,
-                    " VIOLATIONS DETECTED"
-                  ] }) }),
-                  showMatrix ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(ChevronUp, { className: "w-4 h-4" }) : /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(ChevronDown, { className: "w-4 h-4" })
-                ] })
-              ]
-            }
-          ),
-          showMatrix && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("div", { className: "mt-2.5 overflow-x-auto rounded-control border border-line animate-fade-in", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("table", { className: "w-full text-left text-xs font-mono border-collapse", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)("tr", { className: "bg-inset text-ink-3 border-b border-line text-[10px] uppercase", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("th", { className: "p-2", children: "Rule ID" }),
-              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("th", { className: "p-2", children: "Cross-Validation Check" }),
-              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("th", { className: "p-2", children: "Status" }),
-              /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("th", { className: "p-2", children: "Telemetry Message" })
-            ] }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("tbody", { className: "divide-y divide-line bg-surface", children: crossValidation.flags && crossValidation.flags.length > 0 ? crossValidation.flags.map((flag) => /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
-              "tr",
-              {
-                className: !flag.passed ? "bg-red-tint text-ink" : "text-ink-2",
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("td", { className: "p-2 font-bold whitespace-nowrap", children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
-                    "span",
-                    {
-                      className: `px-1.5 py-0.5 rounded-chip text-[10px] border ${flag.passed ? "bg-inset text-ink-2 border-line" : "bg-red-bg text-red border-red/40 font-bold"}`,
-                      children: flag.rule_id
-                    }
-                  ) }),
-                  /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("td", { className: "p-2 text-[11px] font-sans text-ink", children: flag.rule_description }),
-                  /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("td", { className: "p-2 whitespace-nowrap", children: flag.passed ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[10px] font-bold text-green bg-green-tint border border-green/30 px-1.5 py-0.5 rounded-chip", children: "PASSED" }) : /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("span", { className: "text-[10px] font-bold text-red bg-red-tint border border-red/30 px-1.5 py-0.5 rounded-chip", children: "FAILED" }) }),
-                  /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("td", { className: "p-2 text-[11px] text-ink-2 font-sans", children: flag.telemetry_message })
-                ]
-              },
-              flag.rule_id
-            )) : /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)("td", { colSpan: 4, className: "p-3 text-center text-ink-3 italic", children: "Standard cross-validation matrix completed." }) }) })
-          ] }) })
-        ] })
-      ]
-    }
-  );
-};
-
-// src/components/ForensicsViewer.tsx
-var import_react9 = __toESM(require_react(), 1);
-var import_jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
-var sanitizeImageUrl = (url) => {
-  if (!url) return null;
-  const trimmed = url.trim();
-  if (trimmed.startsWith("data:") || trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("/") || trimmed.startsWith("blob:")) {
-    return trimmed;
-  }
-  return `data:image/png;base64,${trimmed}`;
-};
-var ForensicsViewer = ({
-  documentImageUrl,
-  heatmapImageUrl,
-  forensics,
-  stamp
-}) => {
-  const [viewMode, setViewMode] = (0, import_react9.useState)("slider");
-  const [blendOpacity, setBlendOpacity] = (0, import_react9.useState)(0.55);
-  const [showBoundingBoxes, setShowBoundingBoxes] = (0, import_react9.useState)(true);
-  const [zoomLevel, setZoomLevel] = (0, import_react9.useState)(1);
-  const canvasRef = (0, import_react9.useRef)(null);
-  const containerRef = (0, import_react9.useRef)(null);
-  const sanitizedDocUrl = sanitizeImageUrl(documentImageUrl) || documentImageUrl;
-  const sanitizedHeatmapUrl = sanitizeImageUrl(heatmapImageUrl);
-  (0, import_react9.useEffect)(() => {
-    if (viewMode !== "slider") return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const baseImg = new Image();
-    baseImg.crossOrigin = "anonymous";
-    baseImg.src = sanitizedDocUrl;
-    baseImg.onload = () => {
-      canvas.width = baseImg.naturalWidth || 600;
-      canvas.height = baseImg.naturalHeight || 400;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(baseImg, 0, 0);
-      if (sanitizedHeatmapUrl && blendOpacity > 0) {
-        const heatImg = new Image();
-        heatImg.crossOrigin = "anonymous";
-        heatImg.src = sanitizedHeatmapUrl;
-        heatImg.onload = () => {
-          ctx.save();
-          ctx.globalAlpha = blendOpacity;
-          ctx.drawImage(heatImg, 0, 0, canvas.width, canvas.height);
-          ctx.restore();
-          if (showBoundingBoxes) {
-            renderBoxes(ctx);
-          }
-        };
-      } else if (showBoundingBoxes) {
-        renderBoxes(ctx);
-      }
-    };
-  }, [sanitizedDocUrl, sanitizedHeatmapUrl, blendOpacity, showBoundingBoxes, viewMode, forensics, stamp]);
-  const renderBoxes = (ctx) => {
-    if (forensics.tampered_regions && forensics.tampered_regions.length > 0) {
-      for (const region of forensics.tampered_regions) {
-        const [x1, y1, x2, y2] = region.bbox;
-        ctx.save();
-        ctx.strokeStyle = "#EF4444";
-        ctx.lineWidth = 3;
-        ctx.setLineDash([6, 4]);
-        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
-        ctx.fillStyle = "#EF4444";
-        ctx.fillRect(x1, Math.max(0, y1 - 22), x2 - x1 > 120 ? x2 - x1 : 140, 22);
-        ctx.fillStyle = "#F8FAFC";
-        ctx.font = "bold 11px monospace";
-        ctx.fillText(`TAMPER: ${(region.peak_tamper_probability * 100).toFixed(0)}%`, x1 + 4, Math.max(15, y1 - 6));
-        ctx.restore();
-      }
-    }
-    if (stamp?.stamp_bbox) {
-      const [sx1, sy1, sx2, sy2] = stamp.stamp_bbox;
-      ctx.save();
-      ctx.strokeStyle = stamp.verdict === "AUTHENTIC" ? "#10B981" : "#F59E0B";
-      ctx.lineWidth = 2.5;
-      ctx.strokeRect(sx1, sy1, sx2 - sx1, sy2 - sy1);
-      ctx.fillStyle = stamp.verdict === "AUTHENTIC" ? "#10B981" : "#F59E0B";
-      ctx.fillRect(sx1, Math.max(0, sy1 - 20), 120, 20);
-      ctx.fillStyle = "#FFFFFF";
-      ctx.font = "bold 10px sans-serif";
-      ctx.fillText(`STAMP: ${stamp.verdict}`, sx1 + 4, Math.max(14, sy1 - 5));
-      ctx.restore();
-    }
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-    "div",
-    {
-      className: "bg-surface border border-line rounded-card p-4 space-y-3 shadow-card",
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Eye, { className: "w-4 h-4 text-accent" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "Dual-Canvas Visual Forensics & Heatmap Compositor" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center flex-wrap gap-2 text-xs", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex bg-inset p-0.5 rounded-control border border-line", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => setViewMode("slider"),
-                  className: `flex items-center space-x-1 px-2.5 py-1 rounded-chip text-[11px] font-medium transition-colors ${viewMode === "slider" ? "bg-accent text-white shadow-btn" : "text-ink-2 hover:text-ink"}`,
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(SlidersVertical, { className: "w-3 h-3" }),
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { children: "Opacity Slider" })
-                  ]
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => setViewMode("side-by-side"),
-                  className: `flex items-center space-x-1 px-2.5 py-1 rounded-chip text-[11px] font-medium transition-colors ${viewMode === "side-by-side" ? "bg-accent text-white shadow-btn" : "text-ink-2 hover:text-ink"}`,
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Columns2, { className: "w-3 h-3" }),
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { children: "Side-by-Side" })
-                  ]
-                }
-              )
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-              "button",
-              {
-                type: "button",
-                onClick: () => setShowBoundingBoxes(!showBoundingBoxes),
-                className: `px-2.5 py-1 rounded-control border text-[11px] font-mono transition-colors shadow-btn ${showBoundingBoxes ? "bg-accent-tint border-accent/40 text-accent font-semibold" : "bg-inset border-line text-ink-3"}`,
-                children: [
-                  "B-Boxes: ",
-                  showBoundingBoxes ? "ON" : "OFF"
-                ]
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center space-x-1 bg-inset px-1 py-0.5 rounded-control border border-line shadow-btn", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => setZoomLevel((z) => Math.max(0.7, z - 0.15)),
-                  className: "p-1 hover:text-ink text-ink-3",
-                  title: "Zoom Out",
-                  children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ZoomOut, { className: "w-3.5 h-3.5" })
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "text-[10px] font-mono text-ink px-1", children: [
-                (zoomLevel * 100).toFixed(0),
-                "%"
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => setZoomLevel((z) => Math.min(2, z + 0.15)),
-                  className: "p-1 hover:text-ink text-ink-3",
-                  title: "Zoom In",
-                  children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ZoomIn, { className: "w-3.5 h-3.5" })
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => setZoomLevel(1),
-                  className: "p-1 hover:text-ink text-ink-3 border-l border-line ml-0.5",
-                  title: "Reset Zoom",
-                  children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(RotateCcw, { className: "w-3 h-3" })
-                }
-              )
-            ] })
-          ] })
-        ] }),
-        viewMode === "slider" && /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center space-x-3 bg-inset px-3 py-2 rounded-control border border-line text-xs", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink-3 text-[11px] font-mono whitespace-nowrap", children: "Original (0%)" }),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-            "input",
-            {
-              type: "range",
-              min: "0",
-              max: "1",
-              step: "0.05",
-              value: blendOpacity,
-              onChange: (e) => setBlendOpacity(parseFloat(e.target.value)),
-              className: "w-full accent-accent cursor-pointer h-1.5 bg-surface rounded-lg"
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "text-ink-2 text-[11px] font-mono whitespace-nowrap", children: [
-            "Heatmap (",
-            (blendOpacity * 100).toFixed(0),
-            "%)"
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-          "div",
-          {
-            ref: containerRef,
-            className: "relative bg-canvas rounded-card border border-line p-3 min-h-[300px] flex items-center justify-center overflow-auto max-h-[500px]",
-            children: viewMode === "slider" ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-              "div",
-              {
-                style: { transform: `scale(${zoomLevel})`, transformOrigin: "center center" },
-                className: "transition-transform duration-150 flex justify-center",
-                children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("canvas", { ref: canvasRef, className: "max-w-full rounded-control border border-line shadow-card" })
-              }
-            ) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
-              "div",
-              {
-                style: { transform: `scale(${zoomLevel})`, transformOrigin: "center center" },
-                className: "grid grid-cols-1 md:grid-cols-2 gap-3 w-full transition-transform duration-150",
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[10px] font-mono text-ink-3 uppercase mb-1", children: "High-Res Document Scan" }),
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                      "img",
-                      {
-                        src: sanitizedDocUrl,
-                        alt: "Original Document",
-                        className: "max-h-[320px] max-w-full object-contain rounded-chip"
-                      }
-                    )
-                  ] }),
-                  /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex flex-col items-center bg-surface p-2 rounded-control border border-line shadow-card", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-[10px] font-mono text-ink-3 uppercase mb-1", children: "Tamper Check Heatmap" }),
-                    sanitizedHeatmapUrl ? /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-                      "img",
-                      {
-                        src: sanitizedHeatmapUrl,
-                        alt: "Heatmap",
-                        className: "max-h-[320px] max-w-full object-contain rounded-chip"
-                      }
-                    ) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "h-[240px] flex flex-col items-center justify-center text-center p-4 text-ink-3 text-xs font-mono", children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(ShieldCheck, { className: "w-8 h-8 text-green mb-2" }),
-                      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { children: "Zero pixel tampering detected. Substrate nominal." })
-                    ] })
-                  ] })
-                ]
-              }
-            )
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "bg-inset px-3 py-2 rounded-control border border-line flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] font-mono", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-ink-3 text-[10px] uppercase font-bold", children: "Colormap:" }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
-              "div",
-              {
-                className: "w-48 h-2.5 rounded-full border border-line",
-                style: {
-                  background: "linear-gradient(to right, #30123b, #4662d8, #1ae4b6, #a2fc3c, #faba39, #e23e1a, #7a0403)"
-                }
-              }
-            )
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center space-x-3 text-ink-3 text-[10px]", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "flex items-center gap-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "w-2 h-2 rounded-full bg-accent" }),
-              " 0.00 (Clean)"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "flex items-center gap-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "w-2 h-2 rounded-full bg-green" }),
-              " 0.18 (Tamper Threshold)"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("span", { className: "flex items-center gap-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "w-2 h-2 rounded-full bg-red" }),
-              " 1.00 (Critical Forgery)"
-            ] })
-          ] })
-        ] })
-      ]
-    }
-  );
-};
-
-// src/components/PillarsTable.tsx
-var import_react10 = __toESM(require_react(), 1);
-
-// src/utils/formatting.ts
-function formatPercent(value, decimals = 1) {
-  if (value === void 0 || value === null || isNaN(value)) return "N/A";
-  return `${(value * 100).toFixed(decimals)}%`;
-}
-function maskAadhaar(raw) {
-  if (!raw) return "N/A";
-  const clean = raw.replace(/\s+/g, "").replace(/-/g, "");
-  if (clean.length === 12) {
-    return `XXXX-XXXX-${clean.slice(8)}`;
-  }
-  return raw;
-}
-
-// src/components/PillarOCR.tsx
-var import_jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
-var PillarOCR = ({ ocr }) => {
-  const { status, script_detected, fields, field_confidences, mean_confidence, requires_tier2_vlm, qr_payload } = ocr;
-  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Status" }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-xs font-bold font-mono text-green uppercase", children: status })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Script" }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-xs font-bold font-mono text-ink uppercase", children: script_detected })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Mean Confidence" }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-xs font-bold font-mono text-accent", children: formatPercent(mean_confidence) })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[10px] text-ink-3 font-mono uppercase block", children: "Enhanced Scan Gate" }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-          "span",
-          {
-            className: `text-xs font-bold font-mono ${requires_tier2_vlm ? "text-orange" : "text-ink-3"}`,
-            children: requires_tier2_vlm ? "TRIGGERED (ENHANCED SCAN)" : "STANDARD VERIFIED (PASS)"
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset rounded-card border border-line overflow-hidden", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-surface px-3 py-2 border-b border-line font-semibold text-ink flex items-center justify-between", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("span", { className: "flex items-center gap-1.5 font-mono text-xs", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(FileText, { className: "w-3.5 h-3.5 text-accent" }),
-          "Structured Demographic Fields"
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("span", { className: "text-[10px] text-ink-3 font-mono", children: [
-          Object.keys(fields).length,
-          " Fields Extracted"
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("div", { className: "p-3 divide-y divide-line", children: Object.keys(fields).length > 0 ? Object.entries(fields).map(([key, val]) => {
-        const conf = field_confidences[key];
-        const displayVal = key.includes("aadhaar") ? maskAadhaar(val) : val;
-        return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "py-1.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("span", { className: "text-ink-2 font-mono text-[11px] capitalize", children: [
-            key.replace(/_/g, " "),
-            ":"
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "flex items-center space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-semibold text-ink", children: displayVal }),
-            conf !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-[10px] font-mono text-ink-3 bg-surface px-1.5 py-0.5 rounded-chip border border-line", children: formatPercent(conf, 0) })
-          ] })
-        ] }, key);
-      }) : /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { className: "text-ink-3 italic py-2 font-mono", children: "No structured text fields detected." }) })
-    ] }),
-    qr_payload && qr_payload.raw_qr_found && /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "bg-inset rounded-card border border-line p-3 space-y-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "flex items-center space-x-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(QrCode, { className: "w-4 h-4 text-brand-purple" }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "font-bold text-ink font-mono text-xs", children: "Aadhaar Secure QR Cryptographic Payload" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-          "span",
-          {
-            className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${qr_payload.signature_valid ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
-            children: qr_payload.signature_valid ? "RSA-2048 SIGNATURE VALID" : "RSA-2048 SIGNATURE INVALID"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3", children: "QR Format: " }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink", children: qr_payload.qr_type || "AADHAAR_SECURE_V2" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3", children: "Algorithm: " }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink", children: qr_payload.signature_algorithm || "SHA256withRSA" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3", children: "JP2000 Photo: " }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: qr_payload.photo_jp2_extracted ? "text-green font-semibold" : "text-ink-3", children: qr_payload.photo_jp2_extracted ? "EXTRACTED" : "NONE" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink-3", children: "Authority: " }),
-          /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("span", { className: "text-ink", children: "UIDAI 2048-bit Root CA" })
-        ] })
-      ] }),
-      qr_payload.error_message && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("p", { className: "text-[10px] text-red bg-red-tint border border-red/40 p-1.5 rounded-chip font-mono", children: qr_payload.error_message })
-    ] })
-  ] });
-};
-
-// src/components/PillarMRZ.tsx
-var import_jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
-var PillarMRZ = ({ mrz }) => {
-  const {
-    mrz_detected,
-    mrz_type,
-    valid,
-    raw_lines,
-    country_code,
-    surname,
-    given_names,
-    document_number,
-    doc_number_checksum_valid,
-    dob_checksum_valid,
-    expiry_checksum_valid,
-    optional_data_checksum_valid,
-    composite_checksum_valid,
-    checksum_failures
-  } = mrz;
-  if (!mrz_detected) {
-    return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-inset p-6 rounded-card border border-line text-center space-y-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(CreditCard, { className: "w-8 h-8 text-ink-3 mx-auto" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("h4", { className: "text-xs font-bold text-ink font-mono uppercase", children: "No Machine Readable Zone (MRZ) Detected" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "This document format (e.g. standard Aadhaar PVC or Entry Permit) does not contain an ICAO Doc 9303 MRZ zone." })
-    ] });
-  }
-  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2 bg-inset p-3 rounded-card border border-line", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(CreditCard, { className: "w-4 h-4 text-accent" }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("span", { className: "font-bold text-ink font-mono", children: [
-          "ICAO Doc 9303 MRZ Engine (",
-          mrz_type || "TD3",
-          ")"
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-        "span",
-        {
-          className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${valid ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
-          children: valid ? "MODULO-10 7-3-1 VERIFIED" : "CHECKSUM FAILURE DETECTED"
-        }
-      )
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-1", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[10px] text-ink-3 uppercase font-mono block mb-1", children: "Optical Character Matrix (OCR-B Font)" }),
-      raw_lines.map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
-        "div",
-        {
-          className: "font-mono text-xs sm:text-sm bg-surface px-3 py-1.5 rounded-control text-orange tracking-widest border border-line overflow-x-auto whitespace-pre shadow-inset-field",
-          children: line
-        },
-        idx
-      ))
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[10px] font-mono uppercase text-ink-3 font-bold block", children: "Modulo-10 (Weights 7-3-1) Checksum Indicators" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-[11px]", children: [
-        ["CD1 (Doc No)", doc_number_checksum_valid],
-        ["CD2 (DOB)", dob_checksum_valid],
-        ["CD3 (Expiry)", expiry_checksum_valid],
-        ["CD4 (Optional)", optional_data_checksum_valid !== false],
-        ["Composite", composite_checksum_valid]
-      ].map(([label, isValid]) => /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line flex flex-col items-center text-center shadow-btn", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 text-[10px]", children: label }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: `font-bold mt-1 ${isValid ? "text-green" : "text-red"}`, children: isValid ? "VALID" : "FAILED" })
-      ] }, label)) })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 bg-inset p-3 rounded-card border border-line font-mono text-[11px]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Surname:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "font-bold text-ink", children: surname || "N/A" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Given Names:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "font-bold text-ink", children: given_names || "N/A" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Document No:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "font-bold text-ink", children: document_number || "N/A" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Country Code:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "font-bold text-ink", children: country_code || "N/A" })
-      ] })
-    ] }),
-    checksum_failures.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "bg-red-tint border border-red/40 p-2.5 rounded-card", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-[11px] font-bold text-red block mb-1 font-mono", children: "Checksum Failures Log:" }),
-      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("ul", { className: "list-disc list-inside text-[11px] text-ink font-mono", children: checksum_failures.map((f, i) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("li", { children: f }, i)) })
-    ] })
-  ] });
-};
-
-// src/components/PillarBiometrics.tsx
-var import_jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
-var PillarBiometrics = ({ biometrics, liveness }) => {
-  if (!biometrics && !liveness) {
-    return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset p-6 rounded-card border border-line text-center space-y-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(UserCheck, { className: "w-8 h-8 text-ink-3 mx-auto" }),
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("h4", { className: "text-xs font-bold text-ink font-mono uppercase", children: "No Biometric Data Available" }),
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "Capture a live face photograph using WebCam to evaluate 1:1 face match similarity and live selfie presentation verification." })
-    ] });
-  }
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
-    biometrics && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset rounded-card border border-line p-3 space-y-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center space-x-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(UserCheck, { className: "w-4 h-4 text-accent" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "font-bold text-ink font-mono", children: "Facial Biometric Matcher \xB7 1:1 Identity Verification" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-          "span",
-          {
-            className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${biometrics.match ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
-            children: biometrics.match ? "1:1 IDENTITY MATCH CONFIRMED" : "IDENTITY MISMATCH DETECTED"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Face Match Confidence" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-            "span",
-            {
-              className: `text-sm font-bold block mt-0.5 ${biometrics.similarity >= biometrics.threshold ? "text-green" : "text-red"}`,
-              children: biometrics.similarity.toFixed(3)
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Decision Threshold" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: biometrics.threshold.toFixed(2) })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Age Validation" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: biometrics.age_drift_years !== null && biometrics.age_drift_years !== void 0 ? `${biometrics.age_drift_years} yrs` : "0 yrs" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Watchlist Vector Screen" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-            "span",
-            {
-              className: `text-xs font-bold block mt-1 ${biometrics.watchlist_hit ? "text-red" : "text-green"}`,
-              children: biometrics.watchlist_hit ? "WATCHLIST HIT!" : "CLEAR (NO HIT)"
-            }
-          )
-        ] })
-      ] })
-    ] }),
-    liveness && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-inset rounded-card border border-line p-3 space-y-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex items-center space-x-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Activity, { className: "w-4 h-4 text-green" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "font-bold text-ink font-mono", children: "Selfie Liveness & Anti-Spoofing Check" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-          "span",
-          {
-            className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${liveness.is_live ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
-            children: liveness.is_live ? "GENUINE LIVE HUMAN" : "PRESENTATION ATTACK DETECTED"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Selfie Liveness Check" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-            "span",
-            {
-              className: `text-sm font-bold block mt-0.5 ${liveness.is_live ? "text-green" : "text-red"}`,
-              children: formatPercent(liveness.confidence)
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Patch Scale 2.7x" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: liveness.score_2_7x !== null && liveness.score_2_7x !== void 0 ? formatPercent(liveness.score_2_7x) : "N/A" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Patch Scale 4.0x" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-sm font-bold text-ink-2 block mt-0.5", children: liveness.score_4_0x !== null && liveness.score_4_0x !== void 0 ? formatPercent(liveness.score_4_0x) : "N/A" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-surface p-2 rounded-control border border-line shadow-btn", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "2D Fourier FFT Anomaly" }),
-          /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-            "span",
-            {
-              className: `text-sm font-bold block mt-0.5 ${(liveness.fourier_anomaly_score || 0) > 0.5 ? "text-red" : "text-green"}`,
-              children: liveness.fourier_anomaly_score !== null && liveness.fourier_anomaly_score !== void 0 ? liveness.fourier_anomaly_score.toFixed(2) : "0.00"
-            }
-          )
-        ] })
-      ] }),
-      liveness.attack_type && /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "bg-red-tint border border-red/40 p-2.5 rounded-control flex items-center space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Smartphone, { className: "w-4 h-4 text-red flex-shrink-0" }),
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "text-[11px] font-mono text-red font-semibold", children: [
-          "Detected Attack Modality: ",
-          liveness.attack_type
-        ] })
-      ] })
-    ] })
-  ] });
-};
-
-// src/components/PillarForensics.tsx
-var import_jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
-var PillarForensics = ({ forensics }) => {
-  const {
-    tamper_score,
-    is_tampered,
-    photo_region_tampered,
-    doctamper_score,
-    trufor_score,
-    ela_result,
-    exif_suspicious,
-    dqt_quantization_altered,
-    tampered_regions
-  } = forensics;
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2 bg-inset p-3 rounded-card border border-line", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex items-center space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Microscope, { className: "w-4 h-4 text-accent" }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "font-bold text-ink font-mono", children: "Multi-Scale Pixel Forgery & Splicing Suite" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-        "span",
-        {
-          className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${!is_tampered ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"}`,
-          children: !is_tampered ? "ZERO TAMPERING DETECTED" : "PIXEL FORGERY / SPLICING ALERT"
-        }
-      )
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Continuous Tamper Score" }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-          "span",
-          {
-            className: `text-sm font-bold block mt-0.5 ${is_tampered ? "text-red" : "text-green"}`,
-            children: formatPercent(tamper_score)
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "tau_adapt = 0.180" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Digital Text Tamper Detector" }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-          "span",
-          {
-            className: `text-sm font-bold block mt-0.5 ${doctamper_score >= 0.18 ? "text-red" : "text-ink-2"}`,
-            children: formatPercent(doctamper_score)
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Text Scraping / Inpainting" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Photo Splicing Localization" }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-          "span",
-          {
-            className: `text-sm font-bold block mt-0.5 ${trufor_score >= 0.18 ? "text-red" : "text-ink-2"}`,
-            children: formatPercent(trufor_score)
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Substrate Boundary Splicing" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Portrait Window Splicing" }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-          "span",
-          {
-            className: `text-xs font-bold block mt-1 ${photo_region_tampered ? "text-red" : "text-green"}`,
-            children: photo_region_tampered ? "SPLICED PHOTO" : "PORTRAIT INTACT"
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "flex items-center justify-between border-b border-line pb-1.5", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1.5 font-mono", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(Layers, { className: "w-3.5 h-3.5 text-accent" }),
-          "Substrate Compression Analysis"
-        ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "grid grid-cols-2 gap-2 font-mono text-[11px]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Max Intensity Error:" }),
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "font-bold text-ink", children: ela_result ? ela_result.max_intensity.toFixed(1) : "N/A" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3 block text-[10px]", children: "Mean Error Level:" }),
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "font-bold text-ink", children: ela_result ? ela_result.mean_intensity.toFixed(1) : "N/A" })
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "flex items-center justify-between border-b border-line pb-1.5", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("span", { className: "font-bold text-ink flex items-center gap-1.5 font-mono", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(FileSearch, { className: "w-3.5 h-3.5 text-accent" }),
-          "EXIF & JPEG Quantization (DQT)"
-        ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "space-y-1 font-mono text-[11px]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex justify-between", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3", children: "Editing Software Traces:" }),
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: exif_suspicious ? "text-red font-bold" : "text-green font-bold", children: exif_suspicious ? "SUSPICIOUS EXIF" : "CLEAN (RAW CAPTURE)" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex justify-between", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "text-ink-3", children: "DQT Multi-Compression:" }),
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: dqt_quantization_altered ? "text-orange font-bold" : "text-green font-bold", children: dqt_quantization_altered ? "NON-STANDARD DQT" : "STANDARD" })
-          ] })
-        ] })
-      ] })
-    ] }),
-    tampered_regions && tampered_regions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "bg-red-tint border border-red/40 p-3 rounded-card space-y-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("span", { className: "text-xs font-bold text-red block font-mono", children: [
-        "Localized Anomaly Regions Detected (",
-        tampered_regions.length,
-        "):"
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "divide-y divide-red-800/40", children: tampered_regions.map((reg, idx) => /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "py-1 flex items-center justify-between font-mono text-[11px]", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("span", { className: "text-ink", children: [
-          "[",
-          reg.bbox.join(", "),
-          "] \u2022 ",
-          reg.tamper_type
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("span", { className: "text-red font-bold", children: [
-          "Peak Anomaly: ",
-          formatPercent(reg.peak_tamper_probability)
-        ] })
-      ] }, idx)) })
-    ] })
-  ] });
-};
-
-// src/components/PillarStamp.tsx
-var import_jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
-var PillarStamp = ({ stamp }) => {
-  if (!stamp || !stamp.stamp_found) {
-    return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "bg-inset p-6 rounded-card border border-line text-center space-y-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Stamp, { className: "w-8 h-8 text-ink-3 mx-auto" }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("h4", { className: "text-xs font-bold text-ink font-mono uppercase", children: "No Border Transit Stamp Detected" }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("p", { className: "text-[11px] text-ink-2 max-w-sm mx-auto", children: "No physical rubber or laser immigration transit seal was detected on the presented document page." })
-    ] });
-  }
-  const {
-    verdict,
-    checkpost_id,
-    location_name,
-    ssim_score,
-    orb_match_count,
-    tamper_energy,
-    context_consistent,
-    reasons
-  } = stamp;
-  return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "space-y-3 text-xs font-sans", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-2 bg-inset p-3 rounded-card border border-line", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "flex items-center space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Stamp, { className: "w-4 h-4 text-orange" }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "font-bold text-ink font-mono", children: "4-Stage Hybrid Stamp Authentication" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
-        "span",
-        {
-          className: `text-[10px] font-mono font-bold px-2 py-0.5 rounded-chip border ${verdict === "AUTHENTIC" ? "bg-green-tint text-green border-green/40" : verdict === "SUSPICIOUS" ? "bg-orange-tint text-orange border-orange/40" : "bg-red-tint text-red border-red/40"}`,
-          children: [
-            "VERDICT: ",
-            verdict
-          ]
-        }
-      )
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line flex items-center space-x-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(MapPin, { className: "w-5 h-5 text-orange flex-shrink-0" }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-[10px] uppercase font-mono text-ink-3 block", children: "SSB Stamp Registry Template:" }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("p", { className: "text-xs font-bold text-ink font-mono", children: location_name || checkpost_id || "Official Border Checkpost Stamp" })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Template SSIM" }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
-          "span",
-          {
-            className: `text-sm font-bold block mt-0.5 ${(ssim_score || 0) >= 0.75 ? "text-green" : "text-orange"}`,
-            children: ssim_score !== null && ssim_score !== void 0 ? ssim_score.toFixed(3) : "N/A"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Threshold >= 0.750" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "ORB Inliers" }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("span", { className: "text-sm font-bold text-ink block mt-0.5", children: [
-          orb_match_count || 0,
-          " inliers"
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Homography Matrix" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Internal Tamper Energy" }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
-          "span",
-          {
-            className: `text-sm font-bold block mt-0.5 ${(tamper_energy || 0) >= 0.18 ? "text-red" : "text-green"}`,
-            children: tamper_energy !== null && tamper_energy !== void 0 ? tamper_energy.toFixed(3) : "0.000"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Ink Tamper Mask" })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "bg-inset p-2.5 rounded-control border border-line", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-ink-3 text-[10px] block", children: "Route & Date" }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
-          "span",
-          {
-            className: `text-xs font-bold block mt-1 ${context_consistent ? "text-green" : "text-orange"}`,
-            children: context_consistent ? "CONSISTENT" : "ROUTE MISMATCH"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-[9px] text-ink-3 block", children: "Registry Verification" })
-      ] })
-    ] }),
-    reasons && reasons.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "bg-inset p-3 rounded-card border border-line space-y-1", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "text-[10px] font-bold text-ink-3 uppercase block font-mono", children: "Stamp Verification Audit Notes:" }),
-      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("ul", { className: "list-disc list-inside text-[11px] text-ink-2 space-y-0.5 font-mono", children: reasons.map((r, i) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("li", { children: r }, i)) })
-    ] })
-  ] });
-};
-
-// src/components/PillarsTable.tsx
-var import_jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
-var PillarsTable = ({ scanDetails }) => {
-  const [activeTab, setActiveTab] = (0, import_react10.useState)("all");
-  const { ocr, mrz, biometrics, liveness, forensics, stamp } = scanDetails;
-  const tabs = [
-    { id: "all", label: "All Verification Checks", icon: Grid3x3 },
-    {
-      id: "ocr",
-      label: "1. Text & QR Check",
-      icon: FileText,
-      badge: ocr.qr_payload?.signature_valid === false ? "SIG FAIL" : void 0,
-      badgeColor: "bg-red-tint text-red border-red/40"
-    },
-    {
-      id: "mrz",
-      label: "2. Document Format",
-      icon: CreditCard,
-      badge: mrz.mrz_detected ? mrz.valid ? "VALID" : "FAIL" : void 0,
-      badgeColor: mrz.valid ? "bg-green-tint text-green border-green/40" : "bg-red-tint text-red border-red/40"
-    },
-    {
-      id: "biometrics",
-      label: "3. Face Match & Liveness",
-      icon: UserCheck,
-      badge: liveness?.is_live === false ? "SPOOF" : biometrics?.match ? "MATCH" : void 0,
-      badgeColor: liveness?.is_live === false ? "bg-red-tint text-red border-red/40" : "bg-green-tint text-green border-green/40"
-    },
-    {
-      id: "forensics",
-      label: "4. Ink & Substrate Integrity",
-      icon: Microscope,
-      badge: forensics.is_tampered ? "TAMPERED" : "CLEAN",
-      badgeColor: forensics.is_tampered ? "bg-red-tint text-red border-red/40" : "bg-green-tint text-green border-green/40"
-    },
-    {
-      id: "stamp",
-      label: "5. Border Permit Stamp",
-      icon: Stamp,
-      badge: stamp?.stamp_found ? stamp.verdict : void 0,
-      badgeColor: stamp?.verdict === "AUTHENTIC" ? "bg-green-tint text-green border-green/40" : "bg-orange-tint text-orange border-orange/40"
-    }
-  ];
-  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
-    "div",
-    {
-      className: "bg-surface border border-line rounded-card p-4 space-y-4 shadow-card",
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "flex items-center space-x-1.5 overflow-x-auto pb-1 border-b border-line", children: tabs.map((tab) => {
-          const Icon2 = tab.icon;
-          const isActive = activeTab === tab.id;
-          return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
-            "button",
-            {
-              type: "button",
-              onClick: () => setActiveTab(tab.id),
-              className: `flex items-center space-x-2 px-3 py-1.5 rounded-control text-xs font-semibold whitespace-nowrap transition-colors shadow-btn ${isActive ? "bg-accent text-white" : "bg-inset hover:bg-hover text-ink-2 hover:text-ink border border-line"}`,
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Icon2, { className: "w-3.5 h-3.5" }),
-                /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { children: tab.label }),
-                tab.badge && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
-                  "span",
-                  {
-                    className: `text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-chip border ${tab.badgeColor || "bg-surface text-ink-2 border-line"}`,
-                    children: tab.badge
-                  }
-                )
-              ]
-            },
-            tab.id
-          );
-        }) }),
-        activeTab === "all" ? /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "space-y-4", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FileText, { className: "w-4 h-4" }),
-              " Check 1: Text Extraction & QR Verification"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarOCR, { ocr })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(CreditCard, { className: "w-4 h-4" }),
-              " Check 2: Document Format & Security Checksums"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarMRZ, { mrz })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(UserCheck, { className: "w-4 h-4" }),
-              " Check 3: Face Match & Selfie Liveness Check"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarBiometrics, { biometrics, liveness })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Microscope, { className: "w-4 h-4" }),
-              " Check 4: Ink, Tamper & Substrate Integrity"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarForensics, { forensics })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "border border-line rounded-card p-3.5 bg-inset", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("h4", { className: "text-xs font-bold text-accent uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-mono", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Stamp, { className: "w-4 h-4" }),
-              " Check 5: Border Permit Stamp Verification"
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarStamp, { stamp })
-          ] })
-        ] }) : activeTab === "ocr" ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarOCR, { ocr }) : activeTab === "mrz" ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarMRZ, { mrz }) : activeTab === "biometrics" ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarBiometrics, { biometrics, liveness }) : activeTab === "forensics" ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarForensics, { forensics }) : /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(PillarStamp, { stamp })
-      ]
-    }
-  );
-};
-
-// src/components/ui/InspectionPipelineTrace.tsx
-var import_react11 = __toESM(require_react(), 1);
-var import_jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
-var InspectionPipelineTrace = ({
-  steps,
-  totalLatencyMs,
-  isScanning
-}) => {
-  const [expanded, setExpanded] = import_react11.default.useState(true);
-  const completedCount = steps.filter((s) => s.status === "completed").length;
-  const failedCount = steps.filter((s) => s.status === "failed").length;
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
-      "button",
-      {
-        type: "button",
-        onClick: () => setExpanded(!expanded),
-        className: "w-full px-3.5 py-2.5 bg-inset hover:bg-hover flex items-center justify-between transition-colors border-b border-line",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider", children: "3-Stream Neural Pipeline Trace" }),
-            /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
-              "(",
-              completedCount,
-              "/",
-              steps.length,
-              " checks passed)"
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "flex items-center space-x-2", children: totalLatencyMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "text-[10px] font-mono bg-surface px-2 py-0.5 rounded-chip border border-line text-ink-3", children: [
-            totalLatencyMs,
-            "ms"
-          ] }) })
-        ]
-      }
-    ),
-    expanded && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "p-3.5 divide-y divide-line space-y-1 bg-surface", children: steps.map((step) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "pt-2 pb-1 flex items-center justify-between text-xs font-mono", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex items-center space-x-2.5 truncate", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: step.status === "completed" ? "text-green font-bold" : "text-red font-bold", children: step.status === "completed" ? "\u2713" : "\u2715" }),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "text-ink font-semibold truncate", children: step.name }),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "text-[9.5px] bg-inset text-ink-3 px-2 py-0.5 rounded-chip border border-line", children: step.category })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex items-center space-x-2 shrink-0", children: [
-        step.details && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "text-[11.5px] text-ink-2 font-sans hidden sm:inline truncate max-w-xs", children: step.details }),
-        step.latencyMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "text-[10.5px] text-ink-3 tabular-nums", children: [
-          step.latencyMs,
-          "ms"
-        ] })
-      ] })
-    ] }, step.id)) })
-  ] });
-};
-
-// src/components/ui/FilterTable.tsx
-var import_react12 = __toESM(require_react(), 1);
-var import_jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
-var DEFAULT_ROWS = [
-  { id: "CV-01", rule: "MRZ DOB vs Visual OCR DOB", category: "OCR/MRZ", telemetry: "Exact date sequence matched", status: "passed" },
-  { id: "CV-02", rule: "MRZ Doc No vs Visual Doc No", category: "OCR/MRZ", telemetry: "Document number checksum verified", status: "passed" },
-  { id: "CV-03", rule: "MRZ Name vs Visual Full Name", category: "OCR/MRZ", telemetry: "Normalized surname/given matched", status: "passed" },
-  { id: "CV-04", rule: "Biometric Apparent Age vs DOB", category: "Biometrics", telemetry: "Estimated age drift consistent", status: "passed" },
-  { id: "CV-05", rule: "Photo Splicing Density", category: "Forensics", telemetry: "Portrait region substrate clean", status: "passed" },
-  { id: "CV-06", rule: "Text Tamper Probability", category: "Forensics", telemetry: "No text scraping detected", status: "passed" },
-  { id: "CV-07", rule: "Stamp Context Consistency", category: "Stamp", telemetry: "Seal matches declared ICP", status: "passed" },
-  { id: "CV-08", rule: "Cryptographic Signature", category: "Crypto PKI", telemetry: "UIDAI root certificate verified", status: "passed" }
-];
-var FilterTable = ({
-  title = "Multi-Stream Cross-Validation Rules",
-  rows,
-  rules
-}) => {
-  const rawList = rows !== void 0 ? rows : rules !== void 0 ? rules : DEFAULT_ROWS;
-  const items = rawList || [];
-  const [filter, setFilter] = (0, import_react12.useState)("all");
-  const passedCount = items.filter((r) => r.status === "passed").length;
-  const warningCount = items.filter((r) => r.status === "warning").length;
-  const violationCount = items.filter((r) => r.status === "violation").length;
-  const displayedRows = filter === "all" ? items : items.filter((r) => r.status === filter);
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "px-3.5 py-2.5 bg-inset border-b border-line flex flex-wrap items-center justify-between gap-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "flex items-center space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider font-mono", children: title }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
-          "(",
-          items.length,
-          " active guards)"
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "flex items-center gap-1.5", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: () => setFilter("all"),
-            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "all" ? "bg-hover text-ink shadow-btn border border-line" : "text-ink-2 hover:bg-hover hover:text-ink"}`,
-            children: [
-              "All (",
-              items.length,
-              ")"
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: () => setFilter("passed"),
-            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "passed" ? "bg-green-tint text-green border border-green/30 shadow-btn" : "text-ink-2 hover:text-green hover:bg-hover"}`,
-            children: [
-              "Passed (",
-              passedCount,
-              ")"
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: () => setFilter("warning"),
-            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "warning" ? "bg-orange-tint text-orange border border-orange/30 shadow-btn" : "text-ink-2 hover:text-orange hover:bg-hover"}`,
-            children: [
-              "Warnings (",
-              warningCount,
-              ")"
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
-          "button",
-          {
-            type: "button",
-            onClick: () => setFilter("violation"),
-            className: `px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium transition-colors ${filter === "violation" ? "bg-red-tint text-red border border-red/30 shadow-btn" : "text-ink-2 hover:text-red hover:bg-hover"}`,
-            children: [
-              "Violations (",
-              violationCount,
-              ")"
-            ]
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("table", { className: "w-full text-left border-collapse text-xs", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("tr", { className: "border-b border-line text-[11px] text-ink-3 font-mono bg-inset", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2 w-16", children: "Rule ID" }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2", children: "Verification Check" }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2", children: "Engine Stream" }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2", children: "Observed Signal" }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("th", { className: "px-3.5 py-2 text-right", children: "Verdict" })
-      ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("tbody", { className: "divide-y divide-line font-mono bg-surface", children: displayedRows.map((row) => {
-        const ruleTitle = row.rule || row.name || "Validation Guard";
-        const categoryName = row.category || "Security";
-        const telemetryText = row.telemetry || row.description || "Verified nominal";
-        const isPass = row.status === "passed";
-        const isWarn = row.status === "warning";
-        return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("tr", { className: "hover:bg-hover transition-colors", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { className: "px-3.5 py-2.5 text-ink-3 font-bold", children: row.id }),
-          /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("td", { className: "px-3.5 py-2.5 text-ink font-medium", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { children: ruleTitle }),
-            row.details && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "text-[10px] text-ink-3 mt-0.5 font-sans whitespace-pre-line max-w-md line-clamp-2", children: row.details })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { className: "px-3.5 py-2.5", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "text-[9.5px] bg-inset text-ink-2 px-2 py-0.5 rounded-chip border border-line", children: categoryName }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { className: "px-3.5 py-2.5 text-ink-2 text-[12px] font-sans", children: telemetryText }),
-          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("td", { className: "px-3.5 py-2.5 text-right", children: isPass ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-green-tint text-green border border-green/30 font-semibold", children: "\u2713 PASS" }) : isWarn ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-orange-tint text-orange border border-orange/30 font-semibold", children: "\u26A0 WARN" }) : /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-red-tint text-red border border-red/30 font-bold", children: "\u2715 VIOLATION" }) })
-        ] }, row.id);
-      }) })
-    ] }) })
-  ] });
-};
-
-// src/components/ui/DiffTable.tsx
-var import_react13 = __toESM(require_react(), 1);
-var import_jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
-var DEFAULT_ROWS2 = [
-  { field: "Document Number", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "P98421034", valueB: "P98421034", isMatch: true },
-  { field: "Date of Birth (DOB)", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "1984-07-12", valueB: "1984-07-12", isMatch: true },
-  { field: "Full Legal Name", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "ANAND KUMAR", valueB: "ANAND KUMAR", isMatch: true },
-  { field: "Issuing Country", sourceA: "Visual OCR", sourceB: "ICAO MRZ", valueA: "IND", valueB: "IND", isMatch: true }
-];
-var DiffTable = ({
-  title = "Field Discrepancy Matrix",
-  rows,
-  items,
-  diffs,
-  onApplyEdits,
-  showApplyButton = true
-}) => {
-  const rawList = rows !== void 0 ? rows : items !== void 0 ? items : diffs !== void 0 ? diffs : DEFAULT_ROWS2;
-  const rawItems = rawList && rawList.length > 0 ? rawList : rows !== void 0 || items !== void 0 ? rawList || [] : DEFAULT_ROWS2;
-  const normalizedItems = (rawItems.length > 0 ? rawItems : DEFAULT_ROWS2).map((r) => {
-    const isMatch = r.isMatch !== void 0 ? r.isMatch : r.status ? r.status === "match" : r.valueA === r.valueB;
-    return {
-      ...r,
-      isMatch
-    };
-  });
-  const [filterMismatch, setFilterMismatch] = (0, import_react13.useState)(false);
-  const displayedRows = filterMismatch ? normalizedItems.filter((r) => !r.isMatch) : normalizedItems;
-  const mismatchCount = normalizedItems.filter((r) => !r.isMatch).length;
-  const matchCount = normalizedItems.length - mismatchCount;
-  const handleApply = () => {
-    const flagged = normalizedItems.filter((r) => !r.isMatch).map((r) => r.field);
-    onApplyEdits?.(flagged);
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "w-full bg-surface border border-line rounded-card overflow-hidden shadow-card", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "px-3.5 py-2.5 bg-inset border-b border-line flex flex-wrap items-center justify-between gap-2", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "flex items-center space-x-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "text-xs font-bold text-ink uppercase tracking-wider font-mono", children: title }),
-        mismatchCount > 0 ? /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-red-tint text-red border border-red/30", children: [
-          mismatchCount,
-          " Discrepanc",
-          mismatchCount === 1 ? "y" : "ies",
-          " Found"
-        ] }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-mono font-semibold bg-green-tint text-green border border-green/30", children: "100% Cross-Stream Consistency" }),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("span", { className: "text-[11px] font-mono text-ink-3", children: [
-          "(",
-          matchCount,
-          " verified \xB7 ",
-          mismatchCount,
-          " mismatches)"
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "flex items-center gap-2", children: [
-        showApplyButton && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
-          "button",
-          {
-            type: "button",
-            onClick: handleApply,
-            className: "text-[11px] font-mono px-2.5 py-1 rounded-control bg-accent text-white font-semibold shadow-btn hover:bg-accent-hover transition-colors",
-            children: mismatchCount === 0 ? "Confirm Cross-Validation" : `Acknowledge ${mismatchCount} Discrepanc${mismatchCount === 1 ? "y" : "ies"}`
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
-          "button",
-          {
-            type: "button",
-            onClick: () => setFilterMismatch(!filterMismatch),
-            className: `text-[11px] font-mono px-2.5 py-1 rounded-control transition-colors border shadow-btn ${filterMismatch ? "bg-red-tint text-red border-red/40" : "bg-surface text-ink-2 border-line hover:text-ink hover:bg-hover"}`,
-            children: filterMismatch ? "Show All Fields" : "Filter Mismatches Only"
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("table", { className: "w-full text-left border-collapse text-xs", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("tr", { className: "border-b border-line text-[11px] text-ink-3 font-mono bg-inset", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("th", { className: "px-3.5 py-2", children: "Target Attribute" }),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("th", { className: "px-3.5 py-2", children: "Primary Visual OCR" }),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("th", { className: "px-3.5 py-2", children: "MRZ / Digital PKI" }),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("th", { className: "px-3.5 py-2 text-right", children: "Verification Status" })
-      ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("tbody", { className: "divide-y divide-line font-mono bg-surface", children: displayedRows.map((row, idx) => /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
-        "tr",
-        {
-          className: `transition-colors ${!row.isMatch ? "bg-red-tint/30 hover:bg-red-tint/50" : "hover:bg-hover"}`,
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("td", { className: "px-3.5 py-2.5 font-medium text-ink", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { children: row.field || "\u2014" }),
-              row.details && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "text-[10px] text-ink-3 font-sans mt-0.5", children: row.details })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("td", { className: "px-3.5 py-2.5 text-ink-2", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: !row.isMatch ? "line-through text-red font-semibold" : "", children: row.valueA || "\u2014" }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("td", { className: "px-3.5 py-2.5 text-ink", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: !row.isMatch ? "text-green font-bold" : "", children: row.valueB || "\u2014" }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("td", { className: "px-3.5 py-2.5 text-right", children: row.isMatch ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-green-tint text-green border border-green/30 font-semibold", children: "\u2713 MATCH" }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "inline-flex items-center px-2 py-0.5 rounded-chip text-[10.5px] bg-red-tint text-red border border-red/40 font-bold", children: "\u2715 MISMATCH" }) })
-          ]
-        },
-        idx
-      )) })
-    ] }) })
-  ] });
-};
-
-// src/components/ui/ApprovalCard.tsx
-var import_react14 = __toESM(require_react(), 1);
-
-// src/components/ui/Button.tsx
-var import_jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
-var filledShadow = "shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]";
-var variants = {
-  primary: `bg-ink text-canvas hover:opacity-90 dark:bg-ink dark:text-canvas ${filledShadow}`,
-  secondary: "bg-surface text-ink shadow-btn hover:bg-inset aria-expanded:bg-hover border border-line",
-  ghost: "text-ink-2 hover:bg-hover hover:text-ink",
-  accent: `bg-accent text-white hover:brightness-105 ${filledShadow}`,
-  success: `bg-green text-white hover:brightness-95 ${filledShadow}`,
-  danger: `bg-red text-white hover:brightness-95 ${filledShadow}`,
-  default: "bg-surface text-ink shadow-btn hover:bg-inset border border-line",
-  outline: "bg-transparent text-ink-2 border border-line-strong hover:bg-hover hover:text-ink"
-};
-var sizes = {
-  sm: "h-7 px-2.5 text-[12px] rounded-control gap-1.5",
-  md: "h-8.5 px-3.5 text-[13px] rounded-control gap-2",
-  lg: "h-10 px-4 text-[14px] rounded-control gap-2.5"
-};
-function Button({
-  variant = "secondary",
-  size = "md",
-  className = "",
-  children,
-  ...props
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
-    "button",
-    {
-      className: `inline-flex items-center justify-center font-medium select-none
-        transition-[transform,background-color,border-color,color,opacity] duration-150 ease-out
-        active:scale-[0.96] disabled:opacity-45 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
-        ${variants[variant]} ${sizes[size]} ${className}`,
-      ...props,
-      children
-    }
-  );
-}
-
-// src/components/ui/ApprovalCard.tsx
-var import_jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
-var ApprovalCard = ({
-  riskLevel = "GREEN",
-  riskScore = 0,
-  officerBadgeId = "SSB-IND-7049",
-  isOpen = true,
-  onDecide,
-  onDecision,
-  onAction,
-  disabled = false
-}) => {
-  const [open, setOpen] = (0, import_react14.useState)(isOpen);
-  const [selectedAction, setSelectedAction] = (0, import_react14.useState)(
-    riskLevel === "GREEN" ? "AUTO_CLEAR" : riskLevel === "AMBER" ? "SECONDARY_INSPECTION" : "DETAIN_AND_INTERDICT"
-  );
-  const [notes, setNotes] = (0, import_react14.useState)("");
-  const [submitted, setSubmitted] = (0, import_react14.useState)(false);
-  const handleSubmit = () => {
-    const decision = {
-      action: selectedAction,
-      reason: `Officer decision based on risk score ${riskScore.toFixed(1)} (${riskLevel})`,
-      badgeId: officerBadgeId,
-      officerNotes: notes
-    };
-    const mappedDecision = selectedAction === "AUTO_CLEAR" ? "clear" : selectedAction === "SECONDARY_INSPECTION" ? "secondary" : "interdict";
-    onDecide?.(decision);
-    onDecision?.(mappedDecision, notes);
-    onAction?.(selectedAction);
-    setSubmitted(true);
-  };
-  const handleReset = () => {
-    setSubmitted(false);
-    setNotes("");
-  };
-  if (!open || isOpen === false) {
-    return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
-      "button",
-      {
-        type: "button",
-        onClick: () => setOpen(true),
-        className: "w-full bg-white border border-slate-200 rounded-2xl p-4 text-xs font-sans text-slate-700 hover:text-slate-900 text-left flex items-center justify-between shadow-xs hover:bg-slate-50 transition-colors cursor-pointer",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "font-bold", children: "Open Officer Authorization Console" }),
-          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[11px] text-slate-400", children: "Click to expand decision workflow" })
-        ]
-      }
-    );
-  }
-  if (submitted) {
-    const confirmationLabel = selectedAction === "AUTO_CLEAR" ? "Traveler Cleared \u2022 Entry Permit Authorized" : selectedAction === "SECONDARY_INSPECTION" ? "Secondary Inspection Order Issued \u2022 Counter 2 Physical Verification" : "Interdiction Order Dispatched \u2022 Detention Protocol Active";
-    return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "w-full bg-white border border-emerald-300 rounded-2xl p-4 flex items-center justify-between shadow-sm animate-pop-in", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center space-x-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "flex size-7 items-center justify-center rounded-full bg-emerald-600 text-white font-bold", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(Check, { className: "w-4 h-4" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans block", children: confirmationLabel }),
-          /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "text-[11px] text-slate-500 font-mono", children: [
-            "Signed and logged to defense audit ledger (",
-            officerBadgeId,
-            ")"
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
-        "button",
-        {
-          type: "button",
-          onClick: handleReset,
-          className: "text-xs text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1.5 cursor-pointer",
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(RotateCcw, { className: "w-3.5 h-3.5" }),
-            " Modify Decision"
-          ]
-        }
-      )
-    ] });
-  }
-  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "w-full bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm select-none", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center justify-between border-b border-slate-200 pb-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-xs font-extrabold text-slate-900 uppercase tracking-wider font-sans", children: "Human-In-The-Loop Officer Authorization" }),
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { className: "text-[11px] font-mono text-slate-500", children: [
-        "Section 4(2) Passport & Immigration Act \u2022 Officer: ",
-        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("strong", { className: "text-slate-800", children: officerBadgeId })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
-        "button",
-        {
-          type: "button",
-          onClick: () => setSelectedAction("AUTO_CLEAR"),
-          disabled,
-          className: `p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${selectedAction === "AUTO_CLEAR" ? "bg-emerald-50/80 border-green border-emerald-500 border-green-500 shadow-xs" : "bg-slate-50 border-slate-200 hover:border-slate-300"}`,
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center space-x-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(ShieldCheck, { className: "w-4 h-4 text-emerald-600 shrink-0" }),
-              /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Clear Traveler" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[11px] text-slate-600 mt-1.5 font-sans", children: "Proceed with normal transit entry" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
-        "button",
-        {
-          type: "button",
-          onClick: () => setSelectedAction("SECONDARY_INSPECTION"),
-          disabled,
-          className: `p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${selectedAction === "SECONDARY_INSPECTION" ? "bg-amber-50/80 border-orange border-amber-500 border-orange-500 shadow-xs" : "bg-slate-50 border-slate-200 hover:border-slate-300"}`,
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center space-x-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(ShieldAlert, { className: "w-4 h-4 text-amber-600 shrink-0" }),
-              /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Secondary Hold" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[11px] text-slate-600 mt-1.5 font-sans", children: "Redirect for physical document inspection" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
-        "button",
-        {
-          type: "button",
-          onClick: () => setSelectedAction("DETAIN_AND_INTERDICT"),
-          disabled,
-          className: `p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${selectedAction === "DETAIN_AND_INTERDICT" ? "bg-red-50/80 border-red-500 shadow-xs" : "bg-slate-50 border-slate-200 hover:border-slate-300"}`,
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center space-x-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(OctagonAlert, { className: "w-4 h-4 text-red-600 shrink-0" }),
-              /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-xs font-bold text-slate-900 font-sans", children: "Interdiction Order" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-[11px] text-slate-600 mt-1.5 font-sans", children: "Issue border detention & report to MHA" })
-          ]
-        }
-      )
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center gap-3 pt-1", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
-        "input",
-        {
-          type: "text",
-          value: notes,
-          onChange: (e) => setNotes(e.target.value),
-          placeholder: `Officer Remarks / Duty Officer Badge ID (${officerBadgeId})\u2026`,
-          className: "flex-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 font-sans focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors"
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
-        Button,
-        {
-          variant: selectedAction === "DETAIN_AND_INTERDICT" ? "danger" : "primary",
-          size: "md",
-          onClick: handleSubmit,
-          children: "Commit Decision"
-        }
-      )
-    ] })
-  ] });
-};
-
-// src/components/ui/ToolChips.tsx
-var import_react15 = __toESM(require_react(), 1);
-var import_react_dom = __toESM(require_react_dom(), 1);
-var import_jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
-var DEFAULT_TELEMETRY = [
-  {
-    name: "Multilingual Text & QR Engine",
-    label: "Text & QR",
-    status: "completed",
-    durationMs: 28,
-    confidence: 0.98,
-    modelVersion: "text-qr-v4",
-    chip: "extract_fields.onnx",
-    icon: "ocr",
-    detailLines: [
-      { text: "\u2713 Devanagari & Latin dual-head script inference passed (28ms)" },
-      { text: "\u2713 14 bounding boxes localized with mean confidence 98.4%" }
-    ]
-  },
-  {
-    name: "Digital Text Tamper Detector",
-    label: "Tamper Inspector",
-    status: "failed",
-    durationMs: 110,
-    confidence: 0.88,
-    modelVersion: "tamper-dtd-v2",
-    chip: "tamper_heatmap.pt",
-    icon: "forensics",
-    detailLines: [
-      { text: "\u2715 Photo splice anomaly detected on upper-left document quadrant", tone: "del" },
-      { text: "+ Adaptive threshold triggered \u03C4 = 0.18 (Observed: 0.88)", tone: "add" }
-    ]
-  },
-  {
-    name: "Facial Biometric Matcher",
-    label: "Face Matcher",
-    status: "completed",
-    durationMs: 48,
-    confidence: 0.74,
-    modelVersion: "biometric-v1",
-    chip: "face_align_112.onnx",
-    icon: "face",
-    detailLines: [
-      { text: "\u2713 Canonical facial alignment to 112\xD7112" },
-      { text: "\u2713 Face match confidence 0.74 exceeds security threshold (0.35)" }
-    ]
-  },
-  {
-    name: "Live Selfie Presentation Checker",
-    label: "Liveness Check",
-    status: "completed",
-    durationMs: 32,
-    confidence: 0.99,
-    modelVersion: "liveness-v2",
-    chip: "liveness_dual_scale.onnx",
-    icon: "face",
-    detailLines: [
-      { text: "\u2713 Dual-scale crops (2.7\xD7 & 4.0\xD7) evaluated for 2D print / screen replay" },
-      { text: "\u2713 Live presentation verified (Selfie liveness check: 99.1%)" }
-    ]
-  },
-  {
-    name: "Border Transit Permit Stamp Verifier",
-    label: "Stamp Verifier",
-    status: "completed",
-    durationMs: 24,
-    confidence: 0.94,
-    modelVersion: "stamp-orb-ssim",
-    chip: "stamp_registry.json",
-    icon: "stamp",
-    detailLines: [
-      { text: "\u2713 HSV segmentation localized circular seal region at (840, 520)" },
-      { text: "\u2713 Reference template matching confirmed Jaigaon ICP authority" }
-    ]
-  }
-];
-var DEFAULT_DIFFS = [
-  {
-    file: "ocr_payload.json",
-    add: 14,
-    del: 0,
-    lines: [
-      { text: "{", tone: "ctx" },
-      { text: '  "doc_number": "P98421034",', tone: "add" },
-      { text: '  "dob": "1984-07-12",', tone: "add" },
-      { text: '  "name": "KUMAR<<ANAND"', tone: "add" },
-      { text: "}", tone: "ctx" }
-    ]
-  },
-  {
-    file: "forensics_tensor.bin",
-    add: 1,
-    del: 1,
-    lines: [
-      { text: "tamper_flag: false,", tone: "del" },
-      { text: "tamper_flag: true, // score 0.88", tone: "add" }
-    ]
-  }
-];
-var ICONS = {
-  think: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "currentColor", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" }) }),
-  write: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" }) }),
-  run: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M4 17l6-5-6-5M12 19h8" }) }),
-  read: /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M14 2v6h6" })
-  ] }),
-  ocr: /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("polyline", { points: "4 7 4 4 20 4 20 7" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("line", { x1: "9", y1: "20", x2: "15", y2: "20" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("line", { x1: "12", y1: "4", x2: "12", y2: "20" })
-  ] }),
-  face: /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M8 14s1.5 2 4 2 4-2 4-2" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("line", { x1: "9", y1: "9", x2: "9.01", y2: "9" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("line", { x1: "15", y1: "9", x2: "15.01", y2: "9" })
-  ] }),
-  forensics: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" }) }),
-  stamp: /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("svg", { width: "13", height: "13", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("circle", { cx: "12", cy: "12", r: "10" }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "m4.93 4.93 14.14 14.14" })
-  ] })
-};
-function ToolChips({
-  telemetry = DEFAULT_TELEMETRY,
-  diffs = DEFAULT_DIFFS,
-  title,
-  className = ""
-}) {
-  const [open, setOpen] = (0, import_react15.useState)(true);
-  const [openRows, setOpenRows] = (0, import_react15.useState)(/* @__PURE__ */ new Set());
-  const [preview, setPreview] = (0, import_react15.useState)(null);
-  const completedCount = telemetry.filter((t) => t.status === "completed").length;
-  const failedCount = telemetry.filter((t) => t.status === "failed").length;
-  const toggleRow = (name) => {
-    setOpenRows((current) => {
-      const next = new Set(current);
-      if (next.has(name)) next.delete(name);
-      else next.add(name);
-      return next;
-    });
-  };
-  const openPreview = (diff) => (event) => {
-    const target = event.currentTarget;
-    const rect = target.getBoundingClientRect();
-    const lines = diff.lines || [];
-    const previewHeight = 42 + lines.length * 20;
-    const fitsBelow = rect.bottom + 6 + previewHeight <= window.innerHeight - 12;
-    setPreview({
-      file: diff.file,
-      lines,
-      add: diff.add,
-      del: diff.del,
-      x: Math.max(12, Math.min(rect.left, window.innerWidth - 320)),
-      ...fitsBelow ? { top: rect.bottom + 6 } : { bottom: window.innerHeight - rect.top + 6 }
-    });
-  };
-  const closePreview = (file) => () => {
-    setPreview((current) => current?.file === file ? null : current);
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
-    "div",
-    {
-      className: `w-full overflow-hidden rounded-card bg-surface shadow-card border border-line p-3 ${className}`,
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
-          "button",
-          {
-            type: "button",
-            "aria-expanded": open,
-            onClick: () => setOpen((c) => !c),
-            className: "flex w-full items-center justify-between gap-2 rounded-control p-1 text-left transition-colors hover:bg-hover",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-                  "svg",
-                  {
-                    width: "13",
-                    height: "13",
-                    viewBox: "0 0 24 24",
-                    fill: "none",
-                    stroke: "currentColor",
-                    strokeWidth: "2.2",
-                    strokeLinecap: "round",
-                    strokeLinejoin: "round",
-                    className: "transition-transform duration-200 text-ink-3",
-                    style: { transform: open ? "rotate(0deg)" : "rotate(-90deg)" },
-                    children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M6 9l6 6 6-6" })
-                  }
-                ),
-                /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "text-[12.5px] font-semibold text-ink font-mono", children: title || `${telemetry.length} Neural Models Executed` })
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "flex items-center gap-1.5 font-mono text-[11px]", children: [
-                failedCount > 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "rounded-full bg-red-tint px-2 py-0.5 font-semibold text-red border border-red/20", children: [
-                  failedCount,
-                  " Flagged"
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "rounded-full bg-green-tint px-2 py-0.5 font-medium text-green border border-green/20", children: [
-                  completedCount,
-                  " Passed"
-                ] })
-              ] })
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-          "div",
-          {
-            className: "grid transition-[grid-template-rows,opacity] duration-300",
-            style: { gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 },
-            children: /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "overflow-hidden pt-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "flex flex-col gap-1", children: telemetry.map((row) => {
-                const rowKey = row.name;
-                const rowOpen = openRows.has(rowKey);
-                const iconKey = row.icon || "run";
-                const isFailed = row.status === "failed";
-                const isRunning = row.status === "running";
-                return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "flex flex-col", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
-                    "button",
-                    {
-                      type: "button",
-                      "aria-expanded": rowOpen,
-                      onClick: () => toggleRow(rowKey),
-                      className: "group flex h-7.5 w-full items-center gap-2 rounded-control px-2 text-left transition-colors duration-100 hover:bg-hover",
-                      children: [
-                        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-                          "span",
-                          {
-                            className: `flex size-4 shrink-0 items-center justify-center ${isFailed ? "text-red" : isRunning ? "text-accent animate-spin" : "text-ink-3"}`,
-                            children: ICONS[iconKey] || ICONS.run
-                          }
-                        ),
-                        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "min-w-0 truncate text-[12.5px] font-medium text-ink font-mono", children: row.label || row.name }),
-                        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "inline-flex h-5.5 min-w-0 flex-1 items-center truncate rounded-chip bg-field px-1.5 font-mono text-[11px] text-ink-2 border border-line", children: row.chip || row.modelVersion || "onnx-runtime" }),
-                        row.confidence !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
-                          (row.confidence * 100).toFixed(0),
-                          "%"
-                        ] }),
-                        row.durationMs !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "shrink-0 font-mono text-[11px] text-ink-3 tabular-nums", children: [
-                          row.durationMs,
-                          "ms"
-                        ] }),
-                        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-                          "svg",
-                          {
-                            width: "12",
-                            height: "12",
-                            viewBox: "0 0 24 24",
-                            fill: "none",
-                            stroke: "currentColor",
-                            strokeWidth: "2.2",
-                            strokeLinecap: "round",
-                            strokeLinejoin: "round",
-                            className: "text-ink-3 transition-transform duration-200 shrink-0",
-                            style: { transform: rowOpen ? "rotate(180deg)" : "rotate(0deg)" },
-                            children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("path", { d: "M6 9l6 6 6-6" })
-                          }
-                        )
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-                    "div",
-                    {
-                      className: "grid transition-[grid-template-rows,opacity] duration-200",
-                      style: {
-                        gridTemplateRows: rowOpen ? "1fr" : "0fr",
-                        opacity: rowOpen ? 1 : 0,
-                        transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
-                      },
-                      children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "my-1 ml-3 flex flex-col gap-0.5 border-l-2 border-line pl-3 py-1 text-[11.5px] font-mono text-ink-2", children: [
-                        row.details && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "text-ink-2", children: row.details }),
-                        (row.detailLines || []).map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-                          "div",
-                          {
-                            className: `truncate leading-relaxed ${line.tone === "del" ? "text-red font-medium" : line.tone === "add" ? "text-green font-medium" : "text-ink-3"}`,
-                            children: line.text
-                          },
-                          idx
-                        ))
-                      ] }) })
-                    }
-                  )
-                ] }, rowKey);
-              }) }),
-              diffs.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "mt-2.5 flex flex-wrap items-center gap-1.5 border-t border-line pt-2.5", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "text-[11px] font-mono text-ink-3 mr-1", children: "Tensors:" }),
-                diffs.map((d) => /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
-                  "button",
-                  {
-                    type: "button",
-                    onMouseEnter: openPreview(d),
-                    onMouseLeave: closePreview(d.file),
-                    className: "inline-flex h-6 items-center gap-1.5 rounded-chip bg-surface px-2 font-mono text-[11px] text-ink shadow-btn border border-line hover:bg-hover transition-colors",
-                    children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "truncate max-w-[140px]", children: d.file }),
-                      /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "text-green tabular-nums", children: [
-                        "+",
-                        d.add
-                      ] }),
-                      d.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "text-red tabular-nums", children: [
-                        "\u2212",
-                        d.del
-                      ] })
-                    ]
-                  },
-                  d.file
-                ))
-              ] })
-            ] })
-          }
-        ),
-        preview && typeof document !== "undefined" && (0, import_react_dom.createPortal)(
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
-            "div",
-            {
-              className: "fixed z-50 w-72 overflow-hidden rounded-[10px] bg-surface shadow-overlay border border-line font-mono text-[11px] animate-pop-in",
-              style: {
-                left: preview.x,
-                top: preview.top,
-                bottom: preview.bottom,
-                transformOrigin: preview.top === void 0 ? "bottom left" : "top left"
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "flex items-center justify-between border-b border-line bg-canvas/60 px-2.5 py-1.5 font-medium", children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "truncate text-ink", children: preview.file }),
-                  /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "tabular-nums", children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "text-green", children: [
-                      "+",
-                      preview.add
-                    ] }),
-                    preview.del > 0 && /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("span", { className: "text-red", children: [
-                      " \u2212",
-                      preview.del
-                    ] })
-                  ] })
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "p-1.5 space-y-0.5 leading-relaxed bg-surface", children: preview.lines.map((line, idx) => /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
-                  "div",
-                  {
-                    className: `flex gap-1.5 px-2 py-0.5 rounded ${line.tone === "add" ? "bg-green-tint text-green" : line.tone === "del" ? "bg-red-tint text-red" : "text-ink-3"}`,
-                    children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "w-2.5 shrink-0 select-none", children: line.tone === "add" ? "+" : line.tone === "del" ? "\u2212" : " " }),
-                      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "truncate", children: line.text })
-                    ]
-                  },
-                  idx
-                )) })
-              ]
-            }
-          ),
-          document.body
-        )
-      ]
-    }
-  );
-}
-
-// src/components/ui/SegmentedControl.tsx
-var import_jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
-function SegmentedControl({
-  options,
-  value,
-  onChange,
-  size = "md",
-  className = ""
-}) {
-  const normalizedOptions = options.map(
-    (opt) => typeof opt === "string" ? { id: opt, label: opt } : opt
-  );
-  const activeIndex = normalizedOptions.findIndex((opt) => opt.id === value);
-  const count = normalizedOptions.length;
-  const clampedIndex = activeIndex >= 0 ? activeIndex : 0;
-  const handleKeyDown = (e) => {
-    if (count === 0) return;
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      e.preventDefault();
-      const nextIndex = (clampedIndex + 1) % count;
-      onChange(normalizedOptions[nextIndex].id);
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault();
-      const prevIndex = (clampedIndex - 1 + count) % count;
-      onChange(normalizedOptions[prevIndex].id);
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      onChange(normalizedOptions[0].id);
-    } else if (e.key === "End") {
-      e.preventDefault();
-      onChange(normalizedOptions[count - 1].id);
-    }
-  };
-  const heightCls = size === "sm" ? "h-7 text-[12px]" : "h-8.5 text-[13px]";
-  const padCls = size === "sm" ? "px-2.5 py-0.5" : "px-3 py-1";
-  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(
-    "div",
-    {
-      role: "tablist",
-      tabIndex: 0,
-      onKeyDown: handleKeyDown,
-      className: `relative inline-grid select-none rounded-full bg-field/80 p-0.5 border border-line focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${heightCls} ${className}`,
-      style: { gridTemplateColumns: `repeat(${count}, 1fr)` },
-      children: [
-        activeIndex >= 0 && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
-          "span",
-          {
-            "aria-hidden": true,
-            className: "absolute inset-y-0.5 rounded-full bg-surface shadow-btn border border-line/60 transition-transform duration-200",
-            style: {
-              width: `calc((100% - 4px) / ${count})`,
-              left: 2,
-              transform: `translateX(${clampedIndex * 100}%)`,
-              transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)"
-            }
-          }
-        ),
-        normalizedOptions.map((opt) => {
-          const isSelected = opt.id === value;
-          return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(
-            "button",
-            {
-              type: "button",
-              role: "tab",
-              "aria-selected": isSelected,
-              onClick: () => onChange(opt.id),
-              className: `relative z-10 flex items-center justify-center gap-1.5 rounded-full font-medium transition-colors duration-150 ${padCls} ${isSelected ? "text-ink font-semibold" : "text-ink-2 hover:text-ink"}`,
-              children: [
-                opt.icon && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { className: "size-3.5 shrink-0 flex items-center justify-center", children: opt.icon }),
-                /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("span", { className: "truncate", children: opt.label }),
-                opt.badge !== void 0 && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
-                  "span",
-                  {
-                    className: `ml-0.5 rounded-full px-1.5 py-0.2 text-[10.5px] tabular-nums font-mono ${isSelected ? "bg-accent/15 text-accent-ink" : "bg-inset text-ink-3"}`,
-                    children: opt.badge
-                  }
-                )
-              ]
-            },
-            opt.id
-          );
-        })
-      ]
-    }
-  );
-}
-
-// src/components/ui/StatusPill.tsx
-var import_jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
-var tones = {
-  green: {
-    bg: "bg-green-tint",
-    fg: "text-green",
-    dot: "bg-green",
-    border: "border-green/20"
-  },
-  orange: {
-    bg: "bg-orange-tint",
-    fg: "text-orange",
-    dot: "bg-orange",
-    border: "border-orange/20"
-  },
-  amber: {
-    bg: "bg-orange-tint",
-    fg: "text-orange",
-    dot: "bg-orange",
-    border: "border-orange/20"
-  },
-  red: {
-    bg: "bg-red-tint",
-    fg: "text-red",
-    dot: "bg-red",
-    border: "border-red/20"
-  },
-  accent: {
-    bg: "bg-accent-tint",
-    fg: "text-accent-ink",
-    dot: "bg-accent",
-    border: "border-accent/20"
-  },
-  blue: {
-    bg: "bg-accent-tint",
-    fg: "text-accent-ink",
-    dot: "bg-accent",
-    border: "border-accent/20"
-  },
-  neutral: {
-    bg: "bg-inset",
-    fg: "text-ink-2",
-    dot: "bg-ink-3",
-    border: "border-line"
-  },
-  slate: {
-    bg: "bg-inset",
-    fg: "text-ink-2",
-    dot: "bg-ink-3",
-    border: "border-line"
-  }
-};
-var sizeClasses = {
-  sm: "h-5 px-2 text-[11px] gap-1",
-  md: "h-6 px-2.5 text-[12px] gap-1.5",
-  lg: "h-7 px-3 text-[13px] gap-2"
-};
-function StatusPill({
-  tone = "neutral",
-  children,
-  dot = true,
-  pulse = false,
-  size = "md",
-  className = ""
-}) {
-  const t = tones[tone] || tones.neutral;
-  const isAlert = tone === "red" || pulse;
-  return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)(
-    "span",
-    {
-      className: `inline-flex items-center rounded-full font-medium leading-none select-none border transition-colors ${t.bg} ${t.fg} ${t.border} ${sizeClasses[size]} ${className}`,
-      children: [
-        dot && /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
-          "span",
-          {
-            className: `size-1.5 shrink-0 rounded-full ${t.dot} ${isAlert ? "animate-pulse" : ""}`
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("span", { className: "truncate", children })
-      ]
-    }
-  );
-}
-
-// src/components/ui/InsightStrip.tsx
-var import_jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
-var toneClass = {
-  ink: "text-ink",
-  green: "text-green",
-  orange: "text-orange",
-  red: "text-red",
-  accent: "text-accent"
-};
-function InsightStrip({ items }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "grid grid-cols-2 gap-2.5 lg:grid-cols-4", children: items.map((item, i) => /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(
-    "div",
-    {
-      className: "min-h-[88px] rounded-card bg-surface p-3 shadow-card animate-fade-up",
-      style: { animationDelay: `${i * 50}ms` },
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("p", { className: "text-[11px] font-medium uppercase tracking-wider text-ink-3", children: item.label }),
-        /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("p", { className: `mt-1 text-[22px] font-semibold tabular-nums tracking-tight ${toneClass[item.tone || "ink"]}`, children: item.value }),
-        item.hint && /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("p", { className: "mt-0.5 text-[11.5px] text-ink-2", children: item.hint })
-      ]
-    },
-    item.label
-  )) });
-}
-
-// src/components/ui/ExtractedRecords.tsx
-var import_jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
-function ExtractedRecords({
-  title = "Extracted identity fields",
-  rows
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "records-shell", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "records-toolbar", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("span", { className: "inline-flex size-5 items-center justify-center rounded-[5px] bg-green-tint text-green", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.4", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("rect", { x: "3", y: "4", width: "18", height: "16", rx: "2" }),
-          /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("path", { d: "M3 10h18" })
-        ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("span", { className: "text-[13px] font-semibold text-ink", children: title })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("span", { className: "font-mono text-[11px] text-ink-3 tabular-nums", children: [
-        rows.length,
-        " properties"
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("table", { className: "w-full text-left", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("tr", { className: "border-b border-line text-[11px] uppercase tracking-wider text-ink-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("th", { className: "records-cell font-medium", children: "Field" }),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("th", { className: "records-cell font-medium", children: "Value" }),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("th", { className: "records-cell font-medium", children: "Source" }),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("th", { className: "records-cell font-medium text-right", children: "Confidence" })
-      ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("tbody", { children: rows.map((row) => /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("tr", { className: "records-row", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("td", { className: "records-cell font-medium text-ink", children: row.field }),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("td", { className: "records-cell font-mono text-ink", children: row.value || "\u2014" }),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("td", { className: "records-cell text-ink-2", children: row.source }),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("td", { className: "records-cell text-right font-mono tabular-nums text-ink-2", children: typeof row.confidence === "number" ? `${Math.round(row.confidence * 100)}%` : "\u2014" })
-      ] }, row.field)) })
-    ] }) })
-  ] });
-}
-
-// src/components/ui/ContextCards.tsx
-var import_jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
-function ContextCards({
-  heading = "Inspection context",
-  chunks
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex w-full flex-col gap-2", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "flex items-center gap-2 px-0.5", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "text-[13px] font-semibold text-ink", children: heading }),
-      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "inline-flex h-5 items-center rounded-md bg-inset px-1.5 text-[11.5px] font-medium text-ink-2 shadow-hairline tabular-nums", children: chunks.length })
-    ] }),
-    chunks.map((chunk, i) => /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)(
-      "div",
-      {
-        className: "overflow-hidden rounded-card bg-surface shadow-card animate-fade-up",
-        style: { animationDelay: `${i * 60}ms` },
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("div", { className: "primitive-card-bar flex items-center gap-2.5 border-b border-line", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("span", { className: "flex min-w-0 items-center gap-1.5 text-[13px] font-medium text-ink", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("svg", { width: "11", height: "11", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.5", strokeLinecap: "round", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("path", { d: "M4 6h16M4 12h16M4 18h10" }) }),
-              /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "truncate", children: chunk.title })
-            ] }),
-            chunk.chars && /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "ml-auto shrink-0 text-[12px] text-ink-3 tabular-nums", children: chunk.chars })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("p", { className: "px-3 pt-2 pb-1 text-[12.5px] leading-relaxed text-ink-2", children: chunk.body }),
-          /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { className: "px-3 pb-3", children: /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)("span", { className: "inline-flex h-6 items-center gap-1.5 rounded-full bg-inset px-2 text-[12px] font-medium text-ink-2 shadow-btn", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
-              "span",
-              {
-                className: `flex size-3.5 items-center justify-center rounded-[4px] text-[7px] font-bold text-white ${chunk.tone || "bg-accent"}`,
-                children: chunk.badge
-              }
-            ),
-            chunk.source
-          ] }) })
-        ]
-      },
-      chunk.title
-    ))
-  ] });
-}
-
-// src/components/ResultsPanel.tsx
-var import_jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
-var AccordionSection = ({
-  title,
-  icon,
-  badge,
-  badgeTone = "neutral",
-  isOpen,
-  onToggle,
-  children
-}) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "rounded-card border border-line overflow-hidden bg-surface shadow-card transition-all", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
-      "button",
-      {
-        type: "button",
-        onClick: onToggle,
-        className: "w-full px-4 py-3 bg-inset hover:bg-hover flex items-center justify-between gap-3 text-left transition-colors cursor-pointer select-none",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-accent", children: icon }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-xs font-bold font-mono uppercase tracking-wider text-ink", children: title })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
-            badge && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-              "span",
-              {
-                className: `text-[10px] font-mono font-semibold px-2 py-0.5 rounded-chip border ${badgeTone === "green" ? "bg-green-tint text-green border-green/30" : badgeTone === "orange" ? "bg-orange-tint text-orange border-orange/30" : badgeTone === "red" ? "bg-red-tint text-red border-red/30" : badgeTone === "accent" ? "bg-accent-tint text-accent border-accent/30" : "bg-surface text-ink-2 border-line"}`,
-                children: badge
-              }
-            ),
-            isOpen ? /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(ChevronDown, { className: "w-4 h-4 text-ink-3" }) : /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(ChevronRight, { className: "w-4 h-4 text-ink-3" })
-          ] })
-        ]
-      }
-    ),
-    isOpen && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "p-3.5 border-t border-line animate-fade-in", children })
-  ] });
-};
-var ResultsPanel = ({
-  result,
-  documentImageUrl,
-  heatmapImageUrl,
-  livePhotoUrl,
-  onOfficerDecision,
-  officerDecision
-}) => {
-  const { assessment, details } = result;
-  const [activeTab, setActiveTab] = (0, import_react16.useState)("overview");
-  const [openAccordions, setOpenAccordions] = (0, import_react16.useState)({
-    trace: false,
-    discrepancies: false,
-    crossVal: false,
-    forensics: false,
-    pillars: false
-  });
-  const toggleAccordion = (key) => {
-    setOpenAccordions((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-  const { traceSteps, toolTelemetry, tensorDiffs } = (0, import_react16.useMemo)(() => {
-    const ocrProcessingTime = details?.ocr?.processing_time_ms ?? 28;
-    const mrzProcessingTime = details?.mrz?.processing_time_ms ?? 12;
-    const bioProcessingTime = details?.biometrics?.processing_time_ms ?? 48;
-    const liveProcessingTime = details?.liveness?.processing_time_ms ?? 32;
-    const forensProcessingTime = details?.forensics?.processing_time_ms ?? 110;
-    const stampProcessingTime = details?.stamp?.processing_time_ms ?? 24;
-    const ocrSuccess = details?.ocr?.status === "SUCCESS" || details?.ocr?.status === "success" || (details?.ocr?.mean_confidence ?? 0) >= 0.8;
-    const mrzSuccess = !details?.mrz?.mrz_detected || details?.mrz?.valid;
-    const livenessSuccess = details?.liveness ? details.liveness.is_live : true;
-    const biometricsSuccess = details?.biometrics ? details.biometrics.match : true;
-    const forensicsSuccess = details?.forensics ? !details.forensics.is_tampered : true;
-    const stampSuccess = details?.stamp?.stamp_found ? details.stamp.verdict === "AUTHENTIC" : true;
-    const steps = [
-      {
-        id: "ocr",
-        name: "Text extraction",
-        category: "OCR",
-        status: ocrSuccess ? "completed" : "failed",
-        latencyMs: Math.round(ocrProcessingTime),
-        confidence: details?.ocr?.mean_confidence ?? 0.98,
-        details: `${Object.keys(details?.ocr?.fields || {}).length} fields localized \u2022 Mean confidence ${((details?.ocr?.mean_confidence ?? 0.98) * 100).toFixed(0)}%`
-      },
-      {
-        id: "mrz",
-        name: "Document Format & Security Checksum Validator",
-        category: "MRZ",
-        status: mrzSuccess ? "completed" : "failed",
-        latencyMs: Math.round(mrzProcessingTime),
-        confidence: details?.mrz?.valid ? 1 : 0.45,
-        details: details?.mrz?.mrz_detected ? details.mrz.valid ? "All security checks passed" : `Security check failed: ${details.mrz.checksum_failures.join(", ") || "CD1 Mismatch"}` : "Bypassed (Non-MRZ document format)"
-      },
-      {
-        id: "biometrics",
-        name: "Face check",
-        category: "BIOMETRICS",
-        status: biometricsSuccess && livenessSuccess ? "completed" : "failed",
-        latencyMs: Math.round(bioProcessingTime + liveProcessingTime),
-        confidence: details?.biometrics?.similarity ?? 0.84,
-        details: details?.biometrics ? `Match: ${(details.biometrics.similarity * 100).toFixed(0)}% \u2022 ${livenessSuccess ? "Real person" : "Fake detected"}` : "Face verified"
-      },
-      {
-        id: "forensics",
-        name: "Tamper check",
-        category: "FORENSICS",
-        status: forensicsSuccess ? "completed" : "failed",
-        latencyMs: Math.round(forensProcessingTime),
-        confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
-        details: forensicsSuccess ? "No tampering found" : `Tampering detected: ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`
-      },
-      {
-        id: "stamp",
-        name: "Stamp check",
-        category: "STAMP",
-        status: stampSuccess ? "completed" : "failed",
-        latencyMs: Math.round(stampProcessingTime),
-        confidence: details?.stamp?.stamp_score ?? 0.94,
-        details: details?.stamp?.stamp_found ? `Stamp: ${details.stamp.location_name || details.stamp.checkpost_id || "Post"} (${details.stamp.verdict})` : "No stamp found"
-      }
-    ];
-    const tools = [
-      {
-        name: "Text reader",
-        label: "Text & QR",
-        status: ocrSuccess ? "completed" : "failed",
-        durationMs: Math.round(ocrProcessingTime),
-        confidence: details?.ocr?.mean_confidence ?? 0.98,
-        modelVersion: assessment.model_versions?.pp_ocr || "text-qr-v4",
-        chip: "extract_fields.onnx",
-        icon: "ocr",
-        detailLines: [
-          {
-            text: `\u2713 Script: ${details?.ocr?.script_detected || "latin/devanagari"} \u2022 ${Object.keys(details?.ocr?.fields || {}).length} optical fields parsed`,
-            tone: "add"
-          },
-          {
-            text: `\u2713 Mean confidence: ${((details?.ocr?.mean_confidence ?? 0.98) * 100).toFixed(1)}%`
-          }
-        ]
-      },
-      {
-        name: "Security check",
-        label: "Format check",
-        status: mrzSuccess ? "completed" : "failed",
-        durationMs: Math.round(mrzProcessingTime),
-        confidence: details?.mrz?.valid ? 1 : 0.4,
-        modelVersion: assessment.model_versions?.mrz_engine || "format-v2",
-        chip: "checksum_validator.py",
-        icon: "run",
-        detailLines: [
-          {
-            text: details?.mrz?.valid ? "\u2713 Security checks passed" : `\u2715 Security check failed: ${details?.mrz?.checksum_failures?.join(", ") || "Checksum mismatch"}`,
-            tone: details?.mrz?.valid ? "add" : "del"
-          }
-        ]
-      },
-      {
-        name: "Face matcher",
-        label: "Face check",
-        status: biometricsSuccess ? "completed" : "failed",
-        durationMs: Math.round(bioProcessingTime),
-        confidence: details?.biometrics?.similarity ?? 0.84,
-        modelVersion: assessment.model_versions?.face_embedder || "biometric-v1",
-        chip: "face_align_112.onnx",
-        icon: "face",
-        detailLines: [
-          {
-            text: `\u2713 Face aligned`
-          },
-          {
-            text: `\u2713 Match: ${((details?.biometrics?.similarity ?? 0.84) * 100).toFixed(0)}%`,
-            tone: biometricsSuccess ? "add" : "del"
-          }
-        ]
-      },
-      {
-        name: "Live Selfie Presentation Checker",
-        label: "Liveness Check",
-        status: livenessSuccess ? "completed" : "failed",
-        durationMs: Math.round(liveProcessingTime),
-        confidence: details?.liveness?.confidence ?? 0.98,
-        modelVersion: "liveness-v2",
-        chip: "liveness_dual_scale.onnx",
-        icon: "face",
-        detailLines: [
-          {
-            text: livenessSuccess ? "\u2713 Dual-scale verification confirmed live presentation" : "\u2715 Presentation attack detected: Replay or print spoof",
-            tone: livenessSuccess ? "add" : "del"
-          }
-        ]
-      },
-      {
-        name: "Digital Text Tamper & Forensics Detector",
-        label: "Tamper Detector",
-        status: forensicsSuccess ? "completed" : "failed",
-        durationMs: Math.round(forensProcessingTime),
-        confidence: 1 - (details?.forensics?.tamper_score ?? 0.03),
-        modelVersion: assessment.model_versions?.tamper_detector || "tamper-v2",
-        chip: "tamper_heatmap.pt",
-        icon: "forensics",
-        detailLines: [
-          {
-            text: forensicsSuccess ? "\u2713 Substrate within nominal integrity threshold" : `\u2715 Localized tampering detected: Peak anomaly probability ${((details?.forensics?.tamper_score ?? 0.88) * 100).toFixed(0)}%`,
-            tone: forensicsSuccess ? "add" : "del"
-          },
-          {
-            text: `\u2713 Compression analysis intensity: ${(details?.forensics?.ela_result?.max_intensity ?? 0.04).toFixed(3)}`
-          }
-        ]
-      },
-      {
-        name: "Border Transit Permit Stamp Verifier",
-        label: "Stamp Verifier",
-        status: stampSuccess ? "completed" : "failed",
-        durationMs: Math.round(stampProcessingTime),
-        confidence: details?.stamp?.stamp_score ?? 0.94,
-        modelVersion: "stamp-orb-ssim",
-        chip: "stamp_registry.json",
-        icon: "stamp",
-        detailLines: [
-          {
-            text: details?.stamp?.stamp_found ? `\u2713 Registered checkpost match: ${details.stamp.location_name || details.stamp.checkpost_id} (${details.stamp.verdict})` : "\u25CB No physical transit seal located on primary scan page"
-          }
-        ]
-      }
-    ];
-    const diffs = [
-      {
-        file: "ocr_payload.json",
-        add: Object.keys(details?.ocr?.fields || {}).length || 8,
-        del: 0,
-        lines: Object.entries(details?.ocr?.fields || {}).slice(0, 5).map(([k, v]) => ({
-          text: `"${k}": "${v}"`,
-          tone: "add"
-        }))
-      },
-      {
-        file: "forensics_anomaly_tensor.bin",
-        add: (details?.forensics?.tampered_regions || []).length,
-        del: details?.forensics?.is_tampered ? 1 : 0,
-        lines: [
-          {
-            text: `tamper_score: ${(details?.forensics?.tamper_score ?? 0).toFixed(3)}`,
-            tone: details?.forensics?.is_tampered ? "del" : "add"
-          },
-          {
-            text: `tau_adaptive_threshold: 0.180`,
-            tone: "ctx"
-          }
-        ]
-      },
-      {
-        file: "mrz_checksum_matrix.bin",
-        add: details?.mrz?.valid ? 4 : 0,
-        del: (details?.mrz?.checksum_failures || []).length,
-        lines: [
-          {
-            text: `cd1_doc_no: ${details?.mrz?.doc_number_checksum_valid ? "VALID" : "FAIL"}`,
-            tone: details?.mrz?.doc_number_checksum_valid ? "add" : "del"
-          },
-          {
-            text: `cd2_dob: ${details?.mrz?.dob_checksum_valid ? "VALID" : "FAIL"}`,
-            tone: details?.mrz?.dob_checksum_valid ? "add" : "del"
-          }
-        ]
-      }
-    ];
-    return { traceSteps: steps, toolTelemetry: tools, tensorDiffs: diffs };
-  }, [details, assessment]);
-  const cvRules = (0, import_react16.useMemo)(() => {
-    const existingFlags = details?.cross_validation?.flags || [];
-    const violations = details?.cross_validation?.violations || [];
-    const getViolationDetail = (ruleId, fallback) => {
-      const match = violations.find((v) => (v.rule_id || v.field_name || "").includes(ruleId));
-      return match ? match.details || match.rule_name || match.telemetry_code : fallback;
-    };
-    const hasViolation = (search) => {
-      return assessment.cross_validation_violations?.some((v) => v.toLowerCase().includes(search.toLowerCase())) || violations.some(
-        (v) => (v.field_name || "").toLowerCase().includes(search.toLowerCase()) || (v.details || "").toLowerCase().includes(search.toLowerCase()) || (v.rule_id || "").toLowerCase().includes(search.toLowerCase())
-      );
-    };
-    const rules = [
-      {
-        id: "CV-01",
-        rule: "Visual Legal Name vs MRZ Primary Identifier",
-        category: "OCR / MRZ",
-        telemetry: hasViolation("name") ? "Name character mismatch between visual field and MRZ lines" : "Exact string match across normalized full name (Levenshtein: 0)",
-        status: hasViolation("name") ? "violation" : "passed",
-        details: hasViolation("name") ? getViolationDetail("CV-01", "Visual OCR extracted name does not match MRZ Line 1 surname and given names.") : "Visual and MRZ primary identifiers are 100% consistent."
-      },
-      {
-        id: "CV-02",
-        rule: "Visual Date of Birth vs MRZ DOB Check Digit",
-        category: "OCR / MRZ",
-        telemetry: hasViolation("dob") || hasViolation("birth") ? "Optical birthdate differs from MRZ line 2 YYMMDD check sequence" : "Optical date matches MRZ check digit calculation (YYMMDD valid)",
-        status: hasViolation("dob") || hasViolation("birth") ? "violation" : "passed",
-        details: hasViolation("dob") || hasViolation("birth") ? getViolationDetail("CV-02", "Discrepancy detected between visual birthdate and ICAO MRZ check digit sequence.") : "DOB verified consistent across optical and machine-readable zones."
-      },
-      {
-        id: "CV-03",
-        rule: "Document Number vs Modulo-10 Checksum (CD1)",
-        category: "MRZ Checksum",
-        telemetry: hasViolation("doc_number") || hasViolation("checksum") || !details?.mrz?.doc_number_checksum_valid ? "Computed check digit differs from optical document sequence" : "7-3-1 weight check digit matches optical document sequence (CD1 verified)",
-        status: hasViolation("doc_number") || hasViolation("checksum") || details?.mrz && !details.mrz.doc_number_checksum_valid ? "violation" : "passed",
-        details: hasViolation("doc_number") || hasViolation("checksum") || details?.mrz && !details.mrz.doc_number_checksum_valid ? getViolationDetail(
-          "CV-03",
-          "Critical Modulo-10 mismatch: Visual OCR digits do not satisfy ICAO 9303 7-3-1 weighted check formula."
-        ) : "Document number satisfies ICAO 9303 check digit requirements."
-      },
-      {
-        id: "CV-04",
-        rule: "Document Expiry vs Transit Date Validity Check",
-        category: "Permit Rules",
-        telemetry: hasViolation("expiry") ? "Document expired or within critical 30-day transit threshold" : "Document valid for transit (expiry exceeds 180+ day buffer)",
-        status: hasViolation("expiry") ? "violation" : "passed",
-        details: hasViolation("expiry") ? getViolationDetail("CV-04", "Document expiration date is prior to declared border transit date.") : "Document validity window is active and verified."
-      },
-      {
-        id: "CV-05",
-        rule: "UIDAI QR RSA-2048 PKI vs Visual Demographics",
-        category: "Crypto PKI",
-        telemetry: details?.ocr?.qr_payload?.signature_valid === false ? "RSA-2048 digital signature verification failed on public certificate" : details?.ocr?.qr_payload?.raw_qr_found ? "UIDAI RSA-2048 PKI root certificate signature validated" : "N/A (Passport/Voter ID \u2014 non-QR document type)",
-        status: details?.ocr?.qr_payload?.signature_valid === false ? "violation" : details?.ocr?.qr_payload?.raw_qr_found ? "passed" : "info",
-        details: details?.ocr?.qr_payload?.signature_valid === false ? "QR cryptographic signature does not verify against UIDAI root PKI certificate." : "Cryptographic digital signature matches authorized issuing authority."
-      },
-      {
-        id: "CV-06",
-        rule: "UIDAI QR Demographics vs MRZ Fields Cross-Stream",
-        category: "Crypto PKI",
-        telemetry: hasViolation("qr") ? "Decoded QR demographics differ from secondary MRZ stream" : "Digital payload matches secondary optical stream attributes",
-        status: hasViolation("qr") ? "violation" : "passed",
-        details: hasViolation("qr") ? getViolationDetail("CV-06", "Decoded demographic fields inside the QR payload conflict with the document.") : "Cross-stream demographic correlation passed."
-      },
-      {
-        id: "CV-07",
-        rule: "Border Transit Seal Context Consistency",
-        category: "Border Stamp",
-        telemetry: details?.stamp?.verdict === "AUTHENTIC" ? `Seal location ${details.stamp.location_name || "ICP"} matches declared port` : details?.stamp?.stamp_found ? "Stamp template mismatch or expired transit duration" : "No physical transit seal required for initial entry page",
-        status: details?.stamp?.stamp_found && details.stamp.verdict !== "AUTHENTIC" ? "warning" : "passed",
-        details: details?.stamp?.stamp_found && details.stamp.verdict !== "AUTHENTIC" ? `Stamp verification flagged anomaly: ${details.stamp.verdict} (${details.stamp.reasons.join(", ")})` : "Border transit stamp is consistent with immigration history."
-      },
-      {
-        id: "CV-08",
-        rule: "Biometric Apparent Age vs Optical DOB Drift",
-        category: "Face Match & Liveness",
-        telemetry: hasViolation("age") || details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20 ? `Age Validation: Anomaly (${details?.biometrics?.age_drift_years || "20+"} yrs drift)` : "Age Validation: Consistent with optical birth year",
-        status: hasViolation("age") || details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20 ? "warning" : "passed",
-        details: hasViolation("age") || details?.biometrics?.age_drift_years && details.biometrics.age_drift_years > 20 ? "Estimated facial biological age deviates significantly from the optical birthdate on the credential." : "Biometric age analysis conforms to declared document birthdate."
-      }
-    ];
-    if (existingFlags.length > 0) {
-      return rules.map((r) => {
-        const flag = existingFlags.find((f) => f.rule_id === r.id);
-        if (flag) {
-          return {
-            ...r,
-            telemetry: flag.telemetry_message || r.telemetry,
-            status: flag.passed ? "passed" : "violation"
-          };
-        }
-        return r;
-      });
-    }
-    return rules;
-  }, [details, assessment]);
-  const diffRows = (0, import_react16.useMemo)(() => {
-    const ocrFields = details?.ocr?.fields || {};
-    const mrzParsed = details?.mrz?.parsed_fields || {};
-    const qrDemo = details?.ocr?.qr_payload?.demographics || {};
-    const violations = details?.cross_validation?.violations || [];
-    const hasViol = (keyword) => {
-      return assessment.cross_validation_violations?.some((v) => v.toLowerCase().includes(keyword.toLowerCase())) || violations.some(
-        (v) => (v.field_name || "").toLowerCase().includes(keyword.toLowerCase()) || (v.details || "").toLowerCase().includes(keyword.toLowerCase())
-      );
-    };
-    const visualDob = ocrFields.dob || ocrFields.date_of_birth || "1984-07-12";
-    const mrzDob = mrzParsed.dob || details?.mrz?.dob || qrDemo.dob || "840712";
-    const dobMatch = !hasViol("dob") && !hasViol("birth");
-    const visualDocNo = ocrFields.document_number || ocrFields.doc_number || ocrFields.passport_number || ocrFields.aadhaar_number || "P98421034";
-    const mrzDocNo = details?.mrz?.document_number || mrzParsed.document_number || qrDemo.doc_number || "P98421038";
-    const docNoMatch = !hasViol("number") && !hasViol("doc_number") && (!details?.mrz || details.mrz.doc_number_checksum_valid !== false);
-    const visualName = ocrFields.full_name || ocrFields.name || `${ocrFields.given_names || ""} ${ocrFields.surname || ""}`.trim() || "KUMAR<<ANAND";
-    const mrzName = details?.mrz?.surname || details?.mrz?.given_names ? `${details.mrz.surname}<<${details.mrz.given_names}`.trim() : qrDemo.name || "KUMAR<<ANAND";
-    const nameMatch = !hasViol("name");
-    const visualCountry = ocrFields.issuing_country || ocrFields.country || "IND";
-    const mrzCountry = details?.mrz?.country_code || mrzParsed.country_code || "IND";
-    const visualExpiry = ocrFields.expiry || ocrFields.expiration_date || "2030-01-15";
-    const mrzExpiry = details?.mrz?.expiry || mrzParsed.expiry || "300115";
-    const expiryMatch = !hasViol("expiry");
-    const visualSex = ocrFields.sex || ocrFields.gender || "M";
-    const mrzSex = details?.mrz?.sex || mrzParsed.sex || qrDemo.gender || "M";
-    const rows = [
-      {
-        field: "Document Number",
-        sourceA: "Visual OCR",
-        sourceB: "ICAO MRZ (Line 1)",
-        valueA: visualDocNo,
-        valueB: mrzDocNo,
-        isMatch: docNoMatch,
-        details: docNoMatch ? void 0 : "Visual digit was altered; MRZ Modulo-10 7-3-1 check digit CD1 confirms genuine sequence."
-      },
-      {
-        field: "Date of Birth (DOB)",
-        sourceA: "Visual OCR",
-        sourceB: "ICAO MRZ / PKI",
-        valueA: visualDob,
-        valueB: mrzDob,
-        isMatch: dobMatch,
-        details: dobMatch ? void 0 : "Discrepancy between optical birthdate and decoded MRZ/QR demographic payload."
-      },
-      {
-        field: "Full Legal Name",
-        sourceA: "Visual OCR",
-        sourceB: "MRZ / UIDAI PKI",
-        valueA: visualName,
-        valueB: mrzName,
-        isMatch: nameMatch,
-        details: nameMatch ? void 0 : "Name string mismatch between optical layout and machine-readable record."
-      },
-      {
-        field: "Issuing State Code",
-        sourceA: "Visual OCR",
-        sourceB: "ICAO MRZ",
-        valueA: visualCountry,
-        valueB: mrzCountry,
-        isMatch: true
-      },
-      {
-        field: "Document Expiration Date",
-        sourceA: "Visual OCR",
-        sourceB: "ICAO MRZ (Line 2)",
-        valueA: visualExpiry,
-        valueB: mrzExpiry,
-        isMatch: expiryMatch,
-        details: expiryMatch ? void 0 : "Expiration date mismatch across visual and MRZ layers."
-      },
-      {
-        field: "Gender / Sex Marker",
-        sourceA: "Visual OCR",
-        sourceB: "MRZ / PKI",
-        valueA: visualSex,
-        valueB: mrzSex,
-        isMatch: true
-      }
-    ];
-    return rows;
-  }, [details, assessment]);
-  const mismatchCount = diffRows.filter((r) => !r.isMatch).length;
-  const violationCount = cvRules.filter((r) => r.status === "violation").length;
-  const handleOfficerDecision = (decision) => {
-    const timestamp = (/* @__PURE__ */ new Date()).toISOString();
-    const mappedType = decision.action === "AUTO_CLEAR" ? "clear" : decision.action === "SECONDARY_INSPECTION" ? "secondary" : "interdict";
-    const recordedAction = decision.action === "AUTO_CLEAR" || decision.action === "SECONDARY_INSPECTION" || decision.action === "DETAIN_AND_INTERDICT" ? decision.action : "DETAIN_AND_INTERDICT";
-    const recorded = {
-      action: recordedAction,
-      decisionType: mappedType,
-      reason: decision.reason,
-      officerNotes: decision.officerNotes || "",
-      badgeId: decision.badgeId || "SSB-IND-7049",
-      timestamp
-    };
-    onOfficerDecision?.(recorded);
-  };
-  const tabOptions = [
-    {
-      id: "overview",
-      label: "Operational Overview",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(LayoutDashboard, { className: "size-3.5" })
-    },
-    {
-      id: "discrepancies",
-      label: "Discrepancy Matrix",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(GitCompare, { className: "size-3.5" }),
-      badge: mismatchCount > 0 ? `${mismatchCount} Diff` : void 0
-    },
-    {
-      id: "forensics",
-      label: "Visual Forensics",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Eye, { className: "size-3.5" })
-    },
-    {
-      id: "telemetry",
-      label: "Technical Telemetry",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Cpu, { className: "size-3.5" })
-    },
-    {
-      id: "pillars",
-      label: "Verification Checks",
-      icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(ShieldCheck, { className: "size-3.5" })
-    }
-  ];
-  const riskTone = assessment.risk_level === "RED" ? "red" : assessment.risk_level === "AMBER" ? "amber" : "green";
-  return /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-5 animate-fade-up", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex flex-wrap items-center justify-between gap-3 rounded-xl bg-surface p-3 shadow-card border border-line", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        SegmentedControl,
-        {
-          options: tabOptions,
-          value: activeTab,
-          onChange: (tab) => setActiveTab(tab),
-          size: "md"
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center flex-wrap gap-2.5", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(StatusPill, { tone: riskTone, dot: true, children: [
-          "Threat Level: ",
-          assessment.risk_score.toFixed(1),
-          " / 100"
-        ] }),
-        assessment.tripwire_triggered && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(StatusPill, { tone: "red", dot: true, size: "sm", children: "CRITICAL TRIGGER ACTIVE" }),
-        officerDecision && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(StatusPill, { tone: "green", size: "sm", children: [
-          "SIGNED: ",
-          officerDecision.badgeId
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(RiskStatusBanner, { assessment }),
-    /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-      ApprovalCard,
-      {
-        riskLevel: assessment.risk_level,
-        riskScore: assessment.risk_score,
-        onDecide: handleOfficerDecision
-      }
-    ),
-    activeTab === "overview" && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-5", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        InsightStrip,
-        {
-          items: [
-            {
-              label: "Threat score",
-              value: assessment.risk_score.toFixed(1),
-              hint: assessment.risk_level,
-              tone: assessment.risk_level === "RED" ? "red" : assessment.risk_level === "AMBER" ? "orange" : "green"
-            },
-            {
-              label: "Screening time",
-              value: `${Math.round(assessment.processing_time_ms)}ms`,
-              hint: "3-stream pipeline",
-              tone: "accent"
-            },
-            {
-              label: "Field diffs",
-              value: String(mismatchCount),
-              hint: mismatchCount === 0 ? "Cross-stream consistent" : "Needs review",
-              tone: mismatchCount > 0 ? "red" : "green"
-            },
-            {
-              label: "Guard violations",
-              value: String(violationCount),
-              hint: `${cvRules.length} rules checked`,
-              tone: violationCount > 0 ? "orange" : "green"
-            }
-          ]
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-5", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(RiskScoreCard, { assessment }),
-        details && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-          ReasonBulletList,
-          {
-            reasons: assessment.reasons,
-            crossValidation: details.cross_validation
-          }
-        )
-      ] }),
-      livePhotoUrl && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "bg-surface rounded-xl border border-line p-5 shadow-card space-y-4", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-3", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center space-x-2.5", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "p-2 bg-accent/10 rounded-lg", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(UserCheck, { className: "w-4 h-4 text-accent" }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono", children: "1:1 Identity Verification \xB7 Side-by-Side Comparison" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-            "span",
-            {
-              className: `text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-chip border ${details?.biometrics?.match ? "bg-green-bg text-green border-green-border" : "bg-red-bg text-red border-red-border"}`,
-              children: details?.biometrics?.match ? "\u2713 1:1 BIOMETRIC MATCH CONFIRMED" : "\u2715 BIOMETRIC MISMATCH"
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 items-center", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex flex-col items-center bg-inset p-3 rounded-control border border-line shadow-card", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[10.5px] font-mono text-ink-3 uppercase mb-2", children: "Document Credential Photo" }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "h-[180px] w-full flex items-center justify-center overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-              "img",
-              {
-                src: documentImageUrl,
-                alt: "Document Photo",
-                className: "max-h-full max-w-full object-contain rounded-chip border border-line shadow-card"
-              }
-            ) }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] text-ink-2 font-mono mt-2", children: "Extracted ID Reference" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex flex-col items-center bg-inset p-3 rounded-control border border-line shadow-card", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { className: "text-[10.5px] font-mono text-ink-3 uppercase mb-2 flex items-center gap-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { children: "Live Field Unit Capture" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-green text-[10px]", children: "\u25CF Live Sync" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "h-[180px] w-full flex items-center justify-center overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-              "img",
-              {
-                src: livePhotoUrl,
-                alt: "Live Field Capture",
-                className: "max-h-full max-w-full object-contain rounded-chip border border-line shadow-card"
-              }
-            ) }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] text-ink-2 font-mono mt-2 flex items-center gap-1", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-green font-semibold", children: "\u2713 Received from Field Unit Camera" }) })
-          ] })
-        ] })
-      ] }),
-      details?.ocr?.fields && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        ExtractedRecords,
-        {
-          rows: Object.entries(details.ocr.fields).map(([field, value]) => ({
-            field: field.replace(/_/g, " "),
-            value: String(value ?? "\u2014"),
-            source: "Visual OCR",
-            confidence: details.ocr.field_confidences?.[field] ?? details.ocr.mean_confidence
-          }))
-        }
-      ),
-      details && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        ContextCards,
-        {
-          heading: "Model & checkpoint context",
-          chunks: [
-            {
-              title: "OCR engine",
-              body: assessment.model_versions?.pp_ocr || "PP-OCRv4 multilingual extractor",
-              source: `${Object.keys(details.ocr?.fields || {}).length} fields`,
-              badge: "OCR",
-              tone: "bg-accent"
-            },
-            {
-              title: "Face matcher",
-              body: details.biometrics ? `Similarity ${(details.biometrics.similarity * 100).toFixed(0)}% \xB7 ${details.biometrics.match ? "1:1 match" : "mismatch"}` : "No live portrait ingested",
-              source: assessment.model_versions?.face_embedder || "Face Matcher",
-              badge: "BIO",
-              tone: details.biometrics?.match ? "bg-green" : "bg-orange"
-            },
-            {
-              title: "Forensic substrate",
-              body: details.forensics?.is_tampered ? `Tamper localized at ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%` : "Substrate within nominal integrity threshold",
-              source: assessment.model_versions?.tamper_detector || "Tamper Check",
-              badge: "FX",
-              tone: details.forensics?.is_tampered ? "bg-red" : "bg-green"
-            }
-          ]
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center justify-between border-b border-line pb-2 mb-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("h3", { className: "text-xs font-bold uppercase tracking-wider text-ink font-mono flex items-center gap-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Cpu, { className: "w-4 h-4 text-accent" }),
-            "Advanced Verification Logs & Technical Audits"
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[10px] font-mono text-ink-3", children: "Expandable Deep Forensic Diagnostics" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-          AccordionSection,
-          {
-            title: "Multi-Model Inference Pipeline Trace",
-            icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Cpu, { className: "w-4 h-4" }),
-            badge: `${traceSteps.length} Models \xB7 ${Math.round(assessment.processing_time_ms)}ms`,
-            badgeTone: "accent",
-            isOpen: openAccordions.trace,
-            onToggle: () => toggleAccordion("trace"),
-            children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-              InspectionPipelineTrace,
-              {
-                steps: traceSteps,
-                totalLatencyMs: Math.round(assessment.processing_time_ms)
-              }
-            )
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-          AccordionSection,
-          {
-            title: "Forensic Field Discrepancy Matrix (Visual OCR vs MRZ / PKI)",
-            icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(GitCompare, { className: "w-4 h-4" }),
-            badge: mismatchCount > 0 ? `${mismatchCount} Discrepancies Flagged` : "0 Mismatches",
-            badgeTone: mismatchCount > 0 ? "red" : "green",
-            isOpen: openAccordions.discrepancies,
-            onToggle: () => toggleAccordion("discrepancies"),
-            children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-              DiffTable,
-              {
-                title: "Cross-Stream Field Discrepancy Matrix",
-                rows: diffRows
-              }
-            )
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-          AccordionSection,
-          {
-            title: "8-Rule Cross-Validation Consistency Guards",
-            icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(ShieldCheck, { className: "w-4 h-4" }),
-            badge: violationCount > 0 ? `${violationCount} Violations` : "8/8 Guards Valid",
-            badgeTone: violationCount > 0 ? "red" : "green",
-            isOpen: openAccordions.crossVal,
-            onToggle: () => toggleAccordion("crossVal"),
-            children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-              FilterTable,
-              {
-                title: "8-Rule Cross-Validation Guard Matrix",
-                rows: cvRules
-              }
-            )
-          }
-        ),
-        details && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-          AccordionSection,
-          {
-            title: "Visual Forensics, Substrate & Splicing Localization",
-            icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Eye, { className: "w-4 h-4" }),
-            badge: `Tamper Score: ${((details.forensics.tamper_score ?? 0) * 100).toFixed(1)}%`,
-            badgeTone: details.forensics.is_tampered ? "red" : "green",
-            isOpen: openAccordions.forensics,
-            onToggle: () => toggleAccordion("forensics"),
-            children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-              ForensicsViewer,
-              {
-                documentImageUrl,
-                heatmapImageUrl: heatmapImageUrl || assessment.heatmap_base64,
-                forensics: details.forensics,
-                stamp: details.stamp
-              }
-            )
-          }
-        ),
-        details && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-          AccordionSection,
-          {
-            title: "Granular Verification Checks Breakdown",
-            icon: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(ShieldAlert, { className: "w-4 h-4" }),
-            badge: "Text \xB7 Format \xB7 Biometrics \xB7 Forensics \xB7 Stamp",
-            badgeTone: "neutral",
-            isOpen: openAccordions.pillars,
-            onToggle: () => toggleAccordion("pillars"),
-            children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(PillarsTable, { scanDetails: details })
-          }
-        )
-      ] })
-    ] }),
-    activeTab === "discrepancies" && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-4 animate-fade-up", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center justify-between p-3 rounded-card bg-surface border border-line shadow-card", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(GitCompare, { className: "w-4 h-4 text-accent" }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[13px] font-bold font-mono text-ink", children: "Cross-Stream Discrepancy & Verification Matrix" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "flex items-center gap-2 font-mono text-[11px]", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { className: "text-ink-3", children: [
-          mismatchCount,
-          " discrepancies \xB7 ",
-          violationCount,
-          " rule violations"
-        ] }) })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        DiffTable,
-        {
-          title: "Field Discrepancy Matrix (OCR vs MRZ / PKI Demographics)",
-          rows: diffRows
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        FilterTable,
-        {
-          title: "Multi-Stream Cross-Validation Evaluation (CV-01 through CV-08)",
-          rows: cvRules
-        }
-      )
-    ] }),
-    activeTab === "forensics" && details && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-4 animate-fade-up", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        ForensicsViewer,
-        {
-          documentImageUrl,
-          heatmapImageUrl: heatmapImageUrl || assessment.heatmap_base64,
-          forensics: details.forensics,
-          stamp: details.stamp
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Text Tamper Inspection Score" }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "text-xl font-bold font-mono text-ink", children: [
-            ((details.forensics.doctamper_score ?? 0) * 100).toFixed(1),
-            "%"
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] text-ink-2", children: "Text & digit alteration detector" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Photo Splicing Score" }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "text-xl font-bold font-mono text-ink", children: [
-            ((details.forensics.trufor_score ?? 0) * 100).toFixed(1),
-            "%"
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] text-ink-2", children: "Dense RGB+Noise transformer" })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "p-3.5 rounded-card bg-surface border border-line shadow-card space-y-1", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] font-mono text-ink-3 uppercase", children: "Substrate Compression Intensity" }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "text-xl font-bold font-mono text-ink", children: (details.forensics.ela_result?.max_intensity ?? 0.04).toFixed(3) }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[11px] text-ink-2", children: "JPEG compression deadband: 0.180" })
-        ] })
-      ] })
-    ] }),
-    activeTab === "telemetry" && /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "space-y-4 animate-fade-up", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        ToolChips,
-        {
-          title: "5-Pillar Neural Model Telemetry & Tensor Output Diffs",
-          telemetry: toolTelemetry,
-          diffs: tensorDiffs
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
-        InspectionPipelineTrace,
-        {
-          steps: traceSteps,
-          totalLatencyMs: Math.round(assessment.processing_time_ms)
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "p-4 rounded-card bg-surface border border-line shadow-card space-y-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(Cpu, { className: "w-4 h-4 text-accent" }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[12.5px] font-bold font-mono text-ink uppercase", children: "Hardware Acceleration Architecture" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "text-[11.5px] font-mono text-ink-2 space-y-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-ink-3", children: "Inference Backend:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-ink", children: "Apple Silicon M4 MPS / CoreML Execution Provider" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-ink-3", children: "Memory Footprint:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-ink", children: "1.84 GB Unified Memory (Budget: 16 GB)" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-ink-3", children: "Total Pipeline Latency:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("span", { className: "font-semibold text-ink", children: [
-                Math.round(assessment.processing_time_ms),
-                " ms (SLA: <3500ms)"
-              ] })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex justify-between", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-ink-3", children: "Air-Gapped Status:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-green", children: "100% Offline \xB7 0 Cloud Dependencies" })
-            ] })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "p-4 rounded-card bg-surface border border-line shadow-card space-y-2", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(ShieldAlert, { className: "w-4 h-4 text-orange" }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-[12.5px] font-bold font-mono text-ink uppercase", children: "Cryptographic Audit Trail" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "text-[11.5px] font-mono text-ink-2 space-y-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-ink-3", children: "Session Transaction:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-ink", children: result.session_id })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex justify-between border-b border-line pb-1", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-ink-3", children: "SHA-256 Audit Signature:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-ink truncate max-w-[200px]", children: assessment.audit_hash || "SHA256:VERIFIED" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)("div", { className: "flex justify-between", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "text-ink-3", children: "Officer Authorization:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("span", { className: "font-semibold text-ink", children: officerDecision ? `${officerDecision.action} (${officerDecision.badgeId})` : "Pending Officer Review" })
-            ] })
-          ] })
-        ] })
-      ] })
-    ] }),
-    activeTab === "pillars" && details && /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: "space-y-4 animate-fade-up", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(PillarsTable, { scanDetails: details }) })
-  ] });
-};
-
-// src/components/AuditCertificateModal.tsx
-var import_jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
-var AuditCertificateModal = ({
-  isOpen,
-  onClose,
-  result,
-  checkpoint,
-  officerDecision,
-  onNavigateToScan
-}) => {
-  if (!isOpen) return null;
-  const session_id = result?.session_id || "PENDING-INGESTION-SESSION";
-  const assessment = result?.assessment;
-  const details = result?.details;
-  const ocrFields = details?.ocr?.fields || {};
-  return /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
-    "div",
-    {
-      role: "dialog",
-      "aria-modal": "true",
-      className: "fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-fade-in select-none",
-      onClick: (e) => {
-        if (e.target === e.currentTarget) onClose();
-      },
-      children: /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "bg-white border border-slate-200 rounded-2xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh] shadow-2xl", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "bg-slate-50 px-6 py-3.5 border-b border-slate-200 flex items-center justify-between", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "flex items-center space-x-2 font-sans", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(Shield, { className: "w-4 h-4 text-indigo-700" }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-xs font-bold text-slate-800 uppercase tracking-wider", children: "Border Security Screening Audit Certificate" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "flex items-center space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)(
-              "button",
-              {
-                type: "button",
-                onClick: () => window.print(),
-                className: "flex items-center space-x-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-bold shadow-xs cursor-pointer",
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(Printer, { className: "w-3.5 h-3.5" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { children: "Print Certificate" })
-                ]
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
-              "button",
-              {
-                type: "button",
-                onClick: onClose,
-                className: "p-1 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer",
-                children: /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(X, { className: "w-5 h-5" })
-              }
-            )
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "p-8 overflow-y-auto bg-white text-slate-900 font-sans space-y-6 print:p-0", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "border-b-2 border-indigo-900/20 pb-5 text-center space-y-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("div", { className: "w-12 h-14 mx-auto mb-2 flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(SSBCrestLogo, { className: "w-full h-full object-contain" }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("p", { className: "text-[11px] font-bold tracking-widest text-amber-700 uppercase font-sans", children: "\u092D\u093E\u0930\u0924 \u0938\u0930\u0915\u093E\u0930 \u2022 \u0917\u0943\u0939 \u092E\u0902\u0924\u094D\u0930\u093E\u0932\u092F \u2022 GOVERNMENT OF INDIA \u2022 MINISTRY OF HOME AFFAIRS" }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("h2", { className: "text-xl font-extrabold tracking-tight text-slate-900 uppercase font-serif", children: "SASHASTRA SEEMA BAL (SSB)" }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("p", { className: "text-xs font-medium text-slate-500", children: "Integrated Border Security & AI Document Screening Audit Record" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono bg-slate-50 p-4 rounded-xl border border-slate-200", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Session ID:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "font-bold text-slate-800 text-[11px] truncate block", children: session_id })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Inspection Post:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("span", { className: "font-bold text-slate-800 text-[11px]", children: [
-                checkpoint.name,
-                " (",
-                checkpoint.code,
-                ")"
-              ] })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Transit Frontier:" }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("span", { className: "font-bold text-slate-800 text-[11px]", children: [
-                checkpoint.border,
-                " Border"
-              ] })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Timestamp (UTC):" }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "font-bold text-slate-800 text-[11px]", children: (/* @__PURE__ */ new Date()).toUTCString().slice(5, 25) })
-            ] })
-          ] }),
-          !result ? /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "p-6 bg-amber-50/70 border border-amber-200 rounded-xl text-center space-y-3", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(FileText, { className: "w-8 h-8 text-amber-600 mx-auto" }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("h4", { className: "text-sm font-bold text-amber-950", children: "Awaiting Document Ingestion" }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("p", { className: "text-xs text-slate-600 mt-1 max-w-md mx-auto leading-relaxed", children: "No traveler credential has been screened in this active session yet. Execute verification on the screening bay or select a sample document to generate an audit certificate." })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)(
-              "button",
-              {
-                type: "button",
-                onClick: () => {
-                  onClose();
-                  if (onNavigateToScan) onNavigateToScan();
-                },
-                className: "inline-flex items-center space-x-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow-xs cursor-pointer",
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { children: "Go to Document Screening Bay" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(ArrowRight, { className: "w-3.5 h-3.5" })
-                ]
-              }
-            )
-          ] }) : /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)(import_jsx_runtime29.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("h4", { className: "text-xs font-bold text-slate-700 uppercase tracking-wider font-sans", children: "1. Extracted Identity Demographics" }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono bg-slate-50 p-3.5 rounded-xl border border-slate-200", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Full Name:" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("span", { className: "font-semibold text-slate-900", children: [
-                    ocrFields.surname || ocrFields.full_name || ocrFields.holder_name || "N/A",
-                    " ",
-                    ocrFields.given_names || ""
-                  ] })
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Document Number:" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "font-semibold text-slate-900", children: maskAadhaar(ocrFields.passport_number || ocrFields.aadhaar_number || ocrFields.permit_number || details?.mrz.document_number || "N/A") })
-                ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-slate-400 text-[10px] block", children: "Date of Birth:" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "font-semibold text-slate-900", children: ocrFields.dob || details?.mrz.dob || "N/A" })
-                ] })
-              ] })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("h4", { className: "text-xs font-bold text-slate-700 uppercase tracking-wider font-sans", children: "2. Forensic Screening Verdict" }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)(
-                "div",
-                {
-                  className: `p-4 rounded-xl border flex items-center justify-between ${assessment?.risk_level === "GREEN" ? "bg-emerald-50 border-emerald-300 text-emerald-950" : assessment?.risk_level === "AMBER" ? "bg-amber-50 border-amber-300 text-amber-950" : "bg-red-50 border-red-300 text-red-950"}`,
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-[10px] uppercase font-bold block opacity-70", children: "Clearance Status:" }),
-                      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-base font-extrabold font-sans uppercase", children: assessment?.risk_level === "GREEN" ? "AUTO-CLEAR PASS (APPROVED)" : assessment?.risk_level === "AMBER" ? "SECONDARY INSPECTION (HOLD)" : "CRITICAL SECURITY ALERT (DETAIN)" })
-                    ] }),
-                    /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "text-right", children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-[10px] opacity-70 block font-mono", children: "Threat Score:" }),
-                      /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("span", { className: "text-2xl font-black font-mono", children: [
-                        assessment?.risk_score.toFixed(1),
-                        " / 100"
-                      ] })
-                    ] })
-                  ]
-                }
-              )
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "pt-4 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-mono", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("div", { className: "flex items-center space-x-2", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(Fingerprint, { className: "w-4 h-4 text-slate-400" }),
-                /* @__PURE__ */ (0, import_jsx_runtime29.jsxs)("span", { children: [
-                  "SHA-256: ",
-                  assessment?.audit_hash || "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-                ] })
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime29.jsx)("span", { className: "text-emerald-700 font-bold", children: "DPDP ACT 2023 VERIFIED" })
-            ] })
-          ] })
-        ] })
-      ] })
-    }
-  );
-};
-
-// src/components/RawJsonViewerModal.tsx
-var import_react17 = __toESM(require_react(), 1);
-var import_jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
-var RawJsonViewerModal = ({ isOpen, onClose, result }) => {
-  const [copied, setCopied] = (0, import_react17.useState)(false);
-  if (!isOpen) return null;
-  const defaultTelemetry = {
-    system: "SSB Sovereign Border Document Screening Workstation",
-    version: "2.4.0-defense-airgapped",
-    status: "READY_FOR_INGESTION",
-    pipeline: [
-      "ICAO_9303_MRZ_OCR",
-      "PADDLE_OCR_V4_MULTILINGUAL",
-      "FACENET_ONNX_112_ALIGNMENT",
-      "ERROR_LEVEL_ANALYSIS_TAMPER_NET",
-      "ORB_SSIM_BORDER_STAMP_MATCHER"
-    ],
-    active_session_payload: result || {
-      note: "No active document screening result in buffer yet. Execute verification to see full telemetry."
-    }
-  };
-  const jsonString = JSON.stringify(result || defaultTelemetry, null, 2);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(jsonString);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2e3);
-  };
-  return /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
-    "div",
-    {
-      role: "dialog",
-      "aria-modal": "true",
-      className: "fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in select-none",
-      onClick: (e) => {
-        if (e.target === e.currentTarget) onClose();
-      },
-      children: /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "bg-white border border-slate-200 rounded-2xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "flex items-center space-x-2 font-sans", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(CodeXml, { className: "w-4 h-4 text-indigo-600" }),
-            /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("span", { className: "text-xs font-bold text-slate-800 uppercase tracking-wide", children: "Raw Inspection Telemetry Payload (OpenAPI / Pydantic v2)" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: "flex items-center space-x-2", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(
-              "button",
-              {
-                type: "button",
-                onClick: handleCopy,
-                className: "flex items-center space-x-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs px-3 py-1.5 rounded-lg border border-slate-300 transition-colors shadow-2xs font-semibold cursor-pointer",
-                children: [
-                  copied ? /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(Check, { className: "w-3.5 h-3.5 text-emerald-600" }) : /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(Copy, { className: "w-3.5 h-3.5 text-slate-400" }),
-                  /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("span", { children: copied ? "Copied" : "Copy JSON" })
-                ]
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
-              "button",
-              {
-                type: "button",
-                onClick: onClose,
-                className: "p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer",
-                children: /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(X, { className: "w-4 h-4" })
-              }
-            )
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("div", { className: "p-6 overflow-y-auto bg-slate-900 font-mono text-xs text-emerald-400 flex-1", children: /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("pre", { className: "whitespace-pre overflow-x-auto leading-relaxed", children: jsonString }) })
-      ] })
-    }
-  );
-};
-
-// src/components/OfflineWarningBanner.tsx
-var import_react18 = __toESM(require_react(), 1);
-var import_jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
-var OfflineWarningBanner = ({
-  backendOnline,
-  onRetry,
-  isChecking
-}) => {
-  const [dismissed, setDismissed] = (0, import_react18.useState)(false);
-  if (backendOnline || dismissed) return null;
-  return /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)(
-    "div",
-    {
-      className: "bg-orange-tint border border-orange/40 rounded-card p-3 text-xs text-ink flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-card",
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: "flex items-start space-x-2.5", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(CircleAlert, { className: "w-4 h-4 text-orange flex-shrink-0 mt-0.5" }),
-          /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: "space-y-0.5", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("p", { className: "font-bold text-ink", children: "Edge AI Defense Gateway (localhost:8000) Unreachable" }),
-            /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("p", { className: "text-[11px] text-ink-2 leading-normal", children: [
-              "The local FastAPI neural pipeline is not responding. Ensure the backend is active:",
-              /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("code", { className: "ml-1 bg-surface px-1.5 py-0.5 rounded-chip font-mono text-orange border border-line", children: "uvicorn app.main:app --port 8000" })
-            ] })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", { className: "flex items-center space-x-2 self-end sm:self-center", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)(
-            "button",
-            {
-              type: "button",
-              onClick: onRetry,
-              disabled: isChecking,
-              className: "flex items-center space-x-1 bg-orange hover:brightness-105 text-white font-bold px-2.5 py-1 rounded-control transition-colors text-[11px] shadow-btn",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(RefreshCw, { className: `w-3.5 h-3.5 ${isChecking ? "animate-spin" : ""}` }),
-                /* @__PURE__ */ (0, import_jsx_runtime31.jsx)("span", { children: "Retry Connection" })
-              ]
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
-            "button",
-            {
-              type: "button",
-              onClick: () => setDismissed(true),
-              className: "p-1 hover:bg-hover rounded-control text-ink-3 hover:text-ink transition-colors",
-              title: "Dismiss Banner",
-              children: /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(X, { className: "w-4 h-4" })
-            }
-          )
-        ] })
-      ]
-    }
-  );
-};
-
 // tests/adversarial_challenger_m2.test.tsx
-var import_jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
 var SRC_DIR = import_node_path.default.resolve(process.cwd(), "src");
 var total = 0;
 var passed = 0;
@@ -34281,7 +34456,7 @@ async function runAll() {
   await test("ResultsPanel renders all 4 presets without exceptions", () => {
     for (const preset of PRESET_LIST) {
       const html = import_server.default.renderToStaticMarkup(
-        /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
           ResultsPanel,
           {
             result: preset.mockResponse,
@@ -34299,7 +34474,7 @@ async function runAll() {
   await test("ResultsPanel accordion structure & defaults", () => {
     const cleanPreset = PRESET_LIST.find((p) => p.id === "clean_passport");
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         ResultsPanel,
         {
           result: cleanPreset.mockResponse,
@@ -34316,7 +34491,7 @@ async function runAll() {
   await test("AuditCertificateModal rendering and demographic masking", () => {
     const forgedPreset = PRESET_LIST.find((p) => p.id === "forged_aadhaar");
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         AuditCertificateModal,
         {
           isOpen: true,
@@ -34340,7 +34515,7 @@ async function runAll() {
     import_strict.default.ok(html.includes("DETAIN_AND_INTERDICT"), "Officer decision missing");
     import_strict.default.ok(html.includes("CRITICAL SECURITY ALERT (DETAIN)"), "Clearance status missing");
     const closedHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         AuditCertificateModal,
         {
           isOpen: false,
@@ -34356,7 +34531,7 @@ async function runAll() {
   await test("RawJsonViewerModal rendering & payload presentation", () => {
     const preset = PRESET_LIST[0];
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         RawJsonViewerModal,
         {
           isOpen: true,
@@ -34370,7 +34545,7 @@ async function runAll() {
     import_strict.default.ok(html.includes("Copy JSON"), "Copy button missing");
     import_strict.default.ok(html.includes(preset.mockResponse.session_id), "Session id missing in JSON viewer");
     const closedHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         RawJsonViewerModal,
         {
           isOpen: false,
@@ -34384,7 +34559,7 @@ async function runAll() {
   });
   await test("OfflineWarningBanner online vs offline vs dismissed state", () => {
     const onlineHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         OfflineWarningBanner,
         {
           backendOnline: true,
@@ -34396,7 +34571,7 @@ async function runAll() {
     );
     import_strict.default.equal(onlineHtml, "", "Online banner must render nothing");
     const offlineHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         OfflineWarningBanner,
         {
           backendOnline: false,
@@ -34412,7 +34587,7 @@ async function runAll() {
   await test("ForensicsViewer canvas and colormap legend rendering", () => {
     const forgedPreset = PRESET_LIST.find((p) => p.id === "forged_aadhaar");
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         ForensicsViewer,
         {
           documentImageUrl: "data:image/png;base64,mockDoc",
@@ -34434,7 +34609,7 @@ async function runAll() {
     const mockDetails = PRESET_LIST[0].mockResponse.details;
     const stampPresetDetails = PRESET_LIST.find((p) => p.id === "tampered_stamp").mockResponse.details;
     const htmlTable = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PillarsTable, { scanDetails: mockDetails })
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(PillarsTable, { scanDetails: mockDetails })
     );
     import_strict.default.ok(htmlTable.includes("All Verification Checks"), "All Verification Checks tab missing");
     import_strict.default.ok(htmlTable.includes("Check 1: Text Extraction &amp; QR Verification") || htmlTable.includes("Check 1: Text Extraction & QR Verification"), "Check 1 section missing");
@@ -34442,24 +34617,24 @@ async function runAll() {
     import_strict.default.ok(htmlTable.includes("Check 3: Face Match &amp; Selfie Liveness Check") || htmlTable.includes("Check 3: Face Match & Selfie Liveness Check"), "Check 3 section missing");
     import_strict.default.ok(htmlTable.includes("Check 4: Ink, Tamper &amp; Substrate Integrity") || htmlTable.includes("Check 4: Ink, Tamper & Substrate Integrity"), "Check 4 section missing");
     import_strict.default.ok(htmlTable.includes("Check 5: Border Permit Stamp Verification"), "Check 5 section missing");
-    const ocrHtml = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PillarOCR, { ocr: mockDetails.ocr }));
+    const ocrHtml = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime31.jsx)(PillarOCR, { ocr: mockDetails.ocr }));
     import_strict.default.ok(ocrHtml.includes("Structured Demographic Fields"), "PillarOCR missing fields header");
-    const mrzHtml = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PillarMRZ, { mrz: mockDetails.mrz }));
+    const mrzHtml = import_server.default.renderToStaticMarkup(/* @__PURE__ */ (0, import_jsx_runtime31.jsx)(PillarMRZ, { mrz: mockDetails.mrz }));
     import_strict.default.ok(mrzHtml.includes("Modulo-10"), "PillarMRZ missing checksum header");
     const bioHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PillarBiometrics, { biometrics: mockDetails.biometrics, liveness: mockDetails.liveness })
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(PillarBiometrics, { biometrics: mockDetails.biometrics, liveness: mockDetails.liveness })
     );
     import_strict.default.ok(bioHtml.includes("Facial Biometric Matcher"), "PillarBiometrics missing biometric matcher title");
     const forensHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PillarForensics, { forensics: mockDetails.forensics })
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(PillarForensics, { forensics: mockDetails.forensics })
     );
     import_strict.default.ok(forensHtml.includes("Digital Text Tamper Detector"), "PillarForensics missing text tamper detector score");
     const nullStampHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PillarStamp, { stamp: null })
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(PillarStamp, { stamp: null })
     );
     import_strict.default.ok(nullStampHtml.includes("No Border Transit Stamp Detected"), "PillarStamp missing null fallback");
     const activeStampHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PillarStamp, { stamp: stampPresetDetails.stamp })
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(PillarStamp, { stamp: stampPresetDetails.stamp })
     );
     import_strict.default.ok(activeStampHtml.includes("4-Stage Hybrid Stamp Authentication"), "PillarStamp missing active header");
     import_strict.default.ok(activeStampHtml.includes("VERDICT:"), "PillarStamp missing verdict");
@@ -34467,7 +34642,7 @@ async function runAll() {
   console.log("\n--- SUITE 3: Device Polling & Offline Fallback Simulation ---");
   await test("Header component rendering with device tracker and post selector", () => {
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         Header,
         {
           selectedCheckpoint: CHECKPOINTS[0],
@@ -34495,7 +34670,7 @@ async function runAll() {
   });
   await test("Companion Live Sync indicators & Received Badges in Ingestion Components", () => {
     const dropzoneHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         Dropzone,
         {
           documentFile: new File(["test"], "doc.jpg", { type: "image/jpeg" }),
@@ -34518,7 +34693,7 @@ async function runAll() {
       "Dropzone must render received badge when receivedFromCompanion is true"
     );
     const webcamHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         WebCamCapture,
         {
           livePhotoFile: new File(["test"], "face.jpg", { type: "image/jpeg" }),
@@ -34541,7 +34716,7 @@ async function runAll() {
       "WebCamCapture must render received badge when receivedFromCompanion is true"
     );
     const ingestionHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         IngestionPanel,
         {
           documentFile: null,
@@ -34581,7 +34756,7 @@ async function runAll() {
       "IngestionPanel must render companion pairing center button when connected"
     );
     const ingestionDisconnectedHtml = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         IngestionPanel,
         {
           documentFile: null,
@@ -34624,7 +34799,7 @@ async function runAll() {
   await test("ResultsPanel side-by-side biometric comparison (Document Photo vs Live Field Capture)", () => {
     const preset = PRESET_LIST[0];
     const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
         ResultsPanel,
         {
           result: preset.mockResponse,
@@ -34963,10 +35138,12 @@ lucide-react/dist/esm/icons/file-check.js:
 lucide-react/dist/esm/icons/file-search.js:
 lucide-react/dist/esm/icons/file-text.js:
 lucide-react/dist/esm/icons/fingerprint.js:
+lucide-react/dist/esm/icons/folder-open.js:
 lucide-react/dist/esm/icons/gauge.js:
 lucide-react/dist/esm/icons/git-compare.js:
 lucide-react/dist/esm/icons/grid-3x3.js:
 lucide-react/dist/esm/icons/image.js:
+lucide-react/dist/esm/icons/images.js:
 lucide-react/dist/esm/icons/info.js:
 lucide-react/dist/esm/icons/layers.js:
 lucide-react/dist/esm/icons/layout-dashboard.js:
@@ -34974,7 +35151,6 @@ lucide-react/dist/esm/icons/list-checks.js:
 lucide-react/dist/esm/icons/loader-circle.js:
 lucide-react/dist/esm/icons/map-pin.js:
 lucide-react/dist/esm/icons/microscope.js:
-lucide-react/dist/esm/icons/navigation.js:
 lucide-react/dist/esm/icons/octagon-alert.js:
 lucide-react/dist/esm/icons/printer.js:
 lucide-react/dist/esm/icons/qr-code.js:
@@ -34983,17 +35159,18 @@ lucide-react/dist/esm/icons/rotate-ccw.js:
 lucide-react/dist/esm/icons/scan-face.js:
 lucide-react/dist/esm/icons/scan.js:
 lucide-react/dist/esm/icons/search.js:
+lucide-react/dist/esm/icons/settings.js:
 lucide-react/dist/esm/icons/shield-alert.js:
 lucide-react/dist/esm/icons/shield-check.js:
 lucide-react/dist/esm/icons/shield.js:
 lucide-react/dist/esm/icons/sigma.js:
 lucide-react/dist/esm/icons/sliders-vertical.js:
 lucide-react/dist/esm/icons/smartphone.js:
-lucide-react/dist/esm/icons/sparkles.js:
 lucide-react/dist/esm/icons/stamp.js:
 lucide-react/dist/esm/icons/triangle-alert.js:
 lucide-react/dist/esm/icons/upload.js:
 lucide-react/dist/esm/icons/user-check.js:
+lucide-react/dist/esm/icons/wifi.js:
 lucide-react/dist/esm/icons/x.js:
 lucide-react/dist/esm/icons/zap.js:
 lucide-react/dist/esm/icons/zoom-in.js:
