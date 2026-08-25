@@ -44,7 +44,7 @@ class QrCodeAnalyzer(
     }
 
     private val isProcessing = AtomicBoolean(false)
-    private var isScanned = false
+    @Volatile private var isScanned = false
     private var lastAnalysisTimestamp = 0L
 
     @SuppressLint("UnsafeOptInUsageError")

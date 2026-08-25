@@ -87,7 +87,42 @@ async def lifespan(app: FastAPI):
     if settings.UIDAI_ROOT_CERT_PATH.exists():
         logger.info(f"[DATA READY] UIDAI Offline Root Certificate loaded from {settings.UIDAI_ROOT_CERT_PATH}")
 
+    # ── mDNS / Zeroconf Service Registration ───────────────────────────────
+    # Broadcasts "_ssb-gateway._tcp.local." so Android NsdManager can find the
+    # laptop instantly on the same Wi-Fi without any subnet scanning.
+    _zeroconf = None
+    _zc_info = None
+    try:
+        import socket
+        from zeroconf import ServiceInfo, Zeroconf  # type: ignore
+
+        _host_ip = socket.gethostbyname(socket.gethostname())
+        _zeroconf = Zeroconf()
+        _zc_info = ServiceInfo(
+            "_ssb-gateway._tcp.local.",
+            "SSBGateway._ssb-gateway._tcp.local.",
+            addresses=[socket.inet_aton(_host_ip)],
+            port=8000,
+            properties={"path": "/", "version": settings.APP_VERSION},
+            server=f"{socket.gethostname()}.local.",
+        )
+        _zeroconf.register_service(_zc_info)
+        logger.info(f"[mDNS] Broadcasting SSB Gateway at {_host_ip}:8000 as '_ssb-gateway._tcp.local.'")
+    except ImportError:
+        logger.warning("[mDNS] 'zeroconf' package not installed — Android Auto-Find will fall back to subnet scan. Install via: pip install zeroconf")
+    except Exception as e:
+        logger.warning(f"[mDNS] Could not register Zeroconf service: {e}")
+
     yield
+
+    # ── Shutdown ────────────────────────────────────────────────────────────
+    if _zeroconf and _zc_info:
+        try:
+            _zeroconf.unregister_service(_zc_info)
+            _zeroconf.close()
+            logger.info("[mDNS] Zeroconf service unregistered.")
+        except Exception:
+            pass
 
     logger.info("Gracefully shutting down SIH26188 Screening Service...")
 

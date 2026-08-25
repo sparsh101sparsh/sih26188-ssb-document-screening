@@ -78,6 +78,22 @@ import java.util.concurrent.Executors
  * Full-screen QR Code Scanner with live CameraX preview, animated targeting reticle,
  * flashlight toggle, and vibration feedback.
  */
+private fun vibrateSuccess(context: Context) {
+    try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
+            vibratorManager?.defaultVibrator?.vibrate(VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+            @Suppress("DEPRECATION")
+            vibrator?.vibrate(80)
+        }
+    } catch (e: Exception) {
+        // Ignore if vibration unavailable
+    }
+}
+
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun QrScannerView(
@@ -92,6 +108,13 @@ fun QrScannerView(
     var camera by remember { mutableStateOf<Camera?>(null) }
     var isTorchOn by remember { mutableStateOf(false) }
     val cameraExecutor = remember { Executors.newSingleThreadExecutor() }
+    // Fresh analyzer created on every scanner open — avoids stale isScanned=true bug
+    val qrAnalyzer = remember {
+        QrCodeAnalyzer { qrText ->
+            vibrateSuccess(context)
+            onQrCodeDetected(qrText)
+        }
+    }
 
     LaunchedEffect(Unit) {
         if (!cameraPermissionState.status.isGranted) {
@@ -102,22 +125,6 @@ fun QrScannerView(
     DisposableEffect(Unit) {
         onDispose {
             cameraExecutor.shutdown()
-        }
-    }
-
-    fun vibrateSuccess() {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
-                vibratorManager?.defaultVibrator?.vibrate(VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                @Suppress("DEPRECATION")
-                val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
-                @Suppress("DEPRECATION")
-                vibrator?.vibrate(80)
-            }
-        } catch (e: Exception) {
-            // Ignore if vibration unavailable
         }
     }
 
@@ -158,11 +165,6 @@ fun QrScannerView(
 
                         val preview = Preview.Builder().build().also {
                             it.surfaceProvider = previewView.surfaceProvider
-                        }
-
-                        val qrAnalyzer = QrCodeAnalyzer { qrText ->
-                            vibrateSuccess()
-                            onQrCodeDetected(qrText)
                         }
 
                         val imageAnalysis = ImageAnalysis.Builder()

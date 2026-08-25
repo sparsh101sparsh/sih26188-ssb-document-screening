@@ -3,23 +3,38 @@ package com.ssb.fieldscreening.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.nsd.NsdManager
+import android.net.nsd.NsdServiceInfo
 import android.net.wifi.WifiManager
 import com.ssb.fieldscreening.data.remote.ApiClientFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.util.Collections
+import kotlin.coroutines.resume
 
 /**
  * Wi-Fi network utilities and rapid auto-discovery for SSB Edge Gateway.
+ *
+ * Discovery strategy (fastest first):
+ * 1. mDNS / NSD — instant if the backend registers "_ssb-gateway._tcp.local."
+ * 2. Priority subnet probes — parallel 350 ms probes at common DHCP slots
+ * 3. Full subnet parallel sweep — batched 48-host concurrent ping
  */
 object WifiUtils {
 
     private const val PREFS_NAME = "ssb_network_prefs"
     private const val KEY_LAST_GATEWAY = "last_gateway_url"
+
+    /** mDNS service type that the backend registers. Must match the Python Zeroconf config. */
+    const val NSD_SERVICE_TYPE = "_ssb-gateway._tcp"
+
+    // ─── Network Info ─────────────────────────────────────────────────────────
 
     /**
      * Returns the device's own local IPv4 address (e.g. "192.168.1.101").
@@ -80,6 +95,8 @@ object WifiUtils {
         }
     }
 
+    // ─── URL Normalization ────────────────────────────────────────────────────
+
     /**
      * Normalizes a raw string (from QR code, manual input, or copy-paste)
      * into a valid HTTP base URL (e.g., "192.168.1.5" -> "http://192.168.1.5:8000").
@@ -107,6 +124,8 @@ object WifiUtils {
         return input
     }
 
+    // ─── Gateway Health Check ─────────────────────────────────────────────────
+
     /**
      * Pings the gateway health endpoint with a custom timeout.
      * Returns Pair(isReachable, latencyMs).
@@ -129,21 +148,97 @@ object WifiUtils {
         }
     }
 
+    // ─── mDNS / NSD Discovery ────────────────────────────────────────────────
+
     /**
-     * Rapidly scans the local network to find the active SSB Gateway.
-     * Probes priority hosts (router, emulator, known slots) first, then sweeps the rest.
+     * Attempts to find the SSB Gateway via mDNS (Android NSD) within [timeoutMs].
+     * The backend must register itself under the "_ssb-gateway._tcp.local." service type
+     * using Python Zeroconf. Returns the resolved "http://ip:port" string or null.
      */
-    suspend fun discoverGatewayOnSubnet(port: Int = 8000): String? = withContext(Dispatchers.IO) {
-        // 1. First probe Android Emulator host if applicable
+    suspend fun discoverViamdns(context: Context, port: Int = 8000, timeoutMs: Long = 3000L): String? =
+        withTimeoutOrNull(timeoutMs) {
+            suspendCancellableCoroutine { cont ->
+                val nsdManager = context.getSystemService(Context.NSD_SERVICE) as? NsdManager
+                    ?: run { cont.resume(null); return@suspendCancellableCoroutine }
+
+                var discoveryListener: NsdManager.DiscoveryListener? = null
+                var resolved = false
+
+                val resolveListener = object : NsdManager.ResolveListener {
+                    override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
+                        if (!resolved) {
+                            // Don't resume null yet — keep discovering
+                        }
+                    }
+                    override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
+                        if (!resolved && cont.isActive) {
+                            resolved = true
+                            val ip = serviceInfo.host?.hostAddress
+                            val resolvedPort = serviceInfo.port.takeIf { it > 0 } ?: port
+                            val url = if (ip != null) "http://$ip:$resolvedPort" else null
+                            try { discoveryListener?.let { nsdManager.stopServiceDiscovery(it) } } catch (_: Exception) {}
+                            cont.resume(url)
+                        }
+                    }
+                }
+
+                discoveryListener = object : NsdManager.DiscoveryListener {
+                    override fun onDiscoveryStarted(serviceType: String) {}
+                    override fun onDiscoveryStopped(serviceType: String) {}
+                    override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
+                        if (!resolved && cont.isActive) cont.resume(null)
+                    }
+                    override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {}
+                    override fun onServiceFound(serviceInfo: NsdServiceInfo) {
+                        if (!resolved) {
+                            try { nsdManager.resolveService(serviceInfo, resolveListener) } catch (_: Exception) {}
+                        }
+                    }
+                    override fun onServiceLost(serviceInfo: NsdServiceInfo) {}
+                }
+
+                cont.invokeOnCancellation {
+                    try { nsdManager.stopServiceDiscovery(discoveryListener) } catch (_: Exception) {}
+                }
+
+                try {
+                    nsdManager.discoverServices(NSD_SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryListener)
+                } catch (e: Exception) {
+                    cont.resume(null)
+                }
+            }
+        }
+
+    // ─── Full Auto-Discovery ──────────────────────────────────────────────────
+
+    /**
+     * Rapidly discovers the active SSB Gateway using a 3-tier approach:
+     * 1. Android Emulator host (10.0.2.2) — fast for dev environments
+     * 2. mDNS/NSD broadcast — instant if backend registers Zeroconf service
+     * 3. Parallel subnet probe — simultaneous scan of all common DHCP slots
+     */
+    suspend fun discoverGatewayOnSubnet(context: Context? = null, port: Int = 8000): String? = withContext(Dispatchers.IO) {
+        // Tier 1: Android Emulator host
         val (emuOk, _) = testGateway("http://10.0.2.2:$port", 400L)
         if (emuOk) return@withContext "http://10.0.2.2:$port"
+
+        // Tier 2: mDNS instant discovery (requires backend to broadcast Zeroconf)
+        if (context != null) {
+            val mdnsResult = discoverViamdns(context, port, 2500L)
+            if (mdnsResult != null) {
+                val (ok, _) = testGateway(mdnsResult, 800L)
+                if (ok) return@withContext mdnsResult
+            }
+        }
 
         val subnet = getLocalSubnet() ?: return@withContext null
         val myIp = getLocalIpAddress()
 
-        // 2. Priority candidates first (Router .1, common laptop DHCP ranges)
+        // Tier 3: Parallel probe — ALL priority candidates at once (no sequential delay)
         val priorityIps = listOf(
             "$subnet.1",
+            "$subnet.2",
+            "$subnet.3",
             "$subnet.100",
             "$subnet.101",
             "$subnet.102",
@@ -153,16 +248,19 @@ object WifiUtils {
             "$subnet.110",
             "$subnet.120",
             "$subnet.150",
-            "$subnet.2",
-            "$subnet.3"
+            "$subnet.200",
         ).filter { it != myIp }
 
-        for (ip in priorityIps) {
-            val (ok, _) = testGateway("http://$ip:$port", 350L)
-            if (ok) return@withContext "http://$ip:$port"
-        }
+        // All priority probes run in parallel — result in ~350ms
+        val priorityResults = priorityIps.map { ip ->
+            async {
+                val (ok, _) = testGateway("http://$ip:$port", 350L)
+                if (ok) "http://$ip:$port" else null
+            }
+        }.awaitAll().filterNotNull()
+        if (priorityResults.isNotEmpty()) return@withContext priorityResults.first()
 
-        // 3. Parallel sweep across remaining subnet in batches of 48
+        // Tier 4: Full subnet sweep in batches of 48
         val remaining = (1..254).map { "$subnet.$it" }
             .filter { it !in priorityIps && it != myIp }
 
@@ -181,6 +279,8 @@ object WifiUtils {
 
         null
     }
+
+    // ─── Persistence ─────────────────────────────────────────────────────────
 
     /**
      * Persists the last connected gateway URL to SharedPreferences.

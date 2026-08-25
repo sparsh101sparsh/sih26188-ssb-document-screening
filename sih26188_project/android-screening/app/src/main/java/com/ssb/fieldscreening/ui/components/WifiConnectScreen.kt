@@ -350,7 +350,7 @@ fun WifiConnectScreen(
                     }
 
                     Text(
-                        text = "Open the SSB Web App on your laptop → Click 'Connect' → Point this phone's camera at the QR code.",
+                        text = "On your laptop → Open the SSB Web App → Click 'Connect Wi-Fi' button → A QR code will appear on the laptop screen → Point this phone's camera at it.",
                         fontSize = 11.sp,
                         color = SsbColors.TextSecondary,
                         lineHeight = 15.sp
@@ -419,13 +419,13 @@ fun WifiConnectScreen(
                                 isAutoDiscovering = true
                                 errorMessage = null
                                 successMessage = null
-                                val found = WifiUtils.discoverGatewayOnSubnet(8000)
+                                val found = WifiUtils.discoverGatewayOnSubnet(context, 8000)
                                 isAutoDiscovering = false
                                 if (found != null) {
                                     urlInput = found
                                     testAndConnect(found)
                                 } else {
-                                    errorMessage = "No laptop found on $wifiSsid. Make sure backend is running, or scan the QR code above."
+                                    errorMessage = "No laptop found on Wi-Fi. Make sure:\n1. Your laptop runs the SSB Web App\n2. Both devices are on the same Wi-Fi\n3. Try scanning the QR code: open the SSB Web App on your laptop → tap 'Connect Wi-Fi' → scan the QR code shown on your laptop screen with this phone."
                                 }
                             }
                         },
