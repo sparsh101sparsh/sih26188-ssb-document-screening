@@ -37,12 +37,7 @@ class Settings(BaseSettings):
 
     # Cross-Origin Resource Sharing (CORS)
     CORS_ORIGINS: List[str] = [
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "tauri://localhost",
-        "https://tauri.localhost",
+        "*",
     ]
 
     # Model Weights Directory (Defaults to high-speed external SSD /Volumes/issparsh/sih26188_models/)

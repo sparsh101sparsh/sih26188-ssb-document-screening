@@ -197,6 +197,7 @@ def _execute_stream_3_forensics_and_stamps(
     doc_bytes: bytes,
     declared_checkpost: Optional[str] = None,
     declared_date: Optional[str] = None,
+    document_type: Optional[str] = None,
 ) -> Tuple[ForensicsResult, StampResult]:
     """
     Stream 3: DocTamper DTD, TruFor Splicing, ELA/DQT Analysis, and 4-Stage Stamp Verification.
@@ -206,6 +207,7 @@ def _execute_stream_3_forensics_and_stamps(
         doc_bytes,
         declared_checkpost=declared_checkpost,
         declared_date=declared_date,
+        document_type=document_type,
     )
     return forensics_res, stamp_res
 
@@ -295,23 +297,28 @@ async def inspect_document(
     hasher.update(session_id.encode("utf-8"))
     audit_hash = hasher.hexdigest()
 
-    # 4. Execute 3 Streams Concurrently via asyncio.gather()
+    # 4. Execute 3 Streams — Streams 1 & 2 run in parallel first, then Stream 3
+    # uses the doc_type from Stream 1 to skip stamp check for non-travel documents.
     task_stream_1 = asyncio.to_thread(_execute_stream_1_text_and_mrz, doc_bytes)
     task_stream_2 = asyncio.to_thread(_execute_stream_2_biometrics, doc_bytes, live_bytes)
-    task_stream_3 = asyncio.to_thread(
+
+    (ocr_res, mrz_res, qr_res), (face_match_res, liveness_res, photo_bbox, apparent_age) = await asyncio.gather(
+        task_stream_1,
+        task_stream_2,
+    )
+
+    # Detect document type from Stream 1 results before running Stream 3
+    doc_type = _detect_document_type(ocr_res, mrz_res, qr_res)
+
+    # Stream 3 now knows document type — stamp verification will be skipped for Aadhaar/PAN/Voter ID
+    forensics_res, stamp_res = await asyncio.to_thread(
         _execute_stream_3_forensics_and_stamps,
         doc_bytes,
         effective_checkpoint,
         effective_transit_date,
+        doc_type,
     )
 
-    (ocr_res, mrz_res, qr_res), (face_match_res, liveness_res, photo_bbox, apparent_age), (forensics_res, stamp_res) = await asyncio.gather(
-        task_stream_1,
-        task_stream_2,
-        task_stream_3,
-    )
-
-    doc_type = _detect_document_type(ocr_res, mrz_res, qr_res)
 
     # 5. Execute 8-Rule Multi-Modal Cross-Validation Matrix
     photo_tamper_density = 0.85 if forensics_res.photo_region_tampered else (0.0 if not forensics_res.is_tampered else forensics_res.trufor_score)

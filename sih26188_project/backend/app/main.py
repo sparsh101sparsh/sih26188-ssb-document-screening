@@ -103,8 +103,8 @@ app = FastAPI(
 # Configure CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -159,6 +159,15 @@ app.add_api_route(
     tags=["Master Screening"],
     summary="Master 3-Stream Parallel Document Inspection Endpoint (Android Alias)",
     description="Backward-compatible alias route delegating directly to scan.inspect_document.",
+)
+
+# Mount alias for companion inbox / gallery
+app.add_api_route(
+    "/api/v1/inbox",
+    companion.get_companion_gallery,
+    methods=["GET"],
+    tags=["Companion Camera Sync"],
+    summary="Companion Gallery Inbox Alias Route",
 )
 
 

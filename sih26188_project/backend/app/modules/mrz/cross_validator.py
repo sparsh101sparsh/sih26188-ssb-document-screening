@@ -254,58 +254,73 @@ class CrossValidator:
         ))
 
         # =========================================================================
-        # Rule CV-04: Biometric Apparent Age vs MRZ DOB Age (|Age_est - Age_dob| <= 15y -> WRN_AGE_ANOMALY)
+        # Rule CV-04: Biometric Apparent Age vs Declared DOB Age (|Age_est - Age_dob| <= 10y -> WRN_AGE_ANOMALY)
         # =========================================================================
         cv4_passed = True
-        cv4_msg = "CV-04 Passed: Biometric apparent age is consistent with MRZ DOB age"
-        if apparent_age is not None and mrz_result and mrz_result.mrz_detected and mrz_result.dob:
+        cv4_msg = "CV-04 Passed: Biometric apparent age is consistent with declared DOB age"
+        age_dob: Optional[int] = None
+
+        if mrz_result and mrz_result.mrz_detected and mrz_result.dob:
             age_dob = calculate_age_from_yymmdd(mrz_result.dob)
-            if age_dob is not None:
-                age_diff = abs(apparent_age - age_dob)
-                if age_diff > 15.0:
-                    cv4_passed = False
-                    cv4_msg = f"CV-04 Warning: Apparent face age ({apparent_age:.0f}y) differs by {age_diff:.1f}y from DOB age ({age_dob}y)"
-                    warnings.append(CrossViolation(
-                        rule_id="CV-04",
-                        rule_name="Biometric Apparent Age vs Document DOB Age",
-                        severity="WARNING",
-                        field_name="age",
-                        expected_value=f"{age_dob} years",
-                        actual_value=f"{apparent_age:.0f} years",
-                        telemetry_code="WRN_AGE_ANOMALY",
-                        details=cv4_msg,
-                    ))
+        elif ocr_result and ocr_result.fields and ocr_result.fields.get("dob"):
+            parsed_date = parse_iso_date(str(ocr_result.fields.get("dob")))
+            if parsed_date:
+                age_dob = max(0, 2026 - parsed_date.year)
+        elif qr_payload and qr_payload.demographics and qr_payload.demographics.get("dob"):
+            parsed_date = parse_iso_date(str(qr_payload.demographics.get("dob")))
+            if parsed_date:
+                age_dob = max(0, 2026 - parsed_date.year)
+
+        if apparent_age is not None and age_dob is not None:
+            age_diff = abs(apparent_age - age_dob)
+            if age_diff > 10.0:
+                cv4_passed = False
+                cv4_msg = f"CV-04 Warning: Apparent face age ({apparent_age:.0f}y) differs by {age_diff:.1f}y from document DOB age ({age_dob}y)"
+                warnings.append(CrossViolation(
+                    rule_id="CV-04",
+                    rule_name="Biometric Apparent Age vs Document Declared DOB Age",
+                    severity="WARNING",
+                    field_name="age",
+                    expected_value=f"{age_dob} years",
+                    actual_value=f"{apparent_age:.0f} years",
+                    telemetry_code="WRN_AGE_ANOMALY",
+                    details=cv4_msg,
+                ))
 
         flags.append(CrossValidationFlag(
             rule_id="CV-04",
-            rule_description="Biometric Apparent Age vs MRZ DOB Age",
+            rule_description="Biometric Apparent Age vs Declared DOB Age",
             passed=cv4_passed,
             telemetry_message=cv4_msg,
         ))
 
         # =========================================================================
-        # Rule CV-05: Photo Box Tamper Energy vs Face BBox (IoU Tamper Density <= 0.25 -> ERR_PHOTO_SPLICE)
+        # Rule CV-05: Photo Box Forensic Splicing Detection (ERR_PHOTO_SPLICE)
         # =========================================================================
         cv5_passed = True
         cv5_msg = "CV-05 Passed: Portrait area exhibits zero forensic splicing anomalies"
-        if photo_tamper_density is not None:
-            if photo_tamper_density > 0.25:
-                cv5_passed = False
-                cv5_msg = f"CV-05 Failed: Photo box tamper energy density {photo_tamper_density:.2f} > 0.25 threshold"
-                critical_violations.append(CrossViolation(
-                    rule_id="CV-05",
-                    rule_name="Photo Box Forensic Splicing Detection",
-                    severity="CRITICAL",
-                    field_name="portrait_photo",
-                    expected_value="Tamper Density <= 0.25",
-                    actual_value=f"Tamper Density = {photo_tamper_density:.2f}",
-                    telemetry_code="ERR_PHOTO_SPLICE",
-                    details=cv5_msg,
-                ))
+        is_photo_tampered = False
+
+        if photo_tamper_density is not None and photo_tamper_density > 0.25:
+            is_photo_tampered = True
+            cv5_msg = f"CV-05 Failed: Photo box tamper energy density {photo_tamper_density:.2f} > 0.25 threshold"
+
+        if is_photo_tampered:
+            cv5_passed = False
+            critical_violations.append(CrossViolation(
+                rule_id="CV-05",
+                rule_name="Photo Box Forensic Splicing Detection",
+                severity="CRITICAL",
+                field_name="portrait_photo",
+                expected_value="Tamper Density <= 0.25",
+                actual_value=f"Tamper Density = {photo_tamper_density:.2f}" if photo_tamper_density else "Splicing Detected",
+                telemetry_code="ERR_PHOTO_SPLICE",
+                details=cv5_msg,
+            ))
 
         flags.append(CrossValidationFlag(
             rule_id="CV-05",
-            rule_description="Photo Box Tamper Energy vs Face BBox",
+            rule_description="Photo Box Forensic Splicing Detection",
             passed=cv5_passed,
             telemetry_message=cv5_msg,
         ))

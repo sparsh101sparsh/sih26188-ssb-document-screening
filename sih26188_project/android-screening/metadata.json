@@ -1,0 +1,6 @@
+{
+  "name": "SSB Field Screening",
+  "description": "AI-based Fake Identity & Document Screening System (SIH26188) for SSB Border Officers on Indo-Nepal and Indo-Bhutan Frontiers",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

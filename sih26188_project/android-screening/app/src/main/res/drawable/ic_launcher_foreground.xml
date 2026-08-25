@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer Security Shield -->
+    <path
+        android:pathData="M54,22 C68,22 80,26 80,26 C80,56 68,76 54,86 C40,76 28,56 28,26 C28,26 40,22 54,22 Z"
+        android:strokeWidth="2.5"
+        android:strokeColor="#3B82F6">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="22"
+                android:endX="54"
+                android:endY="86"
+                android:type="linear">
+                <item android:color="#333B82F6" android:offset="0.0" />
+                <item android:color="#1A1E40AF" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Shield Accent -->
+    <path
+        android:pathData="M54,28 C64,28 73,31 73,31 C73,53 63,69 54,78 C45,69 35,53 35,31 C35,31 44,28 54,28 Z"
+        android:strokeWidth="1.2"
+        android:strokeColor="#60A5FA"
+        android:fillColor="#1510B981" />
+
+    <!-- Optical Scan Laser Line -->
+    <path
+        android:pathData="M32,48 L76,48"
+        android:strokeWidth="2"
+        android:strokeColor="#10B981" />
+
+    <!-- Center Security Star & Eye / ID Reticle -->
+    <!-- Document glyph inside shield -->
+    <path
+        android:pathData="M44,38 h20 v26 h-20 z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#F8FAFC"
+        android:fillColor="#00000000" />
+    
+    <!-- ID photo box -->
+    <path
+        android:pathData="M47,42 h5 v6 h-5 z"
+        android:fillColor="#38BDF8" />
+
+    <!-- ID text lines -->
+    <path
+        android:pathData="M55,43 h6 M55,47 h6 M47,52 h14 M47,56 h10"
+        android:strokeWidth="1.2"
+        android:strokeColor="#94A3B8" />
+
+    <!-- Biometric Corner Reticles -->
+    <path
+        android:pathData="M40,35 h-3 v3 M68,35 h3 v3 M40,67 h-3 v-3 M68,67 h3 v-3"
+        android:strokeWidth="1.8"
+        android:strokeColor="#F59E0B" />
+</vector>

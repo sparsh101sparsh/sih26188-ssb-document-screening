@@ -52,8 +52,12 @@ src-tauri/target/
 *.zip
 *.parquet
 models/*.onnx
-backend/models/*.onnx
-beautiful-ui-reference/
+# Local SQLite Data & Runtime Store
+backend/data/
+*.db
+*.db-wal
+*.db-shm
+*.apk
 
 # OS / IDE
 .DS_Store

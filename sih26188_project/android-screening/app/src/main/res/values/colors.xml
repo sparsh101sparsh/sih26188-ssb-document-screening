@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ssb_page">#F8FAFC</color>
+    <color name="ssb_surface">#FFFFFFFF</color>
+    <color name="ssb_accent">#2563EB</color>
+    <color name="ssb_ink">#0F172A</color>
+    <color name="ssb_green">#10B981</color>
+    <color name="ssb_amber">#F59E0B</color>
+    <color name="ssb_red">#EF4444</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

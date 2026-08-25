@@ -55,23 +55,21 @@ def _rgb_to_hsv_360(r: int, g: int, b: int) -> Tuple[float, float, float]:
 def is_stamp_ink_color(h: float, s: float, v: float, authorized_colors: Optional[List[str]] = None) -> Tuple[bool, str]:
     """
     Checks whether an HSV pixel matches official border stamp ink colors
-    (purple/violet, blue, red, black).
+    (purple/violet, blue, red).
+    Standard printed black text is excluded to prevent document typography
+    from triggering false-positive border stamp verifications.
     """
-    # 1. Purple / Violet Ink (H: 250 - 320, S >= 35, V >= 35)
-    if 250.0 <= h <= 320.0 and s >= 35.0 and v >= 35.0:
+    # 1. Purple / Violet Ink (H: 255 - 315, S >= 40, V >= 35)
+    if 255.0 <= h <= 315.0 and s >= 40.0 and v >= 35.0:
         return True, "purple"
 
-    # 2. Blue Ink (H: 190 - 250, S >= 35, V >= 35)
-    if 190.0 <= h < 250.0 and s >= 35.0 and v >= 35.0:
+    # 2. Blue Ink (H: 195 - 250, S >= 45, V >= 35)
+    if 195.0 <= h < 250.0 and s >= 45.0 and v >= 35.0:
         return True, "blue"
 
-    # 3. Red Ink (H: 0 - 20 or H: 340 - 360, S >= 40, V >= 40)
-    if (h <= 20.0 or h >= 340.0) and s >= 40.0 and v >= 40.0:
+    # 3. Red / Crimson Ink (H: 0 - 15 or H: 345 - 360, S >= 50, V >= 40)
+    if (h <= 15.0 or h >= 345.0) and s >= 50.0 and v >= 40.0:
         return True, "red"
-
-    # 4. Black / Dark Ink (V <= 65, S <= 85)
-    if v <= 65.0 and s <= 85.0:
-        return True, "black"
 
     return False, "none"
 
@@ -193,12 +191,27 @@ class StampVerifier:
                 },
             }
 
+    # Set of document types that do NOT require border stamp verification.
+    # These are identity documents (not travel permits or border transit passes).
+    # Running stamp verification on them causes false-positive SUSPICIOUS verdicts
+    # when their holograms/logos match weakly against SSB stamp templates.
+    NON_TRAVEL_DOCUMENT_TYPES = frozenset({
+        "aadhaar", "aadhaar_card", "india_aadhaar",
+        "pan", "pan_card", "income_tax",
+        "voter_id", "election_id", "epic",
+        "driving_licence", "driving_license",
+        "birth_certificate",
+        "bank_passbook",
+        "employee_id",
+    })
+
     def verify_stamp(
         self,
         image_bytes: bytes,
         declared_checkpost: Optional[str] = None,
         declared_date: Optional[str] = None,
         permit_expiry: Optional[str] = None,
+        document_type: Optional[str] = None,
     ) -> StampResult:
         """
         Executes 4-Stage Stamp Verification:
@@ -207,10 +220,43 @@ class StampVerifier:
         3. Forensic integrity of stamp crop (ELA / DocTamper residual energy).
         4. Context consistency checking (checkpost, transit dates, permit window).
 
+        Args:
+            document_type: Optional document classifier string (e.g. 'aadhaar', 'passport',
+                           'inner_line_permit'). If the document is a non-travel identity
+                           document (Aadhaar, PAN etc.), stamp verification is skipped to
+                           prevent false-positive SUSPICIOUS verdicts from hologram/logo
+                           features matching weakly against SSB border stamp templates.
+
         Returns:
             StampResult schema instance.
         """
         t0 = time.perf_counter()
+
+        # -----------------------------------------------------------------------
+        # PRE-CHECK: Skip stamp verification for non-travel identity documents.
+        # Aadhaar cards, PAN cards, Voter IDs etc. do NOT carry SSB border stamps.
+        # Their holograms and government emblems cause false SUSPICIOUS verdicts.
+        # -----------------------------------------------------------------------
+        if document_type:
+            doc_type_norm = document_type.lower().strip().replace(" ", "_").replace("-", "_")
+            if doc_type_norm in self.NON_TRAVEL_DOCUMENT_TYPES or any(
+                kw in doc_type_norm for kw in ("aadhaar", "pan_card", "voter", "driving_lic", "birth_cert")
+            ):
+                elapsed_ms = round((time.perf_counter() - t0) * 1000, 2)
+                logger.info(
+                    f"[STAMP] Skipping border stamp verification for non-travel document type: '{document_type}'. "
+                    "Identity documents do not carry SSB border stamps."
+                )
+                return StampResult(
+                    stamp_found=False,
+                    stamp_score=0.0,
+                    verdict="NOT_APPLICABLE",
+                    reasons=[
+                        f"INF_STAMP_NOT_APPLICABLE: Document type '{document_type}' is an identity document, "
+                        "not a travel permit or border transit pass. Border stamp verification skipped."
+                    ],
+                    processing_time_ms=elapsed_ms,
+                )
 
         if len(image_bytes) < 50:
             return StampResult(
@@ -323,18 +369,42 @@ class StampVerifier:
         Stage 1: Locates candidate stamp region using HSV ink segmentation
         and geometric bounding boxes.
         """
-        # Decode RGB bytes
-        png_dec = _decode_png_rgb(image_bytes)
-        if png_dec:
-            rgb_data, width, height = png_dec
-        else:
-            # Fallback grid reconstruction
-            total_b = len(image_bytes)
-            side = max(64, min(512, int(math.isqrt(total_b // 3))))
-            width, height = side, side
-            rgb_data = bytearray(width * height * 3)
-            for i in range(len(rgb_data)):
-                rgb_data[i] = image_bytes[i % total_b]
+        rgb_data = None
+        width = 0
+        height = 0
+
+        # 1. Try OpenCV decode (handles JPEG, PNG, WEBP, TIFF)
+        try:
+            import cv2  # type: ignore
+            import numpy as np  # type: ignore
+            nparr = np.frombuffer(image_bytes, np.uint8)
+            bgr = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            if bgr is not None:
+                rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
+                height, width = rgb.shape[:2]
+                rgb_data = rgb.tobytes()
+        except Exception:
+            pass
+
+        # 2. Try PIL decode fallback
+        if rgb_data is None:
+            try:
+                import io
+                from PIL import Image  # type: ignore
+                pil_img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+                width, height = pil_img.width, pil_img.height
+                rgb_data = pil_img.tobytes()
+            except Exception:
+                pass
+
+        # 3. Try custom PNG decoder fallback
+        if rgb_data is None:
+            png_dec = _decode_png_rgb(image_bytes)
+            if png_dec:
+                rgb_data, width, height = png_dec
+
+        if rgb_data is None or width == 0 or height == 0:
+            return {"stamp_found": False}
 
         # Scan pixels and collect stamp ink hits
         ink_pixels: List[Tuple[int, int, str]] = []
@@ -350,7 +420,7 @@ class StampVerifier:
                     if is_ink:
                         ink_pixels.append((x, y, ink_type))
 
-        if len(ink_pixels) < 8:
+        if len(ink_pixels) < 15:
             return {"stamp_found": False}
 
         # Cluster ink pixels into bounding box
@@ -368,7 +438,9 @@ class StampVerifier:
         bw = max_x - min_x
         bh = max_y - min_y
 
-        if bw < 15 or bh < 15:
+        # A border stamp must be a localized seal (typically <= 45% width, <= 50% height)
+        # Full-width banners/headers are document artwork, not border stamps.
+        if bw < 25 or bh < 25 or bw > int(width * 0.45) or bh > int(height * 0.50):
             return {"stamp_found": False}
 
         aspect_ratio = bw / float(bh)

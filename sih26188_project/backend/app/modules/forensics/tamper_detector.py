@@ -24,6 +24,8 @@ from app.core.config import settings
 from app.core.logging import get_logger
 from app.modules.forensics.ela_engine import ELAEngine, _decode_png_rgb, _encode_png_rgb, ela_engine
 from app.modules.forensics.metadata_parser import MetadataParser, metadata_parser
+from app.modules.forensics.photo_splicing_detector import photo_splicing_detector
+from app.modules.forensics.fraud_edge_cases import fraud_edge_case_engine
 from app.schemas.forensics import ELAResult, ForensicsResult, TamperRegion
 
 logger = get_logger("sih26188.forensics.tamper")
@@ -189,6 +191,23 @@ class TamperDetector:
             photo_bbox=photo_bbox,
         )
 
+        # 3b. Specialized Multi-Modal Photo Splicing & Ghost Cross-Verification
+        splicing_res = photo_splicing_detector.analyze_document_photo_integrity(
+            image_bytes=image_bytes,
+            primary_photo_bbox=photo_bbox,
+        )
+        if splicing_res.get("is_spliced"):
+            photo_tampered = True
+            tf_score = max(tf_score, splicing_res.get("splicing_score", 0.85), 0.78)
+            tampered_regions.append(
+                TamperRegion(
+                    bbox=photo_bbox if photo_bbox else [10, 50, 200, 300],
+                    peak_tamper_probability=round(splicing_res.get("splicing_score", 0.88), 4),
+                    tamper_type="PHOTO_SPLICING",
+                    affected_field="portrait_photo",
+                )
+            )
+
         # 4. Fused Continuous Tamper Score Computation
         # Fuses DocTamper (FPH text alter), TruFor (splicing), ELA, and metadata
         fused_score = self._compute_fused_tamper_score(
@@ -221,6 +240,12 @@ class TamperDetector:
             tampered_regions=tampered_regions,
             photo_tampered=photo_tampered,
         )
+
+        if splicing_res.get("is_spliced"):
+            for r in splicing_res.get("reasons", []):
+                if r not in reasons:
+                    reasons.insert(0, r)
+            anomalies.extend(["ERR_PHOTO_SPLICED_IMPOSTOR", "ERR_PHOTO_BOX_EDGE_TAMPER"])
 
         elapsed_ms = round((time.perf_counter() - t0) * 1000, 2)
 
@@ -360,10 +385,11 @@ class TamperDetector:
         high_cells: List[Tuple[int, int, float]] = []
 
         # Baseline noise scaling
-        # In a clean image, ELA mean is typically 2.0 - 8.0, max is 10.0 - 35.0
-        # When ELA max exceeds 60.0 or variance is high, anomaly accumulates
+        # In a clean capture, ELA mean is typically 2.0 - 8.0 with low variance.
+        # Sharp printed text characters naturally have higher max edge contrast without tampering.
         mean_intensity = ela_res.mean_intensity
         max_intensity = ela_res.max_intensity
+        is_clean_capture = mean_intensity < 10.0 and not ela_res.photo_area_anomaly
 
         for y in range(grid_h):
             row = []
@@ -381,11 +407,12 @@ class TamperDetector:
                 local_var = sum((v - local_mean) ** 2 for v in neighbors) / len(neighbors)
 
                 # Probabilistic model for tampering anomaly
-                # Combine raw ELA energy with local variance
                 anomaly_signal = (ela_val * 0.6) + (math.sqrt(local_var) * 1.8)
 
-                # Calibrate so typical baseline noise produces p < 0.15
-                if max_intensity < 40.0 and mean_intensity < 8.0:
+                # Calibrate so typical baseline noise / authentic high-contrast text stays below deadband (0.18)
+                if is_clean_capture:
+                    prob = min(0.12, anomaly_signal * 0.5)
+                elif max_intensity < 40.0 and mean_intensity < 8.0:
                     prob = min(0.12, anomaly_signal * 0.4)
                 else:
                     prob = min(1.0, anomaly_signal * 1.2)
@@ -403,11 +430,11 @@ class TamperDetector:
 
         mean_p = sum_p / max(1, cell_count)
 
-        # Region localization
+        # Region localization - require cluster of >= 4 cells to avoid single-pixel false alarms
         tampered_regions: List[TamperRegion] = []
         photo_tampered = ela_res.photo_area_anomaly
 
-        if high_cells:
+        if len(high_cells) >= 4:
             # Aggregate bounding box of high-anomaly cells
             min_x = min(c[0] for c in high_cells)
             max_x = max(c[0] for c in high_cells)

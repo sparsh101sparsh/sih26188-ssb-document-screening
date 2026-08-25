@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "identifier": "gov.mha.ssb.screening",
   "build": {
-    "beforeBuildCommand": "npm --prefix ../frontend run build",
+    "beforeBuildCommand": "npm --prefix /Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/frontend run build",
     "devUrl": "http://127.0.0.1:3000",
     "frontendDist": "../frontend/dist"
   },

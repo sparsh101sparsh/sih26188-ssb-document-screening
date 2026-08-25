@@ -109,23 +109,44 @@ def extract_structured_fields(raw_text: str, boxes: List[OCRBox]) -> Tuple[Dict[
             confidences["doc_number"] = get_field_conf(m_cid.group(0))
             break
 
-    # 2. Date of Birth (DOB) Extraction
+    # 2. Date of Birth (DOB) Extraction - prioritize lines explicitly mentioning DOB / Birth
     for line in lines:
-        m_dob_dmy = re.search(REGEX_PATTERNS["dob_dmy"], line)
-        if m_dob_dmy and "dob" not in fields:
-            fields["dob"] = m_dob_dmy.group(1)
-            confidences["dob"] = get_field_conf(m_dob_dmy.group(1))
-            break
-        m_dob_ymd = re.search(REGEX_PATTERNS["dob_ymd"], line)
-        if m_dob_ymd and "dob" not in fields:
-            fields["dob"] = m_dob_ymd.group(1)
-            confidences["dob"] = get_field_conf(m_dob_ymd.group(1))
-            break
-        m_yob = re.search(REGEX_PATTERNS["yob"], line)
-        if m_yob and "dob" not in fields:
-            fields["dob"] = m_yob.group(1)
-            confidences["dob"] = get_field_conf(m_yob.group(1))
-            break
+        if re.search(r'DOB|BIRTH|जन्म', line, re.IGNORECASE):
+            m_dob_dmy = re.search(REGEX_PATTERNS["dob_dmy"], line)
+            if m_dob_dmy:
+                fields["dob"] = m_dob_dmy.group(1)
+                confidences["dob"] = get_field_conf(m_dob_dmy.group(1))
+                break
+            m_dob_ymd = re.search(REGEX_PATTERNS["dob_ymd"], line)
+            if m_dob_ymd:
+                fields["dob"] = m_dob_ymd.group(1)
+                confidences["dob"] = get_field_conf(m_dob_ymd.group(1))
+                break
+            m_yob = re.search(REGEX_PATTERNS["yob"], line)
+            if m_yob:
+                fields["dob"] = m_yob.group(1)
+                confidences["dob"] = get_field_conf(m_yob.group(1))
+                break
+
+    if "dob" not in fields:
+        for line in lines:
+            if re.search(r'ISSUE|ISSUED|जारी', line, re.IGNORECASE):
+                continue
+            m_dob_dmy = re.search(REGEX_PATTERNS["dob_dmy"], line)
+            if m_dob_dmy and "dob" not in fields:
+                fields["dob"] = m_dob_dmy.group(1)
+                confidences["dob"] = get_field_conf(m_dob_dmy.group(1))
+                break
+            m_dob_ymd = re.search(REGEX_PATTERNS["dob_ymd"], line)
+            if m_dob_ymd and "dob" not in fields:
+                fields["dob"] = m_dob_ymd.group(1)
+                confidences["dob"] = get_field_conf(m_dob_ymd.group(1))
+                break
+            m_yob = re.search(REGEX_PATTERNS["yob"], line)
+            if m_yob and "dob" not in fields:
+                fields["dob"] = m_yob.group(1)
+                confidences["dob"] = get_field_conf(m_yob.group(1))
+                break
 
     # 3. Gender Extraction
     for line in lines:
@@ -145,11 +166,12 @@ def extract_structured_fields(raw_text: str, boxes: List[OCRBox]) -> Tuple[Dict[
     # 4. Name Extraction (Heuristic based on identity card layouts)
     for i, line in enumerate(lines):
         clean_l = line.strip()
-        # Skip headers / labels
+        # Skip headers / labels / statutory notices
         if any(h in clean_l.upper() for h in [
             "GOVERNMENT", "INDIA", "BHUTAN", "NEPAL", "AADHAAR", "INCOME TAX",
             "ELECTION COMMISSION", "PASSPORT", "UNION OF INDIA", "MALE", "FEMALE",
-            "DOB", "DATE OF BIRTH", "FATHER", "NAME", "ADDRESS"
+            "DOB", "DATE OF BIRTH", "FATHER", "NAME", "ADDRESS", "PROOF OF IDENTITY",
+            "CITIZENSHIP", "PEHCHAN", "MERI", "MERA", "YEAR OF BIRTH", "ISSUE"
         ]):
             # Check if name is right after "Name:" label
             if re.search(r'Name\s*[:\-]\s*([A-Za-z\s]+)', clean_l, re.IGNORECASE):
@@ -166,7 +188,7 @@ def extract_structured_fields(raw_text: str, boxes: List[OCRBox]) -> Tuple[Dict[
                 confidences["full_name"] = get_field_conf(clean_l)
                 break
 
-    # 5. Expiry Date (if present)
+    # 5. Expiry Date / Issue Date
     for line in lines:
         if re.search(r'EXPIR|VALID|EXP', line, re.IGNORECASE):
             m_exp = re.search(REGEX_PATTERNS["dob_dmy"], line) or re.search(REGEX_PATTERNS["dob_ymd"], line)
@@ -174,13 +196,18 @@ def extract_structured_fields(raw_text: str, boxes: List[OCRBox]) -> Tuple[Dict[
                 fields["expiry"] = m_exp.group(1)
                 confidences["expiry"] = get_field_conf(m_exp.group(1))
                 break
+        if re.search(r'ISSUE|ISSUED|जारी', line, re.IGNORECASE):
+            m_iss = re.search(REGEX_PATTERNS["dob_dmy"], line) or re.search(REGEX_PATTERNS["dob_ymd"], line)
+            if m_iss and "issue_date" not in fields:
+                fields["issue_date"] = m_iss.group(1)
+                confidences["issue_date"] = get_field_conf(m_iss.group(1))
 
     return fields, confidences
 
 
 class PPOCREngine:
     """
-    PaddleOCR PP-OCRv4 Multi-Script Engine with confidence gating and Tier-2 VLM fallback stub.
+    RapidOCR / PaddleOCR PP-OCRv4 Multi-Script Engine with confidence gating.
     """
 
     def __init__(
@@ -193,50 +220,37 @@ class PPOCREngine:
         self.rec_dev_model_path = rec_dev_model_path or settings.get_model_path(settings.PPOCR_REC_DEV_MODEL)
         self.rec_latin_model_path = rec_latin_model_path or settings.get_model_path(settings.PPOCR_REC_LATIN_MODEL)
 
+        self._rapid_ocr = None
         self._paddle_ocr_en = None
         self._paddle_ocr_dev = None
-        self._init_paddle_ocr()
+        self._init_ocr_engines()
 
-    def _init_paddle_ocr(self) -> None:
-        """Initializes PaddleOCR instances for Latin and Devanagari if installed."""
+    def _init_ocr_engines(self) -> None:
+        """Initializes RapidOCR (PP-OCRv4 ONNX) or PaddleOCR instances."""
+        # 1. Primary: RapidOCR (PP-OCRv4 ONNX via ONNXRuntime)
+        try:
+            from rapidocr_onnxruntime import RapidOCR
+            self._rapid_ocr = RapidOCR()
+            logger.info("RapidOCR PP-OCRv4 ONNX engine initialized successfully.")
+            return
+        except Exception as e:
+            logger.debug(f"RapidOCR initialization notice: {e}")
+            self._rapid_ocr = None
+
+        # 2. Secondary: PaddleOCR C++ package
         try:
             from paddleocr import PaddleOCR
-
-            # Initialize English/Latin OCR
-            self._paddle_ocr_en = PaddleOCR(
-                use_angle_cls=True,
-                lang="en",
-                show_log=False,
-                use_gpu=False,
-            )
-            # Initialize Devanagari OCR
-            self._paddle_ocr_dev = PaddleOCR(
-                use_angle_cls=True,
-                lang="devanagari",
-                show_log=False,
-                use_gpu=False,
-            )
-            logger.info("PaddleOCR PP-OCRv4 Latin & Devanagari engines initialized.")
+            self._paddle_ocr_en = PaddleOCR(use_angle_cls=True, lang="en", show_log=False, use_gpu=False)
+            self._paddle_ocr_dev = PaddleOCR(use_angle_cls=True, lang="devanagari", show_log=False, use_gpu=False)
+            logger.info("PaddleOCR Latin & Devanagari engines initialized.")
         except Exception as e:
-            logger.debug(f"PaddleOCR package not initialized: {e}. Heuristic OCR fallback active.")
+            logger.debug(f"PaddleOCR package not initialized: {e}")
             self._paddle_ocr_en = None
             self._paddle_ocr_dev = None
 
     async def run_qwen_vl_quality_gate(self, image: Any, degraded_fields: List[str]) -> Dict[str, Any]:
         """
         Tier-2 Quality Gate Async Dispatch for degraded identity documents (Section 2.1, Topic B).
-
-        When PP-OCRv4 mean confidence drops below TAU_OCR (0.82) or MRZ checksum validation fails,
-        this method dispatches the document image to an asynchronous Qwen2.5-VL-3B-Instruct (AWQ INT4)
-        worker pool to recover low-contrast text and verify degraded fields.
-
-        Operational Rationale:
-        Autoregressive token generation takes ~4.06s - 4.94s, exceeding the <1.5s synchronous SLA.
-        Therefore, Qwen2.5-VL is dispatched asynchronously into a background worker pool.
-
-        Raises:
-            NotImplementedError: Real autoregressive VLM inference requires loading the
-            Qwen2.5-VL-3B-Instruct-AWQ checkpoint via vLLM / llama-cpp-python in a dedicated worker process.
         """
         logger.info(f"[ASYNC TIER-2 VLM TRIGGERED] Queued Qwen2.5-VL refinement for fields: {degraded_fields}")
         raise NotImplementedError(
@@ -282,20 +296,45 @@ class PPOCREngine:
                 processing_time_ms=elapsed_ms,
             )
 
-        # Process image input with PaddleOCR
         boxes: List[OCRBox] = []
         raw_text_parts: List[str] = []
 
-        if self._paddle_ocr_en is not None:
+        import numpy as np  # type: ignore
+        import cv2  # type: ignore
+
+        # Standardize input image to BGR / RGB numpy array
+        np_img = None
+        if hasattr(image_or_text, "convert"):
+            np_img = np.array(image_or_text.convert("RGB"))
+        elif isinstance(image_or_text, (bytes, bytearray)):
+            np_arr = np.frombuffer(image_or_text, dtype=np.uint8)
+            np_img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+        elif isinstance(image_or_text, np.ndarray):
+            np_img = image_or_text
+
+        # -----------------------------------------------------------------------
+        # PRIMARY ENGINE: RapidOCR (PP-OCRv4 ONNX runtime)
+        # -----------------------------------------------------------------------
+        if self._rapid_ocr is not None and np_img is not None:
             try:
-                import numpy as np
+                ocr_res, _ = self._rapid_ocr(np_img)
+                if ocr_res:
+                    for item in ocr_res:
+                        poly_pts, text, score = item
+                        poly = [[int(pt[0]), int(pt[1])] for pt in poly_pts]
+                        xs = [p[0] for p in poly]
+                        ys = [p[1] for p in poly]
+                        bbox = [min(xs), min(ys), max(xs), max(ys)]
+                        boxes.append(OCRBox(text=text, confidence=float(score), polygon=poly, bbox=bbox))
+                        raw_text_parts.append(text)
+            except Exception as e:
+                logger.warning(f"RapidOCR inference error: {e}")
 
-                if hasattr(image_or_text, "convert"):
-                    np_img = np.array(image_or_text.convert("RGB"))
-                else:
-                    np_img = image_or_text
-
-                # Run Latin OCR
+        # -----------------------------------------------------------------------
+        # SECONDARY ENGINE: PaddleOCR (if installed)
+        # -----------------------------------------------------------------------
+        if not boxes and self._paddle_ocr_en is not None and np_img is not None:
+            try:
                 results_en = self._paddle_ocr_en.ocr(np_img, cls=True)
                 if results_en and results_en[0]:
                     for line_info in results_en[0]:
@@ -308,6 +347,21 @@ class PPOCREngine:
                         raw_text_parts.append(text)
             except Exception as e:
                 logger.warning(f"PaddleOCR inference error: {e}")
+
+        # -----------------------------------------------------------------------
+        # FALLBACK: Tesseract OCR with OpenCV preprocessing
+        # Used when PaddleOCR is not installed or yields 0 results.
+        # Preprocessing: CLAHE → Otsu threshold → denoising for Aadhaar card legibility.
+        # -----------------------------------------------------------------------
+        if not boxes:
+            boxes, raw_text_parts = self._run_tesseract_fallback(image_or_text)
+
+        # -----------------------------------------------------------------------
+        # FALLBACK 2: EasyOCR (PyTorch-native, no ONNX required)
+        # Used if both PaddleOCR and Tesseract fail.
+        # -----------------------------------------------------------------------
+        if not boxes:
+            boxes, raw_text_parts = self._run_easyocr_fallback(image_or_text)
 
         # Compute metrics
         raw_text = "\n".join(raw_text_parts)
@@ -338,6 +392,160 @@ class PPOCREngine:
             qr_payload=None,
             processing_time_ms=elapsed_ms,
         )
+
+    def _preprocess_for_ocr(self, image_or_text: Any) -> Optional[Any]:
+        """
+        Applies OpenCV preprocessing pipeline to improve OCR on Aadhaar cards:
+        1. Convert to grayscale
+        2. CLAHE contrast enhancement (helps with uneven lighting from phone photos)
+        3. Mild bilateral denoising
+        4. Otsu adaptive thresholding for text/background separation
+
+        Returns a preprocessed numpy array, or None on failure.
+        """
+        try:
+            import cv2  # type: ignore
+            import numpy as np  # type: ignore
+
+            if isinstance(image_or_text, np.ndarray):
+                img = image_or_text.copy()
+            elif hasattr(image_or_text, "convert"):
+                img = np.array(image_or_text.convert("RGB"))
+                img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+            elif isinstance(image_or_text, (bytes, bytearray)):
+                nparr = np.frombuffer(image_or_text, np.uint8)
+                img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+                if img is None:
+                    return None
+            else:
+                return None
+
+            # Upscale if small (Aadhaar cards photographed from far away)
+            h, w = img.shape[:2]
+            if w < 600:
+                scale = 600.0 / w
+                img = cv2.resize(img, (int(w * scale), int(h * scale)), interpolation=cv2.INTER_CUBIC)
+
+            # Grayscale
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            # CLAHE for contrast normalization (helps with phone photo lighting)
+            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+            gray = clahe.apply(gray)
+
+            # Mild bilateral denoising to reduce background noise before threshold
+            gray = cv2.bilateralFilter(gray, d=5, sigmaColor=75, sigmaSpace=75)
+
+            # Otsu binarization — separates dark text from light card background
+            _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+            return thresh
+        except Exception as e:
+            logger.debug(f"OCR preprocessing failed: {e}")
+            return None
+
+    def _run_tesseract_fallback(
+        self, image_or_text: Any
+    ) -> tuple:
+        """
+        Tesseract OCR fallback with preprocessed image.
+        Handles Aadhaar cards with both English and Devanagari text.
+        Returns (boxes, raw_text_parts) tuple.
+        """
+        boxes: List[OCRBox] = []
+        raw_text_parts: List[str] = []
+        try:
+            import pytesseract  # type: ignore
+
+            preprocessed = self._preprocess_for_ocr(image_or_text)
+            if preprocessed is None:
+                return boxes, raw_text_parts
+
+            # PSM 6: Uniform block of text — best for structured ID card text
+            # OEM 3: Default engine (LSTM + legacy)
+            config = "--psm 6 --oem 3 -l eng+hin"
+            raw = pytesseract.image_to_string(preprocessed, config=config)
+
+            # Also get per-word bounding boxes and confidence
+            try:
+                data = pytesseract.image_to_data(preprocessed, config=config, output_type=pytesseract.Output.DICT)
+                n_boxes = len(data["text"])
+                for i in range(n_boxes):
+                    text = str(data["text"][i]).strip()
+                    conf_raw = int(data["conf"][i])
+                    if conf_raw < 0 or not text:
+                        continue
+                    conf = conf_raw / 100.0
+                    x, y, w, h = int(data["left"][i]), int(data["top"][i]), int(data["width"][i]), int(data["height"][i])
+                    bbox = [x, y, x + w, y + h]
+                    poly = [[x, y], [x + w, y], [x + w, y + h], [x, y + h]]
+                    boxes.append(OCRBox(text=text, confidence=conf, polygon=poly, bbox=bbox))
+                    raw_text_parts.append(text)
+            except Exception:
+                # image_to_data failed, fall back to plain string parse
+                for i, line in enumerate([l.strip() for l in raw.splitlines() if l.strip()]):
+                    y_pos = i * 20
+                    boxes.append(OCRBox(
+                        text=line, confidence=0.70,
+                        polygon=[[0, y_pos], [400, y_pos], [400, y_pos + 20], [0, y_pos + 20]],
+                        bbox=[0, y_pos, 400, y_pos + 20],
+                    ))
+                    raw_text_parts.append(line)
+
+            if boxes:
+                logger.info(f"Tesseract OCR fallback extracted {len(boxes)} text regions.")
+        except ImportError:
+            logger.debug("pytesseract not installed — Tesseract fallback skipped.")
+        except Exception as e:
+            logger.warning(f"Tesseract fallback error: {e}")
+        return boxes, raw_text_parts
+
+    def _run_easyocr_fallback(
+        self, image_or_text: Any
+    ) -> tuple:
+        """
+        EasyOCR (PyTorch-native) fallback — no ONNX runtime required.
+        Handles multilingual Indian identity documents (en + hi scripts).
+        Returns (boxes, raw_text_parts) tuple.
+        """
+        boxes: List[OCRBox] = []
+        raw_text_parts: List[str] = []
+        try:
+            import easyocr  # type: ignore
+            import numpy as np  # type: ignore
+
+            reader = easyocr.Reader(["en", "hi"], gpu=False, verbose=False)
+
+            if isinstance(image_or_text, np.ndarray):
+                img_input = image_or_text
+            elif hasattr(image_or_text, "convert"):
+                img_input = np.array(image_or_text.convert("RGB"))
+            elif isinstance(image_or_text, (bytes, bytearray)):
+                nparr = np.frombuffer(image_or_text, np.uint8)
+                import cv2  # type: ignore
+                img_input = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            else:
+                return boxes, raw_text_parts
+
+            results = reader.readtext(img_input, detail=1, paragraph=False)
+            for (bbox_pts, text, conf) in results:
+                text = str(text).strip()
+                if not text:
+                    continue
+                xs = [int(p[0]) for p in bbox_pts]
+                ys = [int(p[1]) for p in bbox_pts]
+                poly = [[int(p[0]), int(p[1])] for p in bbox_pts]
+                bbox = [min(xs), min(ys), max(xs), max(ys)]
+                boxes.append(OCRBox(text=text, confidence=float(conf), polygon=poly, bbox=bbox))
+                raw_text_parts.append(text)
+
+            if boxes:
+                logger.info(f"EasyOCR fallback extracted {len(boxes)} text regions.")
+        except ImportError:
+            logger.debug("easyocr not installed — EasyOCR fallback skipped.")
+        except Exception as e:
+            logger.warning(f"EasyOCR fallback error: {e}")
+        return boxes, raw_text_parts
 
 
 # Global Singleton Instance

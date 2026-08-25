@@ -231,6 +231,36 @@ export async function getLatestCompanionCapture(): Promise<CompanionCaptureState
   }
 }
 
+export interface CompanionGalleryResponse {
+  status: string;
+  total: number;
+  items: CompanionCaptureState[];
+}
+
+/**
+ * Fetch all captures in the companion gallery
+ */
+export async function getCompanionGallery(limit = 50): Promise<CompanionGalleryResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/companion/gallery?limit=${limit}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch companion gallery: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+/**
+ * Delete a single capture from the companion gallery
+ */
+export async function deleteCompanionGalleryItem(sequenceId: number): Promise<{ status: string; remaining: number }> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/companion/gallery/${sequenceId}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to delete companion item: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
 export interface CompanionVerdictResponse {
   has_verdict?: boolean;
   sequence_id: number;

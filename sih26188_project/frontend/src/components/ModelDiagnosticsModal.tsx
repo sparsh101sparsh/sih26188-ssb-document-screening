@@ -8,6 +8,7 @@ import {
   RotateCw,
   Zap,
   X,
+  ShieldCheck,
 } from 'lucide-react';
 import { ModelStatusItem, ModelsStatusResponse } from '../types/api';
 import { fetchModelsStatus, startModel, testModel, startAllModels } from '../services/api';
@@ -94,36 +95,51 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
     }
   };
 
-  const categories = ['ALL', 'Biometrics', 'Optical Character Recognition', 'Visual Forensics', 'Cryptographic & Integrity', 'Integrity & Fraud Risk'];
+  const categories = [
+    'ALL',
+    'Biometrics',
+    'Optical Character Recognition',
+    'Visual Forensics',
+    'Cryptographic & Integrity',
+    'Integrity & Fraud Risk',
+  ];
 
-  const filteredModels = diagnostics?.models.filter((m) => {
-    if (selectedCategory === 'ALL') return true;
-    return m.category === selectedCategory;
-  }) || [];
+  const filteredModels =
+    diagnostics?.models.filter((m) => {
+      if (selectedCategory === 'ALL') return true;
+      return m.category === selectedCategory;
+    }) || [];
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-fade-in select-none">
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fade-in select-none"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div
-        className="relative w-full max-w-5xl max-h-[90vh] bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-slate-100"
+        className="relative w-full max-w-5xl max-h-[90vh] bg-white border border-slate-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Header */}
-        <div className="px-6 py-4 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between">
+        {/* Official UIDAI / MHA Gradient Header */}
+        <div className="bg-gradient-to-r from-[#0F2750] via-[#102B59] to-[#1E3A8A] text-white px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+            <div className="p-2.5 bg-emerald-500/20 border border-emerald-400/30 rounded-xl text-emerald-300">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
-              <div className="flex items-center space-x-2">
-                <h2 className="text-base font-bold text-white tracking-wide uppercase font-mono">
+              <div className="flex items-center space-x-2.5">
+                <h2 className="text-base font-bold text-white tracking-wide uppercase font-sans">
                   Sovereign Neural Model Enclave & Diagnostics
                 </h2>
-                <span className="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full font-mono">
+                <span className="px-2.5 py-0.5 text-[10px] font-bold bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 rounded-full font-mono">
                   LIVE REAL-TIME
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
-                Direct hardware telemetry, dynamic model initialization, and benchmark diagnostics
+              <p className="text-[11px] text-amber-300 font-mono tracking-wider">
+                AIR-GAPPED HARDWARE TELEMETRY & DYNAMIC MODEL INITIALIZATION
               </p>
             </div>
           </div>
@@ -133,9 +149,9 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
               type="button"
               onClick={handleStartAll}
               disabled={loading}
-              className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-mono transition-all flex items-center space-x-1.5 shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
+              className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all flex items-center space-x-1.5 shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
             >
-              <Zap className="w-3.5 h-3.5" />
+              <Zap className="w-3.5 h-3.5 fill-current" />
               <span>Connect All Models</span>
             </button>
 
@@ -143,7 +159,7 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
               type="button"
               onClick={loadStatus}
               disabled={loading}
-              className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all border border-slate-700 cursor-pointer"
+              className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all border border-white/20 cursor-pointer"
               title="Refresh Telemetry"
             >
               <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -152,29 +168,32 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all border border-slate-700 cursor-pointer"
+              className="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              title="Close"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
         {/* Global Enclave Telemetry Banner */}
-        <div className="px-6 py-3 bg-slate-950/50 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-4 text-xs">
-          <div className="flex items-center space-x-4">
+        <div className="px-6 py-3 bg-[#F8FAFC] border-b border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div className="flex items-center space-x-5">
             <div className="flex items-center space-x-1.5">
-              <span className="text-slate-400 font-mono">Total Models:</span>
-              <span className="font-bold text-white font-mono">{diagnostics?.total_models || 10}</span>
+              <span className="text-slate-500 font-semibold">Total Models:</span>
+              <span className="font-bold text-slate-900 font-mono px-2 py-0.5 bg-slate-200 rounded">
+                {diagnostics?.total_models || 10}
+              </span>
             </div>
             <div className="flex items-center space-x-1.5">
-              <span className="text-slate-400 font-mono">Online:</span>
-              <span className="font-bold text-emerald-400 font-mono">
+              <span className="text-slate-500 font-semibold">Online:</span>
+              <span className="font-bold text-emerald-700 font-mono px-2 py-0.5 bg-emerald-100 rounded border border-emerald-200">
                 {diagnostics?.online_models || 0} / {diagnostics?.total_models || 10}
               </span>
             </div>
             <div className="flex items-center space-x-1.5">
-              <span className="text-slate-400 font-mono">Hardware:</span>
-              <span className="font-bold text-cyan-300 font-mono">
+              <span className="text-slate-500 font-semibold">Hardware:</span>
+              <span className="font-bold text-indigo-900 font-mono px-2.5 py-0.5 bg-indigo-50 border border-indigo-200 rounded">
                 {diagnostics?.hardware_acceleration || 'Apple Silicon MPS / CoreML'}
               </span>
             </div>
@@ -183,35 +202,35 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
           {/* Action notification toast */}
           {actionMessage && (
             <div
-              className={`px-3 py-1 rounded-md text-[11px] font-mono flex items-center space-x-1.5 ${
+              className={`px-3 py-1 rounded-md text-[11px] font-mono flex items-center space-x-1.5 shadow-xs ${
                 actionMessage.type === 'success'
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
                   : actionMessage.type === 'error'
-                  ? 'bg-red-500/20 text-red-300 border border-red-500/30'
-                  : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                  ? 'bg-red-50 text-red-800 border border-red-300'
+                  : 'bg-blue-50 text-blue-800 border border-blue-300'
               }`}
             >
               {actionMessage.type === 'success' ? (
-                <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
               ) : (
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <AlertCircle className="w-3.5 h-3.5 text-red-600 shrink-0" />
               )}
               <span>{actionMessage.text}</span>
             </div>
           )}
         </div>
 
-        {/* Filter Category Tabs */}
-        <div className="px-6 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center space-x-2 overflow-x-auto">
+        {/* Filter Category Pills */}
+        <div className="px-6 py-2.5 bg-white border-b border-slate-200 flex items-center space-x-2 overflow-x-auto">
           {categories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-blue-600 text-white font-bold shadow-sm'
-                  : 'bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'bg-[#0F2750] text-white shadow-xs'
+                  : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
               }`}
             >
               {cat}
@@ -220,7 +239,7 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
         </div>
 
         {/* Model Cards Scroll Area */}
-        <div className="p-6 overflow-y-auto space-y-3.5 flex-1 custom-scrollbar">
+        <div className="p-6 overflow-y-auto space-y-3.5 flex-1 bg-[#F8FAFC]">
           {filteredModels.map((model: ModelStatusItem) => {
             const isOnline = model.status === 'ONLINE';
             const isConnecting = connectingModelId === model.id;
@@ -229,49 +248,49 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
             return (
               <div
                 key={model.id}
-                className={`p-4 rounded-xl border transition-all ${
+                className={`p-4 rounded-xl border transition-all bg-white shadow-xs ${
                   isOnline
-                    ? 'bg-slate-800/60 border-slate-700/80 hover:border-emerald-500/40'
-                    : 'bg-slate-800/30 border-slate-800 hover:border-amber-500/40'
+                    ? 'border-slate-200 hover:border-emerald-400'
+                    : 'border-slate-200 hover:border-amber-400'
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="space-y-1">
-                    <div className="flex items-center space-x-2.5">
-                      <span className="text-sm font-bold text-white font-mono tracking-tight">
+                    <div className="flex items-center space-x-2.5 flex-wrap gap-y-1">
+                      <span className="text-sm font-bold text-slate-900 tracking-tight">
                         {model.name}
                       </span>
                       <span
-                        className={`px-2 py-0.5 text-[10px] font-bold font-mono rounded-md border flex items-center space-x-1 ${
+                        className={`px-2.5 py-0.5 text-[10.5px] font-bold font-mono rounded-full border flex items-center space-x-1.5 ${
                           isOnline
-                            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                            : 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                            : 'bg-amber-50 text-amber-700 border-amber-300'
                         }`}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+                        <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-emerald-600' : 'bg-amber-600'}`} />
                         <span>{model.status}</span>
                       </span>
 
-                      <span className="px-2 py-0.5 text-[10px] bg-slate-700/60 text-slate-300 rounded font-mono">
+                      <span className="px-2.5 py-0.5 text-[10.5px] bg-slate-100 border border-slate-200 text-slate-600 rounded-md font-medium">
                         {model.category}
                       </span>
                     </div>
 
-                    <p className="text-xs text-slate-300 font-sans">{model.task}</p>
+                    <p className="text-xs text-slate-600 font-sans">{model.task}</p>
 
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-400 font-mono pt-1">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500 font-mono pt-1">
                       <span>
-                        <span className="text-slate-500">Arch:</span> {model.architecture}
+                        <span className="text-slate-400">Arch:</span> {model.architecture}
                       </span>
                       <span>
-                        <span className="text-slate-500">Tensor:</span> {model.input_tensor}
+                        <span className="text-slate-400">Tensor:</span> {model.input_tensor}
                       </span>
                       <span>
-                        <span className="text-slate-500">Weights:</span> {model.weight_file}
+                        <span className="text-slate-400">Weights:</span> {model.weight_file}
                       </span>
                       <span>
-                        <span className="text-slate-500">Latency:</span>{' '}
-                        <span className="text-emerald-400 font-bold">{model.latency_ms}ms</span>
+                        <span className="text-slate-400">Latency:</span>{' '}
+                        <span className="text-emerald-700 font-bold">{model.latency_ms}ms</span>
                       </span>
                     </div>
                   </div>
@@ -283,7 +302,7 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
                         type="button"
                         onClick={() => handleStartModel(model.id, model.name)}
                         disabled={isConnecting}
-                        className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-mono transition-all flex items-center space-x-1.5 shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all flex items-center space-x-1.5 shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
                       >
                         {isConnecting ? (
                           <RotateCw className="w-3.5 h-3.5 animate-spin" />
@@ -298,12 +317,12 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
                           type="button"
                           onClick={() => handleTestModel(model.id, model.name)}
                           disabled={isTesting}
-                          className="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 hover:text-white text-xs font-bold font-mono transition-all flex items-center space-x-1.5 border border-slate-600 active:scale-95 disabled:opacity-50 cursor-pointer"
+                          className="px-3.5 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-900 border border-indigo-200 text-xs font-bold transition-all flex items-center space-x-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
                         >
                           {isTesting ? (
                             <RotateCw className="w-3.5 h-3.5 animate-spin" />
                           ) : (
-                            <Activity className="w-3.5 h-3.5 text-blue-400" />
+                            <Activity className="w-3.5 h-3.5 text-indigo-600" />
                           )}
                           <span>{isTesting ? 'Testing...' : 'Self-Test'}</span>
                         </button>
@@ -312,7 +331,7 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
                           type="button"
                           onClick={() => handleStartModel(model.id, model.name)}
                           disabled={isConnecting}
-                          className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all border border-slate-700 cursor-pointer"
+                          className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-all border border-slate-200 cursor-pointer"
                           title="Reload Model Weights"
                         >
                           <RotateCw className={`w-3.5 h-3.5 ${isConnecting ? 'animate-spin' : ''}`} />
@@ -327,16 +346,16 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-600 font-mono">
           <div className="flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            <span>Air-Gapped Sovereign Model Registry Active (Port 8000)</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+            <span className="text-slate-700 font-semibold">Air-Gapped Sovereign Model Registry Active (Port 8000)</span>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold transition-all border border-slate-700 cursor-pointer"
+            className="px-4 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold transition-all cursor-pointer font-sans"
           >
             Close Diagnostics
           </button>

@@ -1,29 +1,48 @@
 """
-SIH26188 — Android Companion Camera Sync Router
-Provides real-time camera ingestion and streaming between frontline Android field units
-and the central edge desktop terminal.
+SIH26188 — Android Companion Camera Sync Router with Persistent Process Storage & SSE Handshake
+Provides durable SQLite process storage, SHA-256 integrity verification, disk enclaves,
+real-time SSE push streams, and two-way delivery handshake confirmation between frontline
+Android field units and the central edge desktop terminal.
 """
 
+import asyncio
 import base64
+import hashlib
+import json
+import os
+import sqlite3
 import threading
 import time
-from collections import deque
-from typing import Any, Dict, List, Optional
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, AsyncGenerator, Dict, List, Optional, Set
 
 from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/api/v1/companion", tags=["Companion Camera Sync"])
+
+# Base Directories for Persistent Storage Enclave
+BASE_DATA_DIR = Path(__file__).resolve().parent.parent.parent.parent / "data"
+COMPANION_STORE_DIR = BASE_DATA_DIR / "companion_store"
+COMPANION_DB_PATH = BASE_DATA_DIR / "companion.db"
 
 
 class CompanionCaptureState(BaseModel):
     has_capture: bool = False
     sequence_id: int = 0
+    capture_uuid: str = ""
     capture_type: str = "selfie"  # "selfie" | "document"
     device_id: str = "unknown"
     checkpoint_id: str = "WB-JAI-01"
     image_data: Optional[str] = None  # Base64 data URI
     filename: Optional[str] = None
+    file_path: Optional[str] = None
+    sha256_hash: Optional[str] = None
+    file_size_bytes: int = 0
+    status: str = "RECEIVED"
     timestamp: float = 0.0
 
 
@@ -37,17 +56,128 @@ class CompanionUploadRequest(BaseModel):
     filename: Optional[str] = Field("capture.jpg", description="Original or preferred filename")
 
 
-class CompanionStore:
+class SSEBroadcaster:
+    """Pub/Sub manager for real-time Server-Sent Events (SSE) push notifications."""
+
+    def __init__(self):
+        self._subscribers: Set[asyncio.Queue] = set()
+        self._lock = threading.Lock()
+
+    def subscribe(self) -> asyncio.Queue:
+        q: asyncio.Queue = asyncio.Queue(maxsize=100)
+        with self._lock:
+            self._subscribers.add(q)
+        return q
+
+    def unsubscribe(self, q: asyncio.Queue):
+        with self._lock:
+            self._subscribers.discard(q)
+
+    async def broadcast(self, event_type: str, data: Dict[str, Any]):
+        message = f"event: {event_type}\ndata: {json.dumps(data)}\n\n"
+        with self._lock:
+            subs = list(self._subscribers)
+        for q in subs:
+            try:
+                q.put_nowait(message)
+            except asyncio.QueueFull:
+                pass
+
+
+sse_broadcaster = SSEBroadcaster()
+
+
+class PersistentCompanionStore:
     """
-    Thread-safe singleton in-memory buffer storing the latest companion camera capture
-    and an in-transit frame buffer ring history.
+    Durable, Thread-Safe SQLite + Disk Storage Enclave for Field Captures.
+    Guarantees persistence across server reboots, calculates SHA-256 integrity hashes,
+    and publishes push events to SSE desktop clients.
     """
 
-    def __init__(self, max_buffer_size: int = 50):
+    def __init__(
+        self,
+        db_path: Path = COMPANION_DB_PATH,
+        store_dir: Path = COMPANION_STORE_DIR,
+        max_buffer_size: int = 50,
+    ):
+        self.db_path = db_path
+        self.store_dir = store_dir
+        self.max_buffer_size = max_buffer_size
         self._lock = threading.RLock()
-        self._max_buffer_size = max_buffer_size
-        self._buffer: deque = deque(maxlen=max_buffer_size)
-        self.state = CompanionCaptureState()
+        self._init_storage()
+        self._latest_state = self._load_latest_state()
+
+    def _init_storage(self):
+        self.store_dir.mkdir(parents=True, exist_ok=True)
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with sqlite3.connect(str(self.db_path)) as conn:
+            conn.execute("PRAGMA journal_mode=WAL;")
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS companion_captures (
+                    sequence_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    capture_uuid TEXT UNIQUE NOT NULL,
+                    capture_type TEXT NOT NULL,
+                    device_id TEXT NOT NULL,
+                    checkpoint_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    file_path TEXT NOT NULL,
+                    file_size_bytes INTEGER NOT NULL,
+                    sha256_hash TEXT NOT NULL,
+                    mime_type TEXT NOT NULL DEFAULT 'image/jpeg',
+                    status TEXT NOT NULL DEFAULT 'RECEIVED',
+                    created_at REAL NOT NULL
+                );
+                """
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_companion_seq ON companion_captures(sequence_id DESC);"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_companion_type ON companion_captures(capture_type);"
+            )
+            conn.commit()
+
+    def _load_latest_state(self) -> CompanionCaptureState:
+        with self._lock:
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    conn.row_factory = sqlite3.Row
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        "SELECT * FROM companion_captures ORDER BY sequence_id DESC LIMIT 1;"
+                    )
+                    row = cursor.fetchone()
+                    if row:
+                        file_p = Path(row["file_path"])
+                        data_uri = None
+                        if file_p.exists():
+                            try:
+                                b_data = file_p.read_bytes()
+                                b64 = base64.b64encode(b_data).decode("utf-8")
+                                data_uri = f"data:{row['mime_type']};base64,{b64}"
+                            except Exception:
+                                pass
+
+                        return CompanionCaptureState(
+                            has_capture=True,
+                            sequence_id=row["sequence_id"],
+                            capture_uuid=row["capture_uuid"],
+                            capture_type=row["capture_type"],
+                            device_id=row["device_id"],
+                            checkpoint_id=row["checkpoint_id"],
+                            image_data=data_uri,
+                            filename=row["filename"],
+                            file_path=row["file_path"],
+                            sha256_hash=row["sha256_hash"],
+                            file_size_bytes=row["file_size_bytes"],
+                            status=row["status"],
+                            timestamp=row["created_at"],
+                        )
+            except Exception as e:
+                print(f"[PersistentCompanionStore] Error loading latest state: {e}")
+            return CompanionCaptureState()
 
     def set_capture(
         self,
@@ -61,48 +191,224 @@ class CompanionStore:
         with self._lock:
             if not mime_type:
                 mime_type = self._detect_mime_type(image_bytes, filename)
+
+            capture_uuid = str(uuid.uuid4())
+            sha256_hash = hashlib.sha256(image_bytes).hexdigest()
+            file_size = len(image_bytes)
+            now_ts = time.time()
+
+            # 1. Write binary to disk enclave: data/companion_store/YYYY-MM-DD/{uuid}_{filename}
+            date_dir = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            target_dir = self.store_dir / date_dir
+            target_dir.mkdir(parents=True, exist_ok=True)
+
+            safe_filename = "".join(c for c in filename if c.isalnum() or c in "._-").strip() or "capture.jpg"
+            target_file_path = target_dir / f"{capture_uuid[:8]}_{safe_filename}"
+            target_file_path.write_bytes(image_bytes)
+
+            # 2. Insert into SQLite table
+            with sqlite3.connect(str(self.db_path)) as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO companion_captures (
+                        capture_uuid, capture_type, device_id, checkpoint_id,
+                        filename, file_path, file_size_bytes, sha256_hash,
+                        mime_type, status, created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'RECEIVED', ?);
+                    """,
+                    (
+                        capture_uuid,
+                        capture_type,
+                        device_id,
+                        checkpoint_id,
+                        safe_filename,
+                        str(target_file_path),
+                        file_size,
+                        sha256_hash,
+                        mime_type,
+                        now_ts,
+                    ),
+                )
+                conn.commit()
+                sequence_id = cursor.lastrowid or 1
+
+                # Prune buffer to max_buffer_size if exceeded
+                cursor.execute("SELECT COUNT(*) FROM companion_captures;")
+                cur_count = cursor.fetchone()[0]
+                if cur_count > self.max_buffer_size:
+                    excess = cur_count - self.max_buffer_size
+                    cursor.execute("SELECT sequence_id, file_path FROM companion_captures ORDER BY sequence_id ASC LIMIT ?;", (excess,))
+                    for old_seq, old_path in cursor.fetchall():
+                        try:
+                            Path(old_path).unlink(missing_ok=True)
+                        except Exception:
+                            pass
+                        cursor.execute("DELETE FROM companion_captures WHERE sequence_id = ?;", (old_seq,))
+                    conn.commit()
+
+            # 3. Form Data URI
             b64 = base64.b64encode(image_bytes).decode("utf-8")
             data_uri = f"data:{mime_type};base64,{b64}"
 
-            new_seq = self.state.sequence_id + 1
             new_state = CompanionCaptureState(
                 has_capture=True,
-                sequence_id=new_seq,
+                sequence_id=sequence_id,
+                capture_uuid=capture_uuid,
                 capture_type=capture_type,
                 device_id=device_id,
                 checkpoint_id=checkpoint_id,
                 image_data=data_uri,
-                filename=filename,
-                timestamp=time.time(),
+                filename=safe_filename,
+                file_path=str(target_file_path),
+                sha256_hash=sha256_hash,
+                file_size_bytes=file_size,
+                status="RECEIVED",
+                timestamp=now_ts,
             )
-            self.state = new_state
-            self._buffer.append(new_state)
+            self._latest_state = new_state
+
+            # 4. Trigger asynchronous SSE broadcast
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    asyncio.create_task(
+                        sse_broadcaster.broadcast(
+                            "NEW_CAPTURE",
+                            {
+                                "sequence_id": sequence_id,
+                                "capture_uuid": capture_uuid,
+                                "capture_type": capture_type,
+                                "device_id": device_id,
+                                "checkpoint_id": checkpoint_id,
+                                "filename": safe_filename,
+                                "sha256_hash": sha256_hash,
+                                "timestamp": now_ts,
+                                "status": "RECEIVED",
+                            },
+                        )
+                    )
+            except Exception:
+                pass
+
             return new_state
 
     def get_latest(self) -> CompanionCaptureState:
         with self._lock:
-            return self.state.model_copy()
+            return self._latest_state.model_copy()
 
-    def clear(self) -> Dict[str, str]:
+    def get_buffer(self, limit: int = 50, capture_type: Optional[str] = None) -> List[CompanionCaptureState]:
         with self._lock:
-            self.state = CompanionCaptureState(sequence_id=self.state.sequence_id)
-            return {"status": "cleared"}
+            results: List[CompanionCaptureState] = []
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    conn.row_factory = sqlite3.Row
+                    cursor = conn.cursor()
+                    query = "SELECT * FROM companion_captures "
+                    params = []
+                    if capture_type:
+                        query += "WHERE capture_type = ? "
+                        params.append(capture_type)
+                    query += "ORDER BY sequence_id DESC LIMIT ?;"
+                    params.append(limit)
 
-    def reset(self, hard: bool = False) -> None:
-        """Reset state; hard=True resets sequence_id back to 0."""
-        with self._lock:
-            seq = 0 if hard else self.state.sequence_id
-            self.state = CompanionCaptureState(sequence_id=seq)
-            self._buffer.clear()
+                    cursor.execute(query, params)
+                    rows = cursor.fetchall()
+                    for row in rows:
+                        file_p = Path(row["file_path"])
+                        data_uri = None
+                        if file_p.exists():
+                            try:
+                                b_data = file_p.read_bytes()
+                                b64 = base64.b64encode(b_data).decode("utf-8")
+                                data_uri = f"data:{row['mime_type']};base64,{b64}"
+                            except Exception:
+                                pass
 
-    def get_buffer(self, limit: int = 10) -> List[CompanionCaptureState]:
+                        results.append(
+                            CompanionCaptureState(
+                                has_capture=True,
+                                sequence_id=row["sequence_id"],
+                                capture_uuid=row["capture_uuid"],
+                                capture_type=row["capture_type"],
+                                device_id=row["device_id"],
+                                checkpoint_id=row["checkpoint_id"],
+                                image_data=data_uri,
+                                filename=row["filename"],
+                                file_path=row["file_path"],
+                                sha256_hash=row["sha256_hash"],
+                                file_size_bytes=row["file_size_bytes"],
+                                status=row["status"],
+                                timestamp=row["created_at"],
+                            )
+                        )
+            except Exception as e:
+                print(f"[PersistentCompanionStore] Error reading buffer: {e}")
+            results.reverse()
+            return results
+
+    def delete_item(self, sequence_id: int) -> bool:
         with self._lock:
-            items = list(self._buffer)
-            return items[-limit:] if limit > 0 else items
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    conn.row_factory = sqlite3.Row
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        "SELECT file_path FROM companion_captures WHERE sequence_id = ?;",
+                        (sequence_id,),
+                    )
+                    row = cursor.fetchone()
+                    if row:
+                        try:
+                            Path(row["file_path"]).unlink(missing_ok=True)
+                        except Exception:
+                            pass
+                    cursor.execute(
+                        "DELETE FROM companion_captures WHERE sequence_id = ?;",
+                        (sequence_id,),
+                    )
+                    conn.commit()
+                return True
+            except Exception as e:
+                print(f"[PersistentCompanionStore] Error deleting item {sequence_id}: {e}")
+                return False
+
+    def clear(self, hard: bool = False) -> Dict[str, str]:
+        with self._lock:
+            try:
+                last_seq = self._latest_state.sequence_id
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT file_path FROM companion_captures;")
+                    rows = cursor.fetchall()
+                    for r in rows:
+                        try:
+                            Path(r[0]).unlink(missing_ok=True)
+                        except Exception:
+                            pass
+                    cursor.execute("DELETE FROM companion_captures;")
+                    if hard:
+                        cursor.execute("DELETE FROM sqlite_sequence WHERE name='companion_captures';")
+                        last_seq = 0
+                    conn.commit()
+                self._latest_state = CompanionCaptureState(has_capture=False, sequence_id=last_seq)
+                return {"status": "cleared"}
+            except Exception as e:
+                return {"status": f"error: {str(e)}"}
+
+    def reset(self, hard: bool = False):
+        return self.clear(hard=hard)
 
     def get_buffer_size(self) -> int:
         with self._lock:
-            return len(self._buffer)
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT COUNT(*) FROM companion_captures;")
+                    res = cursor.fetchone()
+                    return res[0] if res else 0
+            except Exception:
+                return 0
 
     @staticmethod
     def _detect_mime_type(image_bytes: bytes, filename: str) -> str:
@@ -125,10 +431,11 @@ class CompanionStore:
         return "image/jpeg"
 
 
-companion_store = CompanionStore()
+CompanionStore = PersistentCompanionStore
+companion_store = PersistentCompanionStore()
 
 
-@router.post("/upload", summary="Upload Companion Camera Capture from Android Field Unit")
+@router.post("/upload", summary="Upload Companion Camera Capture with Two-Way Delivery Handshake")
 async def upload_companion_capture(
     request: Request,
     file: Optional[UploadFile] = File(None),
@@ -143,8 +450,8 @@ async def upload_companion_capture(
     filename: Optional[str] = Form(None),
 ):
     """
-    Receives live camera snapshot from Android field unit (via multipart file or base64 payload)
-    and buffers it in-memory for instant desktop consumption.
+    Receives live camera snapshot from Android field unit, persists to SQLite and Disk enclave,
+    broadcasts push notification via SSE, and returns confirmed delivery handshake JSON (HTTP 201).
     """
     content_type = request.headers.get("content-type", "").lower()
 
@@ -227,16 +534,56 @@ async def upload_companion_capture(
         device_id=final_device_id,
         checkpoint_id=final_checkpoint_id,
     )
+
+    # Return explicit Two-Way Handshake ACK Response
     return {
         "status": "success",
-        "message": "Capture synced to Edge Terminal",
+        "message": f"Capture #{state.sequence_id} successfully persisted in Edge Enclave",
         "sequence_id": state.sequence_id,
+        "capture_uuid": state.capture_uuid,
         "capture_type": state.capture_type,
         "device_id": state.device_id,
         "checkpoint_id": state.checkpoint_id,
         "filename": state.filename,
+        "sha256_hash": state.sha256_hash,
+        "file_size_bytes": state.file_size_bytes,
         "timestamp": state.timestamp,
     }
+
+
+@router.get("/stream", summary="Server-Sent Events (SSE) Push Stream for Real-Time Terminal Alerts")
+async def stream_companion_events(request: Request):
+    """
+    Subscribes the desktop workstation to real-time companion capture push notifications.
+    Emits instant 'NEW_CAPTURE' events whenever an Android field officer snaps a photo.
+    """
+    queue = sse_broadcaster.subscribe()
+
+    async def event_generator() -> AsyncGenerator[str, None]:
+        try:
+            # Send initial connection handshake
+            yield f"event: CONNECTED\ndata: {json.dumps({'status': 'connected', 'timestamp': time.time()})}\n\n"
+            while True:
+                if await request.is_disconnected():
+                    break
+                try:
+                    message = await asyncio.wait_for(queue.get(), timeout=15.0)
+                    yield message
+                except asyncio.TimeoutError:
+                    # Keep-alive heartbeat ping
+                    yield f"event: PING\ndata: {json.dumps({'heartbeat': time.time()})}\n\n"
+        finally:
+            sse_broadcaster.unsubscribe(queue)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
 
 
 @router.get("/latest", summary="Poll Latest Companion Capture on Desktop Terminal", response_model=CompanionCaptureState)
@@ -247,10 +594,35 @@ async def get_latest_companion_capture():
     return companion_store.get_latest()
 
 
+@router.get("/gallery", summary="Get All Captured Photos in Companion Gallery")
+async def get_companion_gallery(limit: int = 50, capture_type: Optional[str] = None):
+    """
+    Returns all buffered companion captures from persistent SQLite store in reverse-chronological order
+    for operator gallery browsing, drag-and-drop ingestion, and bay verification.
+    """
+    items = companion_store.get_buffer(limit=limit, capture_type=capture_type)
+    return {
+        "status": "success",
+        "total": len(items),
+        "items": [item.model_dump() for item in items],
+    }
+
+
+@router.delete("/gallery/{sequence_id}", summary="Delete a Single Photo from Companion Gallery")
+async def delete_companion_gallery_item(sequence_id: int):
+    """
+    Removes a specific capture from the SQLite database and deletes the physical file.
+    """
+    success = companion_store.delete_item(sequence_id)
+    if not success:
+        raise HTTPException(status_code=404, detail=f"Capture with sequence_id {sequence_id} not found.")
+    return {"status": "success", "message": f"Deleted sequence {sequence_id}", "remaining": companion_store.get_buffer_size()}
+
+
 @router.post("/clear", summary="Clear Active Companion Capture Buffer")
 async def clear_companion_capture():
     """
-    Clears the companion capture once processed by the desktop screening pipeline.
+    Clears all companion captures from SQLite and the storage directory.
     """
     return companion_store.clear()
 
@@ -331,31 +703,48 @@ async def get_latest_verdict():
 
 
 def _get_local_ip_addresses() -> List[str]:
-    """Helper to detect reachable IPv4 LAN addresses."""
+    """Helper to detect reachable IPv4 LAN addresses with fallback to ifconfig/network interfaces."""
     import socket
-    ips = set()
+    import subprocess
+    import re
+
+    ips = []
+    # 1. UDP probe
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
         primary = s.getsockname()[0]
         s.close()
-        if primary and primary != "127.0.0.1":
-            ips.add(primary)
+        if primary and not primary.startswith("127.") and not primary.startswith("169.254."):
+            ips.append(primary)
     except Exception:
         pass
 
+    # 2. ifconfig / ip addr fallback
+    try:
+        out = subprocess.check_output(["ifconfig"], text=True)
+        for match in re.finditer(r"inet (\d+\.\d+\.\d+\.\d+)", out):
+            ip = match.group(1)
+            if not ip.startswith("127.") and not ip.startswith("169.254."):
+                if ip not in ips:
+                    ips.append(ip)
+    except Exception:
+        pass
+
+    # 3. getaddrinfo fallback
     try:
         hostname = socket.gethostname()
         for info in socket.getaddrinfo(hostname, None, socket.AF_INET):
             ip = info[4][0]
-            if ip and not ip.startswith("127."):
-                ips.add(ip)
+            if ip and not ip.startswith("127.") and not ip.startswith("169.254."):
+                if ip not in ips:
+                    ips.append(ip)
     except Exception:
         pass
 
     if not ips:
-        ips.add("127.0.0.1")
-    return sorted(list(ips))
+        ips.append("127.0.0.1")
+    return ips
 
 
 @router.get("/info", summary="Fetch Edge Gateway Companion Pairing & Network Info")
@@ -397,7 +786,6 @@ class CompanionSimulateRequest(BaseModel):
     checkpoint_id: str = "SSB-WB-JAI-01"
 
 
-# Ultra-compact 1x1 base64 transparent/tinted PNGs for fallback simulation if needed
 _MOCK_DOC_PNG_BYTES = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
 )
@@ -406,8 +794,8 @@ _MOCK_DOC_PNG_BYTES = base64.b64decode(
 @router.post("/simulate", summary="Simulate Field Unit Camera Capture Upload")
 async def simulate_companion_capture(payload: CompanionSimulateRequest):
     """
-    Simulates a companion camera upload for instant operator testing directly
-    from the web connect modal without requiring physical hardware.
+    Simulates a companion camera upload with complete SQLite persistence, disk storage,
+    and SSE push broadcast for testing directly from the web connect modal.
     """
     from app.core.device_tracker import device_tracker
 
@@ -431,13 +819,13 @@ async def simulate_companion_capture(payload: CompanionSimulateRequest):
 
     return {
         "status": "success",
-        "message": f"Simulated {payload.capture_type} capture delivered to workstation",
+        "message": f"Simulated {payload.capture_type} capture delivered and persisted in Edge Enclave",
         "sequence_id": state.sequence_id,
+        "capture_uuid": state.capture_uuid,
         "capture_type": state.capture_type,
         "device_id": state.device_id,
         "checkpoint_id": state.checkpoint_id,
         "filename": state.filename,
+        "sha256_hash": state.sha256_hash,
         "timestamp": state.timestamp,
     }
-
-

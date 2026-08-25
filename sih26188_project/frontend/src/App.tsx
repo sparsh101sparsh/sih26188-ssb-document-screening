@@ -9,11 +9,9 @@ import { ResultsPanel } from './components/ResultsPanel';
 import { GovFooter } from './components/GovFooter';
 import { AskSSBMascot } from './components/AskSSBMascot';
 import { OfflineWarningBanner } from './components/OfflineWarningBanner';
-import { AuditCertificateModal } from './components/AuditCertificateModal';
-import { RawJsonViewerModal } from './components/RawJsonViewerModal';
+import { SettingsHubModal, SettingsTab } from './components/SettingsHubModal';
 import { ConnectModal } from './components/ConnectModal';
-import { SecurityProtocolsModal } from './components/SecurityProtocolsModal';
-import { ModelDiagnosticsModal } from './components/ModelDiagnosticsModal';
+import { CompanionGalleryModal } from './components/CompanionGalleryModal';
 import { ScreenReaderEngine } from './components/ScreenReaderEngine';
 import { StampIntroScreen } from './components/StampIntroScreen';
 
@@ -21,7 +19,7 @@ import { useBackendHealth } from './hooks/useBackendHealth';
 import { inspectDocument } from './services/api';
 import { CHECKPOINTS, CheckpointInfo, DocumentInspectResponse, OfficerDecision } from './types/api';
 import { PresetItem } from './services/presets';
-import { Smartphone, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Smartphone, AlertTriangle, ShieldCheck, ArrowRight, Eye } from 'lucide-react';
 
 function base64ToFile(base64Data: string, filename: string): File {
   try {
@@ -51,18 +49,19 @@ export function App() {
   const [livePhotoFile, setLivePhotoFile] = useState<File | null>(null);
   const [livePhotoPreviewUrl, setLivePhotoPreviewUrl] = useState<string | null>(null);
 
-  const [heatmapImageUrl, setHeatmapImageUrl] = useState<string | null>(null);
   const [scanResult, setScanResult] = useState<DocumentInspectResponse | null>(null);
+  const [heatmapImageUrl, setHeatmapImageUrl] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
   const [officerDecision, setOfficerDecision] = useState<OfficerDecision | null>(null);
+  
+  // Settings & System Hub Modal State
+  const [isSettingsHubOpen, setIsSettingsHubOpen] = useState(false);
+  const [settingsHubTab, setSettingsHubTab] = useState<SettingsTab>('models');
 
-  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
-  const [isJsonModalOpen, setIsJsonModalOpen] = useState(false);
   const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
-  const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
-  const [isModelsModalOpen, setIsModelsModalOpen] = useState(false);
+  const [isCompanionGalleryOpen, setIsCompanionGalleryOpen] = useState(false);
+  const [companionGalleryCount, setCompanionGalleryCount] = useState<number>(0);
   const [isScreenReaderActive, setIsScreenReaderActive] = useState(false);
   const [appLang, setAppLang] = useState<'en' | 'hi'>('en');
   const [showIntro, setShowIntro] = useState(true);
@@ -76,7 +75,7 @@ export function App() {
 
   const [docFromCompanion, setDocFromCompanion] = useState(false);
   const [photoFromCompanion, setPhotoFromCompanion] = useState(false);
-  const [activeTab, setActiveTab] = useState<NavTab>('home');
+  const [activeTab, setActiveTab] = useState<NavTab>('scan');
   const [searchQuery, setSearchQuery] = useState('');
 
   const {
@@ -239,51 +238,89 @@ export function App() {
 
   const canScan = Boolean(documentFile || livePhotoFile);
 
-  // Companion Live Polling loop
+  const playNotificationChime = () => {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (AudioCtx) {
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.36);
+      }
+    } catch {}
+  };
+
+  // Companion Real-time Push Stream (SSE) & Resilient Fallback Polling
   useEffect(() => {
     let isMounted = true;
-    const pollInterval = setInterval(async () => {
+
+    const fetchLatestGallery = async () => {
       if (!isMounted) return;
       try {
-        const res = await fetch('/api/v1/inbox');
+        const res = await fetch('/api/v1/companion/gallery?limit=50');
         if (!res.ok) return;
         const data = await res.json();
-        if (data && data.items && data.items.length > 0) {
-          const latest = data.items[0];
-          if (latest.sequence_id > lastSequenceIdRef.current) {
-            setLastSequenceId(latest.sequence_id);
-            lastSequenceIdRef.current = latest.sequence_id;
+        if (data && Array.isArray(data.items)) {
+          setCompanionGalleryCount(data.total || data.items.length);
+          if (data.items.length > 0) {
+            const latest = data.items[0];
+            if (latest.sequence_id > lastSequenceIdRef.current) {
+              setLastSequenceId(latest.sequence_id);
+              lastSequenceIdRef.current = latest.sequence_id;
 
-            const mode = latest.mode || 'document';
-            const b64 = latest.image_base64 || '';
-            const dataUrl = b64.startsWith('data:') ? b64 : `data:image/jpeg;base64,${b64}`;
-            const file = base64ToFile(dataUrl, `companion_${mode}_${latest.sequence_id}.jpg`);
+              const mode = latest.capture_type || 'document';
+              const b64 = latest.image_data || latest.image_base64 || '';
+              const dataUrl = b64.startsWith('data:') ? b64 : `data:image/jpeg;base64,${b64}`;
+              const file = base64ToFile(dataUrl, latest.filename || `companion_${mode}_${latest.sequence_id}.jpg`);
 
-            if (mode === 'document') {
-              setDocumentFile(file);
-              setDocumentPreviewUrl(dataUrl);
-              setDocFromCompanion(true);
-              setCompanionNotification(`Received Live Document from Field Officer (${latest.device_label || 'Terminal'})`);
-            } else {
-              setLivePhotoFile(file);
-              setLivePhotoPreviewUrl(dataUrl);
-              setPhotoFromCompanion(true);
-              setCompanionNotification(`Received Live Facial Capture from Field Officer (${latest.device_label || 'Terminal'})`);
+              if (mode === 'document') {
+                setDocumentFile(file);
+                setDocumentPreviewUrl(dataUrl);
+                setDocFromCompanion(true);
+                setCompanionNotification(`📸 Received Live Document #${latest.sequence_id} from Field Officer (${latest.device_id || 'Terminal'})`);
+              } else {
+                setLivePhotoFile(file);
+                setLivePhotoPreviewUrl(dataUrl);
+                setPhotoFromCompanion(true);
+                setCompanionNotification(`👤 Received Live Facial Capture #${latest.sequence_id} from Field Officer (${latest.device_id || 'Terminal'})`);
+              }
+
+              playNotificationChime();
+
+              setTimeout(() => {
+                if (isMounted) setCompanionNotification(null);
+              }, 7000);
             }
-
-            setTimeout(() => {
-              if (isMounted) setCompanionNotification(null);
-            }, 6000);
           }
         }
-      } catch (err) {
-        // quiet fallback
-      }
-    }, 2000);
+      } catch (err) {}
+    };
+
+    // 1. Initial fetch & active fallback interval
+    fetchLatestGallery();
+    const pollInterval = setInterval(fetchLatestGallery, 2500);
+
+    // 2. Real-Time Server-Sent Events (SSE) Push Listener
+    let eventSource: EventSource | null = null;
+    try {
+      eventSource = new EventSource('/api/v1/companion/stream');
+      eventSource.addEventListener('NEW_CAPTURE', () => {
+        fetchLatestGallery();
+      });
+    } catch {}
 
     return () => {
       isMounted = false;
       clearInterval(pollInterval);
+      if (eventSource) eventSource.close();
     };
   }, []);
 
@@ -309,7 +346,7 @@ export function App() {
       >
         {/* 1. Top Accessibility Strip (UIDAI Standard) */}
         <GovTopBar
-          onOpenSecurityProtocols={() => setIsSecurityModalOpen(true)}
+          onOpenSecurityProtocols={() => { setSettingsHubTab('security'); setIsSettingsHubOpen(true); }}
           isScreenReaderActive={isScreenReaderActive}
           onToggleScreenReader={() => setIsScreenReaderActive(!isScreenReaderActive)}
           onLanguageChange={setAppLang}
@@ -323,10 +360,13 @@ export function App() {
           backendLatencyMs={backendLatencyMs}
           onRefreshHealth={refreshHealth}
           isCheckingHealth={isCheckingHealth}
-          onOpenAuditModal={() => setIsAuditModalOpen(true)}
-          onOpenJsonModal={() => setIsJsonModalOpen(true)}
+          onOpenAuditModal={() => { setSettingsHubTab('audit'); setIsSettingsHubOpen(true); }}
+          onOpenJsonModal={() => { setSettingsHubTab('telemetry'); setIsSettingsHubOpen(true); }}
           hasScanResult={scanResult !== null}
           onOpenConnectModal={() => setIsConnectModalOpen(true)}
+          onOpenCompanionGallery={() => setIsCompanionGalleryOpen(true)}
+          onOpenSettings={() => { setSettingsHubTab('models'); setIsSettingsHubOpen(true); }}
+          companionGalleryCount={companionGalleryCount}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
@@ -336,19 +376,27 @@ export function App() {
           activeTab={activeTab}
           onTabChange={setActiveTab}
           hasScanResult={scanResult !== null}
-          onOpenAuditModal={() => setIsAuditModalOpen(true)}
-          onOpenJsonModal={() => setIsJsonModalOpen(true)}
-          onOpenConnectModal={() => setIsConnectModalOpen(true)}
-          onOpenModelsModal={() => setIsModelsModalOpen(true)}
-          onOpenSecurityProtocols={() => setIsSecurityModalOpen(true)}
+          onOpenSettings={() => { setSettingsHubTab('models'); setIsSettingsHubOpen(true); }}
         />
 
-        {/* Companion Sync Live Toast */}
+        {/* Companion Sync Live Toast with Quick Gallery Action */}
         {companionNotification && (
-          <div className="bg-emerald-600 text-white text-xs font-bold px-4 py-2.5 shadow-md flex items-center justify-between animate-pop-in select-none">
-            <div className="max-w-[1700px] mx-auto w-full flex items-center space-x-2">
-              <Smartphone className="w-4 h-4 text-emerald-200 animate-bounce" />
-              <span>{companionNotification}</span>
+          <div className="bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700 text-white text-xs font-bold px-4 py-2.5 shadow-md flex items-center justify-between animate-pop-in select-none">
+            <div className="max-w-[1700px] mx-auto w-full flex items-center justify-between gap-4">
+              <div className="flex items-center space-x-2.5">
+                <Smartphone className="w-4 h-4 text-emerald-200 animate-bounce" />
+                <span>{companionNotification}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setIsCompanionGalleryOpen(true)}
+                  className="px-3 py-1 bg-white text-emerald-800 rounded-lg text-xs font-bold hover:bg-emerald-50 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>Open Companion Gallery</span>
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -381,7 +429,7 @@ export function App() {
                   document.getElementById('screening-bay')?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 onNavigateToCompanion={() => setIsConnectModalOpen(true)}
-                onOpenSecurityProtocols={() => setIsSecurityModalOpen(true)}
+                onOpenSecurityProtocols={() => { setSettingsHubTab('security'); setIsSettingsHubOpen(true); }}
               />
 
               {/* 5. "Access SSB Screening Services" Grid (UIDAI 1-to-1 Match) */}
@@ -411,6 +459,7 @@ export function App() {
                   docFromCompanion={docFromCompanion}
                   photoFromCompanion={photoFromCompanion}
                   onOpenConnectModal={() => setIsConnectModalOpen(true)}
+                  onOpenCompanionGallery={() => setIsCompanionGalleryOpen(true)}
                 />
               </div>
 
@@ -499,40 +548,6 @@ export function App() {
               )}
             </div>
           )}
-
-          {activeTab === 'help' && (
-            <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
-              <div>
-                <h3 className="font-serif font-black text-xl text-slate-900">
-                  Standard Operating Procedure (SOP) • SSB Document Screening
-                </h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  Official operational guidelines for SSB checkpoint border verification officers.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                  <h4 className="font-bold text-sm text-indigo-900 mb-2">1. ICAO 9303 MRZ Inspection</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Check Machine Readable Zone checksum digits 10, 20, 28, and overall composite check 44. Any red flags indicate altered dates or falsified passport numbers.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                  <h4 className="font-bold text-sm text-indigo-900 mb-2">2. 1:1 Facial Biometrics</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    A cosine distance &lt; 0.40 indicates high confidence identity match. Matches with &gt; 0.60 distance require secondary manual interview.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                  <h4 className="font-bold text-sm text-indigo-900 mb-2">3. ELA Neural Tampering</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    High residual noise brightness in the ELA heatmap around passport seals or expiry text indicates digital photo-editing manipulation.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </main>
 
         {/* 7. Official Government Footer */}
@@ -541,19 +556,16 @@ export function App() {
         {/* 8. Floating Mascot "Ask SSB" */}
         <AskSSBMascot />
 
-        {/* Modals */}
-        <AuditCertificateModal
-          isOpen={isAuditModalOpen}
-          onClose={() => setIsAuditModalOpen(false)}
-          result={scanResult}
-          checkpoint={selectedCheckpoint}
-          officerDecision={officerDecision}
-        />
-
-        <RawJsonViewerModal
-          isOpen={isJsonModalOpen}
-          onClose={() => setIsJsonModalOpen(false)}
-          result={scanResult}
+        {/* Unified Settings & Neural Model Hub */}
+        <SettingsHubModal
+          isOpen={isSettingsHubOpen}
+          onClose={() => setIsSettingsHubOpen(false)}
+          initialTab={settingsHubTab}
+          backendOnline={backendOnline}
+          backendLatencyMs={backendLatencyMs}
+          onRefreshHealth={refreshHealth}
+          hasScanResult={scanResult !== null}
+          scanResultData={scanResult}
         />
 
         <ConnectModal
@@ -562,14 +574,18 @@ export function App() {
           onSimulatedCapture={handleSimulatedCapture}
         />
 
-        <SecurityProtocolsModal
-          isOpen={isSecurityModalOpen}
-          onClose={() => setIsSecurityModalOpen(false)}
-        />
-
-        <ModelDiagnosticsModal
-          isOpen={isModelsModalOpen}
-          onClose={() => setIsModelsModalOpen(false)}
+        <CompanionGalleryModal
+          isOpen={isCompanionGalleryOpen}
+          onClose={() => setIsCompanionGalleryOpen(false)}
+          onSelectDocument={(file, url) => {
+            handleSelectDocument(file, url);
+            setDocFromCompanion(true);
+          }}
+          onSelectLivePhoto={(file, url) => {
+            handleCaptureFace(file, url);
+            setPhotoFromCompanion(true);
+          }}
+          onOpenPairingModal={() => setIsConnectModalOpen(true)}
         />
 
         {/* 9. Interactive Voice Screen Reader Engine */}

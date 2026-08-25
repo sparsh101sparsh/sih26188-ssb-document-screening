@@ -118,32 +118,32 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
   }
 
   return (
-    <div className="w-full bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm select-none">
-      <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-        <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider font-sans">
+    <div className="w-full bg-white border border-slate-200/70 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs select-none">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+        <span className="text-xs font-bold text-slate-900 uppercase tracking-wider font-sans">
           Human-In-The-Loop Officer Authorization
         </span>
-        <span className="text-[11px] font-mono text-slate-500">
-          Section 4(2) Passport & Immigration Act • Officer: <strong className="text-slate-800">{officerBadgeId}</strong>
+        <span className="text-[10.5px] font-mono text-slate-400">
+          Section 4(2) Passport & Immigration Act • Officer: <strong className="text-slate-700">{officerBadgeId}</strong>
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
         <button
           type="button"
           onClick={() => setSelectedAction('AUTO_CLEAR')}
           disabled={disabled}
-          className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
+          className={`p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${
             selectedAction === 'AUTO_CLEAR'
-              ? 'bg-emerald-50/80 border-green border-emerald-500 border-green-500 shadow-xs'
-              : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+              ? 'bg-emerald-50/70 border-emerald-400 text-emerald-900 ring-2 ring-emerald-500/10'
+              : 'bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60'
           }`}
         >
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span className="text-xs font-bold text-slate-900 font-sans">Clear Traveler</span>
           </div>
-          <span className="text-[11px] text-slate-600 mt-1.5 font-sans">
+          <span className="text-[11px] text-slate-500 mt-1 font-sans">
             Proceed with normal transit entry
           </span>
         </button>
@@ -152,17 +152,17 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           type="button"
           onClick={() => setSelectedAction('SECONDARY_INSPECTION')}
           disabled={disabled}
-          className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
+          className={`p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${
             selectedAction === 'SECONDARY_INSPECTION'
-              ? 'bg-amber-50/80 border-orange border-amber-500 border-orange-500 shadow-xs'
-              : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+              ? 'bg-amber-50/70 border-amber-400 text-amber-900 ring-2 ring-amber-500/10'
+              : 'bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60'
           }`}
         >
           <div className="flex items-center space-x-2">
-            <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
+            <ShieldAlert className="w-3.5 h-3.5 text-amber-600 shrink-0" />
             <span className="text-xs font-bold text-slate-900 font-sans">Secondary Hold</span>
           </div>
-          <span className="text-[11px] text-slate-600 mt-1.5 font-sans">
+          <span className="text-[11px] text-slate-500 mt-1 font-sans">
             Redirect for physical document inspection
           </span>
         </button>
@@ -171,33 +171,33 @@ export const ApprovalCard: React.FC<ApprovalCardProps> = ({
           type="button"
           onClick={() => setSelectedAction('DETAIN_AND_INTERDICT')}
           disabled={disabled}
-          className={`p-3.5 rounded-xl text-left border-2 transition-all flex flex-col justify-between cursor-pointer ${
+          className={`p-3 rounded-xl text-left border transition-all flex flex-col justify-between cursor-pointer shadow-2xs ${
             selectedAction === 'DETAIN_AND_INTERDICT'
-              ? 'bg-red-50/80 border-red-500 shadow-xs'
-              : 'bg-slate-50 border-slate-200 hover:border-slate-300'
+              ? 'bg-red-50/70 border-red-400 text-red-900 ring-2 ring-red-500/10'
+              : 'bg-slate-50/60 border-slate-200/70 hover:bg-slate-100/60'
           }`}
         >
           <div className="flex items-center space-x-2">
-            <AlertOctagon className="w-4 h-4 text-red-600 shrink-0" />
+            <AlertOctagon className="w-3.5 h-3.5 text-red-600 shrink-0" />
             <span className="text-xs font-bold text-slate-900 font-sans">Interdiction Order</span>
           </div>
-          <span className="text-[11px] text-slate-600 mt-1.5 font-sans">
+          <span className="text-[11px] text-slate-500 mt-1 font-sans">
             Issue border detention & report to MHA
           </span>
         </button>
       </div>
 
-      <div className="flex items-center gap-3 pt-1">
+      <div className="flex items-center gap-2.5 pt-1">
         <input
           type="text"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder={`Officer Remarks / Duty Officer Badge ID (${officerBadgeId})…`}
-          className="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 font-sans focus:outline-none focus:border-indigo-600 focus:bg-white transition-colors"
+          className="flex-1 bg-slate-50/60 border border-slate-200 rounded-xl px-3.5 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 font-sans focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors"
         />
         <Button
           variant={selectedAction === 'DETAIN_AND_INTERDICT' ? 'danger' : 'primary'}
-          size="md"
+          size="sm"
           onClick={handleSubmit}
         >
           Commit Decision

@@ -398,6 +398,16 @@ class RiskScorer:
             delta_cross_val += 0.8
             reasons.append("[WARNING] CV-03: Minor name transliteration / spelling variance (+0.80 log-odds)")
 
+        # CV-04 Apparent Age vs Declared DOB Drift (+1.80 log-odds)
+        if cv4_warning:
+            delta_cross_val += 1.8
+            reasons.append("[WARNING] CV-04: Biometric apparent age is inconsistent with document DOB (+1.80 log-odds)")
+
+        # CV-06 Text alteration / inpainting (+3.50 log-odds)
+        if cv6_failed:
+            delta_cross_val += 3.5
+            reasons.append("[CRITICAL VIOLATION] CV-06: Localized text alteration or inpainting detected (+3.50 log-odds)")
+
         # -------------------------------------------------------------------------
         # 2. MRZ Checksum & Name Discrepancy
         # -------------------------------------------------------------------------
@@ -423,17 +433,27 @@ class RiskScorer:
         # 3. Biometrics: Face Cosine Sim & Liveness Deadbands
         # -------------------------------------------------------------------------
         if face_match_result is not None:
-            # 3.5 * psi_face(CosineSim) where psi_face = max(0.0, 0.70 - CosineSim)
-            face_deadband_penalty = 3.5 * psi_face(face_match_result.similarity)
+            # Detect model type:
+            # - AdaFace-ResNet100: deep embedding calibrated for tau_face = 0.70
+            # - SFace-ResNet: lightweight neural embedding calibrated for tau_face = 0.50 (threshold = 0.363)
+            # - Fallback HOG: spatial features calibrated for tau_face = 0.50
+            is_fallback = "Fallback" in (face_match_result.embedding_model_used or "")
+            is_sface = "SFace" in (face_match_result.embedding_model_used or "")
+            effective_tau_face = 0.50 if (is_fallback or is_sface) else 0.70
+
+            # 3.5 * psi_face(CosineSim) where psi_face = max(0.0, tau_face - CosineSim)
+            face_deadband_penalty = 3.5 * psi_face(face_match_result.similarity, effective_tau_face)
             if face_deadband_penalty > 0.0:
                 delta_face += face_deadband_penalty
+                model_note = f" [{face_match_result.embedding_model_used}, deadband={effective_tau_face:.2f}]"
                 reasons.append(
-                    f"[WARNING] Facial biometric similarity ({face_match_result.similarity:.2f}) below 0.70 deadband (+{face_deadband_penalty:.2f} log-odds)"
+                    f"[WARNING] Facial biometric similarity ({face_match_result.similarity:.2f}) below {effective_tau_face:.2f} deadband (+{face_deadband_penalty:.2f} log-odds){model_note}"
                 )
             else:
                 reasons.append(
-                    f"[INFO] Facial biometric verification confirmed (Similarity={face_match_result.similarity:.2f} >= 0.70)"
+                    f"[INFO] Facial biometric verification confirmed (Similarity={face_match_result.similarity:.2f} >= {effective_tau_face:.2f})"
                 )
+
 
         if liveness_result is not None:
             # 3.8 * psi_live(Liveness_Score) where psi_live = max(0.0, 0.85 - Liveness_Score)

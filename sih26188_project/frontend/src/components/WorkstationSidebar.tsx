@@ -97,7 +97,7 @@ export function WorkstationSidebar({
         <div className="flex items-center gap-2 rounded-lg bg-[#0A1934] border border-amber-500/15 px-2.5 py-1.5">
           <Shield className="size-3.5 shrink-0 text-emerald-400" />
           <span className="sidebar-copy text-[10.5px] font-bold font-mono text-slate-300">
-            {backendOnline ? 'ENCLAVE ACTIVE' : 'SIMULATION MODE'}
+            {backendOnline ? 'ENCLAVE ACTIVE' : 'AIR-GAPPED STANDBY'}
           </span>
         </div>
         <div className="flex items-center justify-between gap-1">

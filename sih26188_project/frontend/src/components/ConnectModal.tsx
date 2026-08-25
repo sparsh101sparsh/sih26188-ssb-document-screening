@@ -21,6 +21,7 @@ import {
   Terminal,
   Activity,
   Globe,
+  Camera,
 } from 'lucide-react';
 import {
   getCompanionInfo,
@@ -38,7 +39,7 @@ export interface ConnectModalProps {
   onSimulatedCapture?: (captureType: 'document' | 'selfie') => void;
 }
 
-// Galois Field GF(256) Math
+// Galois Field GF(256) Math for QR Code Generation
 const GF_EXP = new Uint8Array(512);
 const GF_LOG = new Uint8Array(256);
 
@@ -214,7 +215,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
   onSimulatedCapture,
 }) => {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'qr' | 'devices' | 'test' | 'guide'>('qr');
+  const [activeTab, setActiveTab] = useState<'qr' | 'devices' | 'test' | 'tethering'>('qr');
   const [companionData, setCompanionData] = useState<CompanionInfoResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [simulatingMode, setSimulatingMode] = useState<'document' | 'selfie' | null>(null);
@@ -256,13 +257,12 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
     setSimulationStatus(null);
     try {
       await simulateCompanionUpload(mode);
-      setSimulationStatus(`Simulated ${mode === 'document' ? 'passport document' : 'biometric selfie'} packet emitted.`);
-      if (onSimulatedCapture) {
-        onSimulatedCapture(mode);
-      }
-      setTimeout(fetchStatus, 300);
+      setSimulationStatus(`Dispatched ${mode === 'document' ? 'identity credential' : 'biometric capture'} packet to gateway.`);
+      setTimeout(() => {
+        onClose();
+      }, 1200);
     } catch (err: any) {
-      setSimulationStatus(`Simulation failed: ${err.message || 'Network error'}`);
+      setSimulationStatus(`Dispatch failed: ${err.message || 'Network error'}`);
     } finally {
       setSimulatingMode(null);
     }
@@ -280,12 +280,11 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
 
   if (!isOpen) return null;
 
-  const primaryGateway = serverUrl.replace(/\/$/, '');
+  const primaryGateway = companionData?.gateway_url || serverUrl.replace(/\/$/, '');
   const emulatorUrl = 'http://10.0.2.2:8000';
   const adbCmd = 'adb reverse tcp:8000 tcp:8000';
   const qrMatrix = generateQRCodeMatrix(primaryGateway);
   const activeDeviceCount = companionData?.active_devices_count ?? 0;
-  const inboxCount = companionData?.devices?.length ?? 0;
 
   return (
     <div
@@ -298,7 +297,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
     >
       <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[92vh]">
         {/* ================================================================= */}
-        {/* MODAL HEADER (UIDAI Gov Indigo) */}
+        {/* MODAL HEADER */}
         {/* ================================================================= */}
         <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-[#0F2750] via-[#102B59] to-[#1E3A8A] text-white">
           <div className="flex items-center space-x-3 min-w-0">
@@ -308,7 +307,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="text-sm sm:text-base font-bold text-white truncate">
-                  Companion Connection & Pairing Center
+                  Connect Android Field Phone
                 </h2>
                 <span
                   className={`inline-flex items-center gap-1.5 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border transition-all ${
@@ -323,12 +322,12 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                     }`}
                   />
                   {activeDeviceCount > 0
-                    ? `${activeDeviceCount} Field Unit${activeDeviceCount > 1 ? 's' : ''} Online`
-                    : 'Waiting for Device'}
+                    ? `${activeDeviceCount} Phone${activeDeviceCount > 1 ? 's' : ''} Connected`
+                    : 'Scan QR to Connect'}
                 </span>
               </div>
               <p className="text-[11px] text-slate-300 truncate mt-0.5">
-                Indo-Nepal & Indo-Bhutan Frontier Mobile Camera & Biometric Stream Sync
+                Point your Android camera at the QR code below to connect instantly
               </p>
             </div>
           </div>
@@ -342,7 +341,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
         </div>
 
         {/* ================================================================= */}
-        {/* TAB NAVIGATION BAR (UIDAI Light Tabs) */}
+        {/* TAB NAVIGATION BAR */}
         {/* ================================================================= */}
         <div className="flex items-center border-b border-slate-200 bg-slate-50 px-4 sm:px-6 gap-1 sm:gap-2 overflow-x-auto">
           <button
@@ -354,8 +353,8 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
-            <QrCode className="w-4 h-4" />
-            <span>Pairing & QR Code</span>
+            <QrCode className="w-4 h-4 text-indigo-600" />
+            <span>📱 1-Scan QR Connect</span>
           </button>
 
           <button
@@ -368,7 +367,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
             }`}
           >
             <Radio className="w-4 h-4" />
-            <span>Live Device Monitor</span>
+            <span>Live Devices</span>
             {activeDeviceCount > 0 && (
               <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-600 text-white">
                 {activeDeviceCount}
@@ -386,36 +385,59 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
             }`}
           >
             <Zap className="w-4 h-4" />
-            <span>Simulation Suite</span>
+            <span>Test Capture</span>
           </button>
 
           <button
             type="button"
-            onClick={() => setActiveTab('guide')}
+            onClick={() => setActiveTab('tethering')}
             className={`flex items-center gap-2 py-3 px-3 border-b-2 text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-              activeTab === 'guide'
+              activeTab === 'tethering'
                 ? 'border-indigo-600 text-indigo-700 bg-white'
                 : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
-            <HelpCircle className="w-4 h-4" />
-            <span>Setup Guide</span>
+            <Usb className="w-4 h-4" />
+            <span>USB / Emulator</span>
           </button>
         </div>
 
         {/* ================================================================= */}
-        {/* TAB CONTENTS (Clean White / Slate Surfaces) */}
+        {/* TAB CONTENTS */}
         {/* ================================================================= */}
         <div className="p-5 sm:p-6 overflow-y-auto space-y-5 flex-1 bg-white">
-          {/* TAB 1: PAIRING & QR CODE */}
+          {/* TAB 0: 1-SCAN QR CODE & WI-FI CONNECT */}
           {activeTab === 'qr' && (
             <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row items-center gap-5 p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+              {/* Connected Banner (if active) */}
+              {activeDeviceCount > 0 && (
+                <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                    <div>
+                      <span className="font-bold text-xs block">
+                        ✓ Android Phone Connected & Ready!
+                      </span>
+                      <span className="text-[11px] text-emerald-700 font-mono">
+                        {companionData?.devices?.[0]?.client_ip
+                          ? `Device IP: ${companionData.devices[0].client_ip}`
+                          : 'Live camera stream linked'}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase bg-emerald-600 text-white px-2 py-0.5 rounded-md">
+                    ONLINE
+                  </span>
+                </div>
+              )}
+
+              {/* Main QR Card */}
+              <div className="flex flex-col sm:flex-row items-center gap-5 p-5 rounded-2xl bg-gradient-to-br from-slate-50 to-indigo-50/40 border border-indigo-100 shadow-sm">
                 {/* SVG Pure Matrix QR Code */}
-                <div className="p-3 bg-white rounded-xl shadow-sm border border-slate-200 shrink-0 flex flex-col items-center">
+                <div className="p-3.5 bg-white rounded-xl shadow-md border border-slate-200 shrink-0 flex flex-col items-center">
                   <svg
-                    width="136"
-                    height="136"
+                    width="150"
+                    height="150"
                     viewBox={`0 0 ${qrMatrix.length} ${qrMatrix.length}`}
                     shapeRendering="crispEdges"
                     className="rounded-sm"
@@ -433,107 +455,94 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                       ))
                     )}
                   </svg>
-                  <span className="text-[9.5px] font-bold text-slate-600 uppercase tracking-widest mt-1.5 font-mono">
-                    SCAN TO PAIR
+                  <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-widest mt-2 font-mono flex items-center gap-1">
+                    <Camera className="w-3 h-3" /> SCAN WITH APP
                   </span>
                 </div>
 
-                <div className="flex-1 min-w-0 space-y-2.5 text-center sm:text-left">
-                  <div className="flex items-center justify-center sm:justify-start gap-1.5 text-indigo-700 text-xs font-bold uppercase tracking-wider">
-                    <Wifi className="w-3.5 h-3.5 text-indigo-600" />
-                    <span>Border Wi-Fi / LAN Gateway</span>
+                {/* 3-Step Instant Instructions */}
+                <div className="flex-1 min-w-0 space-y-3">
+                  <div className="space-y-1">
+                    <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                      <span>How to Connect in 3 Seconds:</span>
+                    </h3>
+                    <ol className="space-y-2 text-xs text-slate-700">
+                      <li className="flex items-start gap-2">
+                        <span className="w-5 h-5 rounded-full bg-indigo-600 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                          1
+                        </span>
+                        <span>Open the <strong>SSB Field Screening</strong> app on your Android phone.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="w-5 h-5 rounded-full bg-indigo-600 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                          2
+                        </span>
+                        <span>Tap <strong>"CONNECT"</strong> at the bottom → tap <strong>"Open QR Code Scanner"</strong>.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                          3
+                        </span>
+                        <span>Point the phone's camera at this QR code → <strong>Connected instantly!</strong></span>
+                      </li>
+                    </ol>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Point your Android <strong>SSB Field Camera</strong> scanner at this QR code or enter the Gateway URL manually in companion app settings:
-                  </p>
-                  <div className="flex items-center justify-between gap-2 bg-white px-3.5 py-2.5 rounded-xl border border-slate-300 shadow-xs">
-                    <code className="text-xs font-mono text-slate-900 font-semibold truncate select-all">
-                      {primaryGateway}
-                    </code>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(primaryGateway, 'gateway')}
-                      className={`inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-md transition-all shrink-0 cursor-pointer ${
-                        copiedKey === 'gateway'
-                          ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                          : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700'
-                      }`}
-                    >
-                      {copiedKey === 'gateway' ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-700" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
+
+                  {/* Gateway IP with Copy */}
+                  <div className="space-y-1 pt-1">
+                    <span className="text-[11px] text-slate-500 font-semibold block">
+                      Manual Address (or Auto-Find on phone):
+                    </span>
+                    <div className="flex items-center justify-between gap-2 bg-white px-3 py-2 rounded-xl border border-slate-300 shadow-2xs">
+                      <code className="text-xs font-mono text-indigo-950 font-bold truncate select-all">
+                        {primaryGateway}
+                      </code>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(primaryGateway, 'gateway')}
+                        className={`inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-md transition-all shrink-0 cursor-pointer ${
+                          copiedKey === 'gateway'
+                            ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                            : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700'
+                        }`}
+                      >
+                        {copiedKey === 'gateway' ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-700" />
+                            <span>Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Copy</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Alternative Options Grid */}
-              <div className="space-y-2.5">
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                  Alternative Connection Modes & Tethering Options
-                </span>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500">
-                        <Cpu className="w-4 h-4 text-indigo-600" />
-                      </div>
-                      <div className="min-w-0">
-                        <span className="font-semibold text-slate-800 block truncate">Android Emulator</span>
-                        <code className="text-[11px] font-mono text-slate-500 truncate block">
-                          {emulatorUrl}
-                        </code>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(emulatorUrl, 'emu')}
-                      className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer"
-                    >
-                      {copiedKey === 'emu' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500">
-                        <Usb className="w-4 h-4 text-indigo-600" />
-                      </div>
-                      <div className="min-w-0">
-                        <span className="font-semibold text-slate-800 block truncate">USB Cable (ADB Reverse)</span>
-                        <code className="text-[11px] font-mono text-slate-500 truncate block">
-                          {adbCmd}
-                        </code>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(adbCmd, 'adb')}
-                      className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer"
-                    >
-                      {copiedKey === 'adb' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-                </div>
+              {/* Wi-Fi Troubleshooting Tip */}
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 flex items-center justify-between">
+                <span>💡 Make sure your laptop and Android phone are connected to the <strong>same Wi-Fi network / hotspot</strong>.</span>
+                <button
+                  type="button"
+                  onClick={fetchStatus}
+                  className="px-2 py-1 text-[11px] font-semibold text-slate-700 hover:bg-slate-200 rounded-md transition-all shrink-0"
+                >
+                  <RefreshCw className={`w-3 h-3 inline mr-1 ${isLoading ? 'animate-spin' : ''}`} /> Refresh Status
+                </button>
               </div>
             </div>
           )}
 
-          {/* TAB 2: LIVE DEVICE MONITOR */}
+          {/* TAB 1: LIVE DEVICE MONITOR */}
           {activeTab === 'devices' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-bold text-sm text-slate-900">Registered Field Units</h3>
+                  <h3 className="font-bold text-sm text-slate-900">Connected Android Devices</h3>
                   <p className="text-xs text-slate-500">
                     Live telemetry from synchronized officer Android handsets.
                   </p>
@@ -557,7 +566,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                       className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                         <div>
                           <span className="font-bold text-slate-800 block">
                             {dev.user_agent || dev.client_ip}
@@ -567,8 +576,8 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                           </span>
                         </div>
                       </div>
-                      <span className="text-[10px] font-mono bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded-full font-bold">
-                        Connected
+                      <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">
+                        Online
                       </span>
                     </div>
                   ))}
@@ -576,22 +585,22 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
               ) : (
                 <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
                   <Smartphone className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-                  <p className="text-xs font-bold text-slate-700">No Android Devices Paired Yet</p>
+                  <p className="text-xs font-bold text-slate-700">No Android Devices Connected Yet</p>
                   <p className="text-xs text-slate-500 mt-1">
-                    Scan the QR code on Tab 1 to pair field officer mobile terminals.
+                    Scan the QR code on Tab 1 using the SSB Android app to pair your phone.
                   </p>
                 </div>
               )}
             </div>
           )}
 
-          {/* TAB 3: SIMULATION SUITE */}
+          {/* TAB 2: TEST DISPATCH */}
           {activeTab === 'test' && (
             <div className="space-y-4">
               <div>
-                <h3 className="font-bold text-sm text-slate-900">1-Click Test Harness & Virtual Field Unit</h3>
+                <h3 className="font-bold text-sm text-slate-900">Simulate Live Camera Capture</h3>
                 <p className="text-xs text-slate-500">
-                  Simulate live traveler document and selfie stream packets without physical hardware.
+                  Inject live traveler document and selfie stream packets directly to test the screening engine.
                 </p>
               </div>
 
@@ -604,10 +613,10 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                 >
                   <div className="flex items-center space-x-2 text-indigo-700 font-bold text-xs mb-1">
                     <FileText className="w-4 h-4" />
-                    <span>Emit Document Capture</span>
+                    <span>Dispatch Document Packet</span>
                   </div>
                   <p className="text-[11px] text-slate-500">
-                    Sends a simulated high-res passport document to the screening bay.
+                    Dispatches a sample passport / identity document packet to the screening bay.
                   </p>
                 </button>
 
@@ -619,10 +628,10 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                 >
                   <div className="flex items-center space-x-2 text-emerald-700 font-bold text-xs mb-1">
                     <User className="w-4 h-4" />
-                    <span>Emit Traveler Selfie</span>
+                    <span>Dispatch Biometric Capture</span>
                   </div>
                   <p className="text-[11px] text-slate-500">
-                    Sends a simulated traveler facial portrait for 1:1 biometric matching.
+                    Dispatches a live facial portrait packet for 1:1 biometric matching.
                   </p>
                 </button>
               </div>
@@ -638,16 +647,56 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
             </div>
           )}
 
-          {/* TAB 4: SETUP GUIDE */}
-          {activeTab === 'guide' && (
-            <div className="space-y-4 text-xs text-slate-700">
-              <h3 className="font-bold text-sm text-slate-900">Officer Mobile Terminal Setup SOP</h3>
-              <ol className="list-decimal pl-5 space-y-2">
-                <li>Install <strong>SSB Field Camera</strong> on officer Android device (Android 10+).</li>
-                <li>Connect both the desktop screening terminal and Android device to the secure border checkpoint Wi-Fi / LAN.</li>
-                <li>Launch the app and scan the QR code displayed on Tab 1.</li>
-                <li>Hold the phone steady to snap traveler passports or live facial portraits. Images stream instantly to the screening bay.</li>
-              </ol>
+          {/* TAB 3: USB / EMULATOR TETHERING */}
+          {activeTab === 'tethering' && (
+            <div className="space-y-3">
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                USB Cable & Emulator Connection Modes
+              </span>
+
+              <div className="grid grid-cols-1 gap-2.5">
+                <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500">
+                      <Cpu className="w-4 h-4 text-indigo-600" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-semibold text-slate-800 block truncate">Android Emulator</span>
+                      <code className="text-[11px] font-mono text-slate-500 truncate block">
+                        {emulatorUrl}
+                      </code>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(emulatorUrl, 'emu')}
+                    className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer"
+                  >
+                    {copiedKey === 'emu' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500">
+                      <Usb className="w-4 h-4 text-indigo-600" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-semibold text-slate-800 block truncate">USB Cable (ADB Reverse)</span>
+                      <code className="text-[11px] font-mono text-slate-500 truncate block">
+                        {adbCmd}
+                      </code>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(adbCmd, 'adb')}
+                    className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer"
+                  >
+                    {copiedKey === 'adb' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -657,7 +706,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
         {/* ================================================================= */}
         <div className="flex items-center justify-between px-6 py-3.5 bg-slate-50 border-t border-slate-200 text-xs">
           <span className="text-slate-500 font-mono text-[11px]">
-            SSB Air-Gapped Local Gateway Active (Port 8000)
+            SSB Gateway Port 8000 Active
           </span>
           <button
             type="button"

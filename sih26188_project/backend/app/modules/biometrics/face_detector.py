@@ -236,49 +236,107 @@ def align_face_112x112(
     return image
 
 
-class SCRFDFaceDetector:
+def _enhance_face_crop(face_crop: Any) -> Optional[Any]:
     """
-    InsightFace SCRFD-10GF Single-Shot Scale-Aware Face and 5-Landmark Detector.
-    Uses ONNX Runtime with execution providers selected dynamically from backend_selector.
-    Provides robust, graceful fallback when model checkpoint is not present.
+    Applies CLAHE contrast enhancement and mild denoising to a face crop.
+
+    This is critical for matching low-contrast Aadhaar card thumbnail photos
+    against high-quality live selfies. Without enhancement, the HOG gradient
+    features of a dark/washed-out card photo differ radically from a bright selfie,
+    producing artificially low cosine similarity scores.
+
+    Steps:
+      1. Convert BGR → YCrCb color space
+      2. Apply CLAHE (clipLimit=2.0, 8×8 tile grid) to the Y (luminance) channel
+      3. Convert back to BGR
+      4. Apply mild fast NL-means denoising to reduce card surface noise
+
+    Returns enhanced numpy array, or None if enhancement fails.
+    """
+    try:
+        import cv2  # type: ignore
+        import numpy as np  # type: ignore
+
+        if face_crop is None or not isinstance(face_crop, np.ndarray):
+            return None
+        if face_crop.size == 0 or face_crop.shape[0] < 10 or face_crop.shape[1] < 10:
+            return None
+
+        if len(face_crop.shape) == 2:
+            # Grayscale input
+            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+            enhanced = clahe.apply(face_crop)
+            return cv2.cvtColor(enhanced, cv2.COLOR_GRAY2BGR)
+
+        # BGR input → YCrCb
+        ycrcb = cv2.cvtColor(face_crop, cv2.COLOR_BGR2YCrCb)
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+        ycrcb[:, :, 0] = clahe.apply(ycrcb[:, :, 0])
+        enhanced = cv2.cvtColor(ycrcb, cv2.COLOR_YCrCb2BGR)
+
+        # Mild denoising (h=5 is gentle enough to preserve facial features)
+        denoised = cv2.fastNlMeansDenoisingColored(enhanced, None, h=5, hColor=5, templateWindowSize=7, searchWindowSize=21)
+        return denoised
+    except Exception:
+        return None
+
+
+class SCRFDFaceDetector:
+
+    """
+    InsightFace SCRFD-10GF / OpenCV YuNet Single-Shot Scale-Aware Face and 5-Landmark Detector.
+    Uses ONNX Runtime / OpenCV DNN with execution providers selected dynamically from backend_selector.
+    Provides deep neural face detection and 5-point Umeyama canonical facial alignment.
     """
 
     def __init__(self, model_path: Optional[Union[str, Path]] = None):
         self.model_path = Path(model_path) if model_path else settings.get_model_path(settings.SCRFD_MODEL)
+        self.yunet_model_path = settings.get_model_path("face_detection_yunet_2023mar.onnx")
         self.session = None
         self.input_name = "input.1"
         self.output_names = []
         self._is_loaded = False
+        self._yunet_loaded = False
         self._load_model()
 
     def _load_model(self) -> None:
-        """Initializes ONNX Runtime session if model checkpoint exists."""
-        if not self.model_path.exists():
-            logger.warning(
-                f"[MODEL PENDING] SCRFD-10GF weights not found at '{self.model_path}'. "
-                "FaceDetector will operate in high-precision algorithmic fallback mode."
-            )
-            return
+        """Initializes SCRFD ONNX Runtime session or YuNet DNN neural detector."""
+        if self.model_path.exists():
+            try:
+                import onnxruntime as ort  # type: ignore
 
-        try:
-            import onnxruntime as ort  # type: ignore
+                providers = get_optimal_execution_providers()
+                opts = ort.SessionOptions()
+                opts.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+                self.session = ort.InferenceSession(str(self.model_path), sess_options=opts, providers=providers)
+                self.input_name = self.session.get_inputs()[0].name
+                self.output_names = [o.name for o in self.session.get_outputs()]
+                self._is_loaded = True
+                logger.info(f"[MODEL READY] InsightFace SCRFD-10GF initialized from {self.model_path} with {providers}")
+                return
+            except Exception as e:
+                logger.warning(f"Failed to load SCRFD ONNX session from {self.model_path}: {e}.")
 
-            providers = get_optimal_execution_providers()
-            opts = ort.SessionOptions()
-            opts.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
-            self.session = ort.InferenceSession(str(self.model_path), sess_options=opts, providers=providers)
-            self.input_name = self.session.get_inputs()[0].name
-            self.output_names = [o.name for o in self.session.get_outputs()]
-            self._is_loaded = True
-            logger.info(f"[MODEL READY] InsightFace SCRFD-10GF initialized from {self.model_path} with {providers}")
-        except Exception as e:
-            logger.warning(f"Failed to load SCRFD ONNX session from {self.model_path}: {e}. Fallback active.")
-            self.session = None
-            self._is_loaded = False
+        # Check for YuNet ONNX Neural Face Detector
+        if self.yunet_model_path.exists():
+            try:
+                import cv2  # type: ignore
+                # Test creating detector
+                test_yn = cv2.FaceDetectorYN.create(str(self.yunet_model_path), "", (320, 320))
+                self._yunet_loaded = True
+                logger.info(f"[MODEL READY] YuNet Neural Face Detector loaded from {self.yunet_model_path}")
+                return
+            except Exception as e:
+                logger.warning(f"Failed to initialize YuNet Neural Detector from {self.yunet_model_path}: {e}")
+
+        logger.warning(
+            f"[MODEL PENDING] SCRFD-10GF / YuNet weights not found. "
+            "FaceDetector will operate in high-precision algorithmic fallback mode."
+        )
 
     @property
     def is_model_loaded(self) -> bool:
-        return self._is_loaded
+        return self._is_loaded or self._yunet_loaded
 
     def detect_faces(
         self,
@@ -302,6 +360,8 @@ class SCRFDFaceDetector:
 
         if self._is_loaded and self.session is not None and img_array is not None:
             faces, landmarks_list, crops = self._run_scrfd_onnx(img_array, img_h, img_w, conf_threshold, nms_threshold)
+        elif self._yunet_loaded and self.yunet_model_path.exists() and img_array is not None:
+            faces, landmarks_list, crops = self._run_yunet_onnx(img_array, img_h, img_w, conf_threshold, nms_threshold)
         else:
             faces, landmarks_list, crops = self._run_fallback_detector(img_array, img_h, img_w)
 
@@ -317,6 +377,104 @@ class SCRFDFaceDetector:
         )
 
         return result, crops
+
+    def _run_yunet_onnx(
+        self,
+        img_array: Any,
+        img_h: int,
+        img_w: int,
+        conf_threshold: float = 0.5,
+        nms_threshold: float = 0.3,
+    ) -> Tuple[List[FaceBBox], List[List[List[float]]], List[Any]]:
+        """
+        Executes deep neural face detection using YuNet ONNX with 5-point facial landmark alignment.
+        Exclusively isolates the facial region from identity cards and selfies.
+        """
+        faces: List[FaceBBox] = []
+        landmarks_res: List[List[List[float]]] = []
+        crops: List[Any] = []
+
+        try:
+            import cv2  # type: ignore
+            import numpy as np  # type: ignore
+
+            yunet = cv2.FaceDetectorYN.create(
+                str(self.yunet_model_path),
+                "",
+                (img_w, img_h),
+                score_threshold=max(0.40, conf_threshold),
+                nms_threshold=nms_threshold,
+                top_k=5000,
+            )
+            yunet.setInputSize((img_w, img_h))
+            _, detections = yunet.detect(img_array)
+
+            if detections is not None and len(detections) > 0:
+                # Filter valid face candidates: must have min size and plausible aspect ratio
+                valid_dets = []
+                for det in detections:
+                    fx, fy, fw, fh = int(det[0]), int(det[1]), int(det[2]), int(det[3])
+                    conf = float(det[-1])
+                    if fw >= 30 and fh >= 35 and 0.5 <= (fw / max(1, fh)) <= 1.8:
+                        valid_dets.append(det)
+
+                if not valid_dets:
+                    valid_dets = list(detections)
+
+                # Sort by face bounding box area * confidence descending (pick primary human portrait)
+                valid_dets = sorted(valid_dets, key=lambda d: (d[2] * d[3]) * float(d[-1]), reverse=True)
+
+                for det in valid_dets:
+                    fx, fy, fw, fh = int(det[0]), int(det[1]), int(det[2]), int(det[3])
+                    conf = float(det[-1])
+
+                    bx1 = max(0, fx)
+                    by1 = max(0, fy)
+                    bx2 = min(img_w, fx + fw)
+                    by2 = min(img_h, fy + fh)
+
+                    # YuNet 5 landmarks: right_eye, left_eye, nose_tip, right_mouth, left_mouth
+                    kp = det[4:14].reshape(5, 2).tolist() if len(det) >= 14 else None
+                    if kp:
+                        eye_l = kp[0] if kp[0][0] < kp[1][0] else kp[1]
+                        eye_r = kp[1] if kp[0][0] < kp[1][0] else kp[0]
+                        mouth_l = kp[3] if kp[3][0] < kp[4][0] else kp[4]
+                        mouth_r = kp[4] if kp[3][0] < kp[4][0] else kp[3]
+                        nose = kp[2]
+                        landmarks = [
+                            [round(eye_l[0], 2), round(eye_l[1], 2)],      # Left eye (viewer's left)
+                            [round(eye_r[0], 2), round(eye_r[1], 2)],      # Right eye (viewer's right)
+                            [round(nose[0], 2), round(nose[1], 2)],        # Nose tip
+                            [round(mouth_l[0], 2), round(mouth_l[1], 2)],  # Left mouth corner
+                            [round(mouth_r[0], 2), round(mouth_r[1], 2)],  # Right mouth corner
+                        ]
+                    else:
+                        bw, bh = bx2 - bx1, by2 - by1
+                        landmarks = [
+                            [round(bx1 + 0.33 * bw, 2), round(by1 + 0.38 * bh, 2)],
+                            [round(bx1 + 0.67 * bw, 2), round(by1 + 0.38 * bh, 2)],
+                            [round(bx1 + 0.50 * bw, 2), round(by1 + 0.58 * bh, 2)],
+                            [round(bx1 + 0.36 * bw, 2), round(by1 + 0.76 * bh, 2)],
+                            [round(bx1 + 0.64 * bw, 2), round(by1 + 0.76 * bh, 2)],
+                        ]
+
+                    face = FaceBBox(
+                        bbox=[bx1, by1, bx2, by2],
+                        confidence=round(conf, 4),
+                        landmarks=landmarks,
+                    )
+                    faces.append(face)
+                    landmarks_res.append(landmarks)
+
+                    # Perform canonical 5-point Umeyama affine alignment to 112x112
+                    aligned_face = align_face_112x112(img_array, landmarks)
+                    crops.append(aligned_face)
+
+                return faces, landmarks_res, crops
+        except Exception as e:
+            logger.warning(f"YuNet ONNX inference error: {e}. Executing fallback.")
+
+        return self._run_fallback_detector(img_array, img_h, img_w)
 
     def _preprocess_input_image(self, image_input: Any) -> Tuple[Optional[Any], int, int]:
         """Normalizes various input formats into image array and dimensions."""
@@ -502,18 +660,218 @@ class SCRFDFaceDetector:
         img_w: int,
     ) -> Tuple[List[FaceBBox], List[List[List[float]]], List[Any]]:
         """
-        High-precision algorithmic face candidate fallback when SCRFD ONNX model is not present.
-        Uses OpenCV Cascade if available or geometric face bounding box derivation.
+        Progressive face candidate fallback when SCRFD ONNX model is not present.
+
+        Attempts in order:
+          1. OpenCV YuNet (cv2.FaceDetectorYN) — anchor-free, detects faces from 10x10 px,
+             ideal for small Aadhaar card thumbnail faces.
+          2. OpenCV Haar Cascade (haarcascade_frontalface_default) — reliable on portraits.
+          3. Geometric bbox — ONLY used for near-square portrait images as absolute last resort.
+             NOT used for wide/landscape document images to avoid cropping card text as "face".
         """
         logger.debug(f"Running fallback face localization on image size ({img_w}x{img_h}).")
         faces: List[FaceBBox] = []
         landmarks_res: List[List[List[float]]] = []
         crops: List[Any] = []
 
-        x1 = max(0, int(round(0.15 * img_w)))
-        y1 = max(0, int(round(0.10 * img_h)))
-        x2 = min(img_w, int(round(0.85 * img_w)))
-        y2 = min(img_h, int(round(0.90 * img_h)))
+        img_array = None
+        try:
+            import cv2  # type: ignore
+            import numpy as np  # type: ignore
+
+            if isinstance(image, np.ndarray):
+                img_array = image.copy()
+                if len(img_array.shape) == 2:
+                    img_array = cv2.cvtColor(img_array, cv2.COLOR_GRAY2BGR)
+            elif isinstance(image, (bytes, bytearray)):
+                nparr = np.frombuffer(image, np.uint8)
+                img_array = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        except Exception:
+            pass
+
+        # -----------------------------------------------------------------------
+        # ATTEMPT 1: OpenCV YuNet — anchor-free detector, handles tiny faces well
+        # -----------------------------------------------------------------------
+        if img_array is not None:
+            try:
+                import cv2  # type: ignore
+                import numpy as np  # type: ignore
+
+                yunet = cv2.FaceDetectorYN.create(
+                    model="",  # empty path → use the built-in model if available
+                    config="",
+                    input_size=(img_w, img_h),
+                    score_threshold=0.45,   # lower threshold to catch small card photos
+                    nms_threshold=0.30,
+                    top_k=5000,
+                )
+                yunet.setInputSize((img_w, img_h))
+                _, detections = yunet.detect(img_array)
+
+                if detections is not None and len(detections) > 0:
+                    # Sort by confidence descending, pick best face
+                    detections = sorted(detections, key=lambda d: d[-1], reverse=True)
+                    det = detections[0]
+                    fx, fy, fw, fh = int(det[0]), int(det[1]), int(det[2]), int(det[3])
+                    conf = float(det[-1])
+
+                    # YuNet returns 5 keypoints: re, le, nose, rmouth, lmouth
+                    kp = det[4:14].reshape(5, 2).tolist() if len(det) >= 14 else None
+
+                    bx1 = max(0, fx)
+                    by1 = max(0, fy)
+                    bx2 = min(img_w, fx + fw)
+                    by2 = min(img_h, fy + fh)
+                    bw = max(1, bx2 - bx1)
+                    bh = max(1, by2 - by1)
+
+                    if kp:
+                        # YuNet order: right_eye, left_eye, nose_tip, right_mouth, left_mouth
+                        landmarks = [
+                            [kp[1][0], kp[1][1]],  # left_eye
+                            [kp[0][0], kp[0][1]],  # right_eye
+                            [kp[2][0], kp[2][1]],  # nose
+                            [kp[4][0], kp[4][1]],  # left_mouth
+                            [kp[3][0], kp[3][1]],  # right_mouth
+                        ]
+                    else:
+                        landmarks = [
+                            [round(bx1 + 0.33 * bw, 2), round(by1 + 0.38 * bh, 2)],
+                            [round(bx1 + 0.67 * bw, 2), round(by1 + 0.38 * bh, 2)],
+                            [round(bx1 + 0.50 * bw, 2), round(by1 + 0.58 * bh, 2)],
+                            [round(bx1 + 0.36 * bw, 2), round(by1 + 0.76 * bh, 2)],
+                            [round(bx1 + 0.64 * bw, 2), round(by1 + 0.76 * bh, 2)],
+                        ]
+
+                    face = FaceBBox(bbox=[bx1, by1, bx2, by2], confidence=round(conf, 4), landmarks=landmarks)
+                    faces.append(face)
+                    landmarks_res.append(landmarks)
+
+                    try:
+                        # CLAHE enhance the face crop before alignment for low-contrast card photos
+                        face_crop_raw = img_array[by1:by2, bx1:bx2]
+                        face_crop_enh = _enhance_face_crop(face_crop_raw)
+                        aligned_crop = align_face_112x112(face_crop_enh if face_crop_enh is not None else image, landmarks)
+                        crops.append(aligned_crop)
+                    except Exception:
+                        crops.append(image)
+
+                    logger.debug(f"YuNet fallback detected face at [{bx1},{by1},{bx2},{by2}] conf={conf:.3f}")
+                    return faces, landmarks_res, crops
+            except Exception as e:
+                logger.debug(f"YuNet fallback unavailable: {e}")
+
+        # -----------------------------------------------------------------------
+        # ATTEMPT 2: Skin-tone HSV segmentation for face region detection.
+        # Works on cv2 5.0 which removed CascadeClassifier from the main module.
+        # For document images: searches the LEFT 35% of width (standard Aadhaar
+        # card portrait placement) to avoid confusing background elements.
+        # For selfie/portrait images: searches the full image.
+        # -----------------------------------------------------------------------
+        if img_array is not None:
+            try:
+                import cv2  # type: ignore
+                import numpy as np  # type: ignore
+
+                aspect_ratio_check = img_w / max(img_h, 1)
+
+                # Define search region of interest for face
+                if aspect_ratio_check >= 1.2:
+                    # Landscape document — face is in left side (Aadhaar layout)
+                    roi_x_end = int(img_w * 0.38)
+                    roi_y_end = int(img_h * 0.80)
+                    search_roi = img_array[0:roi_y_end, 0:roi_x_end]
+                    roi_offset_x, roi_offset_y = 0, 0
+                else:
+                    # Portrait/square — search full image
+                    search_roi = img_array
+                    roi_offset_x, roi_offset_y = 0, 0
+
+                # Skin-tone detection in HSV space
+                hsv = cv2.cvtColor(search_roi, cv2.COLOR_BGR2HSV)
+                clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+                # CLAHE on V channel to normalize lighting
+                h_ch, s_ch, v_ch = cv2.split(hsv)
+                v_eq = clahe.apply(v_ch)
+                hsv_eq = cv2.merge([h_ch, s_ch, v_eq])
+
+                # Broader skin tone range covers multiple Indian skin tones
+                lower_skin = np.array([0, 25, 50], dtype=np.uint8)
+                upper_skin = np.array([35, 255, 255], dtype=np.uint8)
+                mask = cv2.inRange(hsv_eq, lower_skin, upper_skin)
+
+                # Morphological closing to fill small gaps within face region
+                kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))
+                mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+
+                contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                if contours:
+                    # Pick largest skin region — most likely to be the face
+                    biggest = max(contours, key=cv2.contourArea)
+                    area = cv2.contourArea(biggest)
+                    rx, ry, rw, rh = cv2.boundingRect(biggest)
+
+                    # Only accept if the region is plausibly face-sized
+                    # (at least 0.5% of image area, roughly face-like aspect ratio)
+                    min_area = img_w * img_h * 0.005
+                    if area >= min_area and rw > 30 and rh > 30:
+                        # Convert ROI coords back to full image coords
+                        bx1 = max(0, rx + roi_offset_x)
+                        by1 = max(0, ry + roi_offset_y)
+                        bx2 = min(img_w, rx + rw + roi_offset_x)
+                        by2 = min(img_h, ry + rh + roi_offset_y)
+                        bw = max(1, bx2 - bx1)
+                        bh = max(1, by2 - by1)
+
+                        landmarks = [
+                            [round(bx1 + 0.33 * bw, 2), round(by1 + 0.38 * bh, 2)],
+                            [round(bx1 + 0.67 * bw, 2), round(by1 + 0.38 * bh, 2)],
+                            [round(bx1 + 0.50 * bw, 2), round(by1 + 0.58 * bh, 2)],
+                            [round(bx1 + 0.36 * bw, 2), round(by1 + 0.76 * bh, 2)],
+                            [round(bx1 + 0.64 * bw, 2), round(by1 + 0.76 * bh, 2)],
+                        ]
+
+                        face = FaceBBox(bbox=[bx1, by1, bx2, by2], confidence=0.75, landmarks=landmarks)
+                        faces.append(face)
+                        landmarks_res.append(landmarks)
+
+                        try:
+                            face_crop_raw = img_array[by1:by2, bx1:bx2]
+                            face_crop_enh = _enhance_face_crop(face_crop_raw)
+                            aligned_crop = align_face_112x112(face_crop_enh if face_crop_enh is not None else image, landmarks)
+                            crops.append(aligned_crop)
+                        except Exception:
+                            crops.append(image)
+
+                        logger.debug(f"Skin-tone fallback detected face at [{bx1},{by1},{bx2},{by2}] area={area:.0f}")
+                        return faces, landmarks_res, crops
+            except Exception as e:
+                logger.debug(f"Skin-tone fallback error: {e}")
+
+
+        # -----------------------------------------------------------------------
+        # ATTEMPT 3: Geometric bbox — ONLY for portrait-aspect images (selfies),
+        #            skip for landscape/document-aspect images to avoid cropping
+        #            card text, logos, or graphics as "face".
+        # -----------------------------------------------------------------------
+        aspect_ratio = img_w / max(img_h, 1)
+        is_portrait_like = aspect_ratio < 1.2  # selfies are square/portrait; ID cards are landscape
+
+        if is_portrait_like:
+            logger.debug("Using geometric portrait bbox as last resort (portrait aspect image).")
+            x1 = max(0, int(round(0.15 * img_w)))
+            y1 = max(0, int(round(0.10 * img_h)))
+            x2 = min(img_w, int(round(0.85 * img_w)))
+            y2 = min(img_h, int(round(0.90 * img_h)))
+        else:
+            # For landscape document images: assume face is in the LEFT ~35% of width
+            # (standard Aadhaar / Indian ID card layout: face on left side)
+            logger.debug("Using ID-card-layout left-region bbox for landscape document image.")
+            x1 = max(0, int(round(0.02 * img_w)))
+            y1 = max(0, int(round(0.12 * img_h)))
+            x2 = min(img_w, int(round(0.38 * img_w)))
+            y2 = min(img_h, int(round(0.88 * img_h)))
+
         w = max(1, x2 - x1)
         h = max(1, y2 - y1)
 
@@ -526,7 +884,7 @@ class SCRFDFaceDetector:
 
         face = FaceBBox(
             bbox=[x1, y1, x2, y2],
-            confidence=0.88,
+            confidence=0.55,  # lower confidence since this is a geometric guess
             landmarks=landmarks,
         )
         faces.append(face)
@@ -534,7 +892,12 @@ class SCRFDFaceDetector:
 
         if image is not None:
             try:
-                aligned_crop = align_face_112x112(image, landmarks)
+                if img_array is not None:
+                    face_crop_raw = img_array[y1:y2, x1:x2]
+                    face_crop_enh = _enhance_face_crop(face_crop_raw)
+                    aligned_crop = align_face_112x112(face_crop_enh if face_crop_enh is not None else image, landmarks)
+                else:
+                    aligned_crop = align_face_112x112(image, landmarks)
                 crops.append(aligned_crop)
             except Exception:
                 crops.append(image)

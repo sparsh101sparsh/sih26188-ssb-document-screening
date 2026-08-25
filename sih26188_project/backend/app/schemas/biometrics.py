@@ -60,6 +60,12 @@ class FaceMatchResult(BaseModel):
     apparent_age_id: Optional[int] = Field(default=None, description="Estimated age from ID photo")
     apparent_age_live: Optional[int] = Field(default=None, description="Estimated age from live capture")
     age_drift_years: Optional[int] = Field(default=None, description="Difference in years between ID photo and live face")
+    calibrated_confidence: float = Field(
+        default=0.0,
+        ge=0.0,
+        le=1.0,
+        description="Calibrated operational match confidence percentage (0.0 to 1.0 = 0% to 100%)"
+    )
     watchlist_hit: bool = Field(default=False, description="True if matched against offline high-risk vector index")
     watchlist_distance: Optional[float] = Field(default=None, description="Cosine distance to nearest watchlist neighbor")
     processing_time_ms: float = Field(default=0.0, description="Matching execution latency in milliseconds")

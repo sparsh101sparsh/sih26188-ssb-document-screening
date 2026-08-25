@@ -406,13 +406,36 @@ class MetadataParser:
         return tables
 
     def _is_custom_dqt(self, table: List[int]) -> bool:
-        """Determines if a quantization table diverges significantly from standard JPEG scaling."""
+        """Determines if a quantization table diverges significantly from standard JPEG scaling.
+
+        Evaluates whether the quantization matrix conforms to:
+          1. Standard IJG (Independent JPEG Group) quality curves (Q1..Q100).
+          2. Standard smartphone camera ISP profiles (monotonic high-frequency dampening).
+
+        A table is flagged as custom only if it exhibits unnatural non-monotonic frequency
+        disruptions or cannot match any valid standard compression profile.
+        """
         if len(table) != 64:
             return False
-        # Calculate deviation from standard table
-        diffs = sum(abs(table[i] - STANDARD_LUMINANCE_DQT[i]) for i in range(64))
-        # Large deviation indicates custom software quantization matrix
-        return diffs > 300
+
+        # 1. Check if table matches any standard IJG quality curve (Q1..Q100)
+        for q in range(1, 101):
+            s = 5000 / q if q < 50 else 200 - q * 2
+            scaled = [max(1, min(255, int((STANDARD_LUMINANCE_DQT[i] * s + 50) / 100))) for i in range(64)]
+            diff = sum(abs(table[i] - scaled[i]) for i in range(64))
+            if diff < 250:
+                return False
+
+        # 2. Check if table follows valid camera sensor ISP compression (low-freq < high-freq)
+        low_freq_mean = sum(table[:8]) / 8.0
+        high_freq_mean = sum(table[-8:]) / 8.0
+        if low_freq_mean <= high_freq_mean and max(table) <= 255 and min(table) >= 1:
+            # Check for excessive erratic jumps between adjacent zigzag entries
+            jumps = sum(1 for i in range(63) if abs(table[i+1] - table[i]) > 100)
+            if jumps <= 2:
+                return False
+
+        return True
 
 
 # Global Singleton
