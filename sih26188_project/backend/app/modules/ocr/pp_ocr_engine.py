@@ -164,29 +164,71 @@ def extract_structured_fields(raw_text: str, boxes: List[OCRBox]) -> Tuple[Dict[
             break
 
     # 4. Name Extraction (Heuristic based on identity card layouts)
-    for i, line in enumerate(lines):
-        clean_l = line.strip()
-        # Skip headers / labels / statutory notices
-        if any(h in clean_l.upper() for h in [
-            "GOVERNMENT", "INDIA", "BHUTAN", "NEPAL", "AADHAAR", "INCOME TAX",
-            "ELECTION COMMISSION", "PASSPORT", "UNION OF INDIA", "MALE", "FEMALE",
-            "DOB", "DATE OF BIRTH", "FATHER", "NAME", "ADDRESS", "PROOF OF IDENTITY",
-            "CITIZENSHIP", "PEHCHAN", "MERI", "MERA", "YEAR OF BIRTH", "ISSUE"
-        ]):
-            # Check if name is right after "Name:" label
-            if re.search(r'Name\s*[:\-]\s*([A-Za-z\s]+)', clean_l, re.IGNORECASE):
-                m_name = re.search(r'Name\s*[:\-]\s*([A-Za-z\s]+)', clean_l, re.IGNORECASE)
-                fields["full_name"] = m_name.group(1).strip()
-                confidences["full_name"] = get_field_conf(fields["full_name"])
-                break
-            continue
+    # Strategy:
+    #   a) Highest priority: explicit "Name: XYZ" label on the line
+    #   b) Second: capitalized 2-4 word Latin sequence that is NOT a header keyword
+    #   c) Reject: 2-char token garbage (e.g. "HR HR") produced by OCR confusion on Devanagari
+    #   d) Reject: all-Devanagari lines (prefer the English rendition on bilingual cards)
 
-        # Look for 2 to 4 capitalized word sequences
-        if re.match(r'^[A-Z][a-zA-Z\']+(?:\s+[A-Z][a-zA-Z\']+){1,3}$', clean_l):
-            if "full_name" not in fields:
-                fields["full_name"] = clean_l
+    def _is_valid_latin_name(text: str) -> bool:
+        """Returns True if text looks like a real personal name in Latin script."""
+        tokens = text.strip().split()
+        if not tokens:
+            return False
+        # Each token must be at least 3 chars (eliminates "HR HR", "A B", etc.)
+        if any(len(t) < 3 for t in tokens):
+            return False
+        # Must have between 1 and 5 tokens (single names and compound names)
+        if not (1 <= len(tokens) <= 5):
+            return False
+        # Must be primarily Latin characters
+        latin_chars = sum(1 for c in text if 'a' <= c.lower() <= 'z')
+        if latin_chars < len(text.replace(' ', '')) * 0.7:
+            return False
+        # Must not be all-uppercase acronym (e.g. "AADHAAR", "INDIA")
+        if text == text.upper() and len(tokens) == 1 and len(tokens[0]) > 6:
+            return False
+        return True
+
+    # a) First pass: look for "Name: ..." pattern anywhere in lines
+    for line in lines:
+        m_name_label = re.search(r'(?:Name|NAME)\s*[:\-]\s*([A-Za-z][A-Za-z\s\'\.]{2,})', line)
+        if m_name_label and "full_name" not in fields:
+            candidate = m_name_label.group(1).strip()
+            if _is_valid_latin_name(candidate):
+                fields["full_name"] = candidate
+                confidences["full_name"] = get_field_conf(candidate)
+                break
+
+    # b) Second pass: heuristic 2-4 word capitalized Latin name
+    if "full_name" not in fields:
+        for i, line in enumerate(lines):
+            clean_l = line.strip()
+            # Skip lines containing known header/label keywords
+            if any(h in clean_l.upper() for h in [
+                "GOVERNMENT", "INDIA", "BHUTAN", "NEPAL", "AADHAAR", "INCOME TAX",
+                "ELECTION COMMISSION", "PASSPORT", "UNION OF INDIA", "MALE", "FEMALE",
+                "DOB", "DATE OF BIRTH", "FATHER", "NAME", "ADDRESS", "PROOF OF IDENTITY",
+                "CITIZENSHIP", "PEHCHAN", "MERI", "MERA", "YEAR OF BIRTH", "ISSUE",
+                "AUTHENTICATION", "OFFLINE", "SCAN", "UIDAI", "QR",
+            ]):
+                # But still check if this line embeds "Name: value" inline
+                m_name_inline = re.search(r'(?:Name|NAME)\s*[:\-]\s*([A-Za-z][A-Za-z\s\'\.]{2,})', clean_l, re.IGNORECASE)
+                if m_name_inline:
+                    candidate = m_name_inline.group(1).strip()
+                    if _is_valid_latin_name(candidate):
+                        fields["full_name"] = candidate
+                        confidences["full_name"] = get_field_conf(candidate)
+                        break
+                continue
+
+            # Prefer Title-Case or UPPER-CASE 2-5 word sequences in Latin script
+            m_titlecase = re.match(r'^([A-Z][a-zA-Z\'\.]+(?:\s+[A-Z][a-zA-Z\'\.]+){1,4})$', clean_l)
+            if m_titlecase and _is_valid_latin_name(m_titlecase.group(1)):
+                fields["full_name"] = m_titlecase.group(1).strip()
                 confidences["full_name"] = get_field_conf(clean_l)
                 break
+
 
     # 5. Expiry Date / Issue Date
     for line in lines:

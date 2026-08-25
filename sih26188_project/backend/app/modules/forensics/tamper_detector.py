@@ -389,7 +389,7 @@ class TamperDetector:
         # Sharp printed text characters naturally have higher max edge contrast without tampering.
         mean_intensity = ela_res.mean_intensity
         max_intensity = ela_res.max_intensity
-        is_clean_capture = mean_intensity < 10.0 and not ela_res.photo_area_anomaly
+        is_clean_capture = mean_intensity < 20.0 and not ela_res.photo_area_anomaly
 
         for y in range(grid_h):
             row = []
@@ -415,7 +415,7 @@ class TamperDetector:
                 elif max_intensity < 40.0 and mean_intensity < 8.0:
                     prob = min(0.12, anomaly_signal * 0.4)
                 else:
-                    prob = min(1.0, anomaly_signal * 1.2)
+                    prob = min(1.0, anomaly_signal * 0.85)
 
                 row.append(round(prob, 4))
                 if prob > max_p:
@@ -460,7 +460,12 @@ class TamperDetector:
             )
 
         dt_score = round(max_p, 4)
+        # photo_tampered requires BOTH the ELA photo anomaly flag AND a mean probability
+        # above 0.50 (photo-specific threshold) to avoid false positives on smartphone captures.
+        photo_tau_fallback = 0.50
         tf_score = round(min(1.0, mean_p * 2.5 + (0.3 if photo_tampered else 0.0)), 4)
+        if photo_tampered and mean_p < photo_tau_fallback:
+            photo_tampered = False  # Suppress FP: ELA triggered but probability too low
 
         return dt_score, tf_score, prob_grid, tampered_regions, photo_tampered
 

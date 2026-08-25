@@ -226,17 +226,19 @@ class RiskScorer:
         photo_splice_detected = False
         photo_splice_details = []
 
-        if photo_tamper_density is not None and photo_tamper_density > 0.25:
+        if photo_tamper_density is not None and photo_tamper_density > 0.65:
             photo_splice_detected = True
-            photo_splice_details.append(f"Photo area tamper density {photo_tamper_density:.2f} > 0.25")
+            photo_splice_details.append(f"Photo area tamper density {photo_tamper_density:.2f} > 0.65")
 
         if forensics_result is not None:
             if forensics_result.photo_region_tampered and forensics_result.trufor_score > 0.75:
                 photo_splice_detected = True
                 photo_splice_details.append(f"TruFor splicing score {forensics_result.trufor_score:.2f} > 0.75")
-            elif forensics_result.photo_region_tampered:
+            elif forensics_result.photo_region_tampered and forensics_result.trufor_score > 0.55:
                 photo_splice_detected = True
-                photo_splice_details.append("Portrait photo boundary seam anomaly")
+                photo_splice_details.append(
+                    f"Portrait photo boundary seam anomaly (TruFor={forensics_result.trufor_score:.2f})"
+                )
 
             for reg in forensics_result.tampered_regions:
                 if reg.tamper_type == "PHOTO_SPLICING" and reg.peak_tamper_probability > 0.75:

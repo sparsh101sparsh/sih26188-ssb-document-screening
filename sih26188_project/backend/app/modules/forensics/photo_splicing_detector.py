@@ -262,7 +262,7 @@ class PhotoSplicingDetector:
         cos_angle = float(np.dot(mean_rgb_p, mean_rgb_s) / (np.linalg.norm(mean_rgb_p) * np.linalg.norm(mean_rgb_s) + 1e-6))
         delta_illum_deg = round(float(np.degrees(np.arccos(np.clip(cos_angle, -1.0, 1.0)))), 2)
 
-        noise_tamper_flag = r_noise > 0.40 or r_ela > 0.45
+        noise_tamper_flag = r_noise > 0.55 or r_ela > 0.58
 
         return {
             "r_noise": r_noise,
@@ -359,10 +359,13 @@ class PhotoSplicingDetector:
                 f"(Ratio={edge_metrics['s_boundary']:.2f} > 2.35, Seam={edge_metrics['l_seam']:.2f})."
             )
 
+        # NOTE: noise_tamper_flag is informational only — noise inconsistency on printed
+        # PVC cards captured with smartphone cameras is expected and must NOT set is_spliced.
         if noise_metrics["noise_tamper_flag"]:
             reasons.append(
-                f"[FORENSIC ANOMALY] Noise inconsistency detected between portrait and card substrate "
-                f"(NoiseRatio={noise_metrics['r_noise']:.2f}, ELARatio={noise_metrics['r_ela']:.2f})."
+                f"[FORENSIC INFO] Elevated noise variance between portrait and card substrate "
+                f"(NoiseRatio={noise_metrics['r_noise']:.2f}, ELARatio={noise_metrics['r_ela']:.2f}) — "
+                f"may be due to JPEG compression / smartphone capture; not conclusive without edge/ghost confirmation."
             )
 
         elapsed_ms = round((time.perf_counter() - t0) * 1000, 2)

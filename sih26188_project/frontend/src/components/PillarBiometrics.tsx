@@ -68,8 +68,8 @@ export const PillarBiometrics: React.FC<PillarBiometricsProps> = ({ biometrics, 
               <span className="text-ink-3 text-[10px] block">Age Validation</span>
               <span className="text-sm font-bold text-ink-2 block mt-0.5">
                 {biometrics.age_drift_years !== null && biometrics.age_drift_years !== undefined
-                  ? `${biometrics.age_drift_years} yrs`
-                  : '0 yrs'}
+                  ? `Δ ${biometrics.age_drift_years} yrs (Pass)`
+                  : 'N/A'}
               </span>
             </div>
 

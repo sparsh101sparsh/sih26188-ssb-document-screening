@@ -152,9 +152,9 @@ class TestStage1HardTripwires:
         assert any("TRIPWIRE_2" in code for code in assessment.tripwire_codes)
 
     def test_tripwire_3_photo_splicing_detected(self):
-        """TRIPWIRE_3: Portrait photo splicing detected via TruFor (>0.75) or tamper density (>0.25)."""
-        # Case A: photo_tamper_density > 0.25
-        assessment_a = risk_scorer.evaluate(photo_tamper_density=0.65)
+        """TRIPWIRE_3: Portrait photo splicing detected via TruFor (>0.75) or tamper density (>0.65)."""
+        # Case A: photo_tamper_density > 0.65
+        assessment_a = risk_scorer.evaluate(photo_tamper_density=0.75)
         assert assessment_a.tripwire_triggered is True
         assert assessment_a.risk_score == 95.0
         assert assessment_a.risk_level == RiskLevel.RED

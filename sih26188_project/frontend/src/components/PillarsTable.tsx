@@ -24,7 +24,10 @@ export const PillarsTable: React.FC<PillarsTableProps> = ({ scanDetails }) => {
       id: 'ocr',
       label: '1. Text & QR Check',
       icon: FileText,
-      badge: ocr.qr_payload?.signature_valid === false ? 'SIG FAIL' : undefined,
+      badge:
+        ocr.qr_payload?.raw_qr_found && ocr.qr_payload?.qr_type === 'AADHAAR_SECURE_V2' && !ocr.qr_payload?.signature_valid
+          ? 'SIG FAIL'
+          : undefined,
       badgeColor: 'bg-red-tint text-red border-red/40',
     },
     {
