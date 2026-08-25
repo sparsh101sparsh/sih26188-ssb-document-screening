@@ -136,11 +136,6 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
     }
   };
 
-  const toggleCamera = () => {
-    const nextFacing = facingMode === 'user' ? 'environment' : 'user';
-    startCamera(nextFacing);
-  };
-
   const stopCamera = useCallback(() => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => track.stop());
@@ -320,45 +315,52 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
           )}
         </div>
       ) : isStreaming ? (
-        <div className="relative p-3.5 flex flex-col items-center justify-center flex-1 bg-slate-900 rounded-b-xl">
-          <div className="relative max-h-[260px] w-full flex items-center justify-center overflow-hidden rounded-lg bg-black">
+        <div className="relative p-4 flex flex-col items-center justify-center flex-1 bg-slate-50/40 rounded-b-xl border-t border-slate-100">
+          <div className="relative w-full max-w-[340px] aspect-[4/3] flex items-center justify-center overflow-hidden rounded-xl bg-slate-900 border border-slate-200 shadow-sm">
             <video
               ref={setVideoRef}
               autoPlay
               playsInline
               muted
-              className="max-h-[240px] w-auto -scale-x-100 rounded"
+              className="w-full h-full object-cover -scale-x-100"
             />
-            {/* Live Scan Reticle */}
-            <div className="absolute inset-6 border border-indigo-400/60 rounded-xl pointer-events-none flex items-center justify-center">
-              <div className="w-16 h-24 border border-dashed border-amber-400/70 rounded-full" />
+            {/* Live Camera Badge */}
+            <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/10">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500" />
+              </span>
+              <span className="text-[9.5px] font-bold tracking-wider text-white uppercase font-mono">
+                LIVE OPTICAL FEED
+              </span>
             </div>
+
+            {/* Official Biometric Oval Guide */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-24 h-32 border-2 border-dashed border-amber-300/80 rounded-[50%] shadow-[0_0_15px_rgba(245,158,11,0.25)]" />
+            </div>
+
+            {/* Corner Alignment Reticles */}
+            <div className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-indigo-400 pointer-events-none" />
+            <div className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-indigo-400 pointer-events-none" />
+            <div className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-indigo-400 pointer-events-none" />
           </div>
 
-          <div className="mt-2.5 flex items-center gap-2.5">
+          <div className="mt-3.5 flex items-center gap-2.5">
             <button
               type="button"
               onClick={capturePhoto}
-              className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-2xs cursor-pointer"
+              className="flex items-center space-x-1.5 px-4 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-[#0F2750] to-[#1E3A8A] hover:from-[#0B1D3A] hover:to-[#172554] text-white border border-amber-400/30 shadow-xs transition-all transform hover:-translate-y-0.5 cursor-pointer"
             >
-              <Camera className="w-3.5 h-3.5" />
-              <span>Capture Face</span>
-            </button>
-            <button
-              type="button"
-              onClick={toggleCamera}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 cursor-pointer"
-              title="Switch Camera Lens"
-            >
-              <RefreshCw className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Flip Camera</span>
+              <Camera className="w-3.5 h-3.5 text-amber-400" />
+              <span>Capture Biometric Portrait</span>
             </button>
             <button
               type="button"
               onClick={stopCamera}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 cursor-pointer"
+              className="flex items-center space-x-1 px-3 py-2 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all cursor-pointer"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3.5 h-3.5 text-slate-500" />
               <span>Cancel</span>
             </button>
           </div>
