@@ -13,14 +13,13 @@ interface GovNavBarProps {
   activeTab: NavTab;
   onTabChange: (tab: NavTab) => void;
   hasScanResult: boolean;
-  onOpenSettings: () => void;
+  onOpenSettings?: () => void;
 }
 
 export const GovNavBar: React.FC<GovNavBarProps> = ({
   activeTab,
   onTabChange,
   hasScanResult,
-  onOpenSettings,
 }) => {
   return (
     <nav className="bg-white border-b border-slate-200/70 sticky top-[57px] z-30 shadow-2xs">
@@ -66,17 +65,6 @@ export const GovNavBar: React.FC<GovNavBarProps> = ({
             {hasScanResult && (
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse ml-0.5" />
             )}
-          </button>
-        </div>
-
-        {/* Right: Quick Settings Hub Access */}
-        <div className="flex items-center space-x-2 py-1.5">
-          <button
-            onClick={onOpenSettings}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-all cursor-pointer shadow-2xs"
-          >
-            <Settings className="w-3.5 h-3.5 text-indigo-600" />
-            <span>Settings & Model Hub</span>
           </button>
         </div>
       </div>
