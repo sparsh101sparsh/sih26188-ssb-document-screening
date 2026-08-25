@@ -328,16 +328,39 @@ export async function testModel(modelId: string): Promise<import('../types/api')
 }
 
 /**
- * Start and benchmark all AI models in parallel
+ * Start and benchmark all AI models in parallel (with automatic desktop edge server recovery)
  */
 export async function startAllModels(): Promise<any> {
-  const res = await fetch(`${API_BASE_URL}/api/v1/models/start-all`, {
-    method: 'POST',
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to start all models: HTTP ${res.status}`);
+  // 1. If running inside Tauri desktop app, ensure backend process is spawned
+  try {
+    if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
+      const { invoke } = await import('@tauri-apps/api/core');
+      await invoke('start_backend');
+    }
+  } catch (tauriErr) {
+    console.warn('Tauri desktop backend check:', tauriErr);
   }
-  return res.json();
+
+  // 2. Retry fetch with backoff in case edge server was cold
+  let lastError: any = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/v1/models/start-all`, {
+        method: 'POST',
+      });
+      if (res.ok) {
+        return await res.json();
+      }
+      const errText = await res.text().catch(() => '');
+      throw new Error(`Edge server error (HTTP ${res.status}): ${errText}`);
+    } catch (err: any) {
+      lastError = err;
+      if (attempt < 2) {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+      }
+    }
+  }
+  throw lastError || new Error('Backend Edge server is offline. Please launch the backend server.');
 }
 
 

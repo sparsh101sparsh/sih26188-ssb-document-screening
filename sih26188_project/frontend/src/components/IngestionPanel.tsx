@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Scan, RotateCcw, Loader2, Calendar, Navigation, ShieldCheck, Smartphone, Lock, ShieldAlert, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Scan, RotateCcw, Loader2, Calendar, ShieldCheck, Smartphone } from 'lucide-react';
 import { Dropzone } from './Dropzone';
 import { WebCamCapture } from './WebCamCapture';
-import { PresetsBar } from './PresetsBar';
 import { CheckpointInfo } from '../types/api';
-import { PresetItem } from '../services/presets';
-import { ConnectModal } from './ConnectModal';
 
 interface IngestionPanelProps {
   documentFile: File | null;
@@ -19,7 +16,6 @@ interface IngestionPanelProps {
   selectedCheckpoint: CheckpointInfo;
   transitDate: string;
   onChangeTransitDate: (date: string) => void;
-  onSelectPreset?: (preset: PresetItem) => void;
   onScan: () => void;
   onReset: () => void;
   isScanning: boolean;
@@ -45,7 +41,6 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
   selectedCheckpoint,
   transitDate,
   onChangeTransitDate,
-  onSelectPreset,
   onScan,
   onReset,
   isScanning,
@@ -88,21 +83,6 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
         </div>
 
         <div className="flex items-center gap-2 shrink-0 text-xs">
-          {onSelectPreset && (
-            <button
-              type="button"
-              onClick={() => setShowPresets(!showPresets)}
-              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold flex items-center space-x-1.5 transition-all cursor-pointer ${
-                showPresets
-                  ? 'bg-amber-50 text-amber-900 border-amber-300 shadow-2xs'
-                  : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border-slate-200 shadow-2xs'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>{showPresets ? 'Hide Samples' : 'Demo Samples'}</span>
-            </button>
-          )}
-
           {isCompanionConnected ? (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2.5 py-0.5 text-[10.5px] font-bold">
               <span className="relative flex h-1.5 w-1.5">
@@ -129,18 +109,7 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
         </div>
       </div>
 
-      {/* 2. Collapsible Sample Presets Bar */}
-      {onSelectPreset && showPresets && (
-        <div className="px-5 sm:px-6 py-2.5 bg-amber-50/40 border-b border-amber-100/80 flex items-center justify-between flex-wrap gap-2 text-xs animate-fade-in">
-          <div className="flex items-center space-x-1.5 text-amber-900 font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span>Select Test Case Dossier:</span>
-          </div>
-          <PresetsBar onSelectPreset={onSelectPreset} disabled={isScanning} />
-        </div>
-      )}
-
-      {/* 3. Dual Ingestion Bays */}
+      {/* 2. Dual Ingestion Bays */}
       <div className="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 bg-slate-50/20">
         <Dropzone
           documentFile={documentFile}

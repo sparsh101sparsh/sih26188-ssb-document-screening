@@ -449,7 +449,6 @@ export function App() {
                   selectedCheckpoint={selectedCheckpoint}
                   transitDate={transitDate}
                   onChangeTransitDate={setTransitDate}
-                  onSelectPreset={handleSelectPreset}
                   onScan={handleScan}
                   onReset={handleReset}
                   isScanning={isScanning}
@@ -493,7 +492,6 @@ export function App() {
                 selectedCheckpoint={selectedCheckpoint}
                 transitDate={transitDate}
                 onChangeTransitDate={setTransitDate}
-                onSelectPreset={handleSelectPreset}
                 onScan={handleScan}
                 onReset={handleReset}
                 isScanning={isScanning}

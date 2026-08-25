@@ -88,10 +88,36 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
         streamRef.current.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
       }
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: targetFacing },
-        audio: false,
-      });
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('MediaDevices API not supported in this environment');
+      }
+
+      let stream: MediaStream | null = null;
+      
+      // Tier 1: Ideal HD with facing mode
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: targetFacing },
+          audio: false,
+        });
+      } catch (tier1Err) {
+        console.warn('Tier 1 camera constraints rejected, attempting basic fallback:', tier1Err);
+      }
+
+      // Tier 2: Basic video constraints (FaceTime / Desktop USB webcam)
+      if (!stream) {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: false,
+          });
+        } catch (tier2Err) {
+          console.warn('Tier 2 camera fallback rejected:', tier2Err);
+          throw tier2Err;
+        }
+      }
+
       streamRef.current = stream;
       setFacingMode(targetFacing);
       setIsStreaming(true);
@@ -101,7 +127,11 @@ export const WebCamCapture: React.FC<WebCamCaptureProps> = ({
       }
     } catch (err: any) {
       console.warn('Camera access denied or unavailable:', err);
-      setCameraError('Optical sensor unavailable or permission denied. Use mobile companion or upload photo.');
+      const isDenied = err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError';
+      const msg = isDenied
+        ? 'Camera permission denied. Allow camera in System Settings > Privacy & Security > Camera.'
+        : `Optical sensor unavailable (${err.message || 'not found'}). Use mobile companion or upload photo.`;
+      setCameraError(msg);
       setIsStreaming(false);
     }
   };

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSCameraUsageDescription</key>
+	<string>SSB Border Screening requires camera access to capture traveler biometric portraits and live document frames.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access for border inspection audio logging.</string>
+</dict>
+</plist>
