@@ -301,9 +301,9 @@ class CrossValidator:
         cv5_msg = "CV-05 Passed: Portrait area exhibits zero forensic splicing anomalies"
         is_photo_tampered = False
 
-        if photo_tamper_density is not None and photo_tamper_density > 0.65:
+        if photo_tamper_density is not None and photo_tamper_density > 0.80:
             is_photo_tampered = True
-            cv5_msg = f"CV-05 Failed: Photo box tamper energy density {photo_tamper_density:.2f} > 0.65 threshold"
+            cv5_msg = f"CV-05 Failed: Photo box tamper energy density {photo_tamper_density:.2f} > 0.80 threshold"
 
         if is_photo_tampered:
             cv5_passed = False
@@ -312,7 +312,7 @@ class CrossValidator:
                 rule_name="Photo Box Forensic Splicing Detection",
                 severity="CRITICAL",
                 field_name="portrait_photo",
-                expected_value="Tamper Density <= 0.65",
+                expected_value="Tamper Density <= 0.80",
                 actual_value=f"Tamper Density = {photo_tamper_density:.2f}" if photo_tamper_density else "Splicing Detected",
                 telemetry_code="ERR_PHOTO_SPLICE",
                 details=cv5_msg,
