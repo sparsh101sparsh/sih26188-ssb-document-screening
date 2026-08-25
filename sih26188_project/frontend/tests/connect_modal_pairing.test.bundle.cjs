@@ -29215,10 +29215,10 @@ var require_segments = __commonJS({
       const segs = getSegmentsFromString(data, Utils.isKanjiModeEnabled());
       const nodes = buildNodes(segs);
       const graph = buildGraph(nodes, version);
-      const path = dijkstra.find_path(graph.map, "start", "end");
+      const path2 = dijkstra.find_path(graph.map, "start", "end");
       const optimizedSegs = [];
-      for (let i = 1; i < path.length - 1; i++) {
-        optimizedSegs.push(graph.table[path[i]].node);
+      for (let i = 1; i < path2.length - 1; i++) {
+        optimizedSegs.push(graph.table[path2[i]].node);
       }
       return exports2.fromArray(mergeSegments(optimizedSegs));
     };
@@ -31654,7 +31654,7 @@ var require_utils2 = __commonJS({
 // node_modules/qrcode/lib/renderer/png.js
 var require_png2 = __commonJS({
   "node_modules/qrcode/lib/renderer/png.js"(exports2) {
-    var fs = require("fs");
+    var fs2 = require("fs");
     var PNG = require_png().PNG;
     var Utils = require_utils2();
     exports2.render = function render(qrData, options) {
@@ -31695,7 +31695,7 @@ var require_png2 = __commonJS({
       });
       png.pack();
     };
-    exports2.renderToFile = function renderToFile(path, qrData, options, cb) {
+    exports2.renderToFile = function renderToFile(path2, qrData, options, cb) {
       if (typeof cb === "undefined") {
         cb = options;
         options = void 0;
@@ -31706,7 +31706,7 @@ var require_png2 = __commonJS({
         called = true;
         cb.apply(null, args);
       };
-      const stream = fs.createWriteStream(path);
+      const stream = fs2.createWriteStream(path2);
       stream.on("error", done);
       stream.on("close", done);
       exports2.renderToFileStream(stream, qrData, options);
@@ -31768,14 +31768,14 @@ var require_utf8 = __commonJS({
       }
       return output;
     };
-    exports2.renderToFile = function renderToFile(path, qrData, options, cb) {
+    exports2.renderToFile = function renderToFile(path2, qrData, options, cb) {
       if (typeof cb === "undefined") {
         cb = options;
         options = void 0;
       }
-      const fs = require("fs");
+      const fs2 = require("fs");
       const utf8 = exports2.render(qrData, options);
-      fs.writeFile(path, utf8, cb);
+      fs2.writeFile(path2, utf8, cb);
     };
   }
 });
@@ -31896,7 +31896,7 @@ var require_svg_tag = __commonJS({
       return str;
     }
     function qrToPath(data, size, margin) {
-      let path = "";
+      let path2 = "";
       let moveBy = 0;
       let newRow = false;
       let lineLength = 0;
@@ -31907,19 +31907,19 @@ var require_svg_tag = __commonJS({
         if (data[i]) {
           lineLength++;
           if (!(i > 0 && col > 0 && data[i - 1])) {
-            path += newRow ? svgCmd("M", col + margin, 0.5 + row + margin) : svgCmd("m", moveBy, 0);
+            path2 += newRow ? svgCmd("M", col + margin, 0.5 + row + margin) : svgCmd("m", moveBy, 0);
             moveBy = 0;
             newRow = false;
           }
           if (!(col + 1 < size && data[i + 1])) {
-            path += svgCmd("h", lineLength);
+            path2 += svgCmd("h", lineLength);
             lineLength = 0;
           }
         } else {
           moveBy++;
         }
       }
-      return path;
+      return path2;
     }
     exports2.render = function render(qrData, options, cb) {
       const opts = Utils.getOptions(options);
@@ -31927,10 +31927,10 @@ var require_svg_tag = __commonJS({
       const data = qrData.modules.data;
       const qrcodesize = size + opts.margin * 2;
       const bg = !opts.color.light.a ? "" : "<path " + getColorAttrib(opts.color.light, "fill") + ' d="M0 0h' + qrcodesize + "v" + qrcodesize + 'H0z"/>';
-      const path = "<path " + getColorAttrib(opts.color.dark, "stroke") + ' d="' + qrToPath(data, size, opts.margin) + '"/>';
+      const path2 = "<path " + getColorAttrib(opts.color.dark, "stroke") + ' d="' + qrToPath(data, size, opts.margin) + '"/>';
       const viewBox = 'viewBox="0 0 ' + qrcodesize + " " + qrcodesize + '"';
       const width = !opts.width ? "" : 'width="' + opts.width + '" height="' + opts.width + '" ';
-      const svgTag = '<svg xmlns="http://www.w3.org/2000/svg" ' + width + viewBox + ' shape-rendering="crispEdges">' + bg + path + "</svg>\n";
+      const svgTag = '<svg xmlns="http://www.w3.org/2000/svg" ' + width + viewBox + ' shape-rendering="crispEdges">' + bg + path2 + "</svg>\n";
       if (typeof cb === "function") {
         cb(null, svgTag);
       }
@@ -31944,15 +31944,15 @@ var require_svg = __commonJS({
   "node_modules/qrcode/lib/renderer/svg.js"(exports2) {
     var svgTagRenderer = require_svg_tag();
     exports2.render = svgTagRenderer.render;
-    exports2.renderToFile = function renderToFile(path, qrData, options, cb) {
+    exports2.renderToFile = function renderToFile(path2, qrData, options, cb) {
       if (typeof cb === "undefined") {
         cb = options;
         options = void 0;
       }
-      const fs = require("fs");
+      const fs2 = require("fs");
       const svgTag = exports2.render(qrData, options);
       const xmlStr = '<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' + svgTag;
-      fs.writeFile(path, xmlStr, cb);
+      fs2.writeFile(path2, xmlStr, cb);
     };
   }
 });
@@ -32014,7 +32014,7 @@ var require_canvas = __commonJS({
 var require_browser = __commonJS({
   "node_modules/qrcode/lib/browser.js"(exports2) {
     var canPromise = require_can_promise();
-    var QRCode3 = require_qrcode();
+    var QRCode2 = require_qrcode();
     var CanvasRenderer = require_canvas();
     var SvgRenderer = require_svg_tag();
     function renderCanvas(renderFunc, canvas, text, opts, cb) {
@@ -32057,7 +32057,7 @@ var require_browser = __commonJS({
         }
         return new Promise(function(resolve, reject) {
           try {
-            const data = QRCode3.create(text, opts);
+            const data = QRCode2.create(text, opts);
             resolve(renderFunc(data, canvas, opts));
           } catch (e) {
             reject(e);
@@ -32065,13 +32065,13 @@ var require_browser = __commonJS({
         });
       }
       try {
-        const data = QRCode3.create(text, opts);
+        const data = QRCode2.create(text, opts);
         cb(null, renderFunc(data, canvas, opts));
       } catch (e) {
         cb(e);
       }
     }
-    exports2.create = QRCode3.create;
+    exports2.create = QRCode2.create;
     exports2.toCanvas = renderCanvas.bind(null, CanvasRenderer.render);
     exports2.toDataURL = renderCanvas.bind(null, CanvasRenderer.renderToDataURL);
     exports2.toString = renderCanvas.bind(null, function(data, _, opts) {
@@ -32084,7 +32084,7 @@ var require_browser = __commonJS({
 var require_server = __commonJS({
   "node_modules/qrcode/lib/server.js"(exports2) {
     var canPromise = require_can_promise();
-    var QRCode3 = require_qrcode();
+    var QRCode2 = require_qrcode();
     var PngRenderer = require_png2();
     var Utf8Renderer = require_utf8();
     var TerminalRenderer = require_terminal2();
@@ -32110,8 +32110,8 @@ var require_server = __commonJS({
         cb
       };
     }
-    function getTypeFromFilename(path) {
-      return path.slice((path.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
+    function getTypeFromFilename(path2) {
+      return path2.slice((path2.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
     }
     function getRendererFromType(type) {
       switch (type) {
@@ -32141,7 +32141,7 @@ var require_server = __commonJS({
       if (!params.cb) {
         return new Promise(function(resolve, reject) {
           try {
-            const data = QRCode3.create(text, params.opts);
+            const data = QRCode2.create(text, params.opts);
             return renderFunc(data, params.opts, function(err, data2) {
               return err ? reject(err) : resolve(data2);
             });
@@ -32151,13 +32151,13 @@ var require_server = __commonJS({
         });
       }
       try {
-        const data = QRCode3.create(text, params.opts);
+        const data = QRCode2.create(text, params.opts);
         return renderFunc(data, params.opts, params.cb);
       } catch (e) {
         params.cb(e);
       }
     }
-    exports2.create = QRCode3.create;
+    exports2.create = QRCode2.create;
     exports2.toCanvas = require_browser().toCanvas;
     exports2.toString = function toString(text, opts, cb) {
       const params = checkParams(text, opts, cb);
@@ -32175,17 +32175,17 @@ var require_server = __commonJS({
       const renderer = getRendererFromType(params.opts.type);
       return render(renderer.renderToBuffer, text, params);
     };
-    exports2.toFile = function toFile(path, text, opts, cb) {
-      if (typeof path !== "string" || !(typeof text === "string" || typeof text === "object")) {
+    exports2.toFile = function toFile(path2, text, opts, cb) {
+      if (typeof path2 !== "string" || !(typeof text === "string" || typeof text === "object")) {
         throw new Error("Invalid argument");
       }
       if (arguments.length < 3 && !canPromise()) {
         throw new Error("Too few arguments provided");
       }
       const params = checkParams(text, opts, cb);
-      const type = params.opts.type || getTypeFromFilename(path);
+      const type = params.opts.type || getTypeFromFilename(path2);
       const renderer = getRendererFromType(type);
-      const renderToFile = renderer.renderToFile.bind(null, path);
+      const renderToFile = renderer.renderToFile.bind(null, path2);
       return render(renderToFile, text, params);
     };
     exports2.toFileStream = function toFileStream(stream, text, opts) {
@@ -32506,9 +32506,11 @@ var require_jsx_runtime = __commonJS({
   }
 });
 
-// tests/qr_generation.test.tsx
+// tests/connect_modal_pairing.test.tsx
 var import_server = __toESM(require_server_node(), 1);
 var import_strict = __toESM(require("node:assert/strict"), 1);
+var import_node_fs = __toESM(require("node:fs"), 1);
+var import_node_path = __toESM(require("node:path"), 1);
 
 // src/components/ConnectModal.tsx
 var import_react4 = __toESM(require_react(), 1);
@@ -33986,37 +33988,6 @@ function isValidIpv4(ip) {
   if (trimmed === "localhost" || trimmed === "127.0.0.1") return true;
   return IPV4_REGEX.test(trimmed);
 }
-function generateQRMatrix(text, options) {
-  try {
-    const safeText = typeof text === "string" && text.length > 0 ? text : " ";
-    const qr = import_qrcode2.default.create(safeText, {
-      errorCorrectionLevel: "M",
-      ...options
-    });
-    const size = qr.modules.size;
-    const matrix = [];
-    for (let r = 0; r < size; r++) {
-      const row = [];
-      for (let c = 0; c < size; c++) {
-        row.push(Boolean(qr.modules.get(r, c)));
-      }
-      matrix.push(row);
-    }
-    return matrix;
-  } catch {
-    const qr = import_qrcode2.default.create("http://localhost:8000", { errorCorrectionLevel: "M" });
-    const size = qr.modules.size;
-    const matrix = [];
-    for (let r = 0; r < size; r++) {
-      const row = [];
-      for (let c = 0; c < size; c++) {
-        row.push(Boolean(qr.modules.get(r, c)));
-      }
-      matrix.push(row);
-    }
-    return matrix;
-  }
-}
 var ConnectModal = ({
   isOpen,
   onClose,
@@ -34757,8 +34728,7 @@ var ConnectModal = ({
   );
 };
 
-// tests/qr_generation.test.tsx
-var import_qrcode3 = __toESM(require_lib(), 1);
+// tests/connect_modal_pairing.test.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 var totalTests = 0;
 var passedTests = 0;
@@ -34766,7 +34736,17 @@ var failedTests = 0;
 function runTest(name, fn) {
   totalTests++;
   try {
-    fn();
+    const result = fn();
+    if (result instanceof Promise) {
+      return result.then(() => {
+        passedTests++;
+        console.log(`  \u2713 ${name}`);
+      }).catch((err) => {
+        failedTests++;
+        console.error(`  \u2717 ${name}`);
+        console.error(`    ${err?.stack || err?.message || err}`);
+      });
+    }
     passedTests++;
     console.log(`  \u2713 ${name}`);
   } catch (err) {
@@ -34776,248 +34756,180 @@ function runTest(name, fn) {
   }
 }
 async function runAll() {
-  console.log("\n======================================================");
-  console.log("QR CODE GENERATION & CONNECT MODAL VERIFICATION SUITE");
-  console.log("======================================================\n");
-  console.log("--- 1. Testing generateQRMatrix Mathematical Invariants ---");
-  runTest("generateQRMatrix produces square boolean matrix for standard URLs", () => {
-    const urls = [
-      "http://localhost:8000",
-      "http://192.168.1.1:8000",
-      "http://192.168.43.100:8000",
-      "http://10.0.2.2:8000"
+  console.log("\n================================================================");
+  console.log("CONNECT MODAL UI & PAIRING QR INTEGRATION TEST SUITE (M3 / R8)");
+  console.log("================================================================\n");
+  console.log("--- 1. Testing IPv4 Regex Validation & Sanitization ---");
+  runTest("isValidIpv4 accepts valid standard IPv4 addresses", () => {
+    const validIps = [
+      "192.168.1.1",
+      "192.168.1.254",
+      "10.0.0.1",
+      "172.16.254.1",
+      "127.0.0.1",
+      "localhost",
+      "  192.168.43.100  ",
+      "0.0.0.0",
+      "255.255.255.255"
     ];
-    for (const url of urls) {
-      const matrix = generateQRMatrix(url);
-      import_strict.default.ok(Array.isArray(matrix), "Matrix must be an array");
-      import_strict.default.ok(matrix.length >= 21, "Matrix size must be at least 21x21");
-      import_strict.default.ok(matrix.every((row) => row.length === matrix.length), "Matrix must be square");
+    for (const ip of validIps) {
+      import_strict.default.equal(isValidIpv4(ip), true, `Expected ${ip} to be valid IPv4`);
     }
   });
-  runTest("generateQRMatrix finder patterns at all 3 corners (7x7) across EC levels", () => {
-    const levels = ["L", "M", "Q", "H"];
-    for (const lvl of levels) {
-      const matrix = generateQRMatrix("http://192.168.1.100:8000", { errorCorrectionLevel: lvl });
-      const size = matrix.length;
-      const checkFinder = (top, left) => {
-        for (let r = 0; r < 7; r++) {
-          for (let c = 0; c < 7; c++) {
-            const row = top + r;
-            const col = left + c;
-            const isBorder = r === 0 || r === 6 || c === 0 || c === 6;
-            const isCore = r >= 2 && r <= 4 && c >= 2 && c <= 4;
-            const expected = isBorder || isCore;
-            import_strict.default.equal(
-              matrix[row][col],
-              expected,
-              `Finder module at (${row},${col}) for EC level ${lvl} should be ${expected}`
-            );
-          }
-        }
-      };
-      checkFinder(0, 0);
-      checkFinder(0, size - 7);
-      checkFinder(size - 7, 0);
-    }
-  });
-  runTest("generateQRMatrix horizontal and vertical timing patterns", () => {
-    const matrix = generateQRMatrix("http://192.168.1.100:8000");
-    const size = matrix.length;
-    for (let i = 8; i < size - 8; i++) {
-      const expected = i % 2 === 0;
-      import_strict.default.equal(matrix[6][i], expected, `Horizontal timing at (6, ${i})`);
-      import_strict.default.equal(matrix[i][6], expected, `Vertical timing at (${i}, 6)`);
-    }
-  });
-  runTest("generateQRMatrix handles dynamic and extreme payloads without failure", () => {
-    const extremePayloads = [
+  runTest("isValidIpv4 rejects invalid IPv4 addresses and malicious strings", () => {
+    const invalidIps = [
+      "192.168.1.256",
+      "192.168.1.999",
+      "192.168.1",
+      "192.168.1.1.1",
+      "abc.def.ghi.jkl",
+      "-1.0.0.0",
+      "http://192.168.1.1",
+      "192.168.1.1:8000",
       "",
-      " ",
       "   ",
-      "a",
-      "http://[::1]:8000",
-      "http://[fe80::1ff:fe23:4567:890a%eth0]:8000",
-      "https://gateway.ssb.nic.in:9443/stream/live?officer=OF-9921&session=sess_982348912304802394820394823904820394",
-      "http://10.0.2.2:8000/?query=1&space=%20&special=@#$%^&*()_+~`|}{[]:;?><,./",
-      "http://very-long-gateway-subdomain-instance-name.corp.internal.ssb.gov.in:8000/api/v1/companion/upload/payload_test",
-      "ssb-pairing://v1/connect?host=192.168.1.42&port=8000&auth=sig_298374982374&station=NER-PANITANKI-BAY01"
+      null,
+      void 0,
+      12345
     ];
-    for (const payload of extremePayloads) {
-      const matrix = generateQRMatrix(payload);
-      import_strict.default.ok(matrix.length >= 21, `Payload size was ${matrix.length}`);
-      import_strict.default.ok(matrix.every((r) => r.length === matrix.length));
-      import_strict.default.equal(matrix[0][0], true, "Top-left finder intact");
+    for (const ip of invalidIps) {
+      import_strict.default.equal(isValidIpv4(ip), false, `Expected ${ip} to be rejected`);
     }
   });
-  runTest("generateQRMatrix handles Unicode, Multilingual & Emoji payloads reliably", () => {
-    const unicodePayloads = [
-      "http://192.168.1.1:8000/\u090F\u0938\u090F\u0938\u092C\u0940-\u0938\u094D\u0915\u094D\u0930\u0940\u0928\u093F\u0902\u0917/\u0917\u0947\u091F\u0935\u0947",
-      "http://192.168.1.1:8000/\u09B8\u09B6\u09B8\u09CD\u09A4\u09CD\u09B0_\u09B8\u09C0\u09AE\u09BE_\u09AC\u09B2",
-      "http://192.168.1.1:8000/\u0938\u0940\u092E\u093E_\u0938\u0941\u0930\u0915\u094D\u0937\u093E_\u091A\u094C\u0915\u0940?officer=\u0938\u0936\u0938\u094D\u0924\u094D\u0930_\u092C\u0932",
-      "http://192.168.1.1:8000/gateway?tag=\u{1F6C2}\u{1F1EE}\u{1F1F3}\u{1F512}"
-    ];
-    for (const payload of unicodePayloads) {
-      const matrix = generateQRMatrix(payload);
-      import_strict.default.ok(matrix.length >= 21, `Unicode payload matrix size was ${matrix.length}`);
-      import_strict.default.equal(matrix[0][0], true, "Top-left finder intact for Unicode");
-    }
+  runTest("IPV4_REGEX matches exact 4 octet boundaries", () => {
+    import_strict.default.ok(IPV4_REGEX.test("10.10.10.10"));
+    import_strict.default.ok(IPV4_REGEX.test("192.168.0.1"));
+    import_strict.default.ok(!IPV4_REGEX.test("256.0.0.1"));
+    import_strict.default.ok(!IPV4_REGEX.test("1.2.3"));
   });
-  runTest("generateQRMatrix handles non-string and oversized payloads gracefully without crashing", () => {
-    const matrixNull = generateQRMatrix(null);
-    import_strict.default.ok(matrixNull.length >= 21, "Null input produces valid fallback matrix");
-    const matrixUndefined = generateQRMatrix(void 0);
-    import_strict.default.ok(matrixUndefined.length >= 21, "Undefined input produces valid fallback matrix");
-    const matrixNumber = generateQRMatrix(8e3);
-    import_strict.default.ok(matrixNumber.length >= 21, "Number input produces valid fallback matrix");
-    const massiveText = "A".repeat(2e4);
-    const matrixMassive = generateQRMatrix(massiveText);
-    import_strict.default.ok(matrixMassive.length >= 21, "Massive payload falls back gracefully to standard matrix");
-  });
-  runTest("generateQRMatrix encodes binary payload identically to standard qrcode library across all EC levels", () => {
-    const testCases = [
-      { text: "http://192.168.1.50:8000", ec: "L" },
-      { text: "http://192.168.1.50:8000", ec: "M" },
-      { text: "http://192.168.1.50:8000", ec: "Q" },
-      { text: "http://192.168.1.50:8000", ec: "H" },
-      { text: "https://ssb-border-patrol.internal.gov.in:8443/auth/stream", ec: "M" }
-    ];
-    for (const { text, ec } of testCases) {
-      const ourMatrix = generateQRMatrix(text, { errorCorrectionLevel: ec });
-      const directQR = import_qrcode3.default.create(text, { errorCorrectionLevel: ec });
-      import_strict.default.equal(ourMatrix.length, directQR.modules.size);
-      for (let r = 0; r < directQR.modules.size; r++) {
-        for (let c = 0; c < directQR.modules.size; c++) {
-          import_strict.default.equal(
-            ourMatrix[r][c],
-            Boolean(directQR.modules.get(r, c)),
-            `Bit mismatch at row ${r}, col ${c} for level ${ec}`
-          );
-        }
-      }
-    }
-  });
-  console.log("\n--- 2. Testing ConnectModal Component Rendering & SVG QR Output ---");
+  console.log("\n--- 2. Testing ConnectModal Rendering & State Machine UI ---");
   runTest("ConnectModal returns null when closed", () => {
     const html = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: false, onClose: () => {
       } })
     );
-    import_strict.default.equal(html, "", "Closed modal must render empty");
+    import_strict.default.equal(html, "", "Closed modal must render empty string");
   });
-  runTest("ConnectModal renders SVG with crispEdges and dynamic gateway URL", () => {
-    const gateway = "http://192.168.43.50:8000";
+  runTest("ConnectModal renders modal header, scan instructions, and tabs when open", () => {
     const html = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: gateway })
+      }, serverUrl: "http://192.168.1.50:8000" })
     );
-    import_strict.default.ok(html.includes("<svg"), "Must render SVG element");
-    import_strict.default.ok(html.includes('shape-rendering="crispEdges"'), "Must have crispEdges shape rendering");
-    import_strict.default.ok(html.includes('width="150"') || html.includes('height="150"'), "Must preserve dimensions");
-    import_strict.default.ok(html.includes(`aria-label="QR Code for ${gateway}"`), "Must include accessible aria-label");
-    import_strict.default.ok(html.includes(gateway), "Must include gateway URL text in manual copy field");
+    import_strict.default.ok(html.includes("Connect Android Field Phone"), "Must render title");
+    import_strict.default.ok(html.includes('role="dialog"'), "Must have accessible dialog role");
+    import_strict.default.ok(html.includes('aria-modal="true"'), "Must have aria-modal attribute");
+    import_strict.default.ok(html.includes("1-Scan QR Connect"), "Must render QR tab");
+    import_strict.default.ok(html.includes("Live Devices"), "Must render Devices tab");
+    import_strict.default.ok(html.includes("Test Capture"), "Must render Test tab");
+    import_strict.default.ok(html.includes("USB / Emulator"), "Must render USB tab");
+    import_strict.default.ok(html.includes("How to Connect in 3 Seconds:"), "Must render step instructions heading");
+    import_strict.default.ok(html.includes("Open the &lt;strong&gt;SSB Field Screening&lt;/strong&gt; app") || html.includes("SSB Field Screening"), "Must mention app name");
+    import_strict.default.ok(html.includes("Open QR Code Scanner"), "Must mention QR scanner button");
+    import_strict.default.ok(html.includes("<svg"), "Must render SVG element for QR code");
+    import_strict.default.ok(html.includes('shape-rendering="crispEdges"'), "Must render with crispEdges");
+    import_strict.default.ok(html.includes("SCAN WITH APP"), "Must render scan indicator");
+    import_strict.default.ok(html.includes("http://192.168.1.50:8000"), "Must render gateway URL");
+    import_strict.default.ok(html.includes("Copy"), "Must render Copy button");
   });
-  runTest("ConnectModal strips trailing slashes gracefully", () => {
-    const gatewayWithSlash = "http://192.168.43.50:8000///";
-    const expectedClean = "http://192.168.43.50:8000";
-    const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: gatewayWithSlash })
-    );
-    import_strict.default.ok(html.includes(`aria-label="QR Code for ${expectedClean}"`));
-    import_strict.default.ok(html.includes(expectedClean));
-    import_strict.default.ok(!html.includes("8000///"));
-  });
-  runTest("ConnectModal trims surrounding whitespace from serverUrl", () => {
-    const gatewayWithSpaces = "   http://192.168.1.105:8000/   ";
-    const expectedClean = "http://192.168.1.105:8000";
-    const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: gatewayWithSpaces })
-    );
-    import_strict.default.ok(html.includes(`aria-label="QR Code for ${expectedClean}"`));
-    import_strict.default.ok(html.includes(expectedClean));
-  });
-  runTest("ConnectModal handles empty string serverUrl with standard fallback", () => {
-    const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: "" })
-    );
-    import_strict.default.ok(html.includes("<svg"), "Must render SVG element even with empty serverUrl");
-    import_strict.default.ok(html.includes("http://localhost:8000"), "Must fallback to default gateway URL");
-  });
-  runTest("ConnectModal preserves interactive navigation tabs and buttons", () => {
+  runTest("ConnectModal renders Advanced Manual IP Entry drawer toggle button", () => {
     const html = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
       } })
     );
-    import_strict.default.ok(html.includes("Connect Android Field Phone"), "Must render modal title");
-    import_strict.default.ok(html.includes("1-Scan QR Connect"), "Must render QR tab button");
-    import_strict.default.ok(html.includes("Live Devices"), "Must render Devices tab button");
-    import_strict.default.ok(html.includes("Test Capture"), "Must render Test Capture tab button");
-    import_strict.default.ok(html.includes("USB / Emulator"), "Must render USB/Emulator tab button");
-    import_strict.default.ok(html.includes("Close"), "Must render Close button");
-    import_strict.default.ok(html.includes("SCAN WITH APP"), "Must render scan indicator badge");
+    import_strict.default.ok(
+      html.includes("Advanced / Manual Gateway IP Configuration") || html.includes("Advanced Manual"),
+      "Must render Advanced manual IP configuration toggle"
+    );
+    import_strict.default.ok(html.includes("Configure IP/Port") || html.includes("Hide"), "Must render toggle text");
   });
-  runTest("ConnectModal applies high-contrast theme styling for crisp optical scanning", () => {
+  runTest("ConnectModal renders footer with active port indicator", () => {
     const html = import_server.default.renderToStaticMarkup(
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: "http://192.168.1.200:8000" })
+      } })
     );
-    import_strict.default.ok(html.includes('fill="#0F172A"') || html.includes('fill="#0f172a"'), "Must use #0F172A ink color");
-    import_strict.default.ok(html.includes('fill="#ffffff"') || html.includes('fill="#FFFFFF"'), "Must use white background");
+    import_strict.default.ok(html.includes("SSB Gateway Port 8000 Active") || html.includes("Port 8000 Active"), "Must render footer status");
+    import_strict.default.ok(html.includes("Close"), "Must render close button");
   });
-  runTest("ConnectModal safely renders without throwing on extreme 50,000-character serverUrl", () => {
-    const massiveUrl = "http://" + "A".repeat(5e4);
-    const html = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: massiveUrl })
-    );
-    import_strict.default.ok(html.includes("<svg"), "Must render fallback SVG QR code without throwing");
-    import_strict.default.ok(html.includes('shape-rendering="crispEdges"'), "Must maintain crispEdges rendering");
+  console.log("\n--- 3. Testing Pairing QR & Network API Service Functions ---");
+  await runTest("getPairingQr is exported and handles fetch failures gracefully", async () => {
+    import_strict.default.equal(typeof getPairingQr, "function", "getPairingQr must be a function");
+    const result = await getPairingQr("http://127.0.0.1:59999");
+    import_strict.default.equal(result, null, "getPairingQr should return null when server is offline");
   });
-  runTest("ConnectModal safely handles non-string serverUrl props without throwing", () => {
-    const htmlNull = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: null })
-    );
-    import_strict.default.ok(htmlNull.includes("<svg"), "Must render SVG for null serverUrl");
-    const htmlNumber = import_server.default.renderToStaticMarkup(
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ConnectModal, { isOpen: true, onClose: () => {
-      }, serverUrl: 8e3 })
-    );
-    import_strict.default.ok(htmlNumber.includes("<svg"), "Must render SVG for number serverUrl");
+  await runTest("pingGateway is exported and reports unreachable servers with latency", async () => {
+    import_strict.default.equal(typeof pingGateway, "function", "pingGateway must be a function");
+    const result = await pingGateway("http://127.0.0.1:59999");
+    import_strict.default.ok(typeof result === "object", "pingGateway must return an object");
+    import_strict.default.equal(result.success, false, "Should report success false for offline server");
+    import_strict.default.ok(typeof result.latencyMs === "number", "Should return numeric latency");
   });
-  runTest("Static source verification: 0 handcrafted Galois Field GF(256) or Reed-Solomon boilerplate in ConnectModal.tsx", async () => {
-    const fs = await import("node:fs");
-    const path = await import("node:path");
-    const sourceCode = fs.readFileSync(path.resolve(process.cwd(), "src/components/ConnectModal.tsx"), "utf8");
-    const forbiddenPatterns = [
-      /\bgf_exp\b/i,
-      /\bgf_log\b/i,
-      /\bGF256\b/i,
-      /\bGaloisField\b/i,
-      /\bgf_poly\b/i,
-      /\bReedSolomon\b/i,
-      /\b0x11d\b/i,
-      // Standard GF(256) irreducible polynomial generator 285 / 0x11D
-      /\b0x12d\b/i
+  runTest("PairingQrResponse type conforms to backend pairing-qr schema", () => {
+    const mockPairing = {
+      status: "active",
+      qr_payload: "SSBPAIR://192.168.1.50:8000/a1b2c3d4",
+      gateway_id: "SSB-GW-MAC1234",
+      pairing_token: "a1b2c3d4",
+      current_lan_ip: "192.168.1.50",
+      port: 8e3,
+      fallback_url: "http://192.168.1.50:8000",
+      timestamp: Date.now(),
+      available_interfaces: [{ name: "wlan0", ip: "192.168.1.50" }]
+    };
+    import_strict.default.equal(mockPairing.status, "active");
+    import_strict.default.ok(mockPairing.qr_payload.startsWith("SSBPAIR://"));
+    import_strict.default.equal(mockPairing.gateway_id, "SSB-GW-MAC1234");
+    import_strict.default.equal(mockPairing.pairing_token, "a1b2c3d4");
+    import_strict.default.equal(mockPairing.current_lan_ip, "192.168.1.50");
+    import_strict.default.equal(mockPairing.port, 8e3);
+    import_strict.default.equal(mockPairing.fallback_url, "http://192.168.1.50:8000");
+  });
+  console.log("\n--- 4. Testing Static Source Code & Integrity Audits ---");
+  runTest("ConnectModal.tsx contains live polling loop and unmount cleanup", () => {
+    const filePath = import_node_path.default.resolve(process.cwd(), "src/components/ConnectModal.tsx");
+    const code = import_node_fs.default.readFileSync(filePath, "utf8");
+    import_strict.default.ok(code.includes("clearInterval(pollTimerRef.current)"), "Must clear interval on unmount");
+    import_strict.default.ok(code.includes("isMountedRef"), "Must have isMountedRef guard to prevent memory leaks");
+    import_strict.default.ok(code.includes("getPairingQr"), "Must invoke getPairingQr");
+    import_strict.default.ok(code.includes("getCompanionInfo"), "Must invoke getCompanionInfo");
+    import_strict.default.ok(code.includes("pingGateway"), "Must invoke pingGateway for manual IP test");
+  });
+  runTest("ConnectModal.tsx contains keyboard Escape dismiss listener", () => {
+    const filePath = import_node_path.default.resolve(process.cwd(), "src/components/ConnectModal.tsx");
+    const code = import_node_fs.default.readFileSync(filePath, "utf8");
+    import_strict.default.ok(code.includes("e.key === 'Escape'"), "Must listen for Escape key");
+    import_strict.default.ok(code.includes("window.removeEventListener('keydown'"), "Must remove keydown listener on unmount");
+  });
+  runTest("Source Code Cleanliness: Zero hardcoded static IPs (R6)", () => {
+    const filesToCheck = [
+      "src/components/ConnectModal.tsx",
+      "src/services/api.ts",
+      "src/types/api.ts"
     ];
-    for (const pattern of forbiddenPatterns) {
-      import_strict.default.ok(!pattern.test(sourceCode), `Found forbidden custom Galois Field boilerplate: ${pattern}`);
+    const forbiddenIps = ["192.168.1.61", "10.198.211"];
+    for (const relPath of filesToCheck) {
+      const fullPath = import_node_path.default.resolve(process.cwd(), relPath);
+      const content = import_node_fs.default.readFileSync(fullPath, "utf8");
+      for (const ip of forbiddenIps) {
+        import_strict.default.ok(
+          !content.includes(ip),
+          `Found forbidden hardcoded IP "${ip}" in ${relPath}`
+        );
+      }
     }
-    import_strict.default.ok(sourceCode.includes("from 'qrcode.react'") || sourceCode.includes('from "qrcode.react"'), "Must import qrcode.react");
-    import_strict.default.ok(sourceCode.includes("from 'qrcode'") || sourceCode.includes('from "qrcode"'), "Must import qrcode");
   });
-  console.log("\n=============================================");
+  console.log("\n================================================================");
   console.log(`TOTAL TESTS RUN : ${totalTests}`);
   console.log(`PASSED          : ${passedTests}`);
   console.log(`FAILED          : ${failedTests}`);
-  console.log("=============================================\n");
+  console.log("================================================================\n");
   if (failedTests > 0) {
     process.exit(1);
   }
 }
-runAll();
+runAll().catch((err) => {
+  console.error("Fatal error in connect modal pairing suite:", err);
+  process.exit(1);
+});
 /*! Bundled license information:
 
 react/cjs/react.production.js:

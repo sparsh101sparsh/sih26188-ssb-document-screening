@@ -1,7 +1,13 @@
 package com.ssb.fieldscreening.ui.viewmodel
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssb.fieldscreening.data.local.OutboxScreeningRecord
@@ -28,6 +34,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -47,7 +54,6 @@ enum class NavigationScreen(val title: String, val badgeText: String? = null) {
     GATEWAY_DIAGNOSTICS("Edge Gateway", "Diagnostics")
 }
 
-
 data class ScreeningUiState(
     val selectedPreset: PresetScenario? = null,
     val currentInspection: InspectionResponse? = null,
@@ -59,7 +65,7 @@ data class ScreeningUiState(
     val gatewayHealth: HealthResponse? = null,
     val gatewayLatencyMs: Long = 0L,
     val isGatewayChecking: Boolean = false,
-    val customGatewayUrl: String = "http://192.168.1.61:8000",
+    val customGatewayUrl: String = "",
     val officerId: String = "",
     val officerName: String = "",
     val officerDecision: OfficerDecisionRecord? = null,
@@ -86,12 +92,13 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
 
     private val _uiState = MutableStateFlow(
         ScreeningUiState(
-            customGatewayUrl = WifiUtils.getLastConnectedGateway(application) ?: "http://192.168.1.61:8000"
+            customGatewayUrl = WifiUtils.getLastConnectedGateway(application) ?: ""
         )
     )
     val uiState: StateFlow<ScreeningUiState> = _uiState.asStateFlow()
 
     private var healthPollingJob: Job? = null
+    private var networkCallback: ConnectivityManager.NetworkCallback? = null
 
     val outboxRecords: StateFlow<List<OutboxScreeningRecord>> = repository.allOutboxRecords
         .stateIn(
@@ -108,12 +115,108 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         )
 
     init {
-        // No automatic assumption of connectivity on startup.
-        // Connection is verified when the user initiates connection via Wi-Fi / QR.
+        registerNetworkCallback()
+        autoConnectOnLaunch()
+    }
+
+    private fun registerNetworkCallback() {
+        try {
+            val connectivityManager = getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+            if (connectivityManager != null) {
+                val networkRequest = NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .build()
+                val callback = object : ConnectivityManager.NetworkCallback() {
+                    override fun onAvailable(network: Network) {
+                        Log.d("[SsbViewModel]", "Wi-Fi network connected, triggering auto-discovery")
+                        autoConnectOnLaunch()
+                    }
+                    override fun onLost(network: Network) {
+                        Log.d("[SsbViewModel]", "Wi-Fi network lost, setting OFFLINE_OUTBOX")
+                        viewModelScope.launch(Dispatchers.Main) {
+                            _uiState.update {
+                                it.copy(
+                                    gatewayHealth = null,
+                                    gatewayLatencyMs = 0L,
+                                    connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
+                                )
+                            }
+                        }
+                    }
+                }
+                connectivityManager.registerNetworkCallback(networkRequest, callback)
+                networkCallback = callback
+                Log.d("[SsbViewModel]", "Registered ConnectivityManager.NetworkCallback for Wi-Fi")
+            }
+        } catch (e: Exception) {
+            Log.w("[SsbViewModel]", "Failed to register network callback: ${e.message}")
+        }
+    }
+
+    private fun unregisterNetworkCallback() {
+        try {
+            val connectivityManager = getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+            networkCallback?.let {
+                connectivityManager?.unregisterNetworkCallback(it)
+                networkCallback = null
+                Log.d("[SsbViewModel]", "Unregistered ConnectivityManager.NetworkCallback")
+            }
+        } catch (e: Exception) {
+            Log.w("[SsbViewModel]", "Failed to unregister network callback: ${e.message}")
+        }
+    }
+
+    private fun autoConnectOnLaunch() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val app = getApplication<Application>()
+            val savedUrl = WifiUtils.getLastConnectedGateway(app)
+            if (!savedUrl.isNullOrBlank()) {
+                Log.d("[SsbViewModel]", "Verifying saved gateway URL on launch: $savedUrl (1500ms timeout)")
+                val (ok, _) = WifiUtils.testGateway(savedUrl, 1500L)
+                if (ok) {
+                    Log.i("[SsbViewModel]", "Saved gateway connection verified: $savedUrl")
+                    withContext(Dispatchers.Main) {
+                        connectToGateway(savedUrl)
+                    }
+                    return@launch
+                } else {
+                    Log.d("[SsbViewModel]", "Saved gateway unreachable: $savedUrl, kicking off auto-discovery")
+                }
+            } else {
+                Log.d("[SsbViewModel]", "No saved gateway configured, kicking off auto-discovery")
+            }
+
+            val discovered = WifiUtils.discoverGatewayOnSubnet(app)
+            if (discovered != null) {
+                Log.i("[SsbViewModel]", "Auto-discovered gateway on subnet: $discovered")
+                withContext(Dispatchers.Main) {
+                    connectToGateway(discovered)
+                }
+            } else {
+                Log.d("[SsbViewModel]", "No gateway discovered on subnet, remaining in OFFLINE_OUTBOX")
+                withContext(Dispatchers.Main) {
+                    _uiState.update {
+                        it.copy(
+                            gatewayHealth = null,
+                            gatewayLatencyMs = 0L,
+                            connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        unregisterNetworkCallback()
+        healthPollingJob?.cancel()
     }
 
     fun connectToGateway(url: String) {
         val normalized = WifiUtils.normalizeGatewayUrl(url)
+        if (normalized.isBlank()) return
+        Log.i("[SsbViewModel]", "connectToGateway: $normalized")
         WifiUtils.saveLastConnectedGateway(getApplication<Application>(), normalized)
         _uiState.update {
             it.copy(
@@ -287,16 +390,14 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                         _uiState.update {
                             it.copy(
                                 gatewayHealth = health,
-                                gatewayLatencyMs = latency,
-                                connectivityMode = ConnectivityMode.AIR_GAPPED_WIFI
+                                gatewayLatencyMs = latency
                             )
                         }
                     } else {
                         _uiState.update {
                             it.copy(
                                 gatewayHealth = null,
-                                gatewayLatencyMs = 0L,
-                                connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
+                                gatewayLatencyMs = 0L
                             )
                         }
                     }
@@ -320,8 +421,7 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                 it.copy(
                     gatewayHealth = null,
                     gatewayLatencyMs = 0L,
-                    isGatewayChecking = false,
-                    connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
+                    isGatewayChecking = false
                 )
             }
             return
@@ -330,7 +430,7 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         _uiState.update { it.copy(isGatewayChecking = true) }
         viewModelScope.launch(Dispatchers.IO) {
             val (health, latency) = repository.checkHealth(
-                ConnectivityMode.AIR_GAPPED_WIFI,
+                currentState.connectivityMode,
                 currentState.customGatewayUrl
             )
             if (health != null && latency > 0) {
@@ -338,7 +438,6 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                     it.copy(
                         gatewayHealth = health,
                         gatewayLatencyMs = latency,
-                        connectivityMode = ConnectivityMode.AIR_GAPPED_WIFI,
                         isGatewayChecking = false
                     )
                 }
@@ -347,7 +446,6 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                     it.copy(
                         gatewayHealth = null,
                         gatewayLatencyMs = 0L,
-                        connectivityMode = ConnectivityMode.OFFLINE_OUTBOX,
                         isGatewayChecking = false
                     )
                 }
@@ -356,9 +454,13 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun updateCustomGatewayUrl(url: String) {
+        val normalized = WifiUtils.normalizeGatewayUrl(url)
+        if (normalized.isNotBlank()) {
+            WifiUtils.saveLastConnectedGateway(getApplication<Application>(), normalized)
+        }
         _uiState.update {
             it.copy(
-                customGatewayUrl = url,
+                customGatewayUrl = normalized,
                 gatewayHealth = null,
                 gatewayLatencyMs = 0L,
                 connectivityMode = ConnectivityMode.OFFLINE_OUTBOX

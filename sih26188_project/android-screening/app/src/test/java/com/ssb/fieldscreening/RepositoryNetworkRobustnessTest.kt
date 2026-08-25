@@ -11,6 +11,7 @@ import com.ssb.fieldscreening.data.model.PRESET_SCENARIOS
 import com.ssb.fieldscreening.data.repository.SsbRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -86,14 +87,15 @@ class RepositoryNetworkRobustnessTest {
     }
 
     @Test
-    fun `test syncPendingRecord caps retries at 3 and marks FAILED without network call`() = runBlocking {
+    fun `test syncPendingRecord caps retries at 5 and marks FAILED without network call`() = runBlocking {
         val sessionId = "SSB-FAIL-" + UUID.randomUUID().toString().take(6).uppercase()
+        val originalDocBytes = byteArrayOf(10, 20, 30, 40)
         val recordCapped = OutboxScreeningRecord(
             sessionId = sessionId,
             checkpointId = "SSB_SONAULI_01",
             officerId = "OFFICER-TEST-01",
             transitDate = "2026-08-23 12:00:00",
-            documentImageBlob = byteArrayOf(1, 2),
+            documentImageBlob = originalDocBytes,
             liveFaceBlob = null,
             inspectionResponseJson = "{}",
             riskScore = 85.0,
@@ -103,7 +105,7 @@ class RepositoryNetworkRobustnessTest {
             syncStatus = "PENDING",
             travelerName = "TRAVELER-TEST-01",
             documentNumber = "TEST-DOC-001",
-            retryCount = 3
+            retryCount = 5
         )
         db.outboxDao().insertRecord(recordCapped)
 
@@ -113,11 +115,33 @@ class RepositoryNetworkRobustnessTest {
             customBaseUrl = "http://127.0.0.1:8000"
         )
 
-        assertFalse("syncPendingRecord must return false when retryCount >= 3", syncResult)
+        assertFalse("syncPendingRecord must return false when retryCount >= 5", syncResult)
 
         val updatedRecord = db.outboxDao().getRecordBySessionId(sessionId)
         assertNotNull(updatedRecord)
         assertEquals("FAILED", updatedRecord?.syncStatus)
+        // Ensure image blob is retained and not deleted
+        assertArrayEquals(originalDocBytes, updatedRecord?.documentImageBlob)
+    }
+
+    @Test
+    fun `test uploadCompanionCapture in offline mode saves record with image and PENDING status`() = runBlocking {
+        val testBytes = byteArrayOf(101, 102, 103)
+        val result = repository.uploadCompanionCapture(
+            captureBytes = testBytes,
+            captureType = "document",
+            checkpointId = "SSB_RAXAUL_02",
+            deviceId = "OFFICER-DEV-1",
+            customBaseUrl = "",
+            mode = ConnectivityMode.OFFLINE_OUTBOX
+        )
+
+        assertFalse("Offline uploadCompanionCapture returns failure", result.isSuccess)
+        val pendingRecords = repository.pendingOutboxRecords.first()
+        val saved = pendingRecords.find { it.officerId == "OFFICER-DEV-1" }
+        assertNotNull("Capture must be preserved in Outbox", saved)
+        assertArrayEquals(testBytes, saved?.documentImageBlob)
+        assertEquals("PENDING", saved?.syncStatus)
     }
 
     @Test

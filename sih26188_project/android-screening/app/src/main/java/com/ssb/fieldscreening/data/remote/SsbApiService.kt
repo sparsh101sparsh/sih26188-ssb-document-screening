@@ -38,7 +38,8 @@ interface SsbApiService {
         @Part file: MultipartBody.Part,
         @Part("capture_type") captureType: RequestBody,
         @Part("device_id") deviceId: RequestBody,
-        @Part("checkpoint_id") checkpointId: RequestBody
+        @Part("checkpoint_id") checkpointId: RequestBody,
+        @Part("capture_id") captureId: RequestBody? = null
     ): Response<CompanionUploadAck>
 }
 

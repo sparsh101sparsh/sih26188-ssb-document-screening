@@ -11,7 +11,7 @@ enum class RiskLevel {
 
 enum class ConnectivityMode(val label: String, val endpoint: String, val description: String) {
     USB_TETHERED("USB Reverse Tether", "http://127.0.0.1:8000", "Zero-RF Latency <2ms via adb reverse"),
-    AIR_GAPPED_WIFI("Air-Gapped Wi-Fi AP", "http://192.168.2.1:8000", "Isolated SSB_GATEWAY_SECURE AP"),
+    AIR_GAPPED_WIFI("Air-Gapped Wi-Fi AP", "", "Isolated SSB_GATEWAY_SECURE AP"),
     OFFLINE_OUTBOX("Offline Outbox", "", "SQLCipher Encrypted Local Audit Queue")
 }
 

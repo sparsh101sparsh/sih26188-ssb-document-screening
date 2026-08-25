@@ -309,3 +309,15 @@ export interface ModelTestResponse {
   timestamp: string;
 }
 
+export interface PairingQrResponse {
+  status: string;
+  qr_payload: string;
+  gateway_id: string;
+  pairing_token: string;
+  current_lan_ip: string;
+  port: number;
+  fallback_url: string;
+  timestamp?: number;
+  available_interfaces?: Array<{ name: string; ip: string }>;
+}
+

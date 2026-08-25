@@ -23,6 +23,7 @@ from app.core.backend_selector import get_hardware_status, get_optimal_execution
 from app.core.config import settings
 from app.core.device_tracker import device_tracker
 from app.core.logging import get_logger, setup_logging
+from app.core.network import select_lan_ip
 from app.schemas.scan import DocumentInspectResponse
 
 # Initialize Structured Logging
@@ -96,22 +97,22 @@ async def lifespan(app: FastAPI):
         import socket
         from zeroconf import ServiceInfo, Zeroconf  # type: ignore
 
-        _host_ip = socket.gethostbyname(socket.gethostname())
+        _host_ip = select_lan_ip()
         _zeroconf = Zeroconf()
         _zc_info = ServiceInfo(
             "_ssb-gateway._tcp.local.",
             "SSBGateway._ssb-gateway._tcp.local.",
             addresses=[socket.inet_aton(_host_ip)],
-            port=8000,
+            port=settings.PORT,
             properties={"path": "/", "version": settings.APP_VERSION},
             server=f"{socket.gethostname()}.local.",
         )
         _zeroconf.register_service(_zc_info)
-        logger.info(f"[mDNS] Broadcasting SSB Gateway at {_host_ip}:8000 as '_ssb-gateway._tcp.local.'")
+        logger.info(f"[Zeroconf] Broadcasting SSB Gateway at {_host_ip}:{settings.PORT} as '_ssb-gateway._tcp.local.'")
     except ImportError:
-        logger.warning("[mDNS] 'zeroconf' package not installed — Android Auto-Find will fall back to subnet scan. Install via: pip install zeroconf")
+        logger.warning("[Zeroconf] 'zeroconf' package not installed — Android Auto-Find will fall back to subnet scan. Install via: pip install zeroconf")
     except Exception as e:
-        logger.warning(f"[mDNS] Could not register Zeroconf service: {e}")
+        logger.warning(f"[Zeroconf] Could not register Zeroconf service: {e}")
 
     yield
 
@@ -120,7 +121,7 @@ async def lifespan(app: FastAPI):
         try:
             _zeroconf.unregister_service(_zc_info)
             _zeroconf.close()
-            logger.info("[mDNS] Zeroconf service unregistered.")
+            logger.info("[Zeroconf] Zeroconf service unregistered.")
         except Exception:
             pass
 
@@ -156,7 +157,7 @@ async def track_device_activity_middleware(request: Request, call_next):
     duration_ms = (time.perf_counter() - start_time) * 1000.0
 
     path = request.url.path
-    if path.startswith("/api/v1/companion") or path in ("/api/v1/inspect", "/api/v1/companion/upload", "/api/v1/companion/ping"):
+    if path.startswith("/api/v1/companion") or path in ("/api/v1/inspect", "/api/v1/companion/upload", "/api/v1/companion/ping", "/health", "/api/v1/health"):
         # Resolve client IP (support reverse proxy headers)
         forwarded = request.headers.get("x-forwarded-for")
         if forwarded:

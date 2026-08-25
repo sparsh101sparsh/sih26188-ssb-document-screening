@@ -1,5 +1,6 @@
 package com.ssb.fieldscreening.data.repository
 
+import android.util.Log
 import com.ssb.fieldscreening.data.local.OutboxDao
 import com.ssb.fieldscreening.data.local.OutboxScreeningRecord
 import com.ssb.fieldscreening.data.model.Assessment
@@ -20,6 +21,7 @@ import com.ssb.fieldscreening.data.model.RiskDetails
 import com.ssb.fieldscreening.data.model.StampDetails
 import com.ssb.fieldscreening.data.model.ViolationFlag
 import com.ssb.fieldscreening.data.remote.ApiClientFactory
+import com.ssb.fieldscreening.util.WifiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +36,11 @@ import java.util.Locale
 import java.util.UUID
 
 class SsbRepository(private val outboxDao: OutboxDao) {
+
+    companion object {
+        const val MAX_RETRY_ATTEMPTS = 5
+        val RETRY_DELAYS_MS = listOf(0L, 2000L, 8000L, 30000L, 60000L)
+    }
 
     val allOutboxRecords: Flow<List<OutboxScreeningRecord>> = outboxDao.getAllRecords()
     val pendingOutboxRecords: Flow<List<OutboxScreeningRecord>> = outboxDao.getPendingRecords()
@@ -76,8 +83,11 @@ class SsbRepository(private val outboxDao: OutboxDao) {
         val sessionUuid = "CAP-${System.currentTimeMillis()}-${(1000..9999).random()}"
         val auditHash = generateSha256("$sessionUuid:$checkpointId:$deviceId:$captureType:${System.currentTimeMillis()}")
 
+        Log.d("[SsbRepository]", "uploadCompanionCapture: uuid=$sessionUuid, type=$captureType, mode=$mode, url=$url")
+
         if (url.isBlank() || mode == ConnectivityMode.OFFLINE_OUTBOX) {
             // Offline outbox save
+            Log.i("[SsbRepository]", "Offline mode: saving companion capture $sessionUuid to Outbox")
             try {
                 val record = OutboxScreeningRecord(
                     sessionId = sessionUuid,
@@ -91,7 +101,9 @@ class SsbRepository(private val outboxDao: OutboxDao) {
                     documentNumber = "FIELD-COMPANION-$captureType"
                 )
                 outboxDao.insertRecord(record)
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                Log.e("[SsbRepository]", "Error saving to outbox: ${e.message}")
+            }
             return@withContext Result.failure(Exception("Edge Gateway disconnected. Capture saved to local Outbox queue."))
         }
 
@@ -105,10 +117,18 @@ class SsbRepository(private val outboxDao: OutboxDao) {
             val typePart = captureType.toRequestBody("text/plain".toMediaTypeOrNull())
             val devPart = deviceId.toRequestBody("text/plain".toMediaTypeOrNull())
             val checkPart = checkpointId.toRequestBody("text/plain".toMediaTypeOrNull())
+            val capIdPart = sessionUuid.toRequestBody("text/plain".toMediaTypeOrNull())
 
-            val res = service.uploadCompanionCapture(filePart, typePart, devPart, checkPart)
+            val res = service.uploadCompanionCapture(
+                file = filePart,
+                captureType = typePart,
+                deviceId = devPart,
+                checkpointId = checkPart,
+                captureId = capIdPart
+            )
             if (res.isSuccessful && res.body() != null) {
                 val ack = res.body()!!
+                Log.i("[SsbRepository]", "Companion upload succeeded for $sessionUuid: seq=${ack.sequence_id}")
                 // Persist synced record locally
                 try {
                     val record = OutboxScreeningRecord(
@@ -123,9 +143,12 @@ class SsbRepository(private val outboxDao: OutboxDao) {
                         documentNumber = "SEQ-#${ack.sequence_id}"
                     )
                     outboxDao.insertRecord(record)
-                } catch (_: Exception) {}
+                } catch (e: Exception) {
+                    Log.e("[SsbRepository]", "Error saving synced record: ${e.message}")
+                }
                 Result.success(ack)
             } else {
+                Log.w("[SsbRepository]", "Companion upload HTTP error ${res.code()}: saving $sessionUuid to Outbox")
                 // Save as pending outbox
                 try {
                     val record = OutboxScreeningRecord(
@@ -140,10 +163,13 @@ class SsbRepository(private val outboxDao: OutboxDao) {
                         documentNumber = "FIELD-COMPANION-$captureType"
                     )
                     outboxDao.insertRecord(record)
-                } catch (_: Exception) {}
+                } catch (e: Exception) {
+                    Log.e("[SsbRepository]", "Error saving to outbox: ${e.message}")
+                }
                 Result.failure(Exception("HTTP ${res.code()}: Gateway error, saved to Outbox"))
             }
         } catch (e: Exception) {
+            Log.w("[SsbRepository]", "Companion upload network exception: ${e.message}, saving $sessionUuid to Outbox")
             // Save as pending outbox
             try {
                 val record = OutboxScreeningRecord(
@@ -158,7 +184,9 @@ class SsbRepository(private val outboxDao: OutboxDao) {
                     documentNumber = "FIELD-COMPANION-$captureType"
                 )
                 outboxDao.insertRecord(record)
-            } catch (_: Exception) {}
+            } catch (dbEx: Exception) {
+                Log.e("[SsbRepository]", "Error saving to outbox: ${dbEx.message}")
+            }
             Result.failure(e)
         }
     }
@@ -267,67 +295,67 @@ class SsbRepository(private val outboxDao: OutboxDao) {
         outboxDao.insertRecord(record)
     }
 
-    suspend fun syncPendingRecord(record: OutboxScreeningRecord, mode: ConnectivityMode, customBaseUrl: String? = null): Boolean =
-        withContext(Dispatchers.IO) {
-            // Check and cap retryCount >= 3 to prevent infinite loops
-            if (record.retryCount >= 3) {
-                outboxDao.updateSyncStatus(record.sessionId, "FAILED")
-                return@withContext false
-            }
-            val url = customBaseUrl?.takeIf { it.isNotBlank() } ?: mode.endpoint
-            if (url.isBlank() || mode == ConnectivityMode.OFFLINE_OUTBOX) {
-                return@withContext false
-            }
-            try {
-                val service = ApiClientFactory.createService(url)
-                val docPart = MultipartBody.Part.createFormData(
-                    "document_image",
-                    "doc_${record.sessionId}.jpg",
-                    record.documentImageBlob.toRequestBody("image/jpeg".toMediaTypeOrNull())
-                )
-                val livePart = record.liveFaceBlob?.let {
-                    MultipartBody.Part.createFormData(
-                        "live_photo",
-                        "live_${record.sessionId}.jpg",
-                        it.toRequestBody("image/jpeg".toMediaTypeOrNull())
-                    )
-                }
-                val checkPart = record.checkpointId.toRequestBody("text/plain".toMediaTypeOrNull())
-                val datePart = record.transitDate.toRequestBody("text/plain".toMediaTypeOrNull())
+    suspend fun syncPendingRecord(
+        record: OutboxScreeningRecord,
+        mode: ConnectivityMode,
+        customBaseUrl: String? = null
+    ): Boolean = withContext(Dispatchers.IO) {
+        if (record.retryCount >= MAX_RETRY_ATTEMPTS) {
+            Log.w("[SsbRepository]", "Record ${record.sessionId} exceeded max retry limit ($MAX_RETRY_ATTEMPTS), marked FAILED")
+            outboxDao.updateSyncStatus(record.sessionId, "FAILED")
+            return@withContext false
+        }
+        val url = customBaseUrl?.takeIf { it.isNotBlank() } ?: mode.endpoint
+        if (url.isBlank() || mode == ConnectivityMode.OFFLINE_OUTBOX) {
+            return@withContext false
+        }
 
-                val response = service.inspectDocument(docPart, livePart, checkPart, datePart)
-                if (response.isSuccessful) {
-                    outboxDao.updateSyncStatus(record.sessionId, "SYNCED")
-                    true
-                } else {
-                    outboxDao.updateSyncStatus(record.sessionId, "FAILED")
-                    false
-                }
-            } catch (e: Exception) {
-                outboxDao.updateSyncStatus(record.sessionId, "FAILED")
+        val delayMs = RETRY_DELAYS_MS.getOrElse(record.retryCount) { 0L }
+        if (delayMs > 0) {
+            Log.d("[SsbRepository]", "Backing off ${delayMs}ms before retry attempt ${record.retryCount + 1} for ${record.sessionId}")
+            delay(delayMs)
+        }
+
+        try {
+            val service = ApiClientFactory.createService(url)
+            val docPart = MultipartBody.Part.createFormData(
+                "document_image",
+                "doc_${record.sessionId}.jpg",
+                record.documentImageBlob.toRequestBody("image/jpeg".toMediaTypeOrNull())
+            )
+            val livePart = record.liveFaceBlob?.let {
+                MultipartBody.Part.createFormData(
+                    "live_photo",
+                    "live_${record.sessionId}.jpg",
+                    it.toRequestBody("image/jpeg".toMediaTypeOrNull())
+                )
+            }
+            val checkPart = record.checkpointId.toRequestBody("text/plain".toMediaTypeOrNull())
+            val datePart = record.transitDate.toRequestBody("text/plain".toMediaTypeOrNull())
+
+            val response = service.inspectDocument(docPart, livePart, checkPart, datePart)
+            if (response.isSuccessful) {
+                Log.i("[SsbRepository]", "Synced record ${record.sessionId} successfully")
+                outboxDao.updateSyncStatus(record.sessionId, "SYNCED")
+                true
+            } else {
+                val newCount = record.retryCount + 1
+                val status = if (newCount >= MAX_RETRY_ATTEMPTS) "FAILED" else "PENDING"
+                Log.w("[SsbRepository]", "Sync HTTP failed for ${record.sessionId} (attempt $newCount/$MAX_RETRY_ATTEMPTS): status=$status")
+                outboxDao.updateSyncStatus(record.sessionId, status)
                 false
             }
+        } catch (e: Exception) {
+            val newCount = record.retryCount + 1
+            val status = if (newCount >= MAX_RETRY_ATTEMPTS) "FAILED" else "PENDING"
+            Log.e("[SsbRepository]", "Sync exception for ${record.sessionId} (attempt $newCount/$MAX_RETRY_ATTEMPTS): ${e.message}, status=$status")
+            outboxDao.updateSyncStatus(record.sessionId, status)
+            false
         }
+    }
 
     suspend fun autoDetectGateway(): String? = withContext(Dispatchers.IO) {
-        val candidateGateways = listOf(
-            "http://192.168.43.1:8000",
-            "http://192.168.1.1:8000",
-            "http://192.168.2.1:8000",
-            "http://10.0.0.1:8000"
-        )
-        for (gw in candidateGateways) {
-            try {
-                val service = ApiClientFactory.createService(gw)
-                val response = service.getHealth()
-                if (response.isSuccessful && response.body() != null) {
-                    return@withContext gw
-                }
-            } catch (e: Exception) {
-                // Gateway not reachable on candidate IP, try next
-            }
-        }
-        null
+        WifiUtils.discoverGatewayOnSubnet()
     }
 
     suspend fun markOfficerDecision(sessionId: String, decision: String) {

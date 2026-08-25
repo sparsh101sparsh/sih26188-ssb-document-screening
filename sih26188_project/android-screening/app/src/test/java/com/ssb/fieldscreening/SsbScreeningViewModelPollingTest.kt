@@ -4,12 +4,10 @@ import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import com.ssb.fieldscreening.data.model.ConnectivityMode
 import com.ssb.fieldscreening.ui.viewmodel.SsbScreeningViewModel
-import kotlinx.coroutines.delay
+import com.ssb.fieldscreening.util.WifiUtils
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,13 +23,16 @@ class SsbScreeningViewModelPollingTest {
     @Before
     fun setUp() {
         app = ApplicationProvider.getApplicationContext()
+        // Clear saved prefs
+        app.getSharedPreferences("ssb_network_prefs", android.content.Context.MODE_PRIVATE).edit().clear().commit()
     }
 
     @Test
-    fun `test initial state starts in clean offline outbox mode`() = runBlocking {
+    fun `test initial state starts in clean offline outbox mode with empty gateway URL`() = runBlocking {
         val viewModel = SsbScreeningViewModel(app)
         val state = viewModel.uiState.value
         assertEquals(ConnectivityMode.OFFLINE_OUTBOX, state.connectivityMode)
+        assertEquals("", state.customGatewayUrl)
         assertNull(state.gatewayHealth)
         assertEquals(0L, state.gatewayLatencyMs)
     }
@@ -73,6 +74,18 @@ class SsbScreeningViewModelPollingTest {
         assertEquals(customUrl, state.customGatewayUrl)
         assertNull(state.gatewayHealth)
         assertEquals(0L, state.gatewayLatencyMs)
+    }
+
+    @Test
+    fun `test connectToGateway updates URL and saves to prefs`() = runBlocking {
+        val viewModel = SsbScreeningViewModel(app)
+        val target = "192.168.1.120"
+        viewModel.connectToGateway(target)
+
+        val state = viewModel.uiState.value
+        assertEquals("http://192.168.1.120:8000", state.customGatewayUrl)
+        assertEquals(ConnectivityMode.AIR_GAPPED_WIFI, state.connectivityMode)
+        assertEquals("http://192.168.1.120:8000", WifiUtils.getLastConnectedGateway(app))
     }
 
     @Test

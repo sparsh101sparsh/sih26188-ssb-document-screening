@@ -11,6 +11,7 @@ const testFiles = [
   'primitives_interactive_adversarial.test.tsx',
   'adversarial_challenger_m4_deep_e2e.test.tsx',
   'qr_generation.test.tsx',
+  'connect_modal_pairing.test.tsx',
 ];
 
 for (const file of testFiles) {

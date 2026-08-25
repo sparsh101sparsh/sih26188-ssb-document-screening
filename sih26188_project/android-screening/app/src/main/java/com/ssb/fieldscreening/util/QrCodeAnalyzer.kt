@@ -1,6 +1,7 @@
 package com.ssb.fieldscreening.util
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
@@ -70,6 +71,7 @@ class QrCodeAnalyzer(
                         val rawValue = barcodes.firstOrNull()?.rawValue?.trim()
                         if (!rawValue.isNullOrBlank()) {
                             isScanned = true
+                            Log.i("[QrAnalyzer]", "ML Kit decoded QR code: $rawValue")
                             onQrCodeScanned(rawValue)
                             return@addOnSuccessListener
                         }
@@ -146,6 +148,7 @@ class QrCodeAnalyzer(
                 val resultHybrid = zxingReader.decodeWithState(bitmapHybrid)
                 if (resultHybrid != null && resultHybrid.text.isNotBlank() && !isScanned) {
                     isScanned = true
+                    Log.i("[QrAnalyzer]", "ZXing (Hybrid) decoded QR code: ${resultHybrid.text.trim()}")
                     onQrCodeScanned(resultHybrid.text.trim())
                     return
                 }
@@ -160,6 +163,7 @@ class QrCodeAnalyzer(
                 val resultGlobal = zxingReader.decodeWithState(bitmapGlobal)
                 if (resultGlobal != null && resultGlobal.text.isNotBlank() && !isScanned) {
                     isScanned = true
+                    Log.i("[QrAnalyzer]", "ZXing (GlobalHistogram) decoded QR code: ${resultGlobal.text.trim()}")
                     onQrCodeScanned(resultGlobal.text.trim())
                     return
                 }
@@ -175,6 +179,7 @@ class QrCodeAnalyzer(
                 val resultInverted = zxingReader.decodeWithState(bitmapInverted)
                 if (resultInverted != null && resultInverted.text.isNotBlank() && !isScanned) {
                     isScanned = true
+                    Log.i("[QrAnalyzer]", "ZXing (Inverted) decoded QR code: ${resultInverted.text.trim()}")
                     onQrCodeScanned(resultInverted.text.trim())
                     return
                 }

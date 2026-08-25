@@ -9,6 +9,7 @@ import asyncio
 import base64
 import hashlib
 import json
+import logging
 import os
 import sqlite3
 import threading
@@ -16,11 +17,16 @@ import time
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, AsyncGenerator, Dict, List, Optional, Set
+from typing import Any, AsyncGenerator, Dict, List, Optional, Set, Tuple
 
 from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
+
+logger = logging.getLogger("sih26188.companion")
+
+# Ephemeral pairing token generated per backend startup
+PAIRING_TOKEN = uuid.uuid4().hex[:8]
 
 router = APIRouter(prefix="/api/v1/companion", tags=["Companion Camera Sync"])
 
@@ -34,6 +40,7 @@ class CompanionCaptureState(BaseModel):
     has_capture: bool = False
     sequence_id: int = 0
     capture_uuid: str = ""
+    capture_id: Optional[str] = None
     capture_type: str = "selfie"  # "selfie" | "document"
     device_id: str = "unknown"
     checkpoint_id: str = "WB-JAI-01"
@@ -44,6 +51,7 @@ class CompanionCaptureState(BaseModel):
     file_size_bytes: int = 0
     status: str = "RECEIVED"
     timestamp: float = 0.0
+    is_duplicate: bool = False
 
 
 class CompanionUploadRequest(BaseModel):
@@ -54,6 +62,18 @@ class CompanionUploadRequest(BaseModel):
     device_id: str = Field("field-unit-1", description="Identifier of the sending field device")
     checkpoint_id: str = Field("WB-JAI-01", description="SSB border checkpost code")
     filename: Optional[str] = Field("capture.jpg", description="Original or preferred filename")
+    capture_id: Optional[str] = Field(None, description="Unique client session/capture identifier for idempotency")
+
+
+class PairingQRResponse(BaseModel):
+    status: str = "active"
+    qr_payload: str
+    gateway_id: str = "SSBGateway"
+    pairing_token: str
+    current_lan_ip: str
+    port: int
+    fallback_url: str
+    timestamp: Optional[float] = None
 
 
 class SSEBroadcaster:
@@ -103,9 +123,14 @@ class PersistentCompanionStore:
         self.db_path = db_path
         self.store_dir = store_dir
         self.max_buffer_size = max_buffer_size
+        self.pairing_token = PAIRING_TOKEN
         self._lock = threading.RLock()
         self._init_storage()
         self._latest_state = self._load_latest_state()
+
+    @property
+    def state(self) -> CompanionCaptureState:
+        return self.get_latest()
 
     def _init_storage(self):
         self.store_dir.mkdir(parents=True, exist_ok=True)
@@ -118,6 +143,7 @@ class PersistentCompanionStore:
                 CREATE TABLE IF NOT EXISTS companion_captures (
                     sequence_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     capture_uuid TEXT UNIQUE NOT NULL,
+                    capture_id TEXT,
                     capture_type TEXT NOT NULL,
                     device_id TEXT NOT NULL,
                     checkpoint_id TEXT NOT NULL,
@@ -130,6 +156,15 @@ class PersistentCompanionStore:
                     created_at REAL NOT NULL
                 );
                 """
+            )
+            # Ensure migration for existing databases without recreate
+            try:
+                conn.execute("ALTER TABLE companion_captures ADD COLUMN capture_id TEXT;")
+            except sqlite3.OperationalError:
+                pass  # Column already exists
+
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_companion_captures_capture_id ON companion_captures (capture_id);"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_companion_seq ON companion_captures(sequence_id DESC);"
@@ -160,10 +195,14 @@ class PersistentCompanionStore:
                             except Exception:
                                 pass
 
+                        row_keys = row.keys()
+                        capture_id = row["capture_id"] if "capture_id" in row_keys else None
+
                         return CompanionCaptureState(
                             has_capture=True,
                             sequence_id=row["sequence_id"],
                             capture_uuid=row["capture_uuid"],
+                            capture_id=capture_id,
                             capture_type=row["capture_type"],
                             device_id=row["device_id"],
                             checkpoint_id=row["checkpoint_id"],
@@ -174,9 +213,10 @@ class PersistentCompanionStore:
                             file_size_bytes=row["file_size_bytes"],
                             status=row["status"],
                             timestamp=row["created_at"],
+                            is_duplicate=False,
                         )
             except Exception as e:
-                print(f"[PersistentCompanionStore] Error loading latest state: {e}")
+                logger.warning(f"[Companion] Error loading latest state: {e}")
             return CompanionCaptureState()
 
     def set_capture(
@@ -187,8 +227,58 @@ class PersistentCompanionStore:
         device_id: str = "unknown",
         checkpoint_id: str = "WB-JAI-01",
         mime_type: Optional[str] = None,
+        capture_id: Optional[str] = None,
     ) -> CompanionCaptureState:
         with self._lock:
+            # 0. Deduplication check: if capture_id provided, query SQLite
+            clean_capture_id = capture_id.strip() if (capture_id and isinstance(capture_id, str) and capture_id.strip()) else None
+            if clean_capture_id:
+                try:
+                    with sqlite3.connect(str(self.db_path)) as conn:
+                        conn.row_factory = sqlite3.Row
+                        cursor = conn.cursor()
+                        cursor.execute(
+                            "SELECT * FROM companion_captures WHERE capture_id = ? LIMIT 1;",
+                            (clean_capture_id,),
+                        )
+                        row = cursor.fetchone()
+                        if row:
+                            logger.info(
+                                f"[Companion] Duplicate capture_id '{clean_capture_id}' detected (seq #{row['sequence_id']}). Returning existing record."
+                            )
+                            file_p = Path(row["file_path"])
+                            data_uri = None
+                            if file_p.exists():
+                                try:
+                                    b_data = file_p.read_bytes()
+                                    b64 = base64.b64encode(b_data).decode("utf-8")
+                                    data_uri = f"data:{row['mime_type']};base64,{b64}"
+                                except Exception:
+                                    pass
+
+                            row_keys = row.keys()
+                            c_id = row["capture_id"] if "capture_id" in row_keys else clean_capture_id
+
+                            return CompanionCaptureState(
+                                has_capture=True,
+                                sequence_id=row["sequence_id"],
+                                capture_uuid=row["capture_uuid"],
+                                capture_id=c_id,
+                                capture_type=row["capture_type"],
+                                device_id=row["device_id"],
+                                checkpoint_id=row["checkpoint_id"],
+                                image_data=data_uri,
+                                filename=row["filename"],
+                                file_path=row["file_path"],
+                                sha256_hash=row["sha256_hash"],
+                                file_size_bytes=row["file_size_bytes"],
+                                status="DUPLICATE",
+                                timestamp=row["created_at"],
+                                is_duplicate=True,
+                            )
+                except Exception as e:
+                    logger.warning(f"[Companion] Error querying capture_id duplicate: {e}")
+
             if not mime_type:
                 mime_type = self._detect_mime_type(image_bytes, filename)
 
@@ -212,13 +302,14 @@ class PersistentCompanionStore:
                 cursor.execute(
                     """
                     INSERT INTO companion_captures (
-                        capture_uuid, capture_type, device_id, checkpoint_id,
+                        capture_uuid, capture_id, capture_type, device_id, checkpoint_id,
                         filename, file_path, file_size_bytes, sha256_hash,
                         mime_type, status, created_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'RECEIVED', ?);
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'RECEIVED', ?);
                     """,
                     (
                         capture_uuid,
+                        clean_capture_id,
                         capture_type,
                         device_id,
                         checkpoint_id,
@@ -255,6 +346,7 @@ class PersistentCompanionStore:
                 has_capture=True,
                 sequence_id=sequence_id,
                 capture_uuid=capture_uuid,
+                capture_id=clean_capture_id,
                 capture_type=capture_type,
                 device_id=device_id,
                 checkpoint_id=checkpoint_id,
@@ -265,6 +357,7 @@ class PersistentCompanionStore:
                 file_size_bytes=file_size,
                 status="RECEIVED",
                 timestamp=now_ts,
+                is_duplicate=False,
             )
             self._latest_state = new_state
 
@@ -278,6 +371,7 @@ class PersistentCompanionStore:
                             {
                                 "sequence_id": sequence_id,
                                 "capture_uuid": capture_uuid,
+                                "capture_id": clean_capture_id,
                                 "capture_type": capture_type,
                                 "device_id": device_id,
                                 "checkpoint_id": checkpoint_id,
@@ -291,6 +385,7 @@ class PersistentCompanionStore:
             except Exception:
                 pass
 
+            logger.info(f"[Companion] Persisted capture #{sequence_id} (uuid: {capture_uuid}, type: {capture_type})")
             return new_state
 
     def get_latest(self) -> CompanionCaptureState:
@@ -325,11 +420,15 @@ class PersistentCompanionStore:
                             except Exception:
                                 pass
 
+                        row_keys = row.keys()
+                        capture_id = row["capture_id"] if "capture_id" in row_keys else None
+
                         results.append(
                             CompanionCaptureState(
                                 has_capture=True,
                                 sequence_id=row["sequence_id"],
                                 capture_uuid=row["capture_uuid"],
+                                capture_id=capture_id,
                                 capture_type=row["capture_type"],
                                 device_id=row["device_id"],
                                 checkpoint_id=row["checkpoint_id"],
@@ -340,10 +439,11 @@ class PersistentCompanionStore:
                                 file_size_bytes=row["file_size_bytes"],
                                 status=row["status"],
                                 timestamp=row["created_at"],
+                                is_duplicate=False,
                             )
                         )
             except Exception as e:
-                print(f"[PersistentCompanionStore] Error reading buffer: {e}")
+                logger.warning(f"[PersistentCompanionStore] Error reading buffer: {e}")
             results.reverse()
             return results
 
@@ -436,6 +536,7 @@ companion_store = PersistentCompanionStore()
 
 
 @router.post("/upload", summary="Upload Companion Camera Capture with Two-Way Delivery Handshake")
+@router.post("/capture", summary="Upload Companion Camera Capture (Alias)", include_in_schema=False)
 async def upload_companion_capture(
     request: Request,
     file: Optional[UploadFile] = File(None),
@@ -445,6 +546,7 @@ async def upload_companion_capture(
     capture_type: Optional[str] = Form(None),
     device_id: Optional[str] = Form(None),
     checkpoint_id: Optional[str] = Form(None),
+    capture_id: Optional[str] = Form(None),
     image_base64: Optional[str] = Form(None),
     image_data: Optional[str] = Form(None),
     filename: Optional[str] = Form(None),
@@ -452,12 +554,14 @@ async def upload_companion_capture(
     """
     Receives live camera snapshot from Android field unit, persists to SQLite and Disk enclave,
     broadcasts push notification via SSE, and returns confirmed delivery handshake JSON (HTTP 201).
+    Supports idempotent retries via capture_id.
     """
     content_type = request.headers.get("content-type", "").lower()
 
     req_capture_type = capture_type
     req_device_id = device_id
     req_checkpoint_id = checkpoint_id
+    req_capture_id = capture_id
     req_filename = filename
     req_b64 = image_base64 or image_data
     raw_bytes: Optional[bytes] = None
@@ -476,6 +580,7 @@ async def upload_companion_capture(
         req_capture_type = json_body.get("capture_type") or req_capture_type or "selfie"
         req_device_id = json_body.get("device_id") or req_device_id or "field-unit-1"
         req_checkpoint_id = json_body.get("checkpoint_id") or req_checkpoint_id or "WB-JAI-01"
+        req_capture_id = json_body.get("capture_id") or req_capture_id
         req_filename = json_body.get("filename") or req_filename or "capture.jpg"
         req_b64 = (
             json_body.get("image_base64")
@@ -533,7 +638,25 @@ async def upload_companion_capture(
         filename=final_filename,
         device_id=final_device_id,
         checkpoint_id=final_checkpoint_id,
+        capture_id=req_capture_id,
     )
+
+    if getattr(state, "is_duplicate", False):
+        logger.info(f"[Companion] Returning duplicate ACK for capture_id '{req_capture_id}' (seq #{state.sequence_id})")
+        return {
+            "status": "duplicate",
+            "capture_uuid": state.capture_uuid,
+            "capture_id": req_capture_id,
+            "message": "Already received",
+            "sequence_id": state.sequence_id,
+            "capture_type": state.capture_type,
+            "device_id": state.device_id,
+            "checkpoint_id": state.checkpoint_id,
+            "filename": state.filename,
+            "sha256_hash": state.sha256_hash,
+            "file_size_bytes": state.file_size_bytes,
+            "timestamp": state.timestamp,
+        }
 
     # Return explicit Two-Way Handshake ACK Response
     return {
@@ -541,6 +664,7 @@ async def upload_companion_capture(
         "message": f"Capture #{state.sequence_id} successfully persisted in Edge Enclave",
         "sequence_id": state.sequence_id,
         "capture_uuid": state.capture_uuid,
+        "capture_id": state.capture_id,
         "capture_type": state.capture_type,
         "device_id": state.device_id,
         "checkpoint_id": state.checkpoint_id,
@@ -703,48 +827,49 @@ async def get_latest_verdict():
 
 
 def _get_local_ip_addresses() -> List[str]:
-    """Helper to detect reachable IPv4 LAN addresses with fallback to ifconfig/network interfaces."""
-    import socket
-    import subprocess
-    import re
+    """Helper to detect reachable IPv4 LAN addresses using select_lan_ip and network module."""
+    from app.core.network import get_all_lan_interfaces, select_lan_ip
 
-    ips = []
-    # 1. UDP probe
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        primary = s.getsockname()[0]
-        s.close()
-        if primary and not primary.startswith("127.") and not primary.startswith("169.254."):
-            ips.append(primary)
-    except Exception:
-        pass
-
-    # 2. ifconfig / ip addr fallback
-    try:
-        out = subprocess.check_output(["ifconfig"], text=True)
-        for match in re.finditer(r"inet (\d+\.\d+\.\d+\.\d+)", out):
-            ip = match.group(1)
-            if not ip.startswith("127.") and not ip.startswith("169.254."):
-                if ip not in ips:
-                    ips.append(ip)
-    except Exception:
-        pass
-
-    # 3. getaddrinfo fallback
-    try:
-        hostname = socket.gethostname()
-        for info in socket.getaddrinfo(hostname, None, socket.AF_INET):
-            ip = info[4][0]
-            if ip and not ip.startswith("127.") and not ip.startswith("169.254."):
-                if ip not in ips:
-                    ips.append(ip)
-    except Exception:
-        pass
-
+    primary = select_lan_ip()
+    all_ifaces = get_all_lan_interfaces()
+    ips = [primary] if primary != "127.0.0.1" else []
+    for iface, addr_list in all_ifaces.items():
+        for ip in addr_list:
+            if ip and not ip.startswith("127.") and not ip.startswith("169.254.") and ip not in ips:
+                ips.append(ip)
     if not ips:
         ips.append("127.0.0.1")
     return ips
+
+
+@router.get("/pairing-qr", response_model=PairingQRResponse, summary="Fetch SSBPAIR QR Code Pairing Payload & Gateway Metadata")
+async def get_pairing_qr():
+    """
+    Returns the QR code payload under the SSBPAIR protocol, ephemeral pairing token,
+    selected LAN IP, dynamic port, and HTTP fallback URL for Android pairing.
+    """
+    from app.core.config import settings
+    from app.core.network import select_lan_ip
+
+    current_lan_ip = select_lan_ip()
+    port = getattr(settings, "PORT", 8000)
+    gateway_id = "SSBGateway"
+    pairing_token = companion_store.pairing_token
+    qr_payload = f"SSBPAIR://{current_lan_ip}:{port}/{pairing_token}"
+    fallback_url = f"http://{current_lan_ip}:{port}"
+
+    logger.info(f"[Companion] Generated pairing QR payload: {qr_payload}")
+
+    return PairingQRResponse(
+        status="active",
+        qr_payload=qr_payload,
+        gateway_id=gateway_id,
+        pairing_token=pairing_token,
+        current_lan_ip=current_lan_ip,
+        port=port,
+        fallback_url=fallback_url,
+        timestamp=time.time(),
+    )
 
 
 @router.get("/info", summary="Fetch Edge Gateway Companion Pairing & Network Info")
@@ -755,9 +880,10 @@ async def get_companion_info():
     """
     from app.core.device_tracker import device_tracker
     from app.core.config import settings
+    from app.core.network import select_lan_ip
 
     local_ips = _get_local_ip_addresses()
-    primary_ip = local_ips[0] if local_ips else "127.0.0.1"
+    primary_ip = select_lan_ip()
     port = getattr(settings, "PORT", 8000)
 
     gateway_url = f"http://{primary_ip}:{port}"
@@ -800,7 +926,7 @@ async def simulate_companion_capture(payload: CompanionSimulateRequest):
     from app.core.device_tracker import device_tracker
 
     device_tracker.record_activity(
-        client_ip="192.168.1.105",
+        client_ip="127.0.0.1",
         user_agent="SSB-Android-Companion/2.0 (Simulated)",
         endpoint="/api/v1/companion/upload",
         checkpoint_id=payload.checkpoint_id,

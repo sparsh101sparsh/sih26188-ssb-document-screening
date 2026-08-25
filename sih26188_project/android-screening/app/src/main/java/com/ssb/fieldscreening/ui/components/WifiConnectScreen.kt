@@ -92,7 +92,7 @@ import kotlinx.coroutines.launch
 fun WifiConnectScreen(
     onDismiss: () -> Unit,
     onConnected: (gatewayUrl: String) -> Unit,
-    currentGatewayUrl: String = "http://192.168.1.61:8000"
+    currentGatewayUrl: String = ""
 ) {
     val context = LocalContext.current
     val sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -100,7 +100,7 @@ fun WifiConnectScreen(
     val focusManager = LocalFocusManager.current
 
     // Gather Wi-Fi details
-    val localIp = remember { WifiUtils.getLocalIpAddress() ?: "192.168.1.x" }
+    val localIp = remember { WifiUtils.getLocalIpAddress() ?: "Unknown" }
     val wifiSsid = remember { WifiUtils.getWifiSsid(context) ?: "Wi-Fi Network" }
     val isOnWifi = remember { WifiUtils.isOnWifi(context) }
     val lastConnected = remember { WifiUtils.getLastConnectedGateway(context) }
@@ -114,14 +114,6 @@ fun WifiConnectScreen(
     var confirmedUrl by remember { mutableStateOf<String?>(null) }
     var latencyMs by remember { mutableStateOf(0L) }
 
-    // Pre-fill IP from device's subnet if blank
-    LaunchedEffect(Unit) {
-        val subnet = WifiUtils.getLocalSubnet()
-        if (subnet != null && urlInput.contains("192.168.1.100") && !urlInput.contains(subnet)) {
-            urlInput = "http://$subnet.100:8000"
-        }
-    }
-
     fun handleConnectSuccess(url: String, latency: Long) {
         val normalized = WifiUtils.normalizeGatewayUrl(url)
         WifiUtils.saveLastConnectedGateway(context, normalized)
@@ -133,11 +125,11 @@ fun WifiConnectScreen(
     }
 
     fun testAndConnect(targetUrl: String) {
-        if (targetUrl.isBlank()) {
+        val normalized = WifiUtils.normalizeGatewayUrl(targetUrl)
+        if (normalized.isBlank()) {
             errorMessage = "Please enter an IP address."
             return
         }
-        val normalized = WifiUtils.normalizeGatewayUrl(targetUrl)
         isTestingConnection = true
         errorMessage = null
         successMessage = null
@@ -164,7 +156,8 @@ fun WifiConnectScreen(
             QrScannerView(
                 onQrCodeDetected = { qrPayload ->
                     isScanningQr = false
-                    testAndConnect(qrPayload)
+                    val parsed = WifiUtils.parseQrPayload(qrPayload)
+                    testAndConnect(parsed)
                 },
                 onClose = {
                     isScanningQr = false

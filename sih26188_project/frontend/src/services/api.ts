@@ -3,7 +3,7 @@
  * Connects to FastAPI Backend at VITE_API_BASE_URL (default: http://localhost:8000)
  */
 
-import { DocumentInspectResponse } from '../types/api';
+import { DocumentInspectResponse, PairingQrResponse } from '../types/api';
 
 export const API_BASE_URL: string =
   (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_BASE_URL) ||
@@ -179,6 +179,57 @@ export async function getCompanionInfo(): Promise<CompanionInfoResponse | null> 
   } catch (err) {
     console.warn('Failed to fetch companion info:', err);
     return null;
+  }
+}
+
+/**
+ * Fetch Pairing QR metadata payload from Edge Gateway (/api/v1/companion/pairing-qr)
+ */
+export async function getPairingQr(baseUrl?: string): Promise<PairingQrResponse | null> {
+  const targetBase = baseUrl ? baseUrl.replace(/\/+$/, '') : API_BASE_URL;
+  try {
+    const res = await fetch(`${targetBase}/api/v1/companion/pairing-qr`);
+    if (res.ok) {
+      return await res.json();
+    }
+    return null;
+  } catch (err) {
+    console.warn('Failed to fetch pairing QR data:', err);
+    return null;
+  }
+}
+
+/**
+ * Test reachability / ping a specific Gateway URL or IP
+ */
+export async function pingGateway(url: string): Promise<{ success: boolean; latencyMs: number; error?: string }> {
+  const startTime = performance.now();
+  const cleanUrl = url.replace(/\/+$/, '');
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const res = await fetch(`${cleanUrl}/api/v1/companion/pairing-qr`, {
+      method: 'GET',
+      signal: controller.signal,
+    }).catch(async () => {
+      return await fetch(`${cleanUrl}/api/v1/health`, {
+        method: 'GET',
+        signal: controller.signal,
+      });
+    });
+    clearTimeout(timeoutId);
+    const latency = Math.round(performance.now() - startTime);
+    if (res && res.ok) {
+      return { success: true, latencyMs: latency };
+    }
+    return { success: false, latencyMs: latency, error: res ? `HTTP ${res.status}` : 'Connection failed' };
+  } catch (err: any) {
+    const latency = Math.round(performance.now() - startTime);
+    return {
+      success: false,
+      latencyMs: latency,
+      error: err.name === 'AbortError' ? 'Timeout (2s)' : 'Connection refused / offline',
+    };
   }
 }
 

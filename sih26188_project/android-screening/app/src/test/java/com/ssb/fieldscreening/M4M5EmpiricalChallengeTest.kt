@@ -197,7 +197,7 @@ class M4M5EmpiricalChallengeTest {
     }
 
     @Test
-    fun `challenge SsbRepository syncPendingRecord capping at 3 retries`() = runBlocking {
+    fun `challenge SsbRepository syncPendingRecord capping at 5 retries`() = runBlocking {
         // Case 1: Record with retryCount = 0 against unreachable host
         val record0 = OutboxScreeningRecord(
             sessionId = "SSB-RETRY-0",
@@ -215,26 +215,26 @@ class M4M5EmpiricalChallengeTest {
         assertFalse(syncResult0)
         val afterSync0 = outboxDao.getRecordBySessionId("SSB-RETRY-0")
         assertEquals(1, afterSync0?.retryCount)
-        assertEquals("FAILED", afterSync0?.syncStatus)
+        assertEquals("PENDING", afterSync0?.syncStatus)
 
-        // Case 2: Record with retryCount = 3 (MUST be capped immediately without network attempt)
-        val record3 = OutboxScreeningRecord(
-            sessionId = "SSB-RETRY-3",
+        // Case 2: Record with retryCount = 5 (MUST be capped immediately without network attempt)
+        val record5 = OutboxScreeningRecord(
+            sessionId = "SSB-RETRY-5",
             checkpointId = "SSB_SONAULI_01",
             officerId = "OFFICER-TEST-01",
             transitDate = "2026-08-23 12:00:00",
             documentImageBlob = byteArrayOf(0x01),
-            auditHash = "SHA256:RETRY3",
+            auditHash = "SHA256:RETRY5",
             syncStatus = "PENDING",
-            retryCount = 3
+            retryCount = 5
         )
-        outboxDao.insertRecord(record3)
+        outboxDao.insertRecord(record5)
 
-        val syncResult3 = repository.syncPendingRecord(record3, ConnectivityMode.USB_TETHERED, "http://127.0.0.1:8000")
-        assertFalse(syncResult3) // Must immediately abort and return false
-        val afterSync3 = outboxDao.getRecordBySessionId("SSB-RETRY-3")
-        assertEquals(4, afterSync3?.retryCount) // updateSyncStatus called marking FAILED and incrementing retryCount
-        assertEquals("FAILED", afterSync3?.syncStatus)
+        val syncResult5 = repository.syncPendingRecord(record5, ConnectivityMode.USB_TETHERED, "http://127.0.0.1:8000")
+        assertFalse(syncResult5) // Must immediately abort and return false
+        val afterSync5 = outboxDao.getRecordBySessionId("SSB-RETRY-5")
+        assertEquals(6, afterSync5?.retryCount) // updateSyncStatus called marking FAILED and incrementing retryCount
+        assertEquals("FAILED", afterSync5?.syncStatus)
     }
 
     @Test

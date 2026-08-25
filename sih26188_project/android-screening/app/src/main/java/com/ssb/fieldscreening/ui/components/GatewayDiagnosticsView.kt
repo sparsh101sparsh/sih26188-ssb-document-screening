@@ -50,6 +50,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -60,6 +61,7 @@ import com.ssb.fieldscreening.data.model.HealthResponse
 import com.ssb.fieldscreening.data.remote.ApiClientFactory
 import com.ssb.fieldscreening.ui.theme.SsbColors
 import com.ssb.fieldscreening.ui.theme.SsbShapes
+import com.ssb.fieldscreening.util.WifiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -76,6 +78,7 @@ fun GatewayDiagnosticsView(
     onUpdateCustomUrl: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     var urlInput by remember { mutableStateOf(customUrl) }
     var isAutoDetecting by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
@@ -350,30 +353,10 @@ fun GatewayDiagnosticsView(
                         onClick = {
                             coroutineScope.launch {
                                 isAutoDetecting = true
-                                val candidateGateways = listOf(
-                                    "http://192.168.43.1:8000",
-                                    "http://192.168.1.1:8000",
-                                    "http://192.168.2.1:8000",
-                                    "http://10.0.0.1:8000"
-                                )
-                                var detectedUrl: String? = null
-                                withContext(Dispatchers.IO) {
-                                    for (cand in candidateGateways) {
-                                        try {
-                                            val service = ApiClientFactory.createService(cand)
-                                            val resp = service.getHealth()
-                                            if (resp.isSuccessful && resp.body() != null) {
-                                                detectedUrl = cand
-                                                break
-                                            }
-                                        } catch (e: Exception) {
-                                            // Candidate unreachable, try next
-                                        }
-                                    }
-                                }
+                                val detectedUrl = WifiUtils.discoverGatewayOnSubnet(context, 8000)
                                 if (detectedUrl != null) {
-                                    urlInput = detectedUrl!!
-                                    onUpdateCustomUrl(detectedUrl!!)
+                                    urlInput = detectedUrl
+                                    onUpdateCustomUrl(detectedUrl)
                                 }
                                 isAutoDetecting = false
                             }

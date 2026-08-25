@@ -22,15 +22,23 @@ import {
   Activity,
   Globe,
   Camera,
+  ChevronDown,
+  ChevronUp,
+  Sliders,
+  CheckCircle,
+  AlertTriangle,
+  RotateCcw,
 } from 'lucide-react';
 import {
   getCompanionInfo,
+  getPairingQr,
+  pingGateway,
   simulateCompanionUpload,
   clearCompanionCapture,
   CompanionInfoResponse,
   API_BASE_URL,
 } from '../services/api';
-import { ConnectedClient } from '../types/api';
+import { ConnectedClient, PairingQrResponse } from '../types/api';
 
 import { QRCodeSVG } from 'qrcode.react';
 import QRCode from 'qrcode';
@@ -40,6 +48,18 @@ export interface ConnectModalProps {
   onClose: () => void;
   serverUrl?: string;
   onSimulatedCapture?: (captureType: 'document' | 'selfie') => void;
+}
+
+/**
+ * Standard IPv4 validation regex: 4 octets between 0 and 255.
+ */
+export const IPV4_REGEX = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+export function isValidIpv4(ip: string): boolean {
+  if (!ip || typeof ip !== 'string') return false;
+  const trimmed = ip.trim();
+  if (trimmed === 'localhost' || trimmed === '127.0.0.1') return true;
+  return IPV4_REGEX.test(trimmed);
 }
 
 /**
@@ -81,6 +101,8 @@ export function generateQRMatrix(
   }
 }
 
+export type ConnectionState = 'DISCONNECTED' | 'CONNECTING' | 'CONNECTED';
+
 export const ConnectModal: React.FC<ConnectModalProps> = ({
   isOpen,
   onClose,
@@ -90,34 +112,82 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'qr' | 'devices' | 'test' | 'tethering'>('qr');
   const [companionData, setCompanionData] = useState<CompanionInfoResponse | null>(null);
+  const [pairingData, setPairingData] = useState<PairingQrResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [simulatingMode, setSimulatingMode] = useState<'document' | 'selfie' | null>(null);
   const [simulationStatus, setSimulationStatus] = useState<string | null>(null);
+
+  // Advanced manual IP configuration state
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+  const [manualIp, setManualIp] = useState<string>('');
+  const [manualPort, setManualPort] = useState<string>('8000');
+  const [manualOverrideActive, setManualOverrideActive] = useState(false);
+  const [isPinging, setIsPinging] = useState(false);
+  const [pingResult, setPingResult] = useState<{
+    success: boolean;
+    latencyMs: number;
+    error?: string;
+    timestamp?: number;
+  } | null>(null);
+  const [manualAppliedNotice, setManualAppliedNotice] = useState<string | null>(null);
+
   const pollTimerRef = useRef<number | null>(null);
+  const isMountedRef = useRef(true);
 
   const fetchStatus = useCallback(async () => {
     try {
       setIsLoading(true);
-      const data = await getCompanionInfo();
-      setCompanionData(data);
+      const [qrData, compData] = await Promise.allSettled([
+        getPairingQr(),
+        getCompanionInfo(),
+      ]);
+
+      if (!isMountedRef.current) return;
+
+      if (qrData.status === 'fulfilled' && qrData.value) {
+        setPairingData(qrData.value);
+        if (!manualOverrideActive && qrData.value.current_lan_ip) {
+          setManualIp(qrData.value.current_lan_ip);
+        }
+        if (!manualOverrideActive && qrData.value.port) {
+          setManualPort(String(qrData.value.port));
+        }
+      }
+
+      if (compData.status === 'fulfilled' && compData.value) {
+        setCompanionData(compData.value);
+      }
     } catch {
       // quiet fallback
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
     }
-  }, []);
+  }, [manualOverrideActive]);
 
   useEffect(() => {
+    isMountedRef.current = true;
     if (!isOpen) {
       if (pollTimerRef.current) clearInterval(pollTimerRef.current);
       return;
     }
     fetchStatus();
     pollTimerRef.current = window.setInterval(fetchStatus, 3000);
-    return () => {
-      if (pollTimerRef.current) clearInterval(pollTimerRef.current);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
     };
-  }, [isOpen, fetchStatus]);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      isMountedRef.current = false;
+      if (pollTimerRef.current) clearInterval(pollTimerRef.current);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, fetchStatus, onClose]);
 
   const handleCopy = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -130,7 +200,9 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
     setSimulationStatus(null);
     try {
       await simulateCompanionUpload(mode);
-      setSimulationStatus(`Dispatched ${mode === 'document' ? 'identity credential' : 'biometric capture'} packet to gateway.`);
+      setSimulationStatus(
+        `Dispatched ${mode === 'document' ? 'identity credential' : 'biometric capture'} packet to gateway.`
+      );
       if (onSimulatedCapture) {
         onSimulatedCapture(mode);
       }
@@ -154,28 +226,122 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
     }
   };
 
+  const handleTestPing = async () => {
+    const targetIp = manualIp.trim() || 'localhost';
+    const targetPort = manualPort.trim() || '8000';
+    const testUrl = `http://${targetIp}:${targetPort}`;
+
+    setIsPinging(true);
+    setPingResult(null);
+    try {
+      const result = await pingGateway(testUrl);
+      if (isMountedRef.current) {
+        setPingResult({ ...result, timestamp: Date.now() });
+      }
+    } catch (err: any) {
+      if (isMountedRef.current) {
+        setPingResult({
+          success: false,
+          latencyMs: 0,
+          error: err.message || 'Unreachable',
+          timestamp: Date.now(),
+        });
+      }
+    } finally {
+      if (isMountedRef.current) {
+        setIsPinging(false);
+      }
+    }
+  };
+
+  const handleApplyManualOverride = () => {
+    const trimmedIp = manualIp.trim();
+    if (!isValidIpv4(trimmedIp)) {
+      setManualAppliedNotice('Please enter a valid IPv4 address (e.g. 192.168.1.50).');
+      return;
+    }
+    setManualOverrideActive(true);
+    setManualAppliedNotice('✓ Manual IP applied to Pairing QR payload.');
+    setTimeout(() => setManualAppliedNotice(null), 3000);
+  };
+
+  const handleResetAutoIp = () => {
+    setManualOverrideActive(false);
+    setManualAppliedNotice(null);
+    if (pairingData?.current_lan_ip) {
+      setManualIp(pairingData.current_lan_ip);
+      setManualPort(String(pairingData.port || 8000));
+    } else if (companionData?.primary_ip) {
+      setManualIp(companionData.primary_ip);
+      setManualPort(String(companionData.port || 8000));
+    }
+    setPingResult(null);
+  };
+
   if (!isOpen) return null;
 
+  // Base URL & Fallback calculations
   const fallbackUrl =
     typeof window !== 'undefined' && window.location.origin && window.location.origin !== 'null'
       ? window.location.origin
       : 'http://localhost:8000';
-  const rawGateway = (typeof companionData?.gateway_url === 'string' && companionData.gateway_url.trim()) ||
+
+  const rawGateway =
     (typeof serverUrl === 'string' && serverUrl.trim()) ||
+    (typeof companionData?.gateway_url === 'string' && companionData.gateway_url.trim()) ||
+    (typeof pairingData?.fallback_url === 'string' && pairingData.fallback_url.trim()) ||
     (typeof API_BASE_URL === 'string' && API_BASE_URL.trim()) ||
     fallbackUrl;
-  const primaryGateway = (typeof rawGateway === 'string' ? rawGateway.replace(/\/+$/, '') : '') || 'http://localhost:8000';
+
+  const primaryGateway =
+    (typeof rawGateway === 'string' ? rawGateway.replace(/\/+$/, '') : '') || 'http://localhost:8000';
+
+  // Determine active displayed gateway URL and tokenized QR payload
+  let displayGateway = primaryGateway;
+  let activeQrPayload = primaryGateway;
+
+  if (manualOverrideActive && isValidIpv4(manualIp)) {
+    const cleanIp = manualIp.trim();
+    const cleanPort = manualPort.trim() || '8000';
+    const token = pairingData?.pairing_token || 'SSBPAIR1';
+    displayGateway = `http://${cleanIp}:${cleanPort}`;
+    activeQrPayload = `SSBPAIR://${cleanIp}:${cleanPort}/${token}`;
+  } else if (pairingData?.qr_payload) {
+    activeQrPayload = pairingData.qr_payload;
+    displayGateway = pairingData.fallback_url || primaryGateway;
+  } else {
+    // If serverUrl prop was explicitly passed, respect that
+    activeQrPayload = primaryGateway;
+    displayGateway = primaryGateway;
+  }
+
+  // Safe QR value verified with qrcode create
   const safeQrValue = (() => {
     try {
-      QRCode.create(primaryGateway, { errorCorrectionLevel: 'M' });
-      return primaryGateway;
+      QRCode.create(activeQrPayload, { errorCorrectionLevel: 'M' });
+      return activeQrPayload;
     } catch {
-      return fallbackUrl;
+      try {
+        QRCode.create(primaryGateway, { errorCorrectionLevel: 'M' });
+        return primaryGateway;
+      } catch {
+        return fallbackUrl;
+      }
     }
   })();
+
   const emulatorUrl = 'http://10.0.2.2:8000';
   const adbCmd = 'adb reverse tcp:8000 tcp:8000';
-  const activeDeviceCount = companionData?.active_devices_count ?? 0;
+  const activeDeviceCount = companionData?.active_devices_count ?? (companionData?.devices?.length ?? 0);
+
+  // Connection state machine calculation
+  const connectionState: ConnectionState =
+    activeDeviceCount > 0 ? 'CONNECTED' : isLoading ? 'CONNECTING' : 'DISCONNECTED';
+
+  const isIpValid = manualIp === '' || isValidIpv4(manualIp);
+  const isPortValid =
+    manualPort === '' ||
+    (!isNaN(Number(manualPort)) && Number(manualPort) >= 1 && Number(manualPort) <= 65535);
 
   return (
     <div
@@ -200,22 +366,24 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                 <h2 className="text-sm sm:text-base font-bold text-white truncate">
                   Connect Android Field Phone
                 </h2>
-                <span
-                  className={`inline-flex items-center gap-1.5 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border transition-all ${
-                    activeDeviceCount > 0
-                      ? 'bg-emerald-500/20 border-emerald-400/40 text-emerald-300'
-                      : 'bg-amber-500/20 border-amber-400/40 text-amber-300'
-                  }`}
-                >
-                  <span
-                    className={`size-1.5 rounded-full ${
-                      activeDeviceCount > 0 ? 'bg-emerald-400 animate-ping' : 'bg-amber-400'
-                    }`}
-                  />
-                  {activeDeviceCount > 0
-                    ? `${activeDeviceCount} Phone${activeDeviceCount > 1 ? 's' : ''} Connected`
-                    : 'Scan QR to Connect'}
-                </span>
+
+                {/* State Machine Header Pill */}
+                {connectionState === 'CONNECTED' ? (
+                  <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border bg-emerald-500/20 border-emerald-400/40 text-emerald-300">
+                    <span className="size-2 rounded-full bg-emerald-400 animate-ping" />
+                    {activeDeviceCount} Phone{activeDeviceCount > 1 ? 's' : ''} Connected (ONLINE)
+                  </span>
+                ) : connectionState === 'CONNECTING' ? (
+                  <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border bg-amber-500/20 border-amber-400/40 text-amber-300">
+                    <RefreshCw className="size-3 animate-spin text-amber-300" />
+                    Discovering Field Units...
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full border bg-slate-700/50 border-slate-500/40 text-slate-300">
+                    <span className="size-2 rounded-full bg-slate-400" />
+                    Scan QR to Connect
+                  </span>
+                )}
               </div>
               <p className="text-[11px] text-slate-300 truncate mt-0.5">
                 Point your Android camera at the QR code below to connect instantly
@@ -300,31 +468,88 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
           {/* TAB 0: 1-SCAN QR CODE & WI-FI CONNECT */}
           {activeTab === 'qr' && (
             <div className="space-y-4">
-              {/* Connected Banner (if active) */}
-              {activeDeviceCount > 0 && (
-                <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex items-center justify-between">
+              {/* STATE MACHINE STATE 1: CONNECTED BANNER & DEVICE METRICS */}
+              {connectionState === 'CONNECTED' && (
+                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 shadow-xs flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="relative flex items-center justify-center">
+                        <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-ping absolute" />
+                        <span className="w-3 h-3 rounded-full bg-emerald-600 relative" />
+                      </div>
+                      <div>
+                        <span className="font-bold text-xs sm:text-sm text-emerald-950 block">
+                          ✓ Field Scanner Connected &amp; Synced!
+                        </span>
+                        <span className="text-[11px] text-emerald-800 font-mono">
+                          {companionData?.devices?.[0]?.client_ip
+                            ? `Active Client: ${companionData.devices[0].client_ip}`
+                            : 'Live biometric & document stream established'}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold uppercase bg-emerald-600 text-white px-2.5 py-1 rounded-full shadow-xs">
+                      ONLINE
+                    </span>
+                  </div>
+
+                  {/* Active Connected Device Details */}
+                  {companionData?.devices && companionData.devices.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-emerald-200/80 text-[11px]">
+                      <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
+                        <span className="text-emerald-700 font-semibold block text-[10px] uppercase tracking-wider">
+                          Device Model
+                        </span>
+                        <span className="font-bold text-slate-800 truncate block font-mono mt-0.5">
+                          {companionData.devices[0].user_agent || 'Android Field Scanner'}
+                        </span>
+                      </div>
+                      <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
+                        <span className="text-emerald-700 font-semibold block text-[10px] uppercase tracking-wider">
+                          Checkpoint ID
+                        </span>
+                        <span className="font-bold text-slate-800 truncate block font-mono mt-0.5">
+                          {companionData.devices[0].checkpoint_id || companionData.checkpoint_id || 'SSB Checkpoint'}
+                        </span>
+                      </div>
+                      <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
+                        <span className="text-emerald-700 font-semibold block text-[10px] uppercase tracking-wider">
+                          Latency / Ping
+                        </span>
+                        <span className="font-bold text-emerald-800 truncate block font-mono mt-0.5">
+                          {companionData.devices[0].latency_ms
+                            ? `${Math.round(companionData.devices[0].latency_ms)} ms round-trip`
+                            : 'Active / Low Latency'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* STATE MACHINE STATE 2: CONNECTING / DISCOVERING BANNER */}
+              {connectionState === 'CONNECTING' && (
+                <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 flex items-center justify-between shadow-2xs">
                   <div className="flex items-center space-x-2.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                    <RefreshCw className="w-4 h-4 text-amber-600 animate-spin" />
                     <div>
                       <span className="font-bold text-xs block">
-                        ✓ Android Phone Connected & Ready!
+                        Scanning LAN for Field Units...
                       </span>
-                      <span className="text-[11px] text-emerald-700 font-mono">
-                        {companionData?.devices?.[0]?.client_ip
-                          ? `Device IP: ${companionData.devices[0].client_ip}`
-                          : 'Live camera stream linked'}
+                      <span className="text-[11px] text-amber-700">
+                        Listening on port {pairingData?.port || 8000} via mDNS/Zeroconf broadcast
                       </span>
                     </div>
                   </div>
-                  <span className="text-[10px] font-bold uppercase bg-emerald-600 text-white px-2 py-0.5 rounded-md">
-                    ONLINE
+                  <span className="text-[10px] font-bold uppercase bg-amber-500 text-white px-2 py-0.5 rounded-md">
+                    DISCOVERING
                   </span>
                 </div>
               )}
 
-              {/* Main QR Card */}
+              {/* STATE MACHINE STATE 3: DISCONNECTED / READY TO PAIR QR CARD */}
               <div className="flex flex-col sm:flex-row items-center gap-5 p-5 rounded-2xl bg-gradient-to-br from-slate-50 to-indigo-50/40 border border-indigo-100 shadow-sm">
-                {/* SVG Pure Matrix QR Code */}
+                {/* SVG Vector QR Code */}
                 <div className="p-3.5 bg-white rounded-xl shadow-md border border-slate-200 shrink-0 flex flex-col items-center">
                   <QRCodeSVG
                     value={safeQrValue}
@@ -334,19 +559,26 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                     fgColor="#0F172A"
                     shapeRendering="crispEdges"
                     className="rounded-sm"
-                    aria-label={`QR Code for ${primaryGateway}`}
+                    aria-label={`QR Code for ${displayGateway}`}
                   />
                   <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-widest mt-2 font-mono flex items-center gap-1">
                     <Camera className="w-3 h-3" /> SCAN WITH APP
                   </span>
                 </div>
 
-                {/* 3-Step Instant Instructions */}
+                {/* 3-Step Instant Pairing Instructions */}
                 <div className="flex-1 min-w-0 space-y-3">
                   <div className="space-y-1">
-                    <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                      <span>How to Connect in 3 Seconds:</span>
-                    </h3>
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                        <span>How to Connect in 3 Seconds:</span>
+                      </h3>
+                      {pairingData?.pairing_token && (
+                        <span className="text-[10px] font-mono px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded-md font-bold">
+                          Token: {pairingData.pairing_token}
+                        </span>
+                      )}
+                    </div>
                     <ol className="space-y-2 text-xs text-slate-700">
                       <li className="flex items-start gap-2">
                         <span className="w-5 h-5 rounded-full bg-indigo-600 text-white font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
@@ -371,16 +603,23 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
 
                   {/* Gateway IP with Copy */}
                   <div className="space-y-1 pt-1">
-                    <span className="text-[11px] text-slate-500 font-semibold block">
-                      Manual Address (or Auto-Find on phone):
-                    </span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] text-slate-500 font-semibold block">
+                        Gateway URL (or Auto-Find on phone):
+                      </span>
+                      {manualOverrideActive && (
+                        <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.2 rounded">
+                          Manual IP Active
+                        </span>
+                      )}
+                    </div>
                     <div className="flex items-center justify-between gap-2 bg-white px-3 py-2 rounded-xl border border-slate-300 shadow-2xs">
                       <code className="text-xs font-mono text-indigo-950 font-bold truncate select-all">
-                        {primaryGateway}
+                        {displayGateway}
                       </code>
                       <button
                         type="button"
-                        onClick={() => handleCopy(primaryGateway, 'gateway')}
+                        onClick={() => handleCopy(displayGateway, 'gateway')}
                         className={`inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-md transition-all shrink-0 cursor-pointer ${
                           copiedKey === 'gateway'
                             ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
@@ -404,13 +643,207 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                 </div>
               </div>
 
+              {/* ============================================================= */}
+              {/* EXPANDABLE ADVANCED MANUAL IP ENTRY SECTION (R8) */}
+              {/* ============================================================= */}
+              <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs bg-slate-50/70">
+                <button
+                  type="button"
+                  onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
+                  className="w-full flex items-center justify-between p-3.5 text-left text-xs font-bold text-slate-800 hover:bg-slate-100/80 transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <Sliders className="w-4 h-4 text-indigo-600" />
+                    <span>⚙️ Advanced / Manual Gateway IP Configuration</span>
+                    {manualOverrideActive && (
+                      <span className="text-[10px] font-bold uppercase bg-amber-500 text-white px-2 py-0.2 rounded-full">
+                        Override Active
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1 text-slate-500">
+                    <span className="text-[11px] font-normal">
+                      {isAdvancedOpen ? 'Hide' : 'Configure IP/Port'}
+                    </span>
+                    {isAdvancedOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </div>
+                </button>
+
+                {isAdvancedOpen && (
+                  <div className="p-4 pt-1 border-t border-slate-200 bg-white space-y-3.5 animate-fade-in">
+                    <p className="text-[11px] text-slate-600">
+                      Configure custom LAN IP and port if running over hotspot, multiple NICs, or specific air-gapped subnet interfaces.
+                    </p>
+
+                    {/* Multi-NIC / Detected Interfaces Selector */}
+                    {companionData?.local_ips && companionData.local_ips.length > 0 && (
+                      <div className="space-y-1.5">
+                        <span className="text-[11px] font-semibold text-slate-700 block">
+                          Detected Network Interfaces on Host:
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {companionData.local_ips.map((ip, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => {
+                                setManualIp(ip);
+                                setPingResult(null);
+                              }}
+                              className={`text-[11px] font-mono px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                                manualIp === ip
+                                  ? 'bg-indigo-600 text-white border-indigo-600 font-bold shadow-xs'
+                                  : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                              }`}
+                            >
+                              {ip}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Manual IP & Port Inputs */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="sm:col-span-2 space-y-1">
+                        <label className="text-[11px] font-bold text-slate-700 block">
+                          Gateway LAN IP Address:
+                        </label>
+                        <input
+                          type="text"
+                          value={manualIp}
+                          onChange={(e) => {
+                            setManualIp(e.target.value);
+                            setPingResult(null);
+                          }}
+                          placeholder="e.g. 192.168.1.50"
+                          className={`w-full px-3 py-1.5 text-xs font-mono rounded-lg border transition-all focus:outline-hidden ${
+                            !isIpValid
+                              ? 'border-red-400 bg-red-50/50 text-red-950 focus:ring-1 focus:ring-red-400'
+                              : 'border-slate-300 bg-white text-slate-900 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
+                          }`}
+                        />
+                        {!isIpValid && (
+                          <span className="text-[10px] text-red-600 font-medium flex items-center gap-1">
+                            <AlertCircle className="w-3 h-3 inline" /> Invalid IPv4 address format (e.g. 192.168.1.50)
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[11px] font-bold text-slate-700 block">
+                          Port:
+                        </label>
+                        <input
+                          type="number"
+                          min={1}
+                          max={65535}
+                          value={manualPort}
+                          onChange={(e) => {
+                            setManualPort(e.target.value);
+                            setPingResult(null);
+                          }}
+                          placeholder="8000"
+                          className={`w-full px-3 py-1.5 text-xs font-mono rounded-lg border transition-all focus:outline-hidden ${
+                            !isPortValid
+                              ? 'border-red-400 bg-red-50/50 text-red-950 focus:ring-1 focus:ring-red-400'
+                              : 'border-slate-300 bg-white text-slate-900 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Preview Box */}
+                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700 space-y-1">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-slate-500 font-sans font-medium">QR Pairing Protocol URI:</span>
+                        <span className="text-indigo-700 font-bold font-mono">SSBPAIR://</span>
+                      </div>
+                      <div className="text-[11px] text-indigo-950 font-bold truncate">
+                        SSBPAIR://{manualIp.trim() || 'LAN_IP'}:{manualPort.trim() || '8000'}/
+                        {pairingData?.pairing_token || 'TOKEN'}
+                      </div>
+                    </div>
+
+                    {/* Action Buttons: Ping Test & Apply Override */}
+                    <div className="flex flex-wrap items-center gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={handleTestPing}
+                        disabled={isPinging || !isIpValid || !manualIp.trim()}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all disabled:opacity-50 cursor-pointer shadow-2xs"
+                      >
+                        <Activity className={`w-3.5 h-3.5 text-indigo-600 ${isPinging ? 'animate-spin' : ''}`} />
+                        <span>{isPinging ? 'Pinging Gateway...' : 'Test Connection / Ping'}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleApplyManualOverride}
+                        disabled={!isIpValid || !manualIp.trim()}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all disabled:opacity-50 cursor-pointer shadow-2xs"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Switch QR to this IP</span>
+                      </button>
+
+                      {manualOverrideActive && (
+                        <button
+                          type="button"
+                          onClick={handleResetAutoIp}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 text-xs font-medium transition-all cursor-pointer"
+                        >
+                          <RotateCcw className="w-3 h-3 text-slate-500" />
+                          <span>Reset Auto</span>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Live Ping Health Status Result */}
+                    {pingResult && (
+                      <div
+                        className={`p-2.5 rounded-xl border text-xs flex items-center justify-between animate-fade-in ${
+                          pingResult.success
+                            ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+                            : 'bg-red-50 border-red-200 text-red-900'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          {pingResult.success ? (
+                            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                          ) : (
+                            <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
+                          )}
+                          <span className="font-semibold text-[11px]">
+                            {pingResult.success
+                              ? `✓ Gateway reachable in ${pingResult.latencyMs}ms (HTTP 200 OK)`
+                              : `✗ Gateway unreachable: ${pingResult.error || 'Connection failed'}`}
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-mono opacity-70">
+                          {new Date(pingResult.timestamp || Date.now()).toLocaleTimeString()}
+                        </span>
+                      </div>
+                    )}
+
+                    {manualAppliedNotice && (
+                      <div className="text-[11px] text-indigo-700 font-semibold bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-200">
+                        {manualAppliedNotice}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
               {/* Wi-Fi Troubleshooting Tip */}
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 flex items-center justify-between">
-                <span>💡 Make sure your laptop and Android phone are connected to the <strong>same Wi-Fi network / hotspot</strong>.</span>
+                <span>
+                  💡 Ensure workstation and Android handset are on the <strong>same Wi-Fi / hotspot subnet</strong>.
+                </span>
                 <button
                   type="button"
                   onClick={fetchStatus}
-                  className="px-2 py-1 text-[11px] font-semibold text-slate-700 hover:bg-slate-200 rounded-md transition-all shrink-0"
+                  className="px-2 py-1 text-[11px] font-semibold text-slate-700 hover:bg-slate-200 rounded-md transition-all shrink-0 cursor-pointer"
                 >
                   <RefreshCw className={`w-3 h-3 inline mr-1 ${isLoading ? 'animate-spin' : ''}`} /> Refresh Status
                 </button>
@@ -520,7 +953,10 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
               {simulationStatus && (
                 <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs font-semibold text-indigo-900 flex items-center justify-between">
                   <span>{simulationStatus}</span>
-                  <button onClick={handleClearInbox} className="text-red-600 hover:text-red-700 text-[11px] font-bold ml-2">
+                  <button
+                    onClick={handleClearInbox}
+                    className="text-red-600 hover:text-red-700 text-[11px] font-bold ml-2 cursor-pointer"
+                  >
                     Purge Inbox
                   </button>
                 </div>
@@ -587,7 +1023,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
         {/* ================================================================= */}
         <div className="flex items-center justify-between px-6 py-3.5 bg-slate-50 border-t border-slate-200 text-xs">
           <span className="text-slate-500 font-mono text-[11px]">
-            SSB Gateway Port 8000 Active
+            SSB Gateway Port {pairingData?.port || 8000} Active
           </span>
           <button
             type="button"
