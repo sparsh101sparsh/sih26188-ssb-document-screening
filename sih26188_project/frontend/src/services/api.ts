@@ -151,16 +151,7 @@ export interface CompanionInfoResponse {
   emulator_url: string;
   adb_command: string;
   active_devices_count: number;
-  devices: Array<{
-    client_ip: string;
-    user_agent?: string;
-    checkpoint_id?: string;
-    last_seen: string;
-    last_endpoint: string;
-    total_requests: number;
-    latency_ms?: number;
-    status: string;
-  }>;
+  devices: import('../types/api').ConnectedClient[];
   checkpoint_id: string;
   timestamp: number;
 }

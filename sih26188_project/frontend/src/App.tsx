@@ -351,14 +351,37 @@ export function App() {
     fetchLatestGallery();
     const pollInterval = setInterval(fetchLatestGallery, 2500);
 
-    // 2. Real-Time Server-Sent Events (SSE) Push Listener
+    // 2. Real-Time Server-Sent Events (SSE) Push Listener with reconnect resilience
     let eventSource: EventSource | null = null;
-    try {
-      eventSource = new EventSource(`${API_BASE_URL}/api/v1/companion/stream`);
-      eventSource.addEventListener('NEW_CAPTURE', () => {
-        fetchLatestGallery();
-      });
-    } catch {}
+    const connectSSE = () => {
+      if (!isMounted) return;
+      try {
+        const url = lastSequenceIdRef.current > 0
+          ? `${API_BASE_URL}/api/v1/companion/stream?last_event_id=${lastSequenceIdRef.current}`
+          : `${API_BASE_URL}/api/v1/companion/stream`;
+        eventSource = new EventSource(url);
+        
+        eventSource.addEventListener('CONNECTED', () => {
+          fetchLatestGallery();
+        });
+
+        eventSource.addEventListener('NEW_CAPTURE', () => {
+          fetchLatestGallery();
+        });
+
+        eventSource.addEventListener('PING', () => {
+          // Heartbeat keep-alive received
+        });
+
+        eventSource.onerror = () => {
+          // Browser EventSource will auto-reconnect with retry: 3000
+        };
+      } catch (err) {
+        console.warn('SSE initialization error:', err);
+      }
+    };
+
+    connectSSE();
 
     return () => {
       isMounted = false;

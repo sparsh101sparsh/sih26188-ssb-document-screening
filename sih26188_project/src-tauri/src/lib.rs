@@ -38,9 +38,18 @@ fn spawn_backend_process() -> bool {
     child.is_ok()
 }
 
+fn setup_adb_reverse() {
+    let _ = Command::new("adb")
+        .args(&["reverse", "tcp:8000", "tcp:8000"])
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn();
+}
+
 #[tauri::command]
 fn start_backend() -> Result<String, String> {
     if is_backend_alive() {
+        setup_adb_reverse();
         return Ok("Backend edge server is already active on 0.0.0.0:8000".to_string());
     }
 
@@ -48,9 +57,11 @@ fn start_backend() -> Result<String, String> {
         for _ in 0..15 {
             std::thread::sleep(Duration::from_millis(200));
             if is_backend_alive() {
+                setup_adb_reverse();
                 return Ok("Backend server started successfully on 0.0.0.0:8000".to_string());
             }
         }
+        setup_adb_reverse();
         Ok("Backend process spawned; starting up...".to_string())
     } else {
         Err("Could not spawn Python backend. Please ensure Python is installed.".to_string())

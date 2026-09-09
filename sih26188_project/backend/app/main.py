@@ -104,21 +104,38 @@ async def lifespan(app: FastAPI):
     try:
         import socket
         from zeroconf import ServiceInfo, Zeroconf  # type: ignore
+        from app.core.network import get_all_lan_interfaces, is_rfc1918
 
         _host_ip = select_lan_ip()
-        _zeroconf = Zeroconf()
-        _zc_info = ServiceInfo(
-            "_ssb-gateway._tcp.local.",
-            "SSBGateway._ssb-gateway._tcp.local.",
-            addresses=[socket.inet_aton(_host_ip)],
-            port=settings.PORT,
-            properties={"path": "/", "version": settings.APP_VERSION},
-            server=f"{socket.gethostname().removesuffix('.local').removesuffix('.LOCAL')}.local.",
-        )
-        _zeroconf.register_service(_zc_info)
-        logger.info(f"[Zeroconf] Broadcasting SSB Gateway at {_host_ip}:{settings.PORT} as '_ssb-gateway._tcp.local.'")
+        all_lan_ips = [
+            ip for iface, ips in get_all_lan_interfaces().items()
+            for ip in ips if is_rfc1918(ip)
+        ]
+        if _host_ip not in all_lan_ips and not _host_ip.startswith("127."):
+            all_lan_ips.insert(0, _host_ip)
+
+        if not all_lan_ips:
+            logger.warning("[Zeroconf] No valid RFC1918 LAN IP found (only loopback available). Skipping mDNS broadcast.")
+        else:
+            _zeroconf = Zeroconf()
+            _raw_addrs = [socket.inet_aton(ip) for ip in all_lan_ips]
+            _hostname_clean = socket.gethostname().removesuffix('.local').removesuffix('.LOCAL')
+            _zc_info = ServiceInfo(
+                "_ssb-gateway._tcp.local.",
+                "SSBGateway._ssb-gateway._tcp.local.",
+                addresses=_raw_addrs,
+                port=settings.PORT,
+                properties={
+                    "path": "/",
+                    "version": settings.APP_VERSION,
+                    "gateway_id": "SSBGateway",
+                },
+                server=f"{_hostname_clean}.local.",
+            )
+            _zeroconf.register_service(_zc_info)
+            logger.info(f"[Zeroconf] Broadcasting SSB Gateway at {all_lan_ips}:{settings.PORT} as '_ssb-gateway._tcp.local.'")
     except ImportError:
-        logger.warning("[Zeroconf] 'zeroconf' package not installed — Android Auto-Find will fall back to subnet scan. Install via: pip install zeroconf")
+        logger.warning("[Zeroconf] 'zeroconf' package not installed — install via: pip install zeroconf")
     except Exception as e:
         logger.warning(f"[Zeroconf] Could not register Zeroconf service: {e}")
 
@@ -175,24 +192,37 @@ async def track_device_activity_middleware(request: Request, call_next):
 
         user_agent = request.headers.get("user-agent") or ""
         checkpoint_id = request.headers.get("x-checkpoint-id")
+        device_id = request.headers.get("x-device-id")
+        device_name = request.headers.get("x-device-name")
+        connection_type = request.headers.get("x-connection-type")
+        raw_battery = request.headers.get("x-battery-level")
+        battery_level = int(raw_battery) if raw_battery and raw_battery.isdigit() else None
+        app_version = request.headers.get("x-app-version")
 
-        # Exclude desktop browsers. Loopback is kept when the caller is a field
-        # client (USB adb reverse / okhttp) so USB-tethered phones still appear.
+        # Exclude pure desktop browsers querying telemetry unless explicit device headers are set.
+        # Loopback is kept when the caller is a field client (USB adb reverse / okhttp).
         ua_lower = user_agent.lower()
         is_browser = any(b in user_agent for b in ("Mozilla", "Chrome", "Safari", "AppleWebKit", "Firefox", "Edge"))
         is_field_client = (
-            bool(checkpoint_id)
+            bool(device_id)
+            or bool(checkpoint_id)
             or "okhttp" in ua_lower
             or "ssb-android" in ua_lower
             or "ssb-field" in ua_lower
             or "field-unit" in ua_lower
+            or path in ("/api/v1/companion/upload", "/api/v1/companion/pair", "/api/v1/companion/heartbeat")
         )
         if is_field_client or not is_browser:
             if is_browser and not is_field_client:
                 pass
             else:
                 device_tracker.record_activity(
-                    client_ip=client_ip or "usb-loopback",
+                    client_ip=client_ip or "127.0.0.1",
+                    device_id=device_id,
+                    device_name=device_name,
+                    connection_type=connection_type,
+                    battery_level=battery_level,
+                    app_version=app_version,
                     user_agent=user_agent,
                     endpoint=path,
                     checkpoint_id=checkpoint_id,

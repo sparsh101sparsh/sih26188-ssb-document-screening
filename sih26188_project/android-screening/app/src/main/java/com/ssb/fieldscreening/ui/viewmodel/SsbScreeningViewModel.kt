@@ -213,17 +213,48 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         healthPollingJob?.cancel()
     }
 
-    fun connectToGateway(url: String) {
+    fun connectToGateway(url: String, pairingToken: String? = null, gatewayId: String? = null) {
         val normalized = WifiUtils.normalizeGatewayUrl(url)
         if (normalized.isBlank()) return
-        Log.i("[SsbViewModel]", "connectToGateway: $normalized")
-        WifiUtils.saveLastConnectedGateway(getApplication<Application>(), normalized)
+        Log.i("[SsbViewModel]", "connectToGateway: $normalized, token=$pairingToken, gatewayId=$gatewayId")
+
+        val app = getApplication<Application>()
+        WifiUtils.saveLastConnectedGateway(app, normalized)
+
         _uiState.update {
             it.copy(
                 customGatewayUrl = normalized,
                 connectivityMode = ConnectivityMode.AIR_GAPPED_WIFI
             )
         }
+
+        // If a pairing token is provided, pair with the gateway to acquire device credentials
+        if (!pairingToken.isNullOrBlank()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                val existingDevId = WifiUtils.getPairedDeviceId(app)
+                val isUsb = normalized.contains("127.0.0.1")
+                val pairResult = repository.pairWithGateway(
+                    url = normalized,
+                    pairingToken = pairingToken,
+                    deviceId = existingDevId,
+                    deviceName = "Android Field Unit (${android.os.Build.MODEL})",
+                    connectionType = if (isUsb) "usb" else "wifi"
+                )
+                pairResult.onSuccess { resp ->
+                    Log.i("[SsbViewModel]", "Pairing succeeded: deviceId=${resp.deviceId}, gatewayId=${resp.gatewayId}")
+                    WifiUtils.savePairedCredentials(
+                        context = app,
+                        gatewayUrl = normalized,
+                        gatewayId = resp.gatewayId,
+                        deviceId = resp.deviceId,
+                        deviceToken = resp.deviceToken
+                    )
+                }.onFailure { err ->
+                    Log.w("[SsbViewModel]", "Pairing request failed: ${err.message}")
+                }
+            }
+        }
+
         checkGatewayHealth()
         startHealthPolling()
     }
@@ -389,6 +420,7 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
     private fun startHealthPolling() {
         healthPollingJob?.cancel()
         healthPollingJob = viewModelScope.launch(Dispatchers.IO) {
+            var heartbeatCounter = 0
             while (isActive) {
                 val currentState = _uiState.value
                 if (currentState.connectivityMode != ConnectivityMode.OFFLINE_OUTBOX && currentState.customGatewayUrl.isNotBlank()) {
@@ -401,6 +433,23 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                             it.copy(
                                 gatewayHealth = health,
                                 gatewayLatencyMs = latency
+                            )
+                        }
+                        // Send heartbeat every 2nd iteration (~6s)
+                        heartbeatCounter++
+                        if (heartbeatCounter % 2 == 0) {
+                            val app = getApplication<Application>()
+                            val devId = WifiUtils.getPairedDeviceId(app) ?: "FIELD-DEV-01"
+                            val gwId = WifiUtils.getPairedGatewayId(app) ?: "SSBGateway"
+                            val dToken = WifiUtils.getPairedDeviceToken(app)
+                            val isUsb = currentState.customGatewayUrl.contains("127.0.0.1")
+                            repository.sendHeartbeat(
+                                url = currentState.customGatewayUrl,
+                                deviceId = devId,
+                                gatewayId = gwId,
+                                deviceToken = dToken,
+                                connection = if (isUsb) "usb" else "wifi",
+                                battery = 95
                             )
                         }
                     } else {

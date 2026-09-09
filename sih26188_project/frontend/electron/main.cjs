@@ -84,15 +84,28 @@ app.on('will-quit', () => {
   }
 });
 
+function setupAdbReverse() {
+  try {
+    const cp = spawn('adb', ['reverse', 'tcp:8000', 'tcp:8000'], { stdio: 'ignore' });
+    cp.on('error', () => {}); // Silently ignore if adb not found
+  } catch {}
+}
+
 // IPC handler: renderer calls window.electronAPI.startBackend()
 ipcMain.handle('backend:start', async () => {
   const already = await isBackendAlive();
-  if (already) return 'Backend already running on port 8000';
+  if (already) {
+    setupAdbReverse();
+    return 'Backend already running on port 8000';
+  }
 
   spawnUvicorn();
 
   const cameUp = await waitForBackend(30000);
-  if (cameUp) return 'Backend started successfully on port 8000';
+  if (cameUp) {
+    setupAdbReverse();
+    return 'Backend started successfully on port 8000';
+  }
 
   throw new Error(
     'Backend did not respond within 30 s. ' +

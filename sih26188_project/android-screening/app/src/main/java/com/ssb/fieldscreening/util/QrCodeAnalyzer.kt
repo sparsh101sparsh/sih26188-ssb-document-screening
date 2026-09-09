@@ -45,13 +45,13 @@ class QrCodeAnalyzer(
     }
 
     private val isProcessing = AtomicBoolean(false)
-    @Volatile private var isScanned = false
+    private val isScanned = AtomicBoolean(false)
     private var lastAnalysisTimestamp = 0L
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun analyze(imageProxy: ImageProxy) {
         val currentTimestamp = System.currentTimeMillis()
-        if (isScanned || isProcessing.get() || (currentTimestamp - lastAnalysisTimestamp < 30)) {
+        if (isScanned.get() || isProcessing.get() || (currentTimestamp - lastAnalysisTimestamp < 30)) {
             imageProxy.close()
             return
         }
@@ -67,22 +67,21 @@ class QrCodeAnalyzer(
             val inputImage = InputImage.fromMediaImage(mediaImage, rotationDegrees)
             mlKitScanner.process(inputImage)
                 .addOnSuccessListener { barcodes ->
-                    if (!isScanned && barcodes.isNotEmpty()) {
+                    if (barcodes.isNotEmpty()) {
                         val rawValue = barcodes.firstOrNull()?.rawValue?.trim()
-                        if (!rawValue.isNullOrBlank()) {
-                            isScanned = true
+                        if (!rawValue.isNullOrBlank() && isScanned.compareAndSet(false, true)) {
                             Log.i("[QrAnalyzer]", "ML Kit decoded QR code: $rawValue")
                             onQrCodeScanned(rawValue)
                             return@addOnSuccessListener
                         }
                     }
                     // If ML Kit finds nothing, run ZXing immediately
-                    if (!isScanned) {
+                    if (!isScanned.get()) {
                         decodeWithZxing(imageProxy)
                     }
                 }
                 .addOnFailureListener {
-                    if (!isScanned) {
+                    if (!isScanned.get()) {
                         decodeWithZxing(imageProxy)
                     }
                 }
@@ -91,7 +90,7 @@ class QrCodeAnalyzer(
                     imageProxy.close()
                 }
         } else {
-            if (!isScanned) {
+            if (!isScanned.get()) {
                 decodeWithZxing(imageProxy)
             }
             isProcessing.set(false)
@@ -101,7 +100,7 @@ class QrCodeAnalyzer(
 
     private fun decodeWithZxing(imageProxy: ImageProxy) {
         try {
-            if (isScanned) return
+            if (isScanned.get()) return
             val plane = imageProxy.planes[0]
             val buffer = plane.buffer
             val rowStride = plane.rowStride
@@ -146,8 +145,7 @@ class QrCodeAnalyzer(
             try {
                 val bitmapHybrid = BinaryBitmap(HybridBinarizer(source))
                 val resultHybrid = zxingReader.decodeWithState(bitmapHybrid)
-                if (resultHybrid != null && resultHybrid.text.isNotBlank() && !isScanned) {
-                    isScanned = true
+                if (resultHybrid != null && resultHybrid.text.isNotBlank() && isScanned.compareAndSet(false, true)) {
                     Log.i("[QrAnalyzer]", "ZXing (Hybrid) decoded QR code: ${resultHybrid.text.trim()}")
                     onQrCodeScanned(resultHybrid.text.trim())
                     return
@@ -161,8 +159,7 @@ class QrCodeAnalyzer(
             try {
                 val bitmapGlobal = BinaryBitmap(GlobalHistogramBinarizer(source))
                 val resultGlobal = zxingReader.decodeWithState(bitmapGlobal)
-                if (resultGlobal != null && resultGlobal.text.isNotBlank() && !isScanned) {
-                    isScanned = true
+                if (resultGlobal != null && resultGlobal.text.isNotBlank() && isScanned.compareAndSet(false, true)) {
                     Log.i("[QrAnalyzer]", "ZXing (GlobalHistogram) decoded QR code: ${resultGlobal.text.trim()}")
                     onQrCodeScanned(resultGlobal.text.trim())
                     return
@@ -177,8 +174,7 @@ class QrCodeAnalyzer(
                 val invertedSource = source.invert()
                 val bitmapInverted = BinaryBitmap(HybridBinarizer(invertedSource))
                 val resultInverted = zxingReader.decodeWithState(bitmapInverted)
-                if (resultInverted != null && resultInverted.text.isNotBlank() && !isScanned) {
-                    isScanned = true
+                if (resultInverted != null && resultInverted.text.isNotBlank() && isScanned.compareAndSet(false, true)) {
                     Log.i("[QrAnalyzer]", "ZXing (Inverted) decoded QR code: ${resultInverted.text.trim()}")
                     onQrCodeScanned(resultInverted.text.trim())
                     return
@@ -225,7 +221,7 @@ class QrCodeAnalyzer(
     }
 
     fun reset() {
-        isScanned = false
+        isScanned.set(false)
         isProcessing.set(false)
         lastAnalysisTimestamp = 0L
     }

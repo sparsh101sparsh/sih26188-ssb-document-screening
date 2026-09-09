@@ -108,7 +108,7 @@ class PairingQRResponse(BaseModel):
 
 
 class SSEBroadcaster:
-    """Pub/Sub manager for real-time Server-Sent Events (SSE) push notifications."""
+    """Pub/Sub manager for real-time Server-Sent Events (SSE) push notifications with ID and retry support."""
 
     def __init__(self):
         self._subscribers: Set[asyncio.Queue] = set()
@@ -124,8 +124,9 @@ class SSEBroadcaster:
         with self._lock:
             self._subscribers.discard(q)
 
-    async def broadcast(self, event_type: str, data: Dict[str, Any]):
-        message = f"event: {event_type}\ndata: {json.dumps(data)}\n\n"
+    async def broadcast(self, event_type: str, data: Dict[str, Any], event_id: Optional[int] = None):
+        id_str = f"id: {event_id}\n" if event_id is not None else ""
+        message = f"{id_str}retry: 3000\nevent: {event_type}\ndata: {json.dumps(data)}\n\n"
         with self._lock:
             subs = list(self._subscribers)
         for q in subs:
@@ -134,7 +135,7 @@ class SSEBroadcaster:
             except asyncio.QueueFull:
                 pass
 
-    def broadcast_threadsafe(self, event_type: str, data: Dict[str, Any]) -> None:
+    def broadcast_threadsafe(self, event_type: str, data: Dict[str, Any], event_id: Optional[int] = None) -> None:
         loop = _MAIN_LOOP
         if loop is None or not loop.is_running():
             try:
@@ -143,13 +144,9 @@ class SSEBroadcaster:
                 logger.debug("SSE broadcast dropped: no running event loop")
                 return
         try:
-            loop.call_soon_threadsafe(asyncio.create_task, self.broadcast(event_type, data))
-        except Exception:
-            try:
-                fut = asyncio.run_coroutine_threadsafe(self.broadcast(event_type, data), loop)
-                fut.result(timeout=1.0)
-            except Exception as exc:
-                logger.debug("SSE broadcast failed: %s", exc, exc_info=True)
+            fut = asyncio.run_coroutine_threadsafe(self.broadcast(event_type, data, event_id=event_id), loop)
+        except Exception as exc:
+            logger.debug("SSE broadcast failed: %s", exc, exc_info=True)
 
 
 sse_broadcaster = SSEBroadcaster()
@@ -247,6 +244,22 @@ class PersistentCompanionStore:
                     risk_score REAL NOT NULL,
                     details TEXT,
                     timestamp REAL NOT NULL
+                );
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS companion_devices (
+                    device_id TEXT PRIMARY KEY,
+                    device_token TEXT NOT NULL,
+                    device_name TEXT,
+                    connection_type TEXT DEFAULT 'wifi',
+                    app_version TEXT,
+                    battery_level INTEGER,
+                    paired_at REAL NOT NULL,
+                    last_seen REAL NOT NULL,
+                    ip_address TEXT,
+                    status TEXT DEFAULT 'ONLINE'
                 );
                 """
             )
@@ -464,6 +477,7 @@ class PersistentCompanionStore:
                     "timestamp": now_ts,
                     "status": "RECEIVED",
                 },
+                event_id=sequence_id,
             )
 
             logger.info(f"[Companion] Persisted capture #{sequence_id} (uuid: {capture_uuid}, type: {capture_type})")
@@ -491,6 +505,117 @@ class PersistentCompanionStore:
             except Exception as e:
                 logger.warning(f"[PersistentCompanionStore] Error reading buffer: {e}")
             return results
+
+    def get_buffer_since(self, since_seq: int) -> List[CompanionCaptureState]:
+        with self._lock:
+            results: List[CompanionCaptureState] = []
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    conn.row_factory = sqlite3.Row
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        "SELECT * FROM companion_captures WHERE sequence_id > ? ORDER BY sequence_id ASC LIMIT 50;",
+                        (since_seq,),
+                    )
+                    rows = cursor.fetchall()
+                    for row in rows:
+                        results.append(self._row_to_state(row, include_bytes=False))
+            except Exception as e:
+                logger.warning(f"[PersistentCompanionStore] Error reading buffer since {since_seq}: {e}")
+            return results
+
+    def register_device(
+        self,
+        device_id: str,
+        device_token: str,
+        device_name: Optional[str] = None,
+        connection_type: str = "wifi",
+        app_version: Optional[str] = None,
+        ip_address: str = "127.0.0.1",
+    ) -> Dict[str, Any]:
+        now = time.time()
+        with self._lock:
+            with sqlite3.connect(str(self.db_path)) as conn:
+                conn.execute(
+                    """
+                    INSERT INTO companion_devices (
+                        device_id, device_token, device_name, connection_type,
+                        app_version, battery_level, paired_at, last_seen, ip_address, status
+                    ) VALUES (?, ?, ?, ?, ?, 100, ?, ?, ?, 'ONLINE')
+                    ON CONFLICT(device_id) DO UPDATE SET
+                        device_token = excluded.device_token,
+                        device_name = coalesce(excluded.device_name, companion_devices.device_name),
+                        connection_type = excluded.connection_type,
+                        app_version = coalesce(excluded.app_version, companion_devices.app_version),
+                        last_seen = excluded.last_seen,
+                        ip_address = excluded.ip_address,
+                        status = 'ONLINE';
+                    """,
+                    (device_id, device_token, device_name, connection_type, app_version, now, now, ip_address),
+                )
+                conn.commit()
+            return {
+                "device_id": device_id,
+                "device_token": device_token,
+                "device_name": device_name,
+                "paired_at": now,
+                "status": "ONLINE",
+            }
+
+    def update_device_heartbeat(
+        self,
+        device_id: str,
+        battery: Optional[int] = None,
+        connection_type: Optional[str] = None,
+        app_version: Optional[str] = None,
+        ip_address: Optional[str] = None,
+    ) -> bool:
+        now = time.time()
+        with self._lock:
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    conn.execute(
+                        """
+                        UPDATE companion_devices SET
+                            last_seen = ?,
+                            battery_level = coalesce(?, battery_level),
+                            connection_type = coalesce(?, connection_type),
+                            app_version = coalesce(?, app_version),
+                            ip_address = coalesce(?, ip_address),
+                            status = 'ONLINE'
+                        WHERE device_id = ?;
+                        """,
+                        (now, battery, connection_type, app_version, ip_address, device_id),
+                    )
+                    conn.commit()
+                return True
+            except Exception as e:
+                logger.debug("Failed updating device heartbeat in db: %s", e)
+                return False
+
+    def list_devices(self) -> List[Dict[str, Any]]:
+        with self._lock:
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    conn.row_factory = sqlite3.Row
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT * FROM companion_devices ORDER BY last_seen DESC;")
+                    rows = cursor.fetchall()
+                    return [dict(r) for r in rows]
+            except Exception:
+                return []
+
+    def get_device(self, device_id: str) -> Optional[Dict[str, Any]]:
+        with self._lock:
+            try:
+                with sqlite3.connect(str(self.db_path)) as conn:
+                    conn.row_factory = sqlite3.Row
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT * FROM companion_devices WHERE device_id = ? LIMIT 1;", (device_id,))
+                    row = cursor.fetchone()
+                    return dict(row) if row else None
+            except Exception:
+                return None
 
     def delete_item(self, sequence_id: int) -> bool:
         with self._lock:
@@ -574,6 +699,123 @@ class PersistentCompanionStore:
 
 CompanionStore = PersistentCompanionStore
 companion_store = PersistentCompanionStore()
+
+
+class CompanionPairRequest(BaseModel):
+    pairing_token: str = Field(description="Pairing token from desktop QR code")
+    device_id: Optional[str] = Field(default=None, description="Optional stable client hardware/app ID")
+    device_name: Optional[str] = Field(default="Android Field Scanner", description="Device model / label")
+    app_version: Optional[str] = Field(default="1.0", description="Installed Android app version")
+    connection_type: Optional[str] = Field(default="wifi", description="wifi | usb")
+
+
+class CompanionPairResponse(BaseModel):
+    status: str = "paired"
+    device_id: str
+    device_token: str
+    gateway_id: str = "SSBGateway"
+    timestamp: float
+
+
+class CompanionHeartbeatRequest(BaseModel):
+    device_id: str
+    gateway_id: Optional[str] = "SSBGateway"
+    device_token: Optional[str] = None
+    battery: Optional[int] = None
+    connection: Optional[str] = "wifi"
+    app_version: Optional[str] = "1.0"
+
+
+class CompanionHeartbeatResponse(BaseModel):
+    status: str = "acknowledged"
+    device_id: str
+    server_time: float
+    latest_sequence_id: int
+
+
+@router.post("/pair", response_model=CompanionPairResponse, summary="Pair & Authenticate Android Companion Unit")
+async def pair_companion_device(request: Request, body: CompanionPairRequest):
+    """
+    Validates pairing token, issues persistent device_id and device_token,
+    and registers the Android field scanner in the companion device registry.
+    """
+    from app.core.device_tracker import device_tracker
+
+    client_ip = request.headers.get("x-real-ip") or (request.client.host if request.client else "127.0.0.1")
+
+    clean_token = body.pairing_token.strip()
+    if clean_token != companion_store.pairing_token:
+        existing = companion_store.get_device(body.device_id or "") if body.device_id else None
+        if not existing or existing.get("device_token") != clean_token:
+            raise HTTPException(status_code=401, detail="Invalid or expired pairing token. Please scan the QR code again.")
+
+    assigned_id = body.device_id.strip() if body.device_id and body.device_id.strip() else f"FIELD-DEV-{uuid.uuid4().hex[:6].upper()}"
+    assigned_token = f"dtoken_{uuid.uuid4().hex[:12]}"
+    conn_type = body.connection_type or ("usb" if client_ip in ("127.0.0.1", "::1", "localhost") else "wifi")
+
+    companion_store.register_device(
+        device_id=assigned_id,
+        device_token=assigned_token,
+        device_name=body.device_name or "Android Field Scanner",
+        connection_type=conn_type,
+        app_version=body.app_version or "1.0",
+        ip_address=client_ip,
+    )
+
+    device_tracker.record_activity(
+        client_ip=client_ip,
+        device_id=assigned_id,
+        device_name=body.device_name,
+        connection_type=conn_type,
+        app_version=body.app_version,
+        endpoint="/api/v1/companion/pair",
+    )
+
+    logger.info(f"[Companion] Successfully paired device '{assigned_id}' from {client_ip} ({conn_type})")
+    return CompanionPairResponse(
+        status="paired",
+        device_id=assigned_id,
+        device_token=assigned_token,
+        gateway_id="SSBGateway",
+        timestamp=time.time(),
+    )
+
+
+@router.post("/heartbeat", response_model=CompanionHeartbeatResponse, summary="Android Companion Device Heartbeat")
+async def companion_heartbeat(request: Request, body: CompanionHeartbeatRequest):
+    """
+    Periodic liveness heartbeat from Android field unit (called every 5-10s).
+    Updates device_tracker and companion_devices to keep connection state strictly ONLINE.
+    """
+    from app.core.device_tracker import device_tracker
+
+    client_ip = request.headers.get("x-real-ip") or (request.client.host if request.client else "127.0.0.1")
+    conn_type = body.connection or ("usb" if client_ip in ("127.0.0.1", "::1", "localhost") else "wifi")
+
+    companion_store.update_device_heartbeat(
+        device_id=body.device_id,
+        battery=body.battery,
+        connection_type=conn_type,
+        app_version=body.app_version,
+        ip_address=client_ip,
+    )
+
+    device_tracker.record_activity(
+        client_ip=client_ip,
+        device_id=body.device_id,
+        connection_type=conn_type,
+        battery_level=body.battery,
+        app_version=body.app_version,
+        endpoint="/api/v1/companion/heartbeat",
+    )
+
+    latest_seq = companion_store.state.sequence_id
+    return CompanionHeartbeatResponse(
+        status="acknowledged",
+        device_id=body.device_id,
+        server_time=time.time(),
+        latest_sequence_id=latest_seq,
+    )
 
 
 @router.post("/upload", summary="Upload Companion Camera Capture with Two-Way Delivery Handshake")
@@ -672,9 +914,21 @@ async def upload_companion_capture(
         raise HTTPException(status_code=400, detail="Uploaded file is empty.")
 
     final_capture_type = _normalize_capture_type(req_capture_type)
-    final_device_id = req_device_id or "field-unit-1"
-    final_checkpoint_id = req_checkpoint_id or "WB-JAI-01"
+    header_device_id = request.headers.get("x-device-id")
+    final_device_id = header_device_id or req_device_id or "field-unit-1"
+    final_checkpoint_id = request.headers.get("x-checkpoint-id") or req_checkpoint_id or "WB-JAI-01"
     final_filename = req_filename or "capture.jpg"
+
+    # Keep device registry updated
+    from app.core.device_tracker import device_tracker
+    client_ip = request.headers.get("x-real-ip") or (request.client.host if request.client else "127.0.0.1")
+    device_tracker.record_activity(
+        client_ip=client_ip,
+        device_id=final_device_id,
+        endpoint="/api/v1/companion/upload",
+        checkpoint_id=final_checkpoint_id,
+        user_agent=request.headers.get("user-agent"),
+    )
 
     state = companion_store.set_capture(
         capture_type=final_capture_type,
@@ -734,13 +988,32 @@ async def stream_companion_events(request: Request):
     """
     Subscribes the desktop workstation to real-time companion capture push notifications.
     Emits instant 'NEW_CAPTURE' events whenever an Android field officer snaps a photo.
+    Supports Last-Event-ID replay on reconnection.
     """
+    last_event_id_str = request.headers.get("last-event-id") or request.query_params.get("last_event_id")
+    last_event_id = 0
+    if last_event_id_str:
+        try:
+            last_event_id = int(last_event_id_str.strip())
+        except ValueError:
+            pass
+
     queue = sse_broadcaster.subscribe()
 
     async def event_generator() -> AsyncGenerator[str, None]:
         try:
-            # Send initial connection handshake
-            yield f"event: CONNECTED\ndata: {json.dumps({'status': 'connected', 'timestamp': time.time()})}\n\n"
+            # Send initial connection handshake with retry parameter
+            yield f"retry: 3000\nevent: CONNECTED\ndata: {json.dumps({'status': 'connected', 'timestamp': time.time()})}\n\n"
+
+            # Replay any missed events since last_event_id if client reconnected
+            if last_event_id > 0:
+                try:
+                    missed = companion_store.get_buffer_since(last_event_id)
+                    for item in missed:
+                        yield f"id: {item.sequence_id}\nretry: 3000\nevent: NEW_CAPTURE\ndata: {json.dumps(item.model_dump())}\n\n"
+                except Exception as exc:
+                    logger.debug("Error replaying missed SSE events: %s", exc)
+
             while True:
                 if await request.is_disconnected():
                     break
@@ -749,7 +1022,7 @@ async def stream_companion_events(request: Request):
                     yield message
                 except asyncio.TimeoutError:
                     # Keep-alive heartbeat ping
-                    yield f"event: PING\ndata: {json.dumps({'heartbeat': time.time()})}\n\n"
+                    yield f"retry: 3000\nevent: PING\ndata: {json.dumps({'heartbeat': time.time()})}\n\n"
         finally:
             sse_broadcaster.unsubscribe(queue)
 
@@ -964,7 +1237,7 @@ def _get_local_ip_addresses() -> List[str]:
 @router.get("/pairing-qr", response_model=PairingQRResponse, summary="Fetch SSBPAIR QR Code Pairing Payload & Gateway Metadata")
 async def get_pairing_qr():
     """
-    Returns the QR code payload under the SSBPAIR protocol, ephemeral pairing token,
+    Returns the QR code payload under structured JSON pairing protocol, ephemeral pairing token,
     selected LAN IP, dynamic port, and HTTP fallback URL for Android pairing.
     """
     from app.core.config import settings
@@ -974,8 +1247,17 @@ async def get_pairing_qr():
     port = getattr(settings, "PORT", 8000)
     gateway_id = "SSBGateway"
     pairing_token = companion_store.pairing_token
-    qr_payload = f"SSBPAIR://{current_lan_ip}:{port}/{pairing_token}"
     fallback_url = f"http://{current_lan_ip}:{port}"
+    qr_dict = {
+        "version": 1,
+        "service": "ssb-gateway",
+        "gateway_id": gateway_id,
+        "host": current_lan_ip,
+        "port": port,
+        "pairing_token": pairing_token,
+        "url": fallback_url,
+    }
+    qr_payload = json.dumps(qr_dict)
 
     logger.info(f"[Companion] Generated pairing QR payload: {qr_payload}")
 
@@ -1009,7 +1291,9 @@ async def get_companion_info():
     emulator_url = f"http://10.0.2.2:{port}"
     adb_command = f"adb reverse tcp:{port} tcp:{port}"
 
-    active_devices = device_tracker.get_active_devices()
+    all_devices = device_tracker.get_all_devices()
+    online_count = sum(1 for d in all_devices if d.status == "ONLINE")
+
     return {
         "status": "ok",
         "primary_ip": primary_ip,
@@ -1018,8 +1302,8 @@ async def get_companion_info():
         "gateway_url": gateway_url,
         "emulator_url": emulator_url,
         "adb_command": adb_command,
-        "active_devices_count": len(active_devices),
-        "devices": [d.model_dump() for d in active_devices],
+        "active_devices_count": online_count,
+        "devices": [d.model_dump() for d in all_devices],
         "checkpoint_id": "SSB-WB-JAI-01",
         "timestamp": time.time(),
     }

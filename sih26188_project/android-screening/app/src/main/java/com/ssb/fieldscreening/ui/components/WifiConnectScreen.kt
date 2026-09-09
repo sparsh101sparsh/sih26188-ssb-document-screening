@@ -157,7 +157,7 @@ fun WifiConnectScreen(
                 onQrCodeDetected = { qrPayload ->
                     isScanningQr = false
                     val parsed = WifiUtils.parseQrPayload(qrPayload)
-                    testAndConnect(parsed)
+                    testAndConnect(parsed.url)
                 },
                 onClose = {
                     isScanningQr = false

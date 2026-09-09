@@ -247,14 +247,20 @@ export interface OfficerDecision {
 }
 
 export interface ConnectedClient {
+  device_id?: string;
+  device_name?: string | null;
   client_ip: string;
+  connection_type?: string;
+  app_version?: string | null;
+  battery_level?: number | null;
   user_agent?: string | null;
   checkpoint_id?: string | null;
   last_seen: string;
+  last_seen_ts?: number;
   last_endpoint: string;
   total_requests: number;
   latency_ms?: number | null;
-  status: 'ONLINE' | 'IDLE' | 'OFFLINE' | string;
+  status: 'ONLINE' | 'STALE' | 'OFFLINE' | string;
 }
 
 export interface DevicesResponse {

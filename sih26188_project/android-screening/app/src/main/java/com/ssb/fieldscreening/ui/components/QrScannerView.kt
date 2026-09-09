@@ -59,7 +59,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -185,8 +185,17 @@ fun QrScannerView(
                             it.surfaceProvider = previewView.surfaceProvider
                         }
 
+                        val resolutionSelector = androidx.camera.core.resolutionselector.ResolutionSelector.Builder()
+                            .setResolutionStrategy(
+                                androidx.camera.core.resolutionselector.ResolutionStrategy(
+                                    android.util.Size(1280, 720),
+                                    androidx.camera.core.resolutionselector.ResolutionStrategy.FALLBACK_RULE_CLOSEST_HIGHER_THEN_LOWER
+                                )
+                            )
+                            .build()
+
                         val imageAnalysis = ImageAnalysis.Builder()
-                            .setTargetResolution(android.util.Size(1280, 720))
+                            .setResolutionSelector(resolutionSelector)
                             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                             .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888)
                             .build()

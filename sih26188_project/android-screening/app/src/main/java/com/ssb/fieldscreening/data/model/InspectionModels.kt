@@ -255,3 +255,40 @@ data class OfficerDecisionRecord(
     val timestamp: Long = System.currentTimeMillis(),
     val digitalSignatureHash: String
 )
+
+@JsonClass(generateAdapter = true)
+data class CompanionPairRequest(
+    @Json(name = "pairing_token") val pairingToken: String,
+    @Json(name = "device_id") val deviceId: String? = null,
+    @Json(name = "device_name") val deviceName: String? = "Android Field Scanner",
+    @Json(name = "app_version") val appVersion: String? = "1.0",
+    @Json(name = "connection_type") val connectionType: String? = "wifi"
+)
+
+@JsonClass(generateAdapter = true)
+data class CompanionPairResponse(
+    val status: String = "paired",
+    @Json(name = "device_id") val deviceId: String = "",
+    @Json(name = "device_token") val deviceToken: String = "",
+    @Json(name = "gateway_id") val gatewayId: String = "SSBGateway",
+    val timestamp: Double = 0.0
+)
+
+@JsonClass(generateAdapter = true)
+data class CompanionHeartbeatRequest(
+    @Json(name = "device_id") val deviceId: String,
+    @Json(name = "gateway_id") val gatewayId: String? = "SSBGateway",
+    @Json(name = "device_token") val deviceToken: String? = null,
+    val battery: Int? = null,
+    val connection: String? = "wifi",
+    @Json(name = "app_version") val appVersion: String? = "1.0"
+)
+
+@JsonClass(generateAdapter = true)
+data class CompanionHeartbeatResponse(
+    val status: String = "acknowledged",
+    @Json(name = "device_id") val deviceId: String = "",
+    @Json(name = "server_time") val serverTime: Double = 0.0,
+    @Json(name = "latest_sequence_id") val latestSequenceId: Int = 0
+)
+

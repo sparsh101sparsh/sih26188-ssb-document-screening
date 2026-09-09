@@ -495,21 +495,40 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
 
                   {/* Active Connected Device Details */}
                   {companionData?.devices && companionData.devices.length > 0 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-emerald-200/80 text-[11px]">
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-2 border-t border-emerald-200/80 text-[11px]">
                       <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
                         <span className="text-emerald-700 font-semibold block text-[10px] uppercase tracking-wider">
-                          Device Model
+                          Device ID / Name
                         </span>
-                        <span className="font-bold text-slate-800 truncate block font-mono mt-0.5">
-                          {companionData.devices[0].user_agent || 'Android Field Scanner'}
+                        <span className="font-bold text-slate-800 truncate block font-mono mt-0.5" title={companionData.devices[0].device_id || ''}>
+                          {companionData.devices[0].device_name || companionData.devices[0].device_id || companionData.devices[0].user_agent || 'Android Field Scanner'}
                         </span>
                       </div>
                       <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
                         <span className="text-emerald-700 font-semibold block text-[10px] uppercase tracking-wider">
-                          Checkpoint ID
+                          Connection Mode
+                        </span>
+                        <span className="font-bold text-slate-800 truncate block font-mono mt-0.5 uppercase flex items-center gap-1">
+                          {companionData.devices[0].connection_type === 'usb' ? (
+                            <>
+                              <Usb className="w-3 h-3 text-indigo-600" /> USB (Tethered)
+                            </>
+                          ) : (
+                            <>
+                              <Wifi className="w-3 h-3 text-emerald-600" /> Wi-Fi LAN
+                            </>
+                          )}
+                        </span>
+                      </div>
+                      <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
+                        <span className="text-emerald-700 font-semibold block text-[10px] uppercase tracking-wider">
+                          Battery / Version
                         </span>
                         <span className="font-bold text-slate-800 truncate block font-mono mt-0.5">
-                          {companionData.devices[0].checkpoint_id || companionData.checkpoint_id || 'SSB Checkpoint'}
+                          {companionData.devices[0].battery_level !== undefined && companionData.devices[0].battery_level !== null
+                            ? `🔋 ${companionData.devices[0].battery_level}%`
+                            : '🔋 --%'}
+                          {companionData.devices[0].app_version ? ` • v${companionData.devices[0].app_version}` : ''}
                         </span>
                       </div>
                       <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-200 shadow-2xs">
@@ -519,7 +538,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                         <span className="font-bold text-emerald-800 truncate block font-mono mt-0.5">
                           {companionData.devices[0].latency_ms
                             ? `${Math.round(companionData.devices[0].latency_ms)} ms round-trip`
-                            : 'Active / Low Latency'}
+                            : 'Active / <15ms'}
                         </span>
                       </div>
                     </div>
@@ -876,22 +895,54 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                 <div className="space-y-2">
                   {companionData.devices.map((dev, idx) => (
                     <div
-                      key={idx}
+                      key={dev.device_id || idx}
                       className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <div
+                          className={`w-2.5 h-2.5 rounded-full ${
+                            dev.status === 'ONLINE'
+                              ? 'bg-emerald-500 animate-pulse'
+                              : dev.status === 'STALE'
+                              ? 'bg-amber-500'
+                              : 'bg-slate-400'
+                          }`}
+                        />
                         <div>
-                          <span className="font-bold text-slate-800 block">
-                            {dev.user_agent || dev.client_ip}
-                          </span>
-                          <span className="text-[11px] text-slate-500 font-mono">
-                            IP: {dev.client_ip} • Last seen: {dev.last_seen}
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-slate-800">
+                              {dev.device_name || dev.device_id || dev.user_agent || dev.client_ip}
+                            </span>
+                            {dev.connection_type === 'usb' ? (
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 flex items-center gap-0.5">
+                                <Usb className="w-2.5 h-2.5" /> USB
+                              </span>
+                            ) : (
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 flex items-center gap-0.5">
+                                <Wifi className="w-2.5 h-2.5" /> Wi-Fi
+                              </span>
+                            )}
+                            {dev.battery_level !== undefined && dev.battery_level !== null && (
+                              <span className="text-[10px] font-mono text-slate-600 bg-slate-200/70 px-1.5 py-0.5 rounded">
+                                🔋 {dev.battery_level}%
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[11px] text-slate-500 font-mono block mt-0.5">
+                            IP: {dev.client_ip} {dev.latency_ms ? `• ${Math.round(dev.latency_ms)}ms` : ''} • Last seen: {dev.last_seen ? new Date(dev.last_seen).toLocaleTimeString() : 'now'}
                           </span>
                         </div>
                       </div>
-                      <span className="text-[10px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">
-                        Online
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${
+                          dev.status === 'ONLINE'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : dev.status === 'STALE'
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                            : 'bg-slate-100 text-slate-600 border border-slate-200'
+                        }`}
+                      >
+                        {dev.status || 'Online'}
                       </span>
                     </div>
                   ))}

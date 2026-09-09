@@ -12,7 +12,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import com.ssb.fieldscreening.data.model.CompanionPairRequest
+import com.ssb.fieldscreening.data.model.CompanionPairResponse
+import com.ssb.fieldscreening.data.model.CompanionHeartbeatRequest
+import com.ssb.fieldscreening.data.model.CompanionHeartbeatResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -23,13 +29,25 @@ interface SsbApiService {
     @GET("api/v1/health")
     suspend fun getHealth(): Response<HealthResponse>
 
+    @POST("api/v1/companion/pair")
+    suspend fun pairCompanion(
+        @Body body: CompanionPairRequest
+    ): Response<CompanionPairResponse>
+
+    @POST("api/v1/companion/heartbeat")
+    suspend fun sendHeartbeat(
+        @Body body: CompanionHeartbeatRequest
+    ): Response<CompanionHeartbeatResponse>
+
     @Multipart
     @POST("api/v1/scan/inspect")
     suspend fun inspectDocument(
         @Part documentImage: MultipartBody.Part,
         @Part livePhoto: MultipartBody.Part? = null,
         @Part("checkpoint_id") checkpointId: RequestBody? = null,
-        @Part("transit_date") transitDate: RequestBody? = null
+        @Part("transit_date") transitDate: RequestBody? = null,
+        @Header("X-Device-ID") deviceIdHeader: String? = null,
+        @Header("Authorization") authHeader: String? = null
     ): Response<InspectionResponse>
 
     @Multipart
@@ -39,7 +57,9 @@ interface SsbApiService {
         @Part("capture_type") captureType: RequestBody,
         @Part("device_id") deviceId: RequestBody,
         @Part("checkpoint_id") checkpointId: RequestBody,
-        @Part("capture_id") captureId: RequestBody? = null
+        @Part("capture_id") captureId: RequestBody? = null,
+        @Header("X-Device-ID") deviceIdHeader: String? = null,
+        @Header("Authorization") authHeader: String? = null
     ): Response<CompanionUploadAck>
 }
 

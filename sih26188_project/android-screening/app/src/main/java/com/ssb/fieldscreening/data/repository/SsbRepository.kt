@@ -72,6 +72,62 @@ class SsbRepository(private val outboxDao: OutboxDao) {
             }
         }
 
+    suspend fun pairWithGateway(
+        url: String,
+        pairingToken: String,
+        deviceId: String? = null,
+        deviceName: String? = null,
+        appVersion: String? = "1.0",
+        connectionType: String? = "wifi"
+    ): Result<com.ssb.fieldscreening.data.model.CompanionPairResponse> = withContext(Dispatchers.IO) {
+        try {
+            val service = ApiClientFactory.createService(url)
+            val response = service.pairCompanion(
+                com.ssb.fieldscreening.data.model.CompanionPairRequest(
+                    pairingToken = pairingToken,
+                    deviceId = deviceId,
+                    deviceName = deviceName,
+                    appVersion = appVersion,
+                    connectionType = connectionType
+                )
+            )
+            if (response.isSuccessful && response.body() != null) {
+                Result.success(response.body()!!)
+            } else {
+                Result.failure(Exception("Pairing rejected (HTTP ${response.code()})"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun sendHeartbeat(
+        url: String,
+        deviceId: String,
+        gatewayId: String? = "SSBGateway",
+        deviceToken: String? = null,
+        battery: Int? = null,
+        connection: String? = "wifi",
+        appVersion: String? = "1.0"
+    ): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val service = ApiClientFactory.createService(url)
+            val res = service.sendHeartbeat(
+                com.ssb.fieldscreening.data.model.CompanionHeartbeatRequest(
+                    deviceId = deviceId,
+                    gatewayId = gatewayId,
+                    deviceToken = deviceToken,
+                    battery = battery,
+                    connection = connection,
+                    appVersion = appVersion
+                )
+            )
+            res.isSuccessful
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     suspend fun uploadCompanionCapture(
         captureBytes: ByteArray,
         captureType: String,
@@ -126,7 +182,8 @@ class SsbRepository(private val outboxDao: OutboxDao) {
                 captureType = typePart,
                 deviceId = devPart,
                 checkpointId = checkPart,
-                captureId = capIdPart
+                captureId = capIdPart,
+                deviceIdHeader = deviceId
             )
             if (res.isSuccessful && res.body() != null) {
                 val ack = res.body()!!
