@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
 
 object ImageUtils {
 
-    const val MAX_IMAGE_DIMENSION = 1280
+    const val MAX_IMAGE_DIMENSION = 1600
     const val MAX_JPEG_QUALITY = 80
 
     /**

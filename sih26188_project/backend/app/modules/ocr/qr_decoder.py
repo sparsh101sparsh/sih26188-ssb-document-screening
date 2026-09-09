@@ -255,6 +255,7 @@ class QRDecoder:
                 continue
 
         # If decompression did not succeed, check if payload is already uncompressed binary or big-integer string
+        int_bytes: Optional[bytes] = None
         if decompressed is None:
             # Check if payload is big integer string
             try:
@@ -272,7 +273,12 @@ class QRDecoder:
             except Exception:
                 pass
 
-        payload_bytes = decompressed if decompressed is not None else raw_bytes
+        if decompressed is not None:
+            payload_bytes = decompressed
+        elif int_bytes is not None:
+            payload_bytes = int_bytes
+        else:
+            payload_bytes = raw_bytes
 
         # Check for Aadhaar XML / Plain Text fallback
         if b"<PrintLetterBarcodeData" in payload_bytes or b"<QPDB" in payload_bytes:

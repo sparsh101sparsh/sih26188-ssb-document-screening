@@ -80,6 +80,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import java.util.concurrent.Executors
+import java.util.concurrent.RejectedExecutionException
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -252,6 +254,8 @@ fun CameraXCaptureContainer(
             implementationMode = PreviewView.ImplementationMode.COMPATIBLE
         }
     }
+    val cameraExecutor = remember { Executors.newSingleThreadExecutor() }
+    val mainExecutor = remember { ContextCompat.getMainExecutor(context) }
 
     val cameraSelector = if (activeTarget == CameraTarget.DOCUMENT_REAR) {
         CameraSelector.DEFAULT_BACK_CAMERA
@@ -309,6 +313,11 @@ fun CameraXCaptureContainer(
             } catch (e: Exception) {
                 // cleanup
             }
+            try {
+                cameraExecutor.shutdown()
+            } catch (_: RejectedExecutionException) {
+            } catch (_: Exception) {
+            }
         }
     }
 
@@ -316,33 +325,38 @@ fun CameraXCaptureContainer(
         val capture = imageCapture
         if (capture != null) {
             isCapturing = true
-            val executor = ContextCompat.getMainExecutor(context)
             try {
                 capture.takePicture(
-                    executor,
+                    cameraExecutor,
                     object : ImageCapture.OnImageCapturedCallback() {
                         override fun onCaptureSuccess(imageProxy: ImageProxy) {
                             try {
                                 val compressedBytes = ImageUtils.processImageProxy(imageProxy)
-                                if (target == CameraTarget.DOCUMENT_REAR) {
-                                    onDocumentCaptured?.invoke(compressedBytes)
-                                } else {
-                                    onLiveFaceCaptured?.invoke(compressedBytes)
+                                mainExecutor.execute {
+                                    if (target == CameraTarget.DOCUMENT_REAR) {
+                                        onDocumentCaptured?.invoke(compressedBytes)
+                                    } else {
+                                        onLiveFaceCaptured?.invoke(compressedBytes)
+                                    }
+                                    isCapturing = false
                                 }
                             } catch (e: Exception) {
                                 Log.e("DualCameraCaptureView", "Image processing error: ${e.message}", e)
+                                mainExecutor.execute { isCapturing = false }
                             } finally {
                                 imageProxy.close()
-                                isCapturing = false
                             }
                         }
 
                         override fun onError(exception: ImageCaptureException) {
                             Log.e("DualCameraCaptureView", "Capture failed: ${exception.message}", exception)
-                            isCapturing = false
+                            mainExecutor.execute { isCapturing = false }
                         }
                     }
                 )
+            } catch (e: RejectedExecutionException) {
+                Log.e("DualCameraCaptureView", "takePicture rejected: ${e.message}", e)
+                isCapturing = false
             } catch (e: Exception) {
                 Log.e("DualCameraCaptureView", "takePicture exception: ${e.message}", e)
                 isCapturing = false

@@ -200,32 +200,28 @@ class ELAEngine:
                 max_diff = 1
 
             # Amplify differences by factor of 20x
-            scale_factor = s
-            diff_scaled = ImageEnhance.Brightness(diff).enhance(scale_factor / 10.0)
+            import numpy as np  # type: ignore
 
-            # Compute pixel-level stats
-            pixels = list(diff.getdata())
-            total_pixels = len(pixels)
-            if total_pixels > 0:
-                mean_err = sum((r + g + b) / 3.0 for r, g, b in pixels) / total_pixels
-                max_err = max((r + g + b) / 3.0 for r, g, b in pixels)
-            else:
+            scale_factor = s
+            diff_scaled = ImageEnhance.Brightness(diff).enhance(scale_factor)
+
+            # Compute pixel-level stats from numpy arrays
+            diff_np = np.asarray(diff, dtype=np.float32)
+            if diff_np.size == 0:
                 mean_err = 0.0
                 max_err = 0.0
+            else:
+                intensity = diff_np.mean(axis=2) if diff_np.ndim == 3 else diff_np
+                mean_err = float(intensity.mean())
+                max_err = float(intensity.max())
 
             # Generate 2D normalized grid [0.0, 1.0]
             grid_h = min(height, 64)
             grid_w = min(width, 64)
             diff_small = diff.resize((grid_w, grid_h), Image.Resampling.BILINEAR)
-            small_pixels = list(diff_small.getdata())
-            norm_grid: List[List[float]] = []
-            for y in range(grid_h):
-                row = []
-                for x in range(grid_w):
-                    r, g, b = small_pixels[y * grid_w + x]
-                    val = min(1.0, ((r + g + b) / 3.0 * s) / 255.0)
-                    row.append(round(val, 4))
-                norm_grid.append(row)
+            small_np = np.asarray(diff_small, dtype=np.float32)
+            small_int = small_np.mean(axis=2) if small_np.ndim == 3 else small_np
+            norm_grid = np.minimum(1.0, (small_int * s) / 255.0).round(4).tolist()
 
             # Check photo region anomaly
             photo_anomaly = False
@@ -235,12 +231,13 @@ class ELAEngine:
                 x2, y2 = min(width, x2), min(height, y2)
                 if x2 > x1 and y2 > y1:
                     photo_crop = diff.crop((x1, y1, x2, y2))
-                    photo_px = list(photo_crop.getdata())
-                    if photo_px:
-                        photo_mean = sum((r + g + b) / 3.0 for r, g, b in photo_px) / len(photo_px)
-                        if photo_mean > mean_err * 1.45 and (photo_mean - mean_err) > 4.0:
+                    photo_np = np.asarray(photo_crop, dtype=np.float32)
+                    if photo_np.size > 0:
+                        photo_int = photo_np.mean(axis=2) if photo_np.ndim == 3 else photo_np
+                        photo_mean = float(photo_int.mean())
+                        if photo_mean > mean_err * 1.6 and (photo_mean - mean_err) > 8.0:
                             photo_anomaly = True
-            elif max_err * s > 80.0 and mean_err * s > 12.0:
+            elif max_err > 220.0 and mean_err > 35.0:
                 # High localized variance detected without explicit bbox
                 photo_anomaly = True
 

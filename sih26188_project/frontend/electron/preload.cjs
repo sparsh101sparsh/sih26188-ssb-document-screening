@@ -6,4 +6,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   onClearBay: (callback) => ipcRenderer.on('app:clear-bay', callback),
   onOpenPairing: (callback) => ipcRenderer.on('app:open-pairing', callback),
   onOpenAudit: (callback) => ipcRenderer.on('app:open-audit', callback),
+  /** Invoke the backend server start command in the Electron main process */
+  startBackend: () => ipcRenderer.invoke('backend:start'),
 });
+

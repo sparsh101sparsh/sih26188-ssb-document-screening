@@ -134,12 +134,11 @@ export async function postScreeningVerdict(
  * Clear companion camera capture buffer
  */
 export async function clearCompanionCapture(): Promise<void> {
-  try {
-    await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
-      method: 'POST',
-    });
-  } catch (err) {
-    console.warn('Failed to clear companion capture:', err);
+  const response = await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
+    method: 'POST',
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to clear companion buffer: HTTP ${response.status}`);
   }
 }
 
@@ -378,21 +377,117 @@ export async function testModel(modelId: string): Promise<import('../types/api')
   return res.json();
 }
 
+// ─── Backend Process Lifecycle Helpers ───────────────────────────────────────
+
+/** Maximum milliseconds to wait for the backend to come up after spawning */
+const BACKEND_BOOT_TIMEOUT_MS = 30_000;
+
 /**
- * Start and benchmark all AI models in parallel (with automatic desktop edge server recovery)
+ * Poll GET /api/v1/health until it responds OK (or timeout).
+ * Returns true if the backend came alive within the window.
  */
-export async function startAllModels(): Promise<any> {
-  // 1. If running inside Tauri desktop app, ensure backend process is spawned
-  try {
-    if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
-      const { invoke } = await import('@tauri-apps/api/core');
-      await invoke('start_backend');
+async function waitForBackend(timeoutMs = BACKEND_BOOT_TIMEOUT_MS): Promise<boolean> {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    try {
+      const ctrl = new AbortController();
+      const tid = setTimeout(() => ctrl.abort(), 1500);
+      const res = await fetch(`${API_BASE_URL}/api/v1/health`, {
+        method: 'GET',
+        signal: ctrl.signal,
+      });
+      clearTimeout(tid);
+      if (res.ok) return true;
+    } catch {
+      // still booting — swallow
     }
-  } catch (tauriErr) {
-    console.warn('Tauri desktop backend check:', tauriErr);
+    await new Promise((r) => setTimeout(r, 500));
+  }
+  return false;
+}
+
+/**
+ * Attempt to spawn the backend server.
+ * • In Tauri desktop: calls the `start_backend` Rust command.
+ * • In browser/Electron: can't spawn a process — just returns false so the
+ *   caller can wait for the user to start the server, or auto-retry.
+ */
+async function spawnBackendProcess(): Promise<boolean> {
+  // Tauri desktop path
+  if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
+    try {
+      const { invoke } = await import('@tauri-apps/api/core');
+      const msg: string = await invoke('start_backend');
+      console.info('[BackendLauncher] Tauri start_backend →', msg);
+      return true;
+    } catch (err) {
+      console.warn('[BackendLauncher] Tauri invoke failed:', err);
+      return false;
+    }
   }
 
-  // 2. Retry fetch with backoff in case edge server was cold
+  // Electron path: renderer can't spawn processes, but main process can.
+  // Signal via a custom window message so Electron main.cjs can react.
+  if (typeof window !== 'undefined' && (window as any).electronAPI?.startBackend) {
+    try {
+      await (window as any).electronAPI.startBackend();
+      return true;
+    } catch (err) {
+      console.warn('[BackendLauncher] Electron IPC failed:', err);
+      return false;
+    }
+  }
+
+  // Pure browser — cannot spawn a process
+  return false;
+}
+
+/**
+ * 1-Click Auto-Start All Models
+ *
+ * Full lifecycle:
+ *   Step 1: Check if backend is already alive (fast path).
+ *   Step 2: If offline — try to spawn the backend process (Tauri / Electron).
+ *   Step 3: Poll GET /api/v1/health for up to 30 s waiting for it to boot.
+ *   Step 4: POST /api/v1/models/start-all to initialize all 10 neural engines.
+ *
+ * Reports granular progress via the optional `onProgress` callback so the UI
+ * can show live step labels while the user watches.
+ */
+export async function startAllModels(
+  onProgress?: (msg: string, step: number, total: number) => void
+): Promise<any> {
+  const report = (msg: string, step: number, total = 4) => {
+    console.info(`[StartAll] Step ${step}/${total}: ${msg}`);
+    onProgress?.(msg, step, total);
+  };
+
+  // ── Step 1: quick health probe ──────────────────────────────────────────
+  report('Checking backend server health…', 1);
+  const { online: alreadyOnline } = await checkBackendHealth();
+
+  if (!alreadyOnline) {
+    // ── Step 2: try to launch the backend ──────────────────────────────────
+    report('Backend offline — launching server process…', 2);
+    await spawnBackendProcess();
+
+    // ── Step 3: wait for it to boot ────────────────────────────────────────
+    report('Waiting for edge server to boot (up to 30 s)…', 3);
+    const cameUp = await waitForBackend(BACKEND_BOOT_TIMEOUT_MS);
+    if (!cameUp) {
+      throw new Error(
+        'Backend server did not respond within 30 s. ' +
+        'Please start the backend manually:\n' +
+        '  cd backend && .venv311/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000'
+      );
+    }
+    report('Backend server is ONLINE ✓', 3);
+  } else {
+    report('Backend server already ONLINE ✓', 2);
+  }
+
+  // ── Step 4: call /models/start-all with retry ──────────────────────────
+  report('Initializing all 10 neural model engines…', 4);
   let lastError: any = null;
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
@@ -406,12 +501,11 @@ export async function startAllModels(): Promise<any> {
       throw new Error(`Edge server error (HTTP ${res.status}): ${errText}`);
     } catch (err: any) {
       lastError = err;
-      if (attempt < 2) {
-        await new Promise((resolve) => setTimeout(resolve, 800));
-      }
+      if (attempt < 2) await new Promise((r) => setTimeout(r, 600));
     }
   }
-  throw lastError || new Error('Backend Edge server is offline. Please launch the backend server.');
+  throw lastError || new Error('Failed to start all models after 3 attempts.');
 }
+
 
 

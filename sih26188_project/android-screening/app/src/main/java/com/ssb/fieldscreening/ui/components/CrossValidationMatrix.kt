@@ -198,7 +198,7 @@ fun CrossValidationMatrix(
                     Spacer(modifier = Modifier.height(6.dp))
                     crossValidation.criticalViolations.forEach { cv ->
                         Text(
-                            text = "[${cv.ruleId}] ${cv.ruleName}: Expected '${cv.expectedValue}' vs Found '${cv.actualValue}'",
+                            text = "[${cv.ruleId}] ${cv.ruleName}: Expected '${cv.expectedValue ?: "-"}' vs Found '${cv.actualValue ?: "-"}'",
                             fontSize = 10.5.sp,
                             fontFamily = FontFamily.Monospace,
                             color = SsbColors.TextPrimary,

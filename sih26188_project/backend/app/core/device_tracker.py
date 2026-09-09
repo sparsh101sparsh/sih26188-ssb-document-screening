@@ -7,6 +7,7 @@ tracking source IP, user agent, checkpoint ID, last activity timestamp, request 
 and round-trip request latency for operator dashboard observability.
 """
 
+import threading
 from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
@@ -40,6 +41,7 @@ class DeviceTracker:
 
     def __init__(self) -> None:
         self._devices: Dict[str, ConnectedClient] = {}
+        self._lock = threading.RLock()
 
     def _evaluate_device_status(
         self,
@@ -67,8 +69,9 @@ class DeviceTracker:
         """
         Refreshes the status attribute of all tracked devices.
         """
-        for dev in self._devices.values():
-            dev.status = self._evaluate_device_status(dev, timeout_seconds=timeout_seconds)
+        with self._lock:
+            for dev in list(self._devices.values()):
+                dev.status = self._evaluate_device_status(dev, timeout_seconds=timeout_seconds)
 
     def record_activity(
         self,
@@ -82,20 +85,20 @@ class DeviceTracker:
         Records or updates an activity event from a field screening client.
         """
         now = datetime.now(timezone.utc).isoformat()
-        if client_ip in self._devices:
-            dev = self._devices[client_ip]
-            dev.last_seen = now
-            dev.last_endpoint = endpoint
-            dev.total_requests += 1
-            if user_agent:
-                dev.user_agent = user_agent
-            if checkpoint_id:
-                dev.checkpoint_id = checkpoint_id
-            if latency_ms is not None:
-                dev.latency_ms = round(latency_ms, 2)
-            dev.status = "ONLINE"
-            return dev
-        else:
+        with self._lock:
+            if client_ip in self._devices:
+                dev = self._devices[client_ip]
+                dev.last_seen = now
+                dev.last_endpoint = endpoint
+                dev.total_requests += 1
+                if user_agent:
+                    dev.user_agent = user_agent
+                if checkpoint_id:
+                    dev.checkpoint_id = checkpoint_id
+                if latency_ms is not None:
+                    dev.latency_ms = round(latency_ms, 2)
+                dev.status = "ONLINE"
+                return dev
             dev = ConnectedClient(
                 client_ip=client_ip,
                 user_agent=user_agent,
@@ -120,7 +123,8 @@ class DeviceTracker:
         If active_only is True, filters to return only ONLINE devices.
         """
         self.update_statuses(timeout_seconds=timeout_seconds)
-        devices = list(self._devices.values())
+        with self._lock:
+            devices = list(self._devices.values())
         if active_only:
             devices = [d for d in devices if d.status == "ONLINE"]
         return sorted(devices, key=lambda d: d.last_seen, reverse=True)
@@ -150,15 +154,17 @@ class DeviceTracker:
             return active_devices[0]
         else:
             self.update_statuses(timeout_seconds=timeout_seconds)
-            if not self._devices:
-                return None
-            return max(self._devices.values(), key=lambda d: d.last_seen)
+            with self._lock:
+                if not self._devices:
+                    return None
+                return max(self._devices.values(), key=lambda d: d.last_seen)
 
     def clear(self) -> None:
         """
         Clears device tracking registry (used for tests/reset).
         """
-        self._devices.clear()
+        with self._lock:
+            self._devices.clear()
 
 
 # Global Singleton Instance

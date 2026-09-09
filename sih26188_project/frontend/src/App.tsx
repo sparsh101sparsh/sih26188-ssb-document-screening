@@ -16,7 +16,7 @@ import { ScreenReaderEngine } from './components/ScreenReaderEngine';
 import { StampIntroScreen } from './components/StampIntroScreen';
 
 import { useBackendHealth } from './hooks/useBackendHealth';
-import { inspectDocument } from './services/api';
+import { inspectDocument, postScreeningVerdict, API_BASE_URL } from './services/api';
 import { CHECKPOINTS, CheckpointInfo, DocumentInspectResponse, OfficerDecision } from './types/api';
 import { PresetItem } from './services/presets';
 import { Smartphone, AlertTriangle, ShieldCheck, ArrowRight, Eye } from 'lucide-react';
@@ -194,6 +194,25 @@ export function App() {
     setScanResult(null);
   };
 
+  const handleOfficerDecision = (decision: OfficerDecision) => {
+    setOfficerDecision(decision);
+    if (scanResult) {
+      const seq = lastSequenceIdRef.current || 1;
+      const verdictStr = decision.action === 'AUTO_CLEAR' ? 'PASS' : (decision.action === 'SECONDARY_INSPECTION' ? 'SECONDARY' : 'DETAIN');
+      const score = scanResult.assessment?.risk_score ?? 50.0;
+      const level = scanResult.assessment?.risk_level ?? 'UNKNOWN';
+      postScreeningVerdict(
+        seq,
+        verdictStr,
+        level,
+        score,
+        `Officer action: ${decision.action}. Reason: ${decision.reason || 'Standard clearance'}`
+      ).catch((err) => {
+        console.warn('Failed to sync verdict to companion:', err);
+      });
+    }
+  };
+
   const handleScan = async () => {
     if (!documentFile && !livePhotoFile) return;
 
@@ -280,16 +299,22 @@ export function App() {
     const fetchLatestGallery = async () => {
       if (!isMounted) return;
       try {
-        const res = await fetch('/api/v1/companion/gallery?limit=50');
+        const res = await fetch(`${API_BASE_URL}/api/v1/companion/gallery?limit=50`);
         if (!res.ok) return;
         const data = await res.json();
         if (data && Array.isArray(data.items)) {
           setCompanionGalleryCount(data.total || data.items.length);
           if (data.items.length > 0) {
-            const latest = data.items[0];
-            if (latest.sequence_id > lastSequenceIdRef.current) {
-              setLastSequenceId(latest.sequence_id);
-              lastSequenceIdRef.current = latest.sequence_id;
+            // FE-03: items may be in arbitrary order; find the maximum sequence ID across all items
+            const maxSeq = data.items.reduce((max: number, it: any) => Math.max(max, it.sequence_id ?? 0), lastSequenceIdRef.current);
+            if (maxSeq > lastSequenceIdRef.current) {
+              lastSequenceIdRef.current = Math.max(lastSequenceIdRef.current, maxSeq);
+              setLastSequenceId(maxSeq);
+
+              const latest = data.items.reduce(
+                (maxItem: any, item: any) => ((item.sequence_id ?? 0) >= (maxItem?.sequence_id ?? 0) ? item : maxItem),
+                data.items[0]
+              );
 
               const mode = latest.capture_type || 'document';
               const b64 = latest.image_data || latest.image_base64 || '';
@@ -326,7 +351,7 @@ export function App() {
     // 2. Real-Time Server-Sent Events (SSE) Push Listener
     let eventSource: EventSource | null = null;
     try {
-      eventSource = new EventSource('/api/v1/companion/stream');
+      eventSource = new EventSource(`${API_BASE_URL}/api/v1/companion/stream`);
       eventSource.addEventListener('NEW_CAPTURE', () => {
         fetchLatestGallery();
       });
@@ -486,7 +511,7 @@ export function App() {
                     heatmapImageUrl={heatmapImageUrl}
                     livePhotoUrl={livePhotoPreviewUrl}
                     officerDecision={officerDecision}
-                    onOfficerDecision={setOfficerDecision}
+                    onOfficerDecision={handleOfficerDecision}
                   />
                 </div>
               )}
@@ -526,7 +551,7 @@ export function App() {
                     heatmapImageUrl={heatmapImageUrl}
                     livePhotoUrl={livePhotoPreviewUrl}
                     officerDecision={officerDecision}
-                    onOfficerDecision={setOfficerDecision}
+                    onOfficerDecision={handleOfficerDecision}
                   />
                 </div>
               )}
@@ -542,7 +567,7 @@ export function App() {
                   heatmapImageUrl={heatmapImageUrl}
                   livePhotoUrl={livePhotoPreviewUrl}
                   officerDecision={officerDecision}
-                  onOfficerDecision={setOfficerDecision}
+                  onOfficerDecision={handleOfficerDecision}
                 />
               ) : (
                 <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">

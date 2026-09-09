@@ -97,6 +97,23 @@ def calibrate_match_confidence(similarity: float, model_type: str = "SFace") -> 
     s = float(similarity)
     if s <= 0.0:
         return 0.0
+
+    model_key = (model_type or "SFace").lower()
+    if "adaface" in model_key:
+        # AdaFace-ResNet100: genuine cross-domain pairs typically 0.40–0.75 cosine
+        if s < 0.40:
+            return round(max(0.0, (s / 0.40) * 0.70), 4)
+        elif s < 0.60:
+            frac = (s - 0.40) / (0.60 - 0.40)
+            return round(0.70 + frac * 0.22, 4)
+        elif s < 0.80:
+            frac = (s - 0.60) / (0.80 - 0.60)
+            return round(0.92 + frac * 0.065, 4)
+        else:
+            frac = min(1.0, (s - 0.80) / 0.20)
+            return round(0.985 + frac * 0.015, 4)
+
+    # SFace: s_thresh = 0.363 (FAR = 0.1%)
     if s < 0.363:
         return round(max(0.0, (s / 0.363) * 0.70), 4)
     elif s < 0.55:
@@ -353,21 +370,10 @@ class AdaFaceMatcher:
         live_emb: List[float],
     ) -> Tuple[Optional[int], Optional[int], Optional[int]]:
         """
-        Estimates demographic apparent age and calculates biometric age drift.
-        Uses facial feature energy profiles and biometric age heuristics.
+        Apparent-age estimation requires a dedicated age model.
+        Embedding energy is not a valid age signal — do not invent ages.
         """
-        if not doc_emb or not live_emb:
-            return None, None, None
-
-        doc_energy = sum(abs(x) for x in doc_emb[:32]) / 32.0
-        live_energy = sum(abs(x) for x in live_emb[:32]) / 32.0
-
-        # Baseline young adult profile centered around 19-24 years
-        age_id = int(max(18, min(75, round(20 + (doc_energy - 0.04) * 200))))
-        age_live = int(max(18, min(75, round(19 + (live_energy - 0.04) * 200))))
-        age_drift = abs(age_live - age_id)
-
-        return age_id, age_live, age_drift
+        return None, None, None
 
 
 # Module-level singleton matcher instance

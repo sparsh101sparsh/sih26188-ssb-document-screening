@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Smartphone, ShieldCheck, RefreshCw, Settings, Wifi, Images } from 'lucide-react';
 import { CHECKPOINTS, CheckpointInfo } from '../types/api';
+import { API_BASE_URL } from '../services/api';
 import { SSBCrestLogo } from './SSBCrestLogo';
 
 interface HeaderProps {
@@ -41,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
     let isMounted = true;
     const checkDevices = async () => {
       try {
-        const res = await fetch('/api/v1/devices');
+        const res = await fetch(`${API_BASE_URL}/api/v1/devices`);
         if (res.ok) {
           const data = await res.json();
           if (isMounted && typeof data.total_devices === 'number') {

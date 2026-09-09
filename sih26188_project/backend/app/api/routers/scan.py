@@ -14,6 +14,7 @@ import asyncio
 import hashlib
 import re
 import time
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 from uuid import uuid4
 
@@ -99,6 +100,7 @@ def _execute_stream_1_text_and_mrz(doc_bytes: bytes) -> Tuple[OCRResult, MRZResu
         if raw_qr_bytes:
             qr_res = qr_decoder.parse_aadhaar_secure_payload(raw_qr_bytes)
     except Exception:
+        logger.debug("QR decode failed during Stream 1", exc_info=True)
         qr_res = None
 
     if qr_res is None:
@@ -131,6 +133,7 @@ def _execute_stream_1_text_and_mrz(doc_bytes: bytes) -> Tuple[OCRResult, MRZResu
         try:
             mrz_lines = mrz_engine.run_omnimrz_inference(doc_bytes)
         except Exception:
+            logger.debug("OmniMRZ inference failed during Stream 1", exc_info=True)
             mrz_lines = []
 
     if mrz_lines and len(mrz_lines) in (2, 3):
@@ -198,11 +201,17 @@ def _execute_stream_3_forensics_and_stamps(
     declared_checkpost: Optional[str] = None,
     declared_date: Optional[str] = None,
     document_type: Optional[str] = None,
+    photo_bbox: Optional[List[int]] = None,
+    ocr_boxes: Optional[List[Dict[str, Any]]] = None,
 ) -> Tuple[ForensicsResult, StampResult]:
     """
     Stream 3: DocTamper DTD, TruFor Splicing, ELA/DQT Analysis, and 4-Stage Stamp Verification.
     """
-    forensics_res = tamper_detector.analyze(doc_bytes)
+    forensics_res = tamper_detector.analyze(
+        doc_bytes,
+        photo_bbox=photo_bbox,
+        ocr_boxes=ocr_boxes,
+    )
     stamp_res = stamp_verifier.verify_stamp(
         doc_bytes,
         declared_checkpost=declared_checkpost,
@@ -240,7 +249,8 @@ async def get_scan_status():
     description="Accepts document image and optional live selfie. Concurrently runs OCR/MRZ, Biometrics, and Forensics, then evaluates Cross-Validation matrix and Two-Stage Risk Engine.",
 )
 async def inspect_document(
-    document_image: UploadFile = File(..., description="Document image file (JPEG/PNG)"),
+    document_image: Optional[UploadFile] = File(None, description="Document image file (JPEG/PNG)"),
+    documentImage: Optional[UploadFile] = File(None, description="Document image file alias (Android client)"),
     live_face_image: Optional[UploadFile] = File(None, description="Optional live traveler selfie (JPEG/PNG)"),
     live_photo: Optional[UploadFile] = File(None, description="Optional live traveler selfie alias (Android client)"),
     checkpoint_id: Optional[str] = Form(None, description="Border checkpoint ID (Android client)"),
@@ -256,18 +266,25 @@ async def inspect_document(
     session_id = str(uuid4())
 
     # Resolve parameter aliases
+    effective_doc_image = document_image if document_image is not None else documentImage
+    if effective_doc_image is None:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Document image file is required ('document_image' or 'documentImage').",
+        )
+
     effective_live_image = live_face_image if live_face_image is not None else live_photo
     effective_checkpoint = checkpoint_id or declared_checkpost or "SSB_SONAULI_01"
     effective_transit_date = transit_date or declared_transit_date
 
     # 1. Validate Document Image
-    if not document_image.content_type or not document_image.content_type.startswith("image/"):
+    if not effective_doc_image.content_type or not effective_doc_image.content_type.startswith("image/"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid document image file type: {document_image.content_type}. Expected image/jpeg or image/png.",
+            detail=f"Invalid document image file type: {effective_doc_image.content_type}. Expected image/jpeg or image/png.",
         )
 
-    doc_bytes = await document_image.read()
+    doc_bytes = await effective_doc_image.read()
     if len(doc_bytes) < 100:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -310,13 +327,16 @@ async def inspect_document(
     # Detect document type from Stream 1 results before running Stream 3
     doc_type = _detect_document_type(ocr_res, mrz_res, qr_res)
 
-    # Stream 3 now knows document type — stamp verification will be skipped for Aadhaar/PAN/Voter ID
+    # Stream 3 now knows document type and gets photo_bbox + ocr_boxes from Streams 1 & 2
+    ocr_boxes_dicts = [b.model_dump() for b in ocr_res.raw_boxes] if ocr_res.raw_boxes else None
     forensics_res, stamp_res = await asyncio.to_thread(
         _execute_stream_3_forensics_and_stamps,
         doc_bytes,
         effective_checkpoint,
         effective_transit_date,
         doc_type,
+        photo_bbox,
+        ocr_boxes_dicts,
     )
 
 
@@ -330,10 +350,11 @@ async def inspect_document(
     else:
         photo_tamper_density = 0.0 if not forensics_res.is_tampered else (forensics_res.trufor_score * 0.5)
     stamp_date_str = effective_transit_date
+    today = datetime.now().date()
     if not stamp_date_str and stamp_res and stamp_res.stamp_found:
-        # Extract potential stamp date from reasons or specification
-        stamp_date_str = "2026-08-20"
+        stamp_date_str = today.isoformat()
 
+    year = today.year
     cv_result = cross_validator.validate_all(
         ocr_result=ocr_res,
         mrz_result=mrz_res,
@@ -343,7 +364,7 @@ async def inspect_document(
         photo_tamper_density=photo_tamper_density,
         text_tamper_map=forensics_res.doctamper_score,
         stamp_date=stamp_date_str,
-        permit_window=("2026-01-01", "2026-12-31"),
+        permit_window=(f"{year}-01-01", f"{year}-12-31"),
     )
 
     # 6. Execute Two-Stage Hybrid Risk Engine

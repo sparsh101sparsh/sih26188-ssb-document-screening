@@ -9,7 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class DocumentScanRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
 
     session_id: str
     document_type_hint: str = "auto"
@@ -68,7 +68,7 @@ class DocumentScanResponse(BaseModel):
 
 
 class FaceScanRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
 
     session_id: str
     live_image_base64: str
@@ -95,7 +95,7 @@ class CrossValidationFlagMobile(BaseModel):
 
 
 class ScreeningCompleteRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="ignore")
 
     session_id: str
     checkpoint_id: str

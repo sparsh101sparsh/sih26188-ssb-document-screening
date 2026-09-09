@@ -8,6 +8,7 @@ Provides REST endpoints for:
 - POST /api/v1/forensics/ela     -> ELAResult (Error Level Analysis)
 """
 
+import asyncio
 import json
 from typing import Any, Dict, List, Optional
 
@@ -71,10 +72,11 @@ async def analyze_document_forensics(
         except Exception:
             logger.warning(f"Could not parse photo_bbox JSON: {photo_bbox}")
 
-    result = tamper_detector.analyze(
-        image_bytes=image_bytes,
-        ocr_boxes=parsed_ocr_boxes,
-        photo_bbox=parsed_photo_bbox,
+    result = await asyncio.to_thread(
+        tamper_detector.analyze,
+        image_bytes,
+        parsed_ocr_boxes,
+        parsed_photo_bbox,
     )
     return result
 
@@ -108,11 +110,12 @@ async def verify_border_stamp(
             detail="Document image payload is empty or corrupted (< 50 bytes).",
         )
 
-    result = stamp_verifier.verify_stamp(
-        image_bytes=image_bytes,
-        declared_checkpost=declared_checkpost,
-        declared_date=declared_date,
-        permit_expiry=permit_expiry,
+    result = await asyncio.to_thread(
+        stamp_verifier.verify_stamp,
+        image_bytes,
+        declared_checkpost,
+        declared_date,
+        permit_expiry,
     )
     return result
 
@@ -145,9 +148,5 @@ async def analyze_ela(
             detail="Document image payload is empty or corrupted (< 50 bytes).",
         )
 
-    result = ela_engine.analyze(
-        image_bytes=image_bytes,
-        quality=quality,
-        scale=scale,
-    )
+    result = await asyncio.to_thread(ela_engine.analyze, image_bytes, quality, scale)
     return result

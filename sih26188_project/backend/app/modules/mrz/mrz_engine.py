@@ -437,12 +437,14 @@ class MRZEngine:
             failures.append(f"Expiry Date Check Digit (CD3) mismatch: expected {cd3}, calculated {calculate_mrz_check_digit(expiry_raw)}")
 
         # CD4: Optional personal number checksum
-        cd4_valid = verify_check_digit(optional_raw, cd4)
-        if not cd4_valid and not (optional_raw.strip('<') == '' and cd4 in ['<', '0']):
-            failures.append(f"Optional Personal Number Check Digit (CD4) mismatch: expected {cd4}, calculated {calculate_mrz_check_digit(optional_raw)}")
-            cd4_valid = False
-        else:
+        # ICAO TD3: when personal number is absent the field and its check digit are both '<' (filler).
+        # Filler check digits must NOT be validated against the check-digit algorithm.
+        if cd4 in ('<', ''):
             cd4_valid = True
+        else:
+            cd4_valid = verify_check_digit(optional_raw, cd4)
+            if not cd4_valid:
+                failures.append(f"Optional Personal Number Check Digit (CD4) mismatch: expected {cd4}, calculated {calculate_mrz_check_digit(optional_raw)}")
 
         # TD3 Composite Check Digit:
         # Line 2 chars 0-10 (doc_num + cd1) + chars 13-20 (dob + cd2) + chars 21-28 (expiry + cd3) + chars 28-43 (optional + cd4)
@@ -491,6 +493,9 @@ class MRZEngine:
             parsed_fields=parsed_fields,
             processing_time_ms=elapsed_ms,
         )
+
+    # Alias for API compatibility
+    validate_mrz = parse_mrz_lines
 
 
 # Global Singleton Instance

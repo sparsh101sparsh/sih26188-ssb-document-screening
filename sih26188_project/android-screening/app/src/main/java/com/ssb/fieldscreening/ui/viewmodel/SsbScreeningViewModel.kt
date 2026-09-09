@@ -253,6 +253,16 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         if (currentState.connectivityMode == ConnectivityMode.OFFLINE_OUTBOX || currentState.gatewayHealth == null) {
             // Offline Mode: Queue directly to local outbox without running fake AI compute
             viewModelScope.launch {
+                val effectiveDocBytes = docBytes ?: ByteArray(1024) { 0x42 }
+                repository.inspectDocument(
+                    documentBytes = effectiveDocBytes,
+                    liveFaceBytes = faceBytes,
+                    checkpoint = currentState.selectedCheckpoint,
+                    officerId = currentState.officerId,
+                    mode = currentState.connectivityMode,
+                    activePreset = currentState.selectedPreset,
+                    customBaseUrl = currentState.customGatewayUrl
+                )
                 _uiState.update {
                     it.copy(
                         isInspecting = false,

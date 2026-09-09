@@ -197,15 +197,17 @@ fun InspectionPipelineTrace(
         }
 
         // Stream 2: Face Match & Live Selfie Verification
-        val bioPassed = details.biometrics.match && details.liveness.isLive
+        val biometrics = details.biometrics
+        val liveness = details.liveness
+        val bioPassed = (biometrics?.match == true) && (liveness?.isLive == true)
         PipelineStreamCard(
             streamNumber = "STREAM 02",
             title = "Face Match & Live Selfie Verification",
             subtitle = "1:1 Facial biometric verification and 2D/3D presentation anti-spoofing",
             icon = Icons.Default.Face,
             isPassed = bioPassed,
-            statusText = if (bioPassed) "POSITIVE 1:1 MATCH" else if (!details.liveness.isLive) "2D SCREEN SPOOF" else "BIO MISMATCH",
-            latencyMs = details.biometrics.processingTimeMs + details.liveness.processingTimeMs,
+            statusText = if (bioPassed) "POSITIVE 1:1 MATCH" else if (liveness?.isLive == false) "2D SCREEN SPOOF" else "BIO MISMATCH",
+            latencyMs = (biometrics?.processingTimeMs ?: 0.0) + (liveness?.processingTimeMs ?: 0.0),
             isExpanded = stream2Expanded,
             onToggleExpand = { stream2Expanded = !stream2Expanded }
         ) {
@@ -231,14 +233,14 @@ fun InspectionPipelineTrace(
                             )
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
-                                text = "${(details.biometrics.similarity * 100).toInt()}%",
+                                text = "${((biometrics?.similarity ?: 0.0) * 100).toInt()}%",
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
-                                color = if (details.biometrics.match) SsbColors.GreenPass else SsbColors.RedAlert
+                                color = if (biometrics?.match == true) SsbColors.GreenPass else SsbColors.RedAlert
                             )
                             Text(
-                                text = "Threshold: ${(details.biometrics.threshold * 100).toInt()}% | ${if (details.biometrics.match) "VERIFIED" else "FAILED"}",
+                                text = "Threshold: ${((biometrics?.threshold ?: 0.0) * 100).toInt()}% | ${if (biometrics?.match == true) "VERIFIED" else "FAILED"}",
                                 fontSize = 9.sp,
                                 color = SsbColors.TextSecondary
                             )
@@ -262,16 +264,16 @@ fun InspectionPipelineTrace(
                             )
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
-                                text = "${(details.liveness.confidence * 100).toInt()}%",
+                                text = "${((liveness?.confidence ?: 0.0) * 100).toInt()}%",
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
-                                color = if (details.liveness.isLive) SsbColors.GreenPass else SsbColors.RedAlert
+                                color = if (liveness?.isLive == true) SsbColors.GreenPass else SsbColors.RedAlert
                             )
                             Text(
-                                text = if (details.liveness.isLive) "3D Biological Live Face" else "Attack: ${details.liveness.attackType ?: "2D_SCREEN_REPLAY"}",
+                                text = if (liveness?.isLive == true) "3D Biological Live Face" else "Attack: ${liveness?.attackType ?: "2D_SCREEN_REPLAY"}",
                                 fontSize = 9.sp,
-                                color = if (details.liveness.isLive) SsbColors.TextSecondary else SsbColors.RedAlert
+                                color = if (liveness?.isLive == true) SsbColors.TextSecondary else SsbColors.RedAlert
                             )
                         }
                     }
@@ -294,10 +296,10 @@ fun InspectionPipelineTrace(
                         color = SsbColors.TextMuted
                     )
                     Text(
-                        text = "ID: ${details.biometrics.apparentAgeId} yrs · Live: ${details.biometrics.apparentAgeLive} yrs (Drift: ${details.biometrics.ageDriftYears} yrs)",
+                        text = "ID: ${biometrics?.apparentAgeId ?: "-"} yrs · Live: ${biometrics?.apparentAgeLive ?: "-"} yrs (Drift: ${biometrics?.ageDriftYears ?: "-"} yrs)",
                         fontSize = 10.sp,
                         fontFamily = FontFamily.Monospace,
-                        color = if (details.biometrics.ageDriftYears <= 5) SsbColors.TextPrimary else SsbColors.AmberWarn
+                        color = if ((biometrics?.ageDriftYears ?: 0) <= 5) SsbColors.TextPrimary else SsbColors.AmberWarn
                     )
                 }
             }
@@ -434,7 +436,8 @@ fun InspectionPipelineTrace(
         }
 
         // Stream 4: Border Permit Stamp Verification
-        val stampPassed = details.stamp.ssimScore >= 0.75 && details.stamp.contextConsistent
+        val stamp = details.stamp
+        val stampPassed = (stamp?.ssimScore ?: 0.0) >= 0.75 && stamp?.contextConsistent == true
         PipelineStreamCard(
             streamNumber = "STREAM 04",
             title = "Border Permit Stamp Verification",
@@ -442,7 +445,7 @@ fun InspectionPipelineTrace(
             icon = Icons.Default.Verified,
             isPassed = stampPassed,
             statusText = if (stampPassed) "AUTHENTIC STAMP" else "SEAL CORRELATION FAIL",
-            latencyMs = details.stamp.processingTimeMs,
+            latencyMs = stamp?.processingTimeMs ?: 0.0,
             isExpanded = stream4Expanded,
             onToggleExpand = { stream4Expanded = !stream4Expanded }
         ) {
@@ -466,14 +469,14 @@ fun InspectionPipelineTrace(
                                 color = SsbColors.TextMuted
                             )
                             Text(
-                                text = String.format("%.2f", details.stamp.ssimScore),
+                                text = String.format("%.2f", stamp?.ssimScore ?: 0.0),
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
-                                color = if (details.stamp.ssimScore >= 0.75) SsbColors.GreenPass else SsbColors.AmberWarn
+                                color = if ((stamp?.ssimScore ?: 0.0) >= 0.75) SsbColors.GreenPass else SsbColors.AmberWarn
                             )
                             Text(
-                                text = "Verdict: ${details.stamp.verdict}",
+                                text = "Verdict: ${stamp?.verdict ?: "-"}",
                                 fontSize = 9.sp,
                                 color = SsbColors.TextSecondary
                             )
@@ -495,14 +498,14 @@ fun InspectionPipelineTrace(
                                 color = SsbColors.TextMuted
                             )
                             Text(
-                                text = "${details.stamp.orbMatchCount} pts",
+                                text = "${stamp?.orbMatchCount ?: "-"} pts",
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
-                                color = if (details.stamp.orbMatchCount >= 35) SsbColors.GreenPass else SsbColors.AmberWarn
+                                color = if ((stamp?.orbMatchCount ?: 0) >= 35) SsbColors.GreenPass else SsbColors.AmberWarn
                             )
                             Text(
-                                text = "Tamper Energy: ${details.stamp.tamperEnergy}",
+                                text = "Tamper Energy: ${stamp?.tamperEnergy ?: "-"}",
                                 fontSize = 9.sp,
                                 color = SsbColors.TextSecondary
                             )
@@ -520,13 +523,13 @@ fun InspectionPipelineTrace(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "REGISTERED TEMPLATE: ${details.stamp.checkpostId}",
+                        text = "REGISTERED TEMPLATE: ${stamp?.checkpostId ?: "-"}",
                         fontSize = 9.sp,
                         fontWeight = FontWeight.Bold,
                         color = SsbColors.TextMuted
                     )
                     Text(
-                        text = details.stamp.locationName,
+                        text = stamp?.locationName ?: "",
                         fontSize = 10.sp,
                         color = SsbColors.TextPrimary
                     )
@@ -667,32 +670,34 @@ fun PipelineStreamCard(
 }
 
 @Composable
-fun ChecksumBadge(label: String, isValid: Boolean) {
+fun ChecksumBadge(label: String, isValid: Boolean?) {
+    val valid = isValid != false
+    val unknown = isValid == null
     Box(
         modifier = Modifier
             .clip(SsbShapes.chip)
-            .background(if (isValid) SsbColors.GreenTint else SsbColors.RedTint)
+            .background(if (valid) SsbColors.GreenTint else SsbColors.RedTint)
             .border(
                 1.dp,
-                if (isValid) SsbColors.GreenPass.copy(alpha = 0.4f) else SsbColors.RedAlert.copy(alpha = 0.4f),
+                if (valid) SsbColors.GreenPass.copy(alpha = 0.4f) else SsbColors.RedAlert.copy(alpha = 0.4f),
                 SsbShapes.chip
             )
             .padding(horizontal = 6.dp, vertical = 2.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                imageVector = if (isValid) Icons.Default.CheckCircle else Icons.Default.Error,
+                imageVector = if (valid) Icons.Default.CheckCircle else Icons.Default.Error,
                 contentDescription = null,
-                tint = if (isValid) SsbColors.GreenPass else SsbColors.RedAlert,
+                tint = if (valid) SsbColors.GreenPass else SsbColors.RedAlert,
                 modifier = Modifier.size(10.dp)
             )
             Spacer(modifier = Modifier.width(3.dp))
             Text(
-                text = "$label: ${if (isValid) "OK" else "FAIL"}",
+                text = "$label: ${if (unknown) "N/A" else if (valid) "OK" else "FAIL"}",
                 fontSize = 8.5.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace,
-                color = if (isValid) SsbColors.GreenPass else SsbColors.RedAlert
+                color = if (valid) SsbColors.GreenPass else SsbColors.RedAlert
             )
         }
     }

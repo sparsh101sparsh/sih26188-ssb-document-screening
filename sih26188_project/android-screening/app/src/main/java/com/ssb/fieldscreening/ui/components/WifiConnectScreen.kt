@@ -521,6 +521,10 @@ fun WifiConnectScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
+                        QuickChip(
+                            label = "🔌 USB Cable (127.0.0.1)",
+                            onClick = { urlInput = "http://127.0.0.1:8000" }
+                        )
                         val subnet = WifiUtils.getLocalSubnet()
                         if (subnet != null) {
                             QuickChip(
@@ -529,15 +533,9 @@ fun WifiConnectScreen(
                             )
                         }
                         QuickChip(
-                            label = "Emulator 10.0.2.2",
+                            label = "Emulator",
                             onClick = { urlInput = "http://10.0.2.2:8000" }
                         )
-                        if (lastConnected != null && lastConnected != urlInput) {
-                            QuickChip(
-                                label = "Last IP",
-                                onClick = { urlInput = lastConnected }
-                            )
-                        }
                     }
 
                     // Test & Connect button

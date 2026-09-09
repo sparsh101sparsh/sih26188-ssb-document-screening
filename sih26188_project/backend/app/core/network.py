@@ -139,7 +139,12 @@ def detect_default_route_interface() -> Optional[str]:
             for line in out.splitlines():
                 parts = line.split()
                 if len(parts) >= 4 and parts[0] in ("default", "0.0.0.0"):
-                    iface = parts[-1]
+                    iface = next(
+                        (p for p in reversed(parts) if re.match(r"^[A-Za-z][A-Za-z0-9]*(\d+)?$", p)),
+                        parts[-1],
+                    )
+                    if re.match(r"^\d+$", iface):
+                        continue
                     logger.debug(f"[Network] Detected default route via netstat: {iface}")
                     return iface
         except Exception as e:
@@ -172,7 +177,10 @@ def detect_default_route_interface() -> Optional[str]:
             for line in out.splitlines():
                 parts = line.split()
                 if len(parts) >= 8 and parts[0] in ("0.0.0.0", "default"):
-                    iface = parts[-1]
+                    iface = next(
+                        (p for p in reversed(parts) if re.match(r"^[A-Za-z][A-Za-z0-9]*(\d+)?$", p)),
+                        parts[-1],
+                    )
                     logger.debug(f"[Network] Detected default route via Linux netstat: {iface}")
                     return iface
         except Exception as e:

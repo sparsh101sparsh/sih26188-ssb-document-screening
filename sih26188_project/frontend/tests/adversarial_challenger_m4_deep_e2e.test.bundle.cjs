@@ -6714,6 +6714,35 @@ var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 // src/components/Header.tsx
 var import_react2 = __toESM(require_react(), 1);
 
+// src/services/api.ts
+var import_meta = {};
+var API_BASE_URL = typeof import_meta !== "undefined" && import_meta.env?.VITE_API_BASE_URL || globalThis?.process?.env?.VITE_API_BASE_URL || "http://localhost:8000";
+async function postScreeningVerdict(sequenceId, verdict, riskLevel, riskScore, details) {
+  try {
+    await fetch(`${API_BASE_URL}/api/v1/companion/verdict`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sequence_id: sequenceId,
+        verdict,
+        risk_level: riskLevel,
+        risk_score: riskScore,
+        details
+      })
+    });
+  } catch (err) {
+    console.warn("Failed to sync verdict to companion:", err);
+  }
+}
+async function clearCompanionCapture() {
+  const response = await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
+    method: "POST"
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to clear companion buffer: HTTP ${response.status}`);
+  }
+}
+
 // src/components/SSBCrestLogo.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 
@@ -6851,38 +6880,6 @@ var import_jsx_runtime34 = __toESM(require_jsx_runtime(), 1);
 
 // src/components/SettingsHubModal.tsx
 var import_react19 = __toESM(require_react(), 1);
-
-// src/services/api.ts
-var import_meta = {};
-var API_BASE_URL = typeof import_meta !== "undefined" && import_meta.env?.VITE_API_BASE_URL || globalThis?.process?.env?.VITE_API_BASE_URL || "http://localhost:8000";
-async function postScreeningVerdict(sequenceId, verdict, riskLevel, riskScore, details) {
-  try {
-    await fetch(`${API_BASE_URL}/api/v1/companion/verdict`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        sequence_id: sequenceId,
-        verdict,
-        risk_level: riskLevel,
-        risk_score: riskScore,
-        details
-      })
-    });
-  } catch (err) {
-    console.warn("Failed to sync verdict to companion:", err);
-  }
-}
-async function clearCompanionCapture() {
-  try {
-    await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
-      method: "POST"
-    });
-  } catch (err) {
-    console.warn("Failed to clear companion capture:", err);
-  }
-}
-
-// src/components/SettingsHubModal.tsx
 var import_jsx_runtime35 = __toESM(require_jsx_runtime(), 1);
 
 // src/components/ConnectModal.tsx

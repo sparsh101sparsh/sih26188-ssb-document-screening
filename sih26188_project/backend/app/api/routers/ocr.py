@@ -8,6 +8,7 @@ Exposes REST endpoints for:
 - POST /api/v1/qr/decode   : Decode Aadhaar Secure QR & verify offline RSA-2048 PKI signature
 """
 
+import asyncio
 from typing import Any, Dict, List, Optional, Union
 from fastapi import APIRouter, File, Form, HTTPException, Request, UploadFile, status
 from pydantic import BaseModel, Field
@@ -40,29 +41,29 @@ class QRDecodeRequest(BaseModel):
     status_code=status.HTTP_200_OK,
     summary="Extract structured demographic fields from document image or raw text",
 )
-async def extract_ocr(
-    request: Request,
-    document_image: Optional[UploadFile] = File(None, description="Document image file (JPEG/PNG)"),
-    raw_text: Optional[str] = Form(None, description="Optional raw text input for direct parsing"),
-):
+async def extract_ocr(request: Request):
     """
     Synchronous Tier-1 OCR extraction endpoint.
     Accepts multipart document image, form data, or JSON payload with 'raw_text'.
     Returns structured identity fields, bounding polygons, script detection, and quality-gate flag.
     """
     content_type = request.headers.get("content-type", "")
+    raw_text = None
+    document_image = None
 
-    # Check JSON body if provided
     if "application/json" in content_type:
         try:
             body = await request.json()
             if isinstance(body, dict) and "raw_text" in body:
                 raw_text = body["raw_text"]
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("OCR JSON parse failed: %s", exc, exc_info=True)
+    else:
+        form = await request.form()
+        raw_text = form.get("raw_text")
+        document_image = form.get("document_image")
 
-    # Check multipart image
-    if document_image is not None:
+    if document_image is not None and hasattr(document_image, "read"):
         img_bytes = await document_image.read()
         if len(img_bytes) < 10:
             raise HTTPException(
@@ -75,20 +76,20 @@ async def extract_ocr(
             from PIL import Image
 
             pil_img = Image.open(BytesIO(img_bytes)).convert("RGB")
-            ocr_result = pp_ocr_engine.extract_text(pil_img)
+            ocr_result = await asyncio.to_thread(pp_ocr_engine.extract_text, pil_img)
 
             # Attempt embedded QR decoding if present
-            qr_res = qr_decoder.decode(pil_img)
+            qr_res = await asyncio.to_thread(qr_decoder.decode, pil_img)
             if qr_res.raw_qr_found:
                 ocr_result.qr_payload = qr_res
 
             return ocr_result
         except Exception as e:
             logger.warning(f"PIL/OpenCV image decode error: {e}. Falling back to byte inspection.")
-            return pp_ocr_engine.extract_text(img_bytes)
+            return await asyncio.to_thread(pp_ocr_engine.extract_text, img_bytes)
 
     elif raw_text is not None and raw_text.strip():
-        return pp_ocr_engine.extract_text(raw_text)
+        return await asyncio.to_thread(pp_ocr_engine.extract_text, raw_text)
 
     else:
         raise HTTPException(
@@ -143,7 +144,7 @@ async def validate_mrz(
             detail="No MRZ lines provided. Supply 'lines' array in JSON body or form parameters.",
         )
 
-    return mrz_engine.parse_mrz_lines(mrz_lines)
+    return await asyncio.to_thread(mrz_engine.parse_mrz_lines, mrz_lines)
 
 
 @router.post(
@@ -152,10 +153,7 @@ async def validate_mrz(
     status_code=status.HTTP_200_OK,
     summary="Decode Aadhaar Secure QR & verify offline RSA-2048 PKI signature",
 )
-async def decode_qr(
-    request: Request,
-    document_image: Optional[UploadFile] = File(None, description="Document image containing QR code"),
-):
+async def decode_qr(request: Request):
     """
     Offline Aadhaar Secure QR Decoder and RSA-2048 PKI Signature Verifier.
     Extracts demographic fields and verifies cryptographic authenticity against UIDAI Root Certificate.
@@ -163,16 +161,21 @@ async def decode_qr(
     """
     content_type = request.headers.get("content-type", "")
     raw_payload = None
+    document_image = None
 
     if "application/json" in content_type:
         try:
             body = await request.json()
             if isinstance(body, dict):
                 raw_payload = body.get("raw_payload")
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("QR JSON parse failed: %s", exc, exc_info=True)
+    else:
+        form = await request.form()
+        raw_payload = form.get("raw_payload")
+        document_image = form.get("document_image")
 
-    if document_image is not None:
+    if document_image is not None and hasattr(document_image, "read"):
         img_bytes = await document_image.read()
         if len(img_bytes) < 10:
             raise HTTPException(
@@ -184,19 +187,12 @@ async def decode_qr(
             from PIL import Image
 
             pil_img = Image.open(BytesIO(img_bytes)).convert("RGB")
-            return qr_decoder.decode(pil_img)
+            return await asyncio.to_thread(qr_decoder.decode, pil_img)
         except Exception:
-            return qr_decoder.decode(img_bytes)
-
-    if not raw_payload and ("multipart/form-data" in content_type or "application/x-www-form-urlencoded" in content_type):
-        try:
-            form = await request.form()
-            raw_payload = form.get("raw_payload")
-        except Exception:
-            pass
+            return await asyncio.to_thread(qr_decoder.decode, img_bytes)
 
     if raw_payload:
-        return qr_decoder.decode(raw_payload)
+        return await asyncio.to_thread(qr_decoder.decode, raw_payload)
 
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST,

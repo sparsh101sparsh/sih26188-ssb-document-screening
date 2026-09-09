@@ -1,51 +1,32 @@
-# Handoff Report — Explorer 1 (Backend Survey)
+# Explorer Handoff Report — Backend Codebase Survey
 
 ## 1. Observation
-- **Application Structure & Routing:**
-  - `backend/app/main.py` lines 145–162 mounts routers: `ocr.router`, `biometrics.router`, `forensics.router`, `scan.router`, `companion.router`, plus alias `/api/v1/inspect`.
-  - CORS middleware is configured in `backend/app/main.py:104-110` with `settings.CORS_ORIGINS` covering `localhost:3000`, `localhost:5173`, and `tauri://localhost`.
-  - HTTP middleware `track_device_activity_middleware` (`backend/app/main.py:113-143`) registers active client devices and latency in `device_tracker` (`backend/app/core/device_tracker.py`).
-- **Screening Pipeline Execution:**
-  - `POST /api/v1/scan/inspect` in `backend/app/api/routers/scan.py:233-390` executes 3 concurrent streams via `asyncio.gather()`:
-    1. Stream 1: `_execute_stream_1_text_and_mrz` (PP-OCRv4 + ICAO Doc 9303 MRZ + Aadhaar Secure QR with RSA-2048 offline PKI).
-    2. Stream 2: `_execute_stream_2_biometrics` (InsightFace SCRFD-10GF + AdaFace-ResNet100 1:1 Cosine Matching + MiniFASNetV2-SE Anti-Spoofing).
-    3. Stream 3: `_execute_stream_3_forensics_and_stamps` (DocTamper DTD + TruFor Transformer + ELA + 4-Stage SSB Stamp Verification).
-  - Evaluates 8-rule deterministic cross-validation matrix (`cross_validator.validate_all`, lines 322–332).
-  - Evaluates Two-Stage Hybrid Risk Engine (`risk_scorer.evaluate`, lines 348–362): Stage 1 Hard Tripwires (override to RED 95–100) + Stage 2 Bayesian Deadband Log-Odds Fusion.
-- **Companion Camera Router:**
-  - `backend/app/api/routers/companion.py:1-101` implements `CompanionStore` and endpoints:
-    - `POST /api/v1/companion/upload` (accepts `file`, `capture_type`, `device_id`, `checkpoint_id`; stores base64 Data URI in RAM; increments monotonic `sequence_id`).
-    - `GET /api/v1/companion/latest` (returns `CompanionCaptureState` with `has_capture`, `sequence_id`, `image_data`, `device_id`, `timestamp`).
-    - `POST /api/v1/companion/clear` (resets buffer to `has_capture=False` while preserving `sequence_id`).
-- **Frontend Integration:**
-  - `frontend/src/App.tsx:291-331` polls `GET /api/v1/companion/latest` every 1500ms; when new capture arrives (`sequence_id > lastSequenceId`), sets preview and automatically invokes `executeScreening(...)` if document is already loaded.
-- **Test Suite Status:**
-  - Executed `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/.venv311/bin/pytest tests/`: **250 passed, 33 warnings in 13.59s**.
+- **`backend/app/main.py:99`**: `_host_ip = socket.gethostbyname(socket.gethostname())` resolves to `127.0.0.1` on macOS and Linux with default `/etc/hosts` configurations. Zeroconf advertises loopback IP across mDNS.
+- **`backend/app/main.py:105`**: `port=8000` hardcoded in `ServiceInfo` instead of `settings.PORT`.
+- **`backend/app/api/routers/companion.py:713-720`**: `s.connect(("8.8.8.8", 80))` raises `[Errno 1] Operation not permitted` in sandboxed environments and fails in air-gapped deployments without internet routing.
+- **`backend/app/api/routers/companion.py:118-132`**: SQLite table `companion_captures` lacks a `capture_id` column and deduplication logic. Multiple uploads with the same `sessionId` from Android create duplicate rows in SQLite, duplicate files in `companion_store/`, and duplicate SSE events.
+- **`backend/app/api/routers/companion.py`**: Lacks the `GET /api/v1/companion/pairing-qr` endpoint required by R4 for `SSBPAIR://` QR protocol.
+- **Existing Test Execution**:
+  - `sih26188_project/.venv311/bin/pytest tests/test_risk_engine.py` passes 23/23 tests.
+  - `sih26188_project/.venv311/bin/pytest tests/test_companion_sync.py` passes 20/20 tests.
+- **Available System Tools**: `psutil` is installed in `.venv311`, allowing `psutil.net_if_addrs()` and `psutil.net_if_stats()`. Subprocess fallback `netstat -rn` correctly identifies default gateway interface `en0`.
 
 ## 2. Logic Chain
-1. *Observation 1 & 2* confirm the FastAPI application has established clear REST routing, hardware execution provider auto-detection, telemetry endpoints, and 3-stream parallel screening orchestration.
-2. *Observation 3 & 4* confirm the companion synchronization API is implemented and tested, supporting instant upload from mobile field units and automatic screening triggering on desktop terminals.
-3. *Observation 5* confirms that all 250 backend tests pass with zero regressions.
+1. **mDNS & Interface Selection (R1)**: Since `socket.gethostname()` returns loopback and UDP probe to `8.8.8.8` fails without internet or permissions, IP discovery must prioritize physical interfaces (`en0`, `eth0`, `wlan0`) over VPN/virtual interfaces (`utun*`, `docker*`), cross-reference with default routing table (`netstat -rn` / `ip route`), and support RFC 1918 subnets (including 10.x.x.x without blacklisting).
+2. **Pairing Endpoint (R4)**: Frontend `ConnectModal.tsx` and Android `QrCodeAnalyzer.kt` need standard `SSBPAIR://` protocol representation. Backend must generate an 8-character ephemeral pairing token on startup and expose `GET /api/v1/companion/pairing-qr` returning `qr_payload`, `gateway_id`, `pairing_token`, `current_lan_ip`, `port`, and `fallback_url`.
+3. **Upload Deduplication (R5)**: In poor field Wi-Fi conditions, Android outbox sync retries. By adding `capture_id` to `companion_captures` (with a unique index) and checking `capture_id` in `set_capture()` / `upload_companion_capture()`, the backend guarantees idempotency and returns `status: "duplicate"` with the existing `capture_uuid`.
+4. **Hardcoded IP Elimination (R6)**: Hardcoded references such as `192.168.1.61` and static IPs in client/simulation must be removed or replaced with dynamic/empty defaults.
+5. **Testing (R9)**: `test_network_interface.py` must be added to cover interface priority scoring, routing fallback, QR pairing endpoint, and duplicate upload deduplication.
 
 ## 3. Caveats
-- Companion buffering is RAM-only (singleton `CompanionStore`). If the backend process restarts, buffered in-transit frames in RAM are reset (which complies with air-gapped DPDP zero data retention regulations).
-- For environments with large numbers of concurrent field units, adding a device-keyed buffer dictionary (`Dict[str, CompanionCaptureState]`) could be considered in future iterations, though the current singleton buffer matches the single-checkpoint terminal workflow.
+- No model weight files are downloaded locally in `models/` (they default to external volume `/Volumes/issparsh/sih26188_models`); tests relying on live ONNX model weights fall back or need mock stubs, but pure unit tests (`test_risk_engine.py`, `test_companion_sync.py`, and the new `test_network_interface.py`) run entirely standalone.
+- In macOS sandbox, `route -n get default` requires raw socket privileges and returns exit status 71 (`Operation not permitted`), whereas `netstat -rn` executes without errors. The routing detector must try `netstat -rn` first or fallback gracefully.
 
 ## 4. Conclusion
-The backend architecture is robust, DPDP-compliant, and fully operational. Companion camera upload, latest polling, and buffer clearing endpoints are active, tested, and integrated with the desktop frontend auto-trigger workflow.
-
-Full detailed report is available at:
-`/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_explorer_survey_backend/survey_report.md`
+The backend investigation is complete. All flaws and exact code paths have been mapped, and a comprehensive specification is recorded in `survey_backend.md`. The implementation plan provides clear designs for `backend/app/core/network.py` (R1), `GET /api/v1/companion/pairing-qr` (R4), SQLite `capture_id` deduplication in `companion.py` (R5), hardcoded IP cleanup (R6), and `backend/tests/test_network_interface.py` (R9).
 
 ## 5. Verification Method
-1. Run backend test suite:
-   ```bash
-   cd sih26188_project/backend
-   ../.venv311/bin/pytest tests/
-   ```
-2. Verify companion sync lifecycle specifically:
-   ```bash
-   cd sih26188_project/backend
-   ../.venv311/bin/pytest tests/test_companion_sync.py -v
-   ```
-3. Inspect `survey_report.md` for complete architectural and parameter documentation.
+1. Inspect survey report:
+   `view_file` on `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_explorer_survey_backend/survey_backend.md`
+2. Validate existing backend test suites:
+   `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/sih26188_project/.venv311/bin/pytest tests/test_risk_engine.py tests/test_companion_sync.py`

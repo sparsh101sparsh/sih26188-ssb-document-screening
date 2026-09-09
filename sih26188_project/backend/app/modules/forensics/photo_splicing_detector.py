@@ -239,12 +239,30 @@ class PhotoSplicingDetector:
         h, w = doc_bgr.shape[:2]
 
         photo_crop = doc_bgr[ymin:ymax, xmin:xmax]
-        # Substrate sample adjacent to photo box
-        sub_xmin = min(w - 10, xmax + 10)
-        sub_xmax = min(w, xmax + 90)
-        substrate_crop = doc_bgr[ymin:ymax, sub_xmin:sub_xmax]
-        if substrate_crop.shape[1] < 15:
-            substrate_crop = doc_bgr[ymin:ymax, max(0, xmin - 90):max(0, xmin - 10)]
+
+        candidates = [
+            (ymin, min(w - 10, xmax + 10), ymax, min(w, xmax + 90)),  # right
+            (ymin, max(0, xmin - 90), ymax, max(0, xmin - 10)),  # left
+            (max(0, ymin - 90), xmin, max(0, ymin - 10), xmax),  # above
+            (min(h, ymax + 10), xmin, min(h, ymax + 90), xmax),  # below
+        ]
+        sub_box = None
+        substrate_crop = None
+        for sy1, sx1, sy2, sx2 in candidates:
+            crop = doc_bgr[sy1:sy2, sx1:sx2]
+            if crop.size > 0 and min(crop.shape[:2]) >= 10:
+                sub_box = (sy1, sx1, sy2, sx2)
+                substrate_crop = crop
+                break
+
+        if substrate_crop is None or sub_box is None:
+            # Empty substrate must not force r_noise≈1.0 and trip splicing
+            return {
+                "r_noise": 0.0,
+                "r_ela": 0.0,
+                "delta_illum_deg": 0.0,
+                "noise_tamper_flag": False,
+            }
 
         var_photo = self._estimate_noise_variance(photo_crop)
         var_substrate = self._estimate_noise_variance(substrate_crop)
@@ -258,7 +276,8 @@ class PhotoSplicingDetector:
         ela_map = cv2.absdiff(doc_bgr, doc_q90).astype(np.float32)
 
         ela_photo = float(np.mean(ela_map[ymin:ymax, xmin:xmax]))
-        ela_sub = float(np.mean(ela_map[ymin:ymax, sub_xmin:sub_xmax])) if substrate_crop.size > 0 else ela_photo
+        sy1, sx1, sy2, sx2 = sub_box
+        ela_sub = float(np.mean(ela_map[sy1:sy2, sx1:sx2]))
         r_ela = round(float(abs(ela_photo - ela_sub) / (max(ela_photo, ela_sub) + 1e-6)), 4)
 
         # Color cast angular divergence

@@ -51,3 +51,17 @@ def test_start_all_models(client):
     assert data["status"] == "success"
     assert data["all_online"] is True
     assert data["total_connected"] == 10
+
+def test_all_individual_models_start_and_test(client):
+    status_res = client.get("/api/v1/models/status").json()
+    model_ids = [m["id"] for m in status_res["models"]]
+    assert len(model_ids) == 10
+
+    for m_id in model_ids:
+        start_res = client.post(f"/api/v1/models/{m_id}/start")
+        assert start_res.status_code == 200
+        assert start_res.json()["status"] == "success"
+
+        test_res = client.post(f"/api/v1/models/{m_id}/test")
+        assert test_res.status_code == 200
+        assert "PASS" in test_res.json()["test_verdict"]

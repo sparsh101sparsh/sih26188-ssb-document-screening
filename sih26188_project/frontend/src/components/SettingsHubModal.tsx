@@ -124,17 +124,31 @@ export const SettingsHubModal: React.FC<SettingsHubModalProps> = ({
   const handleStartAll = async () => {
     try {
       setIsStartingAll(true);
-      setActionMessage({ text: '⚡ Connecting & auto-starting all 10 neural models on Sovereign Edge...', type: 'info' });
+      setActionMessage({ text: '⚡ Step 1/4 — Checking backend server health…', type: 'info' });
       onRefreshHealth();
-      await startAllModels();
+
+      await startAllModels((msg, step, total) => {
+        setActionMessage({ text: `⚡ Step ${step}/${total} — ${msg}`, type: 'info' });
+      });
+
       setActionMessage({ text: '✓ All neural engines & models connected successfully!', type: 'success' });
       await loadStatus();
+      onRefreshHealth();
     } catch (err: any) {
-      setActionMessage({ text: `Failed to start all models: ${err.message}`, type: 'error' });
+      const errMsg: string = err.message || String(err);
+      // If backend is offline and we're in the browser, show a helpful command hint
+      const isOfflineError = errMsg.includes('uvicorn') || errMsg.includes('30 s');
+      setActionMessage({
+        text: isOfflineError
+          ? `⚠ Backend server is offline. Run: cd backend && .venv311/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000`
+          : `Failed: ${errMsg}`,
+        type: 'error',
+      });
     } finally {
       setIsStartingAll(false);
     }
   };
+
 
   const categories = [
     'ALL',

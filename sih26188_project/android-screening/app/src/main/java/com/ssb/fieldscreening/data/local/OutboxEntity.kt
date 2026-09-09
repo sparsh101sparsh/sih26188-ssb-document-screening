@@ -62,7 +62,13 @@ data class OutboxScreeningRecord(
     val travelerName: String? = null,
 
     @ColumnInfo(name = "document_number")
-    val documentNumber: String? = null
+    val documentNumber: String? = null,
+
+    @ColumnInfo(name = "capture_id")
+    val captureId: String? = null,
+
+    @ColumnInfo(name = "capture_type")
+    val captureType: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

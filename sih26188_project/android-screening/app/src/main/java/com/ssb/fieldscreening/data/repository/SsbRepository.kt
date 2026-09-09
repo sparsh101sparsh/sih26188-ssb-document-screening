@@ -1,5 +1,6 @@
 package com.ssb.fieldscreening.data.repository
 
+import android.content.Context
 import android.util.Log
 import com.ssb.fieldscreening.data.local.OutboxDao
 import com.ssb.fieldscreening.data.local.OutboxScreeningRecord
@@ -7,6 +8,7 @@ import com.ssb.fieldscreening.data.model.Assessment
 import com.ssb.fieldscreening.data.model.BiometricsDetails
 import com.ssb.fieldscreening.data.model.Checkpoint
 import com.ssb.fieldscreening.data.model.ConnectivityMode
+import com.ssb.fieldscreening.data.model.CriticalViolation
 import com.ssb.fieldscreening.data.model.CrossValidationDetails
 import com.ssb.fieldscreening.data.model.ForensicsDetails
 import com.ssb.fieldscreening.data.model.HealthResponse
@@ -318,23 +320,49 @@ class SsbRepository(private val outboxDao: OutboxDao) {
 
         try {
             val service = ApiClientFactory.createService(url)
-            val docPart = MultipartBody.Part.createFormData(
-                "document_image",
-                "doc_${record.sessionId}.jpg",
-                record.documentImageBlob.toRequestBody("image/jpeg".toMediaTypeOrNull())
-            )
-            val livePart = record.liveFaceBlob?.let {
-                MultipartBody.Part.createFormData(
-                    "live_photo",
-                    "live_${record.sessionId}.jpg",
-                    it.toRequestBody("image/jpeg".toMediaTypeOrNull())
-                )
-            }
-            val checkPart = record.checkpointId.toRequestBody("text/plain".toMediaTypeOrNull())
-            val datePart = record.transitDate.toRequestBody("text/plain".toMediaTypeOrNull())
+            val isCompanion = record.documentNumber?.startsWith("FIELD-COMPANION-") == true
 
-            val response = service.inspectDocument(docPart, livePart, checkPart, datePart)
-            if (response.isSuccessful) {
+            val isSuccessful = if (isCompanion) {
+                val captureType = if (record.documentNumber?.contains("selfie") == true) "selfie" else "document"
+                val filePart = MultipartBody.Part.createFormData(
+                    "file",
+                    "companion_${record.sessionId}.jpg",
+                    record.documentImageBlob.toRequestBody("image/jpeg".toMediaTypeOrNull())
+                )
+                val typePart = captureType.toRequestBody("text/plain".toMediaTypeOrNull())
+                val devPart = record.officerId.toRequestBody("text/plain".toMediaTypeOrNull())
+                val checkPart = record.checkpointId.toRequestBody("text/plain".toMediaTypeOrNull())
+                val capIdPart = record.sessionId.toRequestBody("text/plain".toMediaTypeOrNull())
+
+                val res = service.uploadCompanionCapture(
+                    file = filePart,
+                    captureType = typePart,
+                    deviceId = devPart,
+                    checkpointId = checkPart,
+                    captureId = capIdPart
+                )
+                res.isSuccessful
+            } else {
+                val docPart = MultipartBody.Part.createFormData(
+                    "document_image",
+                    "doc_${record.sessionId}.jpg",
+                    record.documentImageBlob.toRequestBody("image/jpeg".toMediaTypeOrNull())
+                )
+                val livePart = record.liveFaceBlob?.let {
+                    MultipartBody.Part.createFormData(
+                        "live_photo",
+                        "live_${record.sessionId}.jpg",
+                        it.toRequestBody("image/jpeg".toMediaTypeOrNull())
+                    )
+                }
+                val checkPart = record.checkpointId.toRequestBody("text/plain".toMediaTypeOrNull())
+                val datePart = record.transitDate.toRequestBody("text/plain".toMediaTypeOrNull())
+
+                val response = service.inspectDocument(docPart, livePart, checkPart, datePart)
+                response.isSuccessful
+            }
+
+            if (isSuccessful) {
                 Log.i("[SsbRepository]", "Synced record ${record.sessionId} successfully")
                 outboxDao.updateSyncStatus(record.sessionId, "SYNCED")
                 true
@@ -354,8 +382,12 @@ class SsbRepository(private val outboxDao: OutboxDao) {
         }
     }
 
-    suspend fun autoDetectGateway(): String? = withContext(Dispatchers.IO) {
-        WifiUtils.discoverGatewayOnSubnet()
+    suspend fun autoDetectGateway(
+        context: Context? = null,
+        port: Int = 8000,
+        excludeLoopback: Boolean = false,
+    ): String? = withContext(Dispatchers.IO) {
+        WifiUtils.discoverGatewayOnSubnet(context = context, port = port, excludeLoopback = excludeLoopback)
     }
 
     suspend fun markOfficerDecision(sessionId: String, decision: String) {
@@ -471,7 +503,18 @@ class SsbRepository(private val outboxDao: OutboxDao) {
                     crossValidationPassed = hasFace,
                     violationCount = if (hasFace) 0 else 1,
                     criticalViolations = emptyList(),
-                    warnings = if (hasFace) emptyList() else listOf("Biometric selfie photo was not captured."),
+                    warnings = if (hasFace) emptyList() else listOf(
+                        CriticalViolation(
+                            ruleId = "CV-WARN-02",
+                            ruleName = "Biometric Selfie Missing",
+                            severity = "WARNING",
+                            fieldName = "live_face",
+                            expectedValue = null,
+                            actualValue = null,
+                            telemetryCode = "WARN_NO_SELFIE",
+                            details = "Biometric selfie photo was not captured."
+                        )
+                    ),
                     flags = listOf(
                         ViolationFlag("CV-01", "MRZ DOB vs Visual OCR DOB", true, "DOB matched: 1992-04-19"),
                         ViolationFlag("CV-02", "MRZ Doc No vs Visual Doc No", true, "Doc number P8810294 matched"),

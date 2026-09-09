@@ -73,6 +73,7 @@ import com.ssb.fieldscreening.ui.theme.SsbColors
 import com.ssb.fieldscreening.ui.theme.SsbShapes
 import com.ssb.fieldscreening.util.QrCodeAnalyzer
 import java.util.concurrent.Executors
+import java.util.concurrent.RejectedExecutionException
 
 /**
  * Full-screen QR Code Scanner with live CameraX preview, animated targeting reticle,
@@ -106,6 +107,7 @@ fun QrScannerView(
     val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
 
     var camera by remember { mutableStateOf<Camera?>(null) }
+    var cameraProvider by remember { mutableStateOf<ProcessCameraProvider?>(null) }
     var isTorchOn by remember { mutableStateOf(false) }
     val cameraExecutor = remember { Executors.newSingleThreadExecutor() }
     // Fresh analyzer created on every scanner open — avoids stale isScanned=true bug
@@ -124,7 +126,22 @@ fun QrScannerView(
 
     DisposableEffect(Unit) {
         onDispose {
-            cameraExecutor.shutdown()
+            try {
+                cameraProvider?.unbindAll()
+            } catch (_: Exception) {
+            }
+            try {
+                val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
+                if (cameraProviderFuture.isDone) {
+                    cameraProviderFuture.get().unbindAll()
+                }
+            } catch (_: Exception) {
+            }
+            try {
+                cameraExecutor.shutdown()
+            } catch (_: RejectedExecutionException) {
+            } catch (_: Exception) {
+            }
         }
     }
 
@@ -161,7 +178,8 @@ fun QrScannerView(
 
                     val cameraProviderFuture = ProcessCameraProvider.getInstance(ctx)
                     cameraProviderFuture.addListener({
-                        val cameraProvider = cameraProviderFuture.get()
+                        val provider = cameraProviderFuture.get()
+                        cameraProvider = provider
 
                         val preview = Preview.Builder().build().also {
                             it.surfaceProvider = previewView.surfaceProvider
@@ -179,8 +197,8 @@ fun QrScannerView(
                         val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
                         try {
-                            cameraProvider.unbindAll()
-                            camera = cameraProvider.bindToLifecycle(
+                            provider.unbindAll()
+                            camera = provider.bindToLifecycle(
                                 lifecycleOwner,
                                 cameraSelector,
                                 preview,

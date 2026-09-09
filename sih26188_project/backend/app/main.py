@@ -10,6 +10,8 @@ Provides high-performance asynchronous REST endpoints for:
 - Offline DPDP-compliant RAM-only ephemeral screening
 """
 
+import asyncio
+import socket
 import time
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
@@ -54,6 +56,12 @@ async def lifespan(app: FastAPI):
     logger.info("Initializing SIH26188 Edge Screening Appliance...")
     logger.info(f"Active Environment: {settings.ENVIRONMENT}")
     logger.info(f"Target Models Directory: {settings.MODELS_DIR}")
+
+    try:
+        from app.api.routers.companion import set_main_event_loop
+        set_main_event_loop(asyncio.get_running_loop())
+    except Exception as exc:
+        logger.debug("Could not bind companion SSE event loop: %s", exc)
 
     # Detect Hardware Accelerators
     providers = get_optimal_execution_providers()
@@ -105,7 +113,7 @@ async def lifespan(app: FastAPI):
             addresses=[socket.inet_aton(_host_ip)],
             port=settings.PORT,
             properties={"path": "/", "version": settings.APP_VERSION},
-            server=f"{socket.gethostname()}.local.",
+            server=f"{socket.gethostname().removesuffix('.local').removesuffix('.LOCAL')}.local.",
         )
         _zeroconf.register_service(_zc_info)
         logger.info(f"[Zeroconf] Broadcasting SSB Gateway at {_host_ip}:{settings.PORT} as '_ssb-gateway._tcp.local.'")
@@ -168,18 +176,28 @@ async def track_device_activity_middleware(request: Request, call_next):
         user_agent = request.headers.get("user-agent") or ""
         checkpoint_id = request.headers.get("x-checkpoint-id")
 
-        # Exclude loopback/localhost and desktop browser requests from field unit count
-        is_loopback = client_ip in ("127.0.0.1", "::1", "localhost", "")
+        # Exclude desktop browsers. Loopback is kept when the caller is a field
+        # client (USB adb reverse / okhttp) so USB-tethered phones still appear.
+        ua_lower = user_agent.lower()
         is_browser = any(b in user_agent for b in ("Mozilla", "Chrome", "Safari", "AppleWebKit", "Firefox", "Edge"))
-
-        if not is_loopback and not is_browser:
-            device_tracker.record_activity(
-                client_ip=client_ip,
-                user_agent=user_agent,
-                endpoint=path,
-                checkpoint_id=checkpoint_id,
-                latency_ms=duration_ms,
-            )
+        is_field_client = (
+            bool(checkpoint_id)
+            or "okhttp" in ua_lower
+            or "ssb-android" in ua_lower
+            or "ssb-field" in ua_lower
+            or "field-unit" in ua_lower
+        )
+        if is_field_client or not is_browser:
+            if is_browser and not is_field_client:
+                pass
+            else:
+                device_tracker.record_activity(
+                    client_ip=client_ip or "usb-loopback",
+                    user_agent=user_agent,
+                    endpoint=path,
+                    checkpoint_id=checkpoint_id,
+                    latency_ms=duration_ms,
+                )
 
     return response
 
@@ -230,6 +248,15 @@ async def get_health():
     }
 
 
+def _resolve_engine_mode() -> str:
+    providers = get_optimal_execution_providers()
+    if "CoreMLExecutionProvider" in providers:
+        return "darwin_arm64_coreml"
+    if "CUDAExecutionProvider" in providers or "TensorrtExecutionProvider" in providers:
+        return "cuda_tensorrt"
+    return "cpu_accelerated"
+
+
 @app.get("/api/v1/health", tags=["Telemetry"])
 async def get_api_v1_health():
     """
@@ -246,7 +273,7 @@ async def get_api_v1_health():
     }
     return {
         "status": "healthy",
-        "engine_mode": "darwin_arm64_coreml" if "CoreMLExecutionProvider" in get_optimal_execution_providers() else "cuda_tensorrt",
+        "engine_mode": _resolve_engine_mode(),
         "models_loaded": aggregated_models,
         "uptime_seconds": round(time.time() - APP_START_TIME, 2),
     }

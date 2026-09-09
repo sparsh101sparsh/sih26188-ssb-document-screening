@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { UploadCloud, FileCheck, X, Image as ImageIcon, Smartphone, Sparkles, FolderOpen } from 'lucide-react';
 
 interface DropzoneProps {
@@ -39,6 +39,16 @@ export const Dropzone: React.FC<DropzoneProps> = ({
   const [isDragOver, setIsDragOver] = useState(false);
   const [dropError, setDropError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const createdUrlRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (createdUrlRef.current) {
+        URL.revokeObjectURL(createdUrlRef.current);
+        createdUrlRef.current = null;
+      }
+    };
+  }, []);
 
   const handleFileChange = (file: File) => {
     setDropError(null);
@@ -46,7 +56,12 @@ export const Dropzone: React.FC<DropzoneProps> = ({
       setDropError('Upload a valid image file (JPG, PNG, WEBP).');
       return;
     }
+    if (createdUrlRef.current) {
+      URL.revokeObjectURL(createdUrlRef.current);
+      createdUrlRef.current = null;
+    }
     const url = URL.createObjectURL(file);
+    createdUrlRef.current = url;
     onSelectDocument(file, url);
   };
 

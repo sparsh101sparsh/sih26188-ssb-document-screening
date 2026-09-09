@@ -1,0 +1,50 @@
+--- backend/tests/test_cross_validation.py
++++ backend/tests/test_cross_validation.py
+@@ -47,6 +47,12 @@
+         assert parse_date_to_yymmdd("1974-08-12") == "740812"
+         assert parse_date_to_yymmdd("740812") == "740812"
+         assert parse_date_to_yymmdd("15-05-2001") == "010515"
++        # Unpunctuated 8-digit ISO formats (YYYYMMDD)
++        assert parse_date_to_yymmdd("19950819") == "950819"
++        assert parse_date_to_yymmdd("20010515") == "010515"
++        # Unpunctuated 8-digit DDMMYYYY formats
++        assert parse_date_to_yymmdd("19081995") == "950819"
++        assert parse_date_to_yymmdd("15052001") == "010515"
+ 
+     def test_calculate_age_from_yymmdd(self):
+         # 1974 birth year relative to 2026 -> 52 years
+@@ -125,6 +131,34 @@
+         cv1_flag = next(f for f in result.flags if f.rule_id == "CV-01")
+         assert cv1_flag.passed is False
+ 
++    def test_cv01_unpunctuated_iso_dob_match(self, clean_baseline):
++        """CV-01: Authentic unpunctuated 8-digit ISO DOB ('19950819' / '20010515') matches MRZ."""
++        ocr = clean_baseline["ocr"]
++        mrz = clean_baseline["mrz"]
++        
++        # 19950819 vs 950819
++        ocr.fields["dob"] = "19950819"
++        mrz.dob = "950819"
++        res1 = cross_validator.validate_all(ocr_result=ocr, mrz_result=mrz)
++        cv1_flag1 = next(f for f in res1.flags if f.rule_id == "CV-01")
++        assert cv1_flag1.passed is True
++        
++        # 20010515 vs 010515 (regression guard against year 515 AD bug)
++        ocr.fields["dob"] = "20010515"
++        mrz.dob = "010515"
++        res2 = cross_validator.validate_all(ocr_result=ocr, mrz_result=mrz)
++        cv1_flag2 = next(f for f in res2.flags if f.rule_id == "CV-01")
++        assert cv1_flag2.passed is True
++
++    def test_cv01_unpunctuated_iso_dob_mismatch_forgery(self, clean_baseline):
++        """CV-01: Forged unpunctuated 8-digit ISO DOB ('19980819' vs MRZ '950819') triggers ERR_DOB_MISMATCH."""
++        tampered_ocr = clean_baseline["ocr"]
++        tampered_ocr.fields["dob"] = "19980819"
++        clean_baseline["mrz"].dob = "950819"
++        result = cross_validator.validate_all(ocr_result=tampered_ocr, mrz_result=clean_baseline["mrz"])
++        assert any(v.telemetry_code == "ERR_DOB_MISMATCH" for v in result.critical_violations)
++        assert any(f.rule_id == "CV-01" and not f.passed for f in result.flags)
++
+     def test_cv02_mrz_doc_number_alteration(self, clean_baseline):
+         """CV-02: Altered document serial triggers ERR_DOCNO_ALTER."""
+         tampered_ocr = clean_baseline["ocr"]

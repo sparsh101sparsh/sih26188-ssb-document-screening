@@ -79,22 +79,34 @@ def token_sort_similarity(s1: str, s2: str) -> float:
 
 def parse_date_to_yymmdd(date_str: str) -> Optional[str]:
     """
-    Normalizes various date formats (DD/MM/YYYY, YYYY-MM-DD, DD-MM-YY, YYMMDD) to standard YYMMDD.
+    Normalizes various date formats (DD/MM/YYYY, YYYY-MM-DD, DD-MM-YYYY, YYMMDD, etc.) to YYMMDD.
+    Uses format-aware strptime parsing first to correctly handle separators before digit stripping.
     """
     if not date_str:
         return None
-    cleaned = re.sub(r'[^0-9]', '', date_str.strip())
+    import datetime
+    cleaned_input = date_str.strip()
+    for fmt in ("%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y", "%Y-%m-%d", "%Y/%m/%d", "%y%m%d", "%Y%m%d", "%d%m%Y"):
+        try:
+            dt = datetime.datetime.strptime(cleaned_input, fmt)
+            # Guard unpunctuated 8-digit formats against greedy 1-digit strptime parsing and non-contemporary years
+            if fmt in ("%Y%m%d", "%d%m%Y") and (len(cleaned_input) != 8 or not (1900 <= dt.year <= 2099)):
+                continue
+            return dt.strftime("%y%m%d")
+        except ValueError:
+            continue
+    # Fallback: strip non-digits
+    cleaned = re.sub(r'[^0-9]', '', cleaned_input)
     if len(cleaned) == 6:
         return cleaned
-    elif len(cleaned) == 8:
-        # Check DDMMYYYY vs YYYYMMDD
-        # If year is first (starts with 19 or 20)
-        if cleaned.startswith("19") or cleaned.startswith("20"):
-            yyyy, mm, dd = cleaned[0:4], cleaned[4:6], cleaned[6:8]
-            return f"{yyyy[2:]}{mm}{dd}"
-        else:
-            dd, mm, yyyy = cleaned[0:2], cleaned[2:4], cleaned[4:8]
-            return f"{yyyy[2:]}{mm}{dd}"
+    if len(cleaned) == 8:
+        for fmt in ("%Y%m%d", "%d%m%Y"):
+            try:
+                dt = datetime.datetime.strptime(cleaned, fmt)
+                if 1900 <= dt.year <= 2099:
+                    return dt.strftime("%y%m%d")
+            except ValueError:
+                continue
     return None
 
 
@@ -107,7 +119,8 @@ def calculate_age_from_yymmdd(yymmdd: str, reference_year: int = 2026) -> Option
     try:
         yy = int(yymmdd[0:2])
         # Centenary heuristic: 00-40 -> 2000-2040, 41-99 -> 1941-1999
-        birth_year = (2000 + yy) if yy <= 40 else (1900 + yy)
+        current_yy = reference_year % 100
+        birth_year = (2000 + yy) if yy <= current_yy else (1900 + yy)
         return max(0, reference_year - birth_year)
     except Exception:
         return None
@@ -123,9 +136,12 @@ def parse_iso_date(date_input: Union[str, datetime.date, datetime.datetime]) -> 
         return None
 
     cleaned = date_input.strip()
-    for fmt in ["%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d", "%Y/%m/%d", "%d.%m.%Y", "%y%m%d"]:
+    for fmt in ["%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d", "%Y/%m/%d", "%d.%m.%Y", "%y%m%d", "%Y%m%d", "%d%m%Y"]:
         try:
-            return datetime.datetime.strptime(cleaned, fmt).date()
+            dt = datetime.datetime.strptime(cleaned, fmt)
+            if fmt in ("%Y%m%d", "%d%m%Y") and (len(cleaned) != 8 or not (1900 <= dt.year <= 2099)):
+                continue
+            return dt.date()
         except ValueError:
             continue
     return None
@@ -301,9 +317,9 @@ class CrossValidator:
         cv5_msg = "CV-05 Passed: Portrait area exhibits zero forensic splicing anomalies"
         is_photo_tampered = False
 
-        if photo_tamper_density is not None and photo_tamper_density > 0.80:
+        if photo_tamper_density is not None and photo_tamper_density > 0.25:
             is_photo_tampered = True
-            cv5_msg = f"CV-05 Failed: Photo box tamper energy density {photo_tamper_density:.2f} > 0.80 threshold"
+            cv5_msg = f"CV-05 Failed: Photo box tamper energy density {photo_tamper_density:.2f} > 0.25 threshold"
 
         if is_photo_tampered:
             cv5_passed = False
@@ -312,7 +328,7 @@ class CrossValidator:
                 rule_name="Photo Box Forensic Splicing Detection",
                 severity="CRITICAL",
                 field_name="portrait_photo",
-                expected_value="Tamper Density <= 0.80",
+                expected_value="Tamper Density <= 0.25",
                 actual_value=f"Tamper Density = {photo_tamper_density:.2f}" if photo_tamper_density else "Splicing Detected",
                 telemetry_code="ERR_PHOTO_SPLICE",
                 details=cv5_msg,

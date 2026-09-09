@@ -1,13 +1,16 @@
-# Progress — Android Survey
+# Progress Log — Android Survey
 
-Last visited: 2026-08-24T01:03:40Z
+Last visited: 2026-08-25T05:07:30Z
+Status: Survey completed, survey_android.md written, ready for handoff.
 
 - [x] Initialized DISPATCH.md and BRIEFING.md
-- [x] Survey Android codebase layout and project configuration at `/Users/iamsparsh00321/Downloads/ssb-field-screening`
-- [x] Inspect Compose theme setup (`Color.kt`, `Theme.kt`, `Type.kt`)
-- [x] Inspect Camera implementation (`DualCameraCaptureView.kt`, `MainScreen.kt`, CameraX)
-- [x] Inspect Network layer, API endpoints, permissions, and dependencies
-- [x] Assess build configuration and diagnose compilation issue (`SsbRepository.kt:70`)
-- [x] Design Companion Camera UI and live sync architecture
-- [ ] Write `survey_report.md`
-- [ ] Write `handoff.md` and notify parent
+- [x] Locate and list all relevant Android files
+- [x] Inspect SsbScreeningViewModel.kt
+- [x] Inspect WifiUtils.kt
+- [x] Inspect QrCodeAnalyzer.kt, QrScannerView.kt, WifiConnectScreen.kt
+- [x] Inspect SsbApiService.kt
+- [x] Inspect SsbRepository.kt & Outbox Room Database
+- [x] Inspect AndroidManifest.xml, MainActivity.kt, Connectivity setup
+- [x] Validate build & test suite via Gradle (`testDebugUnitTest` passed in 1m 9s)
+- [x] Synthesize findings and write survey_android.md
+- [ ] Create handoff.md and report to parent

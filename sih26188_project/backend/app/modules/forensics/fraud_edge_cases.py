@@ -97,9 +97,22 @@ class FraudEdgeCaseEngine:
             issue_str = str(ocr_fields.get("issue_date") or "")
             if dob_str and issue_str:
                 try:
-                    # Parse years
-                    dob_year = int(dob_str.split("/")[-1].split("-")[0]) if "/" in dob_str or "-" in dob_str else None
-                    issue_year = int(issue_str.split("/")[-1].split("-")[0]) if "/" in issue_str or "-" in issue_str else None
+                    import datetime as _dt
+                    import re as _re
+
+                    def _extract_year(date_str: str):
+                        """Robustly extract 4-digit year from a date string."""
+                        for fmt in ("%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y", "%Y-%m-%d", "%Y/%m/%d"):
+                            try:
+                                return _dt.datetime.strptime(date_str.strip(), fmt).year
+                            except ValueError:
+                                continue
+                        # Last resort: find a 4-digit number
+                        m = _re.search(r'\b(19|20)\d{2}\b', date_str)
+                        return int(m.group()) if m else None
+
+                    dob_year = _extract_year(dob_str) if dob_str else None
+                    issue_year = _extract_year(issue_str) if issue_str else None
                     if dob_year and issue_year and issue_year < dob_year:
                         violations.append({
                             "case_id": "EC-05",

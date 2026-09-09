@@ -115,19 +115,10 @@ class TamperDetector:
             except Exception as e:
                 logger.warning(f"Could not initialize DocTamper ONNX session: {e}")
 
-        # 2. TruFor PyTorch Runner
-        tf_path = settings.get_model_path(settings.TRUFOR_MODEL)
-        if tf_path.exists():
-            try:
-                import torch  # type: ignore
-                device = get_torch_device()
-                # If weights file is state dict or torchscript
-                self.trufor_model = torch.load(str(tf_path), map_location=device)
-                if hasattr(self.trufor_model, "eval"):
-                    self.trufor_model.eval()
-                logger.info(f"Loaded TruFor model from {tf_path} on {device}")
-            except Exception as e:
-                logger.warning(f"Could not initialize TruFor PyTorch model: {e}")
+        # 2. TruFor is not loaded: no verified inference graph is implemented.
+        # Loading a raw checkpoint into VRAM without a forward pass would either
+        # waste memory or fake a TruFor score from DocTamper/ELA means.
+        self.trufor_model = None
 
     def analyze(
         self,
@@ -170,6 +161,16 @@ class TamperDetector:
                 dqt_quantization_altered=False,
                 processing_time_ms=round((time.perf_counter() - t0) * 1000, 2),
             )
+
+        # 0. Auto-detect photo_bbox if not provided
+        if photo_bbox is None:
+            try:
+                from app.modules.biometrics.face_detector import face_detector
+                det_res, _ = face_detector.detect_faces(image_bytes)
+                if det_res and det_res.primary_face:
+                    photo_bbox = det_res.primary_face.bbox
+            except Exception:
+                photo_bbox = None
 
         # 1. Parse Metadata (EXIF, APP13, DQT)
         meta_res = self.metadata_parser.parse(image_bytes)
@@ -321,7 +322,8 @@ class TamperDetector:
             prob_map = 1.0 / (1.0 + np.exp(-prob_map))
 
         dt_score = float(np.max(prob_map))
-        tf_score = float(np.mean(prob_map))
+        # TruFor is not inferred here; splicing score is filled by photo_splicing_detector.
+        tf_score = 0.0
 
         # Downsample to 64x64 for grid representation
         from PIL import Image as PILImg
@@ -385,11 +387,11 @@ class TamperDetector:
         high_cells: List[Tuple[int, int, float]] = []
 
         # Baseline noise scaling
-        # In a clean capture, ELA mean is typically 2.0 - 8.0 with low variance.
-        # Sharp printed text characters naturally have higher max edge contrast without tampering.
+        # In a clean capture, scaled ELA mean (x20) is typically 40.0 - 100.0.
         mean_intensity = ela_res.mean_intensity
         max_intensity = ela_res.max_intensity
-        is_clean_capture = mean_intensity < 20.0 and not ela_res.photo_area_anomaly
+        photo_tampered = bool(ela_res.photo_area_anomaly)
+        is_clean_capture = (mean_intensity < 140.0) and not photo_tampered
 
         for y in range(grid_h):
             row = []
@@ -407,13 +409,13 @@ class TamperDetector:
                 local_var = sum((v - local_mean) ** 2 for v in neighbors) / len(neighbors)
 
                 # Probabilistic model for tampering anomaly
-                anomaly_signal = (ela_val * 0.6) + (math.sqrt(local_var) * 1.8)
+                anomaly_signal = (ela_val * 0.4) + (math.sqrt(local_var) * 1.0)
 
-                # Calibrate so typical baseline noise / authentic high-contrast text stays below deadband (0.18)
+                # Do not clamp clean-capture text anomalies below tau_adapt (0.18)
                 if is_clean_capture:
-                    prob = min(0.12, anomaly_signal * 0.5)
-                elif max_intensity < 40.0 and mean_intensity < 8.0:
-                    prob = min(0.12, anomaly_signal * 0.4)
+                    prob = min(1.0, anomaly_signal * 0.60)
+                elif not photo_tampered and mean_intensity < 100.0:
+                    prob = min(0.50, anomaly_signal * 0.60)
                 else:
                     prob = min(1.0, anomaly_signal * 0.85)
 
@@ -430,11 +432,11 @@ class TamperDetector:
 
         mean_p = sum_p / max(1, cell_count)
 
-        # Region localization - require cluster of >= 4 cells to avoid single-pixel false alarms
+        # Region localization - require cluster of >= 6 cells to avoid single-pixel false alarms
         tampered_regions: List[TamperRegion] = []
-        photo_tampered = ela_res.photo_area_anomaly
+        photo_tampered = photo_tampered or ela_res.photo_area_anomaly
 
-        if len(high_cells) >= 4:
+        if len(high_cells) >= 6:
             # Aggregate bounding box of high-anomaly cells
             min_x = min(c[0] for c in high_cells)
             max_x = max(c[0] for c in high_cells)
@@ -488,12 +490,16 @@ class TamperDetector:
         w_ela = 0.20
         w_meta = 0.10
 
-        # ELA normalized score: map mean_intensity (0..100) -> [0..1]
-        ela_norm = min(1.0, (ela_res.mean_intensity / 50.0) * 0.5 + (1.0 if ela_res.photo_area_anomaly else 0.0) * 0.5)
+        # ELA normalized score: baseline compression noise (mean < 80) does not indicate tampering
+        ela_excess = max(0.0, ela_res.mean_intensity - 80.0)
+        ela_norm = min(1.0, (ela_excess / 80.0) * 0.5 + (1.0 if ela_res.photo_area_anomaly else 0.0) * 0.5)
 
         meta_score = 1.0 if (meta_res.get("exif_suspicious") or meta_res.get("dqt_quantization_altered")) else 0.0
 
         raw_fusion = (w_dt * dt_score) + (w_tf * tf_score) + (w_ela * ela_norm) + (w_meta * meta_score)
+
+        if meta_res.get("exif_suspicious") or meta_res.get("dqt_quantization_altered"):
+            raw_fusion = max(raw_fusion, self.tau_adapt + 0.02)
 
         # If any strong localized tamper region exists with peak > 0.70, elevate score
         if tampered_regions:

@@ -202,9 +202,9 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         category: 'BIOMETRICS',
         status: biometricsSuccess && livenessSuccess ? 'completed' : 'failed',
         latencyMs: Math.round(bioProcessingTime + liveProcessingTime),
-        confidence: (details?.biometrics as any)?.calibrated_confidence ?? (details?.biometrics?.similarity ?? 0.84),
+        confidence: details?.biometrics?.calibrated_confidence ?? (details?.biometrics?.similarity ?? 0.84),
         details: details?.biometrics
-          ? `Match: ${(((details.biometrics as any).calibrated_confidence ?? (details.biometrics.similarity >= 0.50 ? 0.93 : 0.75)) * 100).toFixed(0)}% Certainty • ${
+          ? `Match: ${((details?.biometrics?.calibrated_confidence ?? (details.biometrics.similarity >= 0.50 ? 0.93 : 0.75)) * 100).toFixed(0)}% Certainty • ${
               livenessSuccess ? 'Real person' : 'Fake detected'
             }`
           : 'Face verified',
@@ -279,7 +279,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
         label: 'Face check',
         status: biometricsSuccess ? 'completed' : 'failed',
         durationMs: Math.round(bioProcessingTime),
-        confidence: (details?.biometrics as any)?.calibrated_confidence ?? (details?.biometrics?.similarity ?? 0.84),
+        confidence: details?.biometrics?.calibrated_confidence ?? (details?.biometrics?.similarity ?? 0.84),
         modelVersion: assessment.model_versions?.face_embedder || 'biometric-v1',
         chip: 'face_align_112.onnx',
         icon: 'face',
@@ -288,7 +288,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
             text: `✓ Face aligned (112x112 canonical)`,
           },
           {
-            text: `✓ Match: ${(((details?.biometrics as any)?.calibrated_confidence ?? (details?.biometrics?.similarity ? (details.biometrics.similarity >= 0.5 ? 0.93 : 0.72) : 0.93)) * 100).toFixed(0)}% Certainty (Cosine: ${details?.biometrics?.similarity?.toFixed(2) ?? '0.57'})`,
+            text: `✓ Match: ${((details?.biometrics?.calibrated_confidence ?? (details?.biometrics?.similarity ? (details.biometrics.similarity >= 0.5 ? 0.93 : 0.72) : 0.93)) * 100).toFixed(0)}% Certainty (Cosine: ${details?.biometrics?.similarity?.toFixed(2) ?? '0.57'})`,
             tone: biometricsSuccess ? 'add' : 'del',
           },
         ],
@@ -941,7 +941,7 @@ export const ResultsPanel: React.FC<ResultsPanelProps> = ({
                 {
                   title: 'Face matcher',
                   body: details.biometrics
-                    ? `${(((details.biometrics as any).calibrated_confidence ?? (details.biometrics.similarity >= 0.5 ? 0.93 : 0.72)) * 100).toFixed(0)}% Match Certainty (Cosine ${details.biometrics.similarity.toFixed(2)}) · ${
+                    ? `${((details.biometrics.calibrated_confidence ?? (details.biometrics.similarity >= 0.5 ? 0.93 : 0.72)) * 100).toFixed(0)}% Match Certainty (Cosine ${details.biometrics.similarity.toFixed(2)}) · ${
                         details.biometrics.match ? '1:1 match' : 'mismatch'
                       }`
                     : 'No live portrait ingested',

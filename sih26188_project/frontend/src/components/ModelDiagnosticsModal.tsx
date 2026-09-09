@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Activity,
   Cpu,
@@ -19,6 +19,7 @@ interface ModelDiagnosticsModalProps {
 }
 
 export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModalProps) {
+  const isMountedRef = useRef(true);
   const [diagnostics, setDiagnostics] = useState<ModelsStatusResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [connectingModelId, setConnectingModelId] = useState<string | null>(null);
@@ -26,14 +27,27 @@ export function ModelDiagnosticsModal({ isOpen, onClose }: ModelDiagnosticsModal
   const [actionMessage, setActionMessage] = useState<{ text: string; type: 'success' | 'error' | 'info' } | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
 
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   const loadStatus = useCallback(async () => {
     try {
       const data = await fetchModelsStatus();
-      setDiagnostics(data);
+      if (isMountedRef.current) {
+        setDiagnostics(data);
+      }
     } catch (err: any) {
-      console.error('Failed to load model diagnostics:', err);
+      if (isMountedRef.current) {
+        console.error('Failed to load model diagnostics:', err);
+      }
     } finally {
-      setLoading(false);
+      if (isMountedRef.current) {
+        setLoading(false);
+      }
     }
   }, []);
 

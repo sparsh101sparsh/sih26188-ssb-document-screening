@@ -1,37 +1,44 @@
-# BRIEFING — 2026-08-24T01:03:55Z
+# BRIEFING — 2026-08-25T05:07:30Z
 
 ## Mission
-Explore the Android codebase, analyze current theme, CameraX, dual camera capture, network client, build setup, and design the minimal companion camera with whitish theme, sunlight legibility, connection pill, 56dp shutter button, and live sync.
+Survey Android codebase in `sih26188_project/android-screening` for gateway connection, network discovery, QR pairing, upload idempotency, retry lifecycle, and structured logging to support R2, R3, R4, R5, R6, R7, R10.
 
 ## 🔒 My Identity
-- Archetype: Teamwork explorer
-- Roles: Android Codebase Surveyor & UI/Sync Architect
+- Archetype: explorer
+- Roles: investigator, reporter
 - Working directory: /Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_explorer_survey_android
-- Original parent: 0154f887-5407-45d5-ab71-f83e9e732283
-- Milestone: Survey & Architecture Discovery
+- Original parent: beb15e66-6467-4738-85f3-26af35b2238d
+- Milestone: Survey & Android Codebase Analysis
 
 ## 🔒 Key Constraints
-- Read-only investigation — do NOT implement
-- Investigate Android codebase thoroughly
-- Analyze Jetpack Compose theme setup, CameraX, network layer, build configuration
-- Provide precise file paths, line numbers, and proposed design specifications
+- Read-only investigation — do NOT implement changes to project source code directly.
+- Produce comprehensive `survey_android.md` and `handoff.md`.
+- Reference exact files, lines, flaws, and actionable architecture/implementation plans.
 
 ## Current Parent
-- Conversation ID: 0154f887-5407-45d5-ab71-f83e9e732283
-- Updated: 2026-08-24T01:03:55Z
+- Conversation ID: beb15e66-6467-4738-85f3-26af35b2238d
+- Updated: 2026-08-25T05:04:06Z
 
 ## Investigation State
-- **Explored paths**: `/Users/iamsparsh00321/Downloads/ssb-field-screening`, `Color.kt`, `Theme.kt`, `Type.kt`, `DualCameraCaptureView.kt`, `MainScreen.kt`, `HeaderBar.kt`, `SsbScreeningViewModel.kt`, `SsbApiService.kt`, `SsbRepository.kt`, `InspectionModels.kt`, `backend/app/api/routers/companion.py`, `backend/app/main.py`.
-- **Key findings**: 
-  - Android theme already contains the clean whitish tokens (`BaseCanvas = #F8FAFC`, `SupportingSurface = #FFFFFF`, `TextPrimary = #0F172A`).
-  - CameraX lifecycle binding and low-latency image capture are implemented in `DualCameraCaptureView.kt`.
-  - Live companion upload is supported via `POST /api/v1/companion/upload`.
-  - Identified compiler error in `SsbRepository.kt:70` (`ConnectivityMode.WIFI_AP` -> `ConnectivityMode.AIR_GAPPED_WIFI`).
-- **Unexplored areas**: No remaining unexplored areas within survey scope.
+- **Explored paths**:
+  - `SsbScreeningViewModel.kt` (initialization, state machine, health polling, upload flow, lack of network callback)
+  - `WifiUtils.kt` (discovery tiers, emulator check, mDNS 3s, priority 13 IPs, elimination of sweep, URL normalization & SSBPAIR parsing)
+  - `QrCodeAnalyzer.kt`, `QrScannerView.kt`, `WifiConnectScreen.kt` (QR scanning, binarizer pipeline, SSBPAIR scheme parsing)
+  - `SsbApiService.kt` (Retrofit upload interface, missing `capture_id` parameter)
+  - `SsbRepository.kt`, `OutboxDao.kt`, `OutboxEntity.kt` (5-attempt exponential backoff retry schedule, image blob retention in Room DB)
+  - `InspectionModels.kt`, `GatewayDiagnosticsView.kt` (removal of hardcoded IPs)
+- **Key findings**:
+  - All 8 requirements mapped to exact files, lines, flaws, and replacement logic.
+  - Gradle test suite confirmed functional with JDK from Android Studio JBR.
+- **Unexplored areas**: None for Android scope.
 
 ## Key Decisions Made
-- Fully documented companion live streaming architecture, UI redesign specifications, and compilation fix in `survey_report.md` and `handoff.md`.
+- Authored comprehensive `survey_android.md` with complete architectural call flows, code snippets, and verification procedures.
+- Established concrete verification commands (`./gradlew testDebugUnitTest --no-daemon`, `./gradlew assembleDebug --no-daemon`).
 
 ## Artifact Index
-- `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_explorer_survey_android/survey_report.md` — Comprehensive Android Survey & Redesign Report
-- `/Users/iamsparsh00321/Documents/antigravity/vibrant-rutherford/.agents/teamwork_preview_explorer_survey_android/handoff.md` — 5-Component Handoff Report
+- DISPATCH.md — Log of incoming dispatches
+- BRIEFING.md — Persistent working memory
+- progress.md — Heartbeat progress tracker
+- survey_android.md — Comprehensive Android survey report
+- handoff.md — 5-component handoff report

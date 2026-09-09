@@ -519,7 +519,18 @@ val PRESET_SCENARIOS: List<PresetScenario> = listOf(
                             details = "Stamp geometry failed SSB registry verification."
                         )
                     ),
-                    warnings = listOf("Traveler documents held for physical chemical test."),
+                    warnings = listOf(
+                        CriticalViolation(
+                            ruleId = "CV-WARN-01",
+                            ruleName = "Physical Hold",
+                            severity = "WARNING",
+                            fieldName = "document",
+                            expectedValue = null,
+                            actualValue = null,
+                            telemetryCode = "PHYSICAL_HOLD",
+                            details = "Traveler documents held for physical chemical test."
+                        )
+                    ),
                     flags = listOf(
                         ViolationFlag("CV-01", "MRZ DOB vs Visual OCR DOB", true, "Not applicable (Permit Card)"),
                         ViolationFlag("CV-02", "Doc No Formatting", true, "Valid Permit Series"),

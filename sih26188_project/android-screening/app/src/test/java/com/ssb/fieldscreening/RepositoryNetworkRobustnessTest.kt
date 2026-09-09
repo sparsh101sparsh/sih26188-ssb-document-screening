@@ -177,7 +177,7 @@ class RepositoryNetworkRobustnessTest {
 
     @Test
     fun `test autoDetectGateway safely probes candidate IPs and returns null if unreachable`() = runBlocking {
-        val detected = repository.autoDetectGateway()
+        val detected = repository.autoDetectGateway(excludeLoopback = true)
         assertNull("autoDetectGateway must return null when no hotspot gateways respond", detected)
     }
 

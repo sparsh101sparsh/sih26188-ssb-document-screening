@@ -32797,12 +32797,11 @@ var Zap = createLucideIcon("Zap", __iconNode22);
 var import_meta = {};
 var API_BASE_URL = typeof import_meta !== "undefined" && import_meta.env?.VITE_API_BASE_URL || globalThis?.process?.env?.VITE_API_BASE_URL || "http://localhost:8000";
 async function clearCompanionCapture() {
-  try {
-    await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
-      method: "POST"
-    });
-  } catch (err) {
-    console.warn("Failed to clear companion capture:", err);
+  const response = await fetch(`${API_BASE_URL}/api/v1/companion/clear`, {
+    method: "POST"
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to clear companion buffer: HTTP ${response.status}`);
   }
 }
 async function getCompanionInfo() {

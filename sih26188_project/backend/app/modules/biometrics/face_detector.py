@@ -358,6 +358,19 @@ class SCRFDFaceDetector:
         start_time = time.perf_counter()
         img_array, img_h, img_w = self._preprocess_input_image(image_input)
 
+        if img_array is None or img_h < 10 or img_w < 10:
+            elapsed_ms = round((time.perf_counter() - start_time) * 1000, 2)
+            return (
+                FaceDetectionResult(
+                    faces_found=0,
+                    faces=[],
+                    primary_face=None,
+                    aligned_face_extracted=False,
+                    processing_time_ms=elapsed_ms,
+                ),
+                [],
+            )
+
         if self._is_loaded and self.session is not None and img_array is not None:
             faces, landmarks_list, crops = self._run_scrfd_onnx(img_array, img_h, img_w, conf_threshold, nms_threshold)
         elif self._yunet_loaded and self.yunet_model_path.exists() and img_array is not None:
@@ -479,10 +492,13 @@ class SCRFDFaceDetector:
     def _preprocess_input_image(self, image_input: Any) -> Tuple[Optional[Any], int, int]:
         """Normalizes various input formats into image array and dimensions."""
         if image_input is None:
-            return None, 112, 112
+            return None, 0, 0
 
         # 1. If bytes
         if isinstance(image_input, (bytes, bytearray)):
+            # Guard: empty payload — do not construct a dummy array
+            if not image_input:
+                return None, 0, 0
             try:
                 import cv2  # type: ignore
                 import numpy as np  # type: ignore
@@ -495,13 +511,16 @@ class SCRFDFaceDetector:
             try:
                 from PIL import Image  # type: ignore
                 pil_img = Image.open(io.BytesIO(image_input)).convert("RGB")
-                return pil_img, pil_img.height, pil_img.width
+                import numpy as np  # type: ignore
+                import cv2  # type: ignore
+                rgb_arr = np.array(pil_img)
+                bgr_arr = cv2.cvtColor(rgb_arr, cv2.COLOR_RGB2BGR)
+                return bgr_arr, pil_img.height, pil_img.width
             except Exception:
                 pass
 
-            # Fallback pure-python parser
-            h, w = parse_image_dimensions(bytes(image_input))
-            return bytes(image_input), h, w
+            # Decode failed — do not hallucinate a geometric face from raw bytes
+            return None, 0, 0
 
         # 2. If numpy array
         if hasattr(image_input, "shape"):
@@ -510,9 +529,13 @@ class SCRFDFaceDetector:
             w = shape[1] if len(shape) > 1 else 112
             return image_input, int(h), int(w)
 
-        # 3. If PIL Image
+        # 3. If PIL Image — convert to BGR numpy array (required by cv2 detectors)
         if hasattr(image_input, "size") and hasattr(image_input, "convert"):
-            return image_input, int(image_input.height), int(image_input.width)
+            import numpy as np
+            import cv2
+            rgb_arr = np.array(image_input.convert("RGB"))
+            bgr_arr = cv2.cvtColor(rgb_arr, cv2.COLOR_RGB2BGR)
+            return bgr_arr, int(image_input.height), int(image_input.width)
 
         return image_input, 112, 112
 
@@ -536,6 +559,9 @@ class SCRFDFaceDetector:
             new_w, new_h = int(img_w * scale), int(img_h * scale)
 
             resized = cv2.resize(image, (new_w, new_h))
+            # SCRFD blob is RGB; OpenCV decode / YuNet path is BGR
+            if len(resized.shape) == 3 and resized.shape[2] == 3:
+                resized = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
             blob = np.zeros((640, 640, 3), dtype=np.float32)
             blob[:new_h, :new_w, :] = resized
 
@@ -673,6 +699,9 @@ class SCRFDFaceDetector:
         faces: List[FaceBBox] = []
         landmarks_res: List[List[List[float]]] = []
         crops: List[Any] = []
+
+        if image is None or img_w < 10 or img_h < 10:
+            return [], [], []
 
         img_array = None
         try:
@@ -854,6 +883,9 @@ class SCRFDFaceDetector:
         #            skip for landscape/document-aspect images to avoid cropping
         #            card text, logos, or graphics as "face".
         # -----------------------------------------------------------------------
+        # Guard: Do not hallucinate face if image is empty/invalid
+        if img_array is None or img_w < 10 or img_h < 10:
+            return [], [], []
         aspect_ratio = img_w / max(img_h, 1)
         is_portrait_like = aspect_ratio < 1.2  # selfies are square/portrait; ID cards are landscape
 

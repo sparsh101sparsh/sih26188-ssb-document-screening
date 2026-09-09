@@ -84,7 +84,15 @@ class MiniFASNetLivenessDetector:
 
     @property
     def is_model_loaded(self) -> bool:
-        return self._is_loaded
+        return self.session_2_7x is not None or self.session_4_0x is not None
+
+    def predict_liveness(
+        self,
+        image: Any,
+        face_bbox: Optional[Union[FaceBBox, List[int], Tuple[int, int, int, int]]] = None,
+    ) -> LivenessResult:
+        """Alias for evaluate_liveness."""
+        return self.evaluate_liveness(image, face_bbox)
 
     def evaluate_liveness(
         self,

@@ -152,6 +152,8 @@ export interface FaceMatchResult {
   watchlist_hit: boolean;
   watchlist_distance?: number | null;
   processing_time_ms: number;
+  /** Platt-calibrated posterior probability returned by backend inference engine */
+  calibrated_confidence?: number | null;
 }
 
 export interface TamperRegion {

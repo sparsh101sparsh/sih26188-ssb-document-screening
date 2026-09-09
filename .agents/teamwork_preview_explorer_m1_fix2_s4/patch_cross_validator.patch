@@ -1,0 +1,49 @@
+--- backend/app/modules/mrz/cross_validator.py
++++ backend/app/modules/mrz/cross_validator.py
+@@ -82,19 +82,31 @@
+     Normalizes various date formats (DD/MM/YYYY, YYYY-MM-DD, DD-MM-YYYY, YYMMDD, etc.) to YYMMDD.
+     Uses format-aware strptime parsing first to correctly handle separators before digit stripping.
+     """
+     if not date_str:
+         return None
+     import datetime
+-    for fmt in ("%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y", "%Y-%m-%d", "%Y/%m/%d", "%y%m%d", "%d%m%Y"):
++    cleaned_input = date_str.strip()
++    for fmt in ("%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y", "%Y-%m-%d", "%Y/%m/%d", "%y%m%d", "%Y%m%d", "%d%m%Y"):
+         try:
+-            dt = datetime.datetime.strptime(date_str.strip(), fmt)
++            dt = datetime.datetime.strptime(cleaned_input, fmt)
++            # Guard unpunctuated 8-digit formats against greedy 1-digit strptime parsing and non-contemporary years
++            if fmt in ("%Y%m%d", "%d%m%Y") and (len(cleaned_input) != 8 or not (1900 <= dt.year <= 2099)):
++                continue
+             return dt.strftime("%y%m%d")
+         except ValueError:
+             continue
+     # Fallback: strip non-digits
+-    cleaned = re.sub(r'[^0-9]', '', date_str.strip())
++    cleaned = re.sub(r'[^0-9]', '', cleaned_input)
+     if len(cleaned) == 6:
+         return cleaned
++    if len(cleaned) == 8:
++        for fmt in ("%Y%m%d", "%d%m%Y"):
++            try:
++                dt = datetime.datetime.strptime(cleaned, fmt)
++                if 1900 <= dt.year <= 2099:
++                    return dt.strftime("%y%m%d")
++            except ValueError:
++                continue
+     return None
+ 
+@@ -126,8 +138,11 @@
+     cleaned = date_input.strip()
+-    for fmt in ["%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d", "%Y/%m/%d", "%d.%m.%Y", "%y%m%d"]:
++    for fmt in ["%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d", "%Y/%m/%d", "%d.%m.%Y", "%y%m%d", "%Y%m%d", "%d%m%Y"]:
+         try:
+-            return datetime.datetime.strptime(cleaned, fmt).date()
++            dt = datetime.datetime.strptime(cleaned, fmt)
++            if fmt in ("%Y%m%d", "%d%m%Y") and (len(cleaned) != 8 or not (1900 <= dt.year <= 2099)):
++                continue
++            return dt.date()
+         except ValueError:
+             continue
+     return None

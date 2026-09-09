@@ -228,6 +228,12 @@ object WifiUtils {
                 var discoveryListener: NsdManager.DiscoveryListener? = null
                 var resolved = false
 
+                val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
+                val multicastLock = wifiManager?.createMulticastLock("SSB_mDNS")?.apply {
+                    setReferenceCounted(true)
+                    try { acquire() } catch (_: Exception) {}
+                }
+
                 val resolveListener = object : NsdManager.ResolveListener {
                     override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
                         Log.w("[WifiUtils]", "mDNS resolve failed: errorCode=$errorCode")
@@ -235,6 +241,7 @@ object WifiUtils {
                     override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
                         if (!resolved && cont.isActive) {
                             resolved = true
+                            try { if (multicastLock?.isHeld == true) multicastLock.release() } catch (_: Exception) {}
                             val ip = serviceInfo.host?.hostAddress
                             val resolvedPort = serviceInfo.port.takeIf { it > 0 } ?: port
                             val url = if (ip != null) "http://$ip:$resolvedPort" else null
@@ -254,6 +261,7 @@ object WifiUtils {
                     }
                     override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
                         Log.w("[WifiUtils]", "mDNS start discovery failed: $errorCode")
+                        try { if (multicastLock?.isHeld == true) multicastLock.release() } catch (_: Exception) {}
                         if (!resolved && cont.isActive) cont.resume(null)
                     }
                     override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {}
@@ -270,6 +278,7 @@ object WifiUtils {
 
                 cont.invokeOnCancellation {
                     try { nsdManager.stopServiceDiscovery(discoveryListener) } catch (_: Exception) {}
+                    try { if (multicastLock?.isHeld == true) multicastLock.release() } catch (_: Exception) {}
                 }
 
                 try {
@@ -290,7 +299,11 @@ object WifiUtils {
      * Tier 2: mDNS/NSD broadcast (3s timeout)
      * Tier 3: Parallel priority subnet probe (13 candidate slots, 350ms timeout)
      */
-    suspend fun discoverGatewayOnSubnet(context: Context? = null, port: Int = 8000): String? = withContext(Dispatchers.IO) {
+    suspend fun discoverGatewayOnSubnet(
+        context: Context? = null,
+        port: Int = 8000,
+        excludeLoopback: Boolean = false,
+    ): String? = withContext(Dispatchers.IO) {
         Log.d("[AutoDiscovery]", "Starting 4-tier gateway discovery sequence (port=$port)")
 
         // Tier 0: Saved gateway URL from SharedPreferences
@@ -305,6 +318,17 @@ object WifiUtils {
                 } else {
                     Log.d("[AutoDiscovery]", "Tier 0 (Saved Gateway) unreachable: $saved")
                 }
+            }
+        }
+
+        // Tier 0b: USB Cable / ADB Reverse Host (127.0.0.1) & Emulator Host (10.0.2.2)
+        // Instant check (300ms) for wired USB tethering or development setups
+        if (!excludeLoopback) {
+            val usbUrl = "http://127.0.0.1:$port"
+            val (usbOk, usbLatency) = testGateway(usbUrl, 300L)
+            if (usbOk) {
+                Log.i("[AutoDiscovery]", "Tier 0b (USB Cable): Connected via 127.0.0.1 (${usbLatency}ms)")
+                return@withContext usbUrl
             }
         }
 

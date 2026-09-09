@@ -4,6 +4,7 @@ Endpoints for Face Detection, 1:1 Biometric Verification, and Passive Anti-Spoof
 Architecture Reference: Sections 1.4, 2.2, 5.2
 """
 
+import asyncio
 import time
 from typing import Optional
 
@@ -71,7 +72,7 @@ async def detect_faces(
             detail="Uploaded image payload is empty or corrupted.",
         )
 
-    result, _ = face_detector.detect_faces(img_bytes, conf_threshold=conf_threshold)
+    result, _ = await asyncio.to_thread(face_detector.detect_faces, img_bytes, conf_threshold)
     return result
 
 
@@ -101,12 +102,9 @@ async def evaluate_liveness(
             detail="Uploaded face image payload is empty or corrupted.",
         )
 
-    # Detect face to localize bounding box
-    det_result, _ = face_detector.detect_faces(img_bytes, conf_threshold=0.30)
+    det_result, _ = await asyncio.to_thread(face_detector.detect_faces, img_bytes, 0.30)
     primary_bbox = det_result.primary_face.bbox if det_result.primary_face else None
-
-    # Evaluate liveness
-    liveness = liveness_detector.evaluate_liveness(img_bytes, face_bbox=primary_bbox)
+    liveness = await asyncio.to_thread(liveness_detector.evaluate_liveness, img_bytes, primary_bbox)
     return liveness
 
 
@@ -158,24 +156,19 @@ async def match_faces(
             detail="Live image payload is empty or corrupted.",
         )
 
-    # 1. Detect faces and extract 112x112 aligned crops
-    doc_det, doc_crops = face_detector.detect_faces(doc_bytes, conf_threshold=0.30)
-    live_det, live_crops = face_detector.detect_faces(live_bytes, conf_threshold=0.30)
+    doc_det, doc_crops = await asyncio.to_thread(face_detector.detect_faces, doc_bytes, 0.30)
+    live_det, live_crops = await asyncio.to_thread(face_detector.detect_faces, live_bytes, 0.30)
 
     doc_crop = doc_crops[0] if doc_crops else None
     live_crop = live_crops[0] if live_crops else None
 
-    # 2. Match faces via AdaFace
-    match_result = face_matcher.match_faces(doc_crop, live_crop, threshold=threshold)
-
-    # 3. Calculate calibrated deadband penalty
+    match_result = await asyncio.to_thread(face_matcher.match_faces, doc_crop, live_crop, threshold)
     deadband_penalty = round(compute_face_deadband(match_result.similarity, settings.TAU_FACE), 4)
 
-    # 4. Optional Live Anti-Spoofing evaluation
     liveness_res: Optional[LivenessResult] = None
     if check_liveness:
         live_bbox = live_det.primary_face.bbox if live_det.primary_face else None
-        liveness_res = liveness_detector.evaluate_liveness(live_bytes, face_bbox=live_bbox)
+        liveness_res = await asyncio.to_thread(liveness_detector.evaluate_liveness, live_bytes, live_bbox)
 
     total_latency_ms = round((time.perf_counter() - start_time) * 1000, 2)
 

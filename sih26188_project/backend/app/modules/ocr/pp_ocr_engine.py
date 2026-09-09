@@ -265,6 +265,7 @@ class PPOCREngine:
         self._rapid_ocr = None
         self._paddle_ocr_en = None
         self._paddle_ocr_dev = None
+        self._easyocr_reader = None
         self._init_ocr_engines()
 
     def _init_ocr_engines(self) -> None:
@@ -556,7 +557,9 @@ class PPOCREngine:
             import easyocr  # type: ignore
             import numpy as np  # type: ignore
 
-            reader = easyocr.Reader(["en", "hi"], gpu=False, verbose=False)
+            if self._easyocr_reader is None:
+                self._easyocr_reader = easyocr.Reader(["en", "hi"], gpu=False, verbose=False)
+            reader = self._easyocr_reader
 
             if isinstance(image_or_text, np.ndarray):
                 img_input = image_or_text
