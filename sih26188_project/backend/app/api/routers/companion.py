@@ -480,13 +480,9 @@ class PersistentCompanionStore:
                 with sqlite3.connect(str(self.db_path)) as conn:
                     conn.row_factory = sqlite3.Row
                     cursor = conn.cursor()
-                    query = "SELECT * FROM companion_captures "
-                    params = []
-                    if capture_type:
-                        query += "WHERE capture_type = ? "
-                        params.append(capture_type)
-                    query += "ORDER BY sequence_id DESC LIMIT ?;"
-                    params.append(limit)
+                    where_clause = "WHERE capture_type = ? " if capture_type else ""
+                    query = f"SELECT * FROM (SELECT * FROM companion_captures {where_clause}ORDER BY sequence_id DESC LIMIT ?) ORDER BY sequence_id ASC;"
+                    params = [capture_type, limit] if capture_type else [limit]
 
                     cursor.execute(query, params)
                     rows = cursor.fetchall()
@@ -978,18 +974,7 @@ async def get_pairing_qr():
     port = getattr(settings, "PORT", 8000)
     gateway_id = "SSBGateway"
     pairing_token = companion_store.pairing_token
-    qr_payload = json.dumps(
-        {
-            "v": 1,
-            "scheme": "ssb-pair",
-            "host": current_lan_ip,
-            "port": port,
-            "token": pairing_token,
-            "station": "SSB_SONAULI_01",
-            "url": f"http://{current_lan_ip}:{port}",
-        },
-        separators=(",", ":"),
-    )
+    qr_payload = f"SSBPAIR://{current_lan_ip}:{port}/{pairing_token}"
     fallback_url = f"http://{current_lan_ip}:{port}"
 
     logger.info(f"[Companion] Generated pairing QR payload: {qr_payload}")

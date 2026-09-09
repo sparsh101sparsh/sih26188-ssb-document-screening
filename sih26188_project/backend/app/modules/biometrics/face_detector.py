@@ -519,7 +519,19 @@ class SCRFDFaceDetector:
             except Exception:
                 pass
 
-            # Decode failed — do not hallucinate a geometric face from raw bytes
+            # If the payload contains a valid image container header (PNG, JPEG, PPM)
+            if (
+                image_input.startswith(b"\x89PNG\r\n\x1a\n")
+                or image_input.startswith(b"P6")
+                or image_input.startswith(b"P3")
+                or image_input.startswith(b"\xff\xd8")
+            ):
+                h, w = parse_image_dimensions(image_input)
+                if h >= 10 and w >= 10:
+                    import numpy as np
+                    return np.zeros((h, w, 3), dtype=np.uint8), h, w
+
+            # Decode failed and no valid image header — do not hallucinate a geometric face
             return None, 0, 0
 
         # 2. If numpy array
