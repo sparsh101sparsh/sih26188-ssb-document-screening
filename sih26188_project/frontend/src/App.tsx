@@ -288,6 +288,9 @@ export function App() {
         gain.connect(ctx.destination);
         osc.start();
         osc.stop(ctx.currentTime + 0.36);
+        osc.onended = () => {
+          ctx.close().catch(() => {});
+        };
       }
     } catch {}
   };
