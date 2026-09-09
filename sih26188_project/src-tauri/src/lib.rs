@@ -63,8 +63,8 @@ fn get_api_url() -> String {
 }
 
 pub fn run() {
-    spawn_backend_process();
-
+    // Backend process is not spawned automatically at startup,
+    // allowing on-demand launch from the UI via the start_backend command.
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![get_api_url, start_backend])
         .run(tauri::generate_context!())
