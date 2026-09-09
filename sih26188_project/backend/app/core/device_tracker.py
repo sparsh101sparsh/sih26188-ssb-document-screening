@@ -41,7 +41,8 @@ class ConnectedClient(BaseModel):
 
 
 # Timeout thresholds (seconds)
-ONLINE_THRESHOLD_SECONDS: float = 10.0
+DEFAULT_OFFLINE_TIMEOUT_SECONDS: float = 8.0
+ONLINE_THRESHOLD_SECONDS: float = 8.0
 STALE_THRESHOLD_SECONDS: float = 30.0
 
 
@@ -56,29 +57,32 @@ class DeviceTracker:
         self._devices: Dict[str, ConnectedClient] = {}
         self._lock = threading.RLock()
 
-    def _evaluate_device_status(self, dev: ConnectedClient) -> str:
+    def _evaluate_device_status(self, dev: ConnectedClient, timeout_seconds: Optional[float] = None) -> str:
         """
         Evaluates dynamic device status based on elapsed time since last_seen_ts.
-        < 10s: ONLINE
-        10s - 30s: STALE
-        > 30s: OFFLINE
+        <= timeout_seconds (default 8.0s): ONLINE
+        > timeout_seconds: OFFLINE
         """
+        effective_timeout = timeout_seconds if timeout_seconds is not None else DEFAULT_OFFLINE_TIMEOUT_SECONDS
         now = time.time()
         elapsed = now - dev.last_seen_ts
-        if elapsed <= ONLINE_THRESHOLD_SECONDS:
+        if elapsed <= effective_timeout:
             return "ONLINE"
-        elif elapsed <= STALE_THRESHOLD_SECONDS:
-            return "STALE"
         else:
             return "OFFLINE"
 
-    def update_statuses(self) -> None:
+    def update_statuses(self, timeout_seconds: Optional[float] = None) -> None:
         """
         Refreshes the status attribute of all tracked devices.
         """
         with self._lock:
             for dev in self._devices.values():
-                dev.status = self._evaluate_device_status(dev)
+                try:
+                    dt = datetime.fromisoformat(dev.last_seen.replace("Z", "+00:00"))
+                    dev.last_seen_ts = dt.timestamp()
+                except Exception:
+                    pass
+                dev.status = self._evaluate_device_status(dev, timeout_seconds=timeout_seconds)
 
     def record_activity(
         self,
@@ -163,24 +167,8 @@ class DeviceTracker:
         Returns a list of all recorded field devices sorted by last_seen_ts descending.
         If timeout_seconds is provided, devices with elapsed time > timeout_seconds are treated as OFFLINE.
         """
-        self.update_statuses()
-        now = time.time()
+        self.update_statuses(timeout_seconds=timeout_seconds)
         with self._lock:
-            # Sync last_seen_ts from last_seen if last_seen was manually manipulated in tests
-            for dev in self._devices.values():
-                try:
-                    dt = datetime.fromisoformat(dev.last_seen.replace("Z", "+00:00"))
-                    dev.last_seen_ts = dt.timestamp()
-                except Exception:
-                    pass
-                if timeout_seconds is not None:
-                    if (now - dev.last_seen_ts) > timeout_seconds:
-                        dev.status = "OFFLINE"
-                    else:
-                        dev.status = "ONLINE"
-                else:
-                    dev.status = self._evaluate_device_status(dev)
-
             unique_map: Dict[str, ConnectedClient] = {}
             for d in self._devices.values():
                 unique_map[d.device_id] = d
@@ -196,12 +184,22 @@ class DeviceTracker:
         """
         return self.get_all_devices(active_only=True, timeout_seconds=timeout_seconds)
 
-    def get_last_active_device(self, timeout_seconds: Optional[float] = None) -> Optional[ConnectedClient]:
+    def get_last_active_device(
+        self,
+        timeout_seconds: Optional[float] = None,
+        active_only: bool = True,
+    ) -> Optional[ConnectedClient]:
         """
         Returns the most recently seen active field device, or None if no device is active.
+        If active_only is False, returns the most recently seen device regardless of online status.
         """
-        active = self.get_active_devices(timeout_seconds=timeout_seconds)
-        return active[0] if active else None
+        effective_timeout = timeout_seconds if timeout_seconds is not None else DEFAULT_OFFLINE_TIMEOUT_SECONDS
+        if active_only:
+            active = self.get_active_devices(timeout_seconds=effective_timeout)
+            return active[0] if active else None
+        else:
+            all_devices = self.get_all_devices(active_only=False, timeout_seconds=effective_timeout)
+            return all_devices[0] if all_devices else None
 
     def clear(self) -> None:
         """

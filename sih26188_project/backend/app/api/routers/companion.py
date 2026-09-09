@@ -1248,16 +1248,7 @@ async def get_pairing_qr():
     gateway_id = "SSBGateway"
     pairing_token = companion_store.pairing_token
     fallback_url = f"http://{current_lan_ip}:{port}"
-    qr_dict = {
-        "version": 1,
-        "service": "ssb-gateway",
-        "gateway_id": gateway_id,
-        "host": current_lan_ip,
-        "port": port,
-        "pairing_token": pairing_token,
-        "url": fallback_url,
-    }
-    qr_payload = json.dumps(qr_dict)
+    qr_payload = f"SSBPAIR://{current_lan_ip}:{port}/{pairing_token}"
 
     logger.info(f"[Companion] Generated pairing QR payload: {qr_payload}")
 
