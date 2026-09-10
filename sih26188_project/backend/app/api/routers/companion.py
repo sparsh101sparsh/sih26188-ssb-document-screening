@@ -11,7 +11,9 @@ import hashlib
 import json
 import logging
 import os
+import shutil
 import sqlite3
+import subprocess
 import threading
 import time
 import uuid
@@ -314,6 +316,14 @@ class PersistentCompanionStore:
         data_uri = None
         if include_bytes:
             file_p = Path(row["file_path"])
+            if not file_p.exists():
+                for alt_cand in (
+                    self.store_dir / file_p.name,
+                    self.store_dir / f"{capture_uuid[:8]}_{row['filename']}",
+                ):
+                    if alt_cand.exists():
+                        file_p = alt_cand
+                        break
             if file_p.exists():
                 try:
                     b_data = file_p.read_bytes()
@@ -421,11 +431,11 @@ class PersistentCompanionStore:
                     ),
                 )
                 conn.commit()
-                sequence_id = cursor.lastrowid or 1
+                sequence_id = cursor.lastrowid
                 self._write_last_sequence(conn, sequence_id)
                 conn.commit()
 
-                # Prune buffer to max_buffer_size if exceeded
+                # Ring buffer capacity check
                 cursor.execute("SELECT COUNT(*) FROM companion_captures;")
                 cur_count = cursor.fetchone()[0]
                 if cur_count > self.max_buffer_size:
@@ -472,6 +482,7 @@ class PersistentCompanionStore:
                     "device_id": device_id,
                     "checkpoint_id": checkpoint_id,
                     "filename": safe_filename,
+                    "image_data": data_uri,
                     "image_url": new_state.image_url,
                     "sha256_hash": sha256_hash,
                     "timestamp": now_ts,
@@ -487,7 +498,7 @@ class PersistentCompanionStore:
         with self._lock:
             return self._latest_state.model_copy()
 
-    def get_buffer(self, limit: int = 50, capture_type: Optional[str] = None) -> List[CompanionCaptureState]:
+    def get_buffer(self, limit: int = 50, capture_type: Optional[str] = None, include_bytes: bool = True) -> List[CompanionCaptureState]:
         with self._lock:
             results: List[CompanionCaptureState] = []
             try:
@@ -501,12 +512,12 @@ class PersistentCompanionStore:
                     cursor.execute(query, params)
                     rows = cursor.fetchall()
                     for row in rows:
-                        results.append(self._row_to_state(row, include_bytes=False))
+                        results.append(self._row_to_state(row, include_bytes=include_bytes))
             except Exception as e:
                 logger.warning(f"[PersistentCompanionStore] Error reading buffer: {e}")
             return results
 
-    def get_buffer_since(self, since_seq: int) -> List[CompanionCaptureState]:
+    def get_buffer_since(self, since_seq: int, include_bytes: bool = True) -> List[CompanionCaptureState]:
         with self._lock:
             results: List[CompanionCaptureState] = []
             try:
@@ -519,7 +530,7 @@ class PersistentCompanionStore:
                     )
                     rows = cursor.fetchall()
                     for row in rows:
-                        results.append(self._row_to_state(row, include_bytes=False))
+                        results.append(self._row_to_state(row, include_bytes=include_bytes))
             except Exception as e:
                 logger.warning(f"[PersistentCompanionStore] Error reading buffer since {since_seq}: {e}")
             return results
@@ -1352,3 +1363,339 @@ async def simulate_companion_capture(request: Request, payload: CompanionSimulat
         "sha256_hash": state.sha256_hash,
         "timestamp": state.timestamp,
     }
+
+
+def _find_adb_binary() -> Optional[str]:
+    """
+    Locate the adb binary across PATH, common install directories, environment variables
+    (ANDROID_HOME, ANDROID_SDK_ROOT), and Android Studio bundled SDK.
+    """
+    # 1. PATH lookup first
+    resolved = shutil.which("adb")
+    if resolved:
+        return resolved
+
+    # 2. Environment variable overrides
+    for env_var in ("ANDROID_HOME", "ANDROID_SDK_ROOT", "ANDROID_SDK"):
+        sdk_root = os.environ.get(env_var)
+        if sdk_root:
+            candidate = Path(sdk_root) / "platform-tools" / "adb"
+            if candidate.exists() and os.access(candidate, os.X_OK):
+                return str(candidate)
+
+    # 3. Known hard-coded install paths (macOS + Linux + Windows via WSL)
+    home = Path.home()
+    for candidate in (
+        "/opt/homebrew/bin/adb",
+        "/usr/local/bin/adb",
+        "/usr/bin/adb",
+        home / "Library/Android/sdk/platform-tools/adb",      # macOS Android Studio default
+        home / "Android/Sdk/platform-tools/adb",              # Linux Android Studio default
+        home / "AppData/Local/Android/Sdk/platform-tools/adb",  # Windows (WSL unlikely but safe)
+        Path("/Applications/Android Studio.app/sdk/platform-tools/adb"),
+        home / ".local/share/android-sdk/platform-tools/adb",
+    ):
+        p = Path(candidate)
+        if p.exists() and os.access(p, os.X_OK):
+            return str(p)
+
+    return None
+
+
+def _parse_adb_devices(adb_bin: str) -> List[Dict[str, str]]:
+    """Run 'adb devices -l' and return a list of device dicts with serial, state, model."""
+    devices: List[Dict[str, str]] = []
+    try:
+        proc = subprocess.run(
+            [adb_bin, "devices", "-l"],
+            capture_output=True, text=True, timeout=8,
+        )
+        for line in proc.stdout.splitlines():
+            line = line.strip()
+            if not line or line.startswith("List of devices") or line.startswith("*"):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            serial, state = parts[0], parts[1]
+            model = next(
+                (p.replace("model:", "") for p in parts[2:] if p.startswith("model:")),
+                "Android Device",
+            )
+            devices.append({"serial": serial, "state": state, "model": model})
+    except Exception as exc:
+        logger.warning("[USB] _parse_adb_devices error: %s", exc)
+    return devices
+
+
+def _classify_error_code(devices: List[Dict[str, str]]) -> str:
+    """Map device list states to a UI-friendly error_code string."""
+    if not devices:
+        return "no_devices"
+    states = {d["state"] for d in devices}
+    ready = [d for d in devices if d["state"] == "device"]
+    if ready:
+        return "ok"  # at least one ready device — shouldn't normally reach classify
+    if "unauthorized" in states:
+        return "unauthorized"
+    if "offline" in states:
+        return "offline"
+    return "unknown_state"
+
+
+@router.post("/usb-connect", summary="Trigger ADB Reverse USB Tunnel for Android Field Unit")
+async def trigger_usb_connect(port: Optional[int] = None):
+    """
+    6-stage hardened ADB reverse tunnel setup:
+    1. Find ADB binary (extended search)
+    2. adb start-server — ensure daemon is alive
+    3. adb devices -l — enumerate and classify attached devices
+    4. Edge-case dispatch (no device, unauthorized, offline, multiple)
+    5. adb -s <serial> reverse tcp:<port> tcp:<port> — targeted tunnel
+    6. Tunnel verification via adb reverse --list
+
+    Returns structured response with error_code, device_serial, tunnel_verified fields.
+    """
+    from app.core.config import settings
+
+    target_port = port or getattr(settings, "PORT", 8000)
+
+    # ── Stage 1: Find ADB ────────────────────────────────────────────────────
+    adb_bin = _find_adb_binary()
+    if not adb_bin:
+        return {
+            "success": False,
+            "error_code": "adb_not_found",
+            "port": target_port,
+            "adb_path": None,
+            "command": f"adb reverse tcp:{target_port} tcp:{target_port}",
+            "devices": [],
+            "device_count": 0,
+            "error": (
+                "ADB not found. Install Android Platform Tools:\n"
+                "  macOS: brew install android-platform-tools\n"
+                "  Or add ~/Library/Android/sdk/platform-tools to PATH"
+            ),
+        }
+
+    # ── Stage 2: Ensure ADB daemon is running ────────────────────────────────
+    try:
+        subprocess.run(
+            [adb_bin, "start-server"],
+            capture_output=True, text=True, timeout=8,
+        )
+    except Exception as exc:
+        logger.warning("[USB] adb start-server warning: %s", exc)
+
+    # ── Stage 3: Enumerate devices ───────────────────────────────────────────
+    devices = _parse_adb_devices(adb_bin)
+    ready_devices = [d for d in devices if d["state"] == "device"]
+
+    # ── Stage 4: Edge-case dispatch ──────────────────────────────────────────
+    if not ready_devices:
+        error_code = _classify_error_code(devices)
+        error_messages = {
+            "no_devices": (
+                "No USB device detected. Plug in your Android phone via USB cable "
+                "and ensure USB Debugging is enabled in Developer Options."
+            ),
+            "unauthorized": (
+                "Device connected but USB Debugging not authorized. "
+                "Check your phone screen and tap 'Allow USB Debugging', then retry."
+            ),
+            "offline": (
+                "Device found but not responding (offline state). "
+                "Try unplugging and replugging the USB cable."
+            ),
+            "unknown_state": (
+                f"Device is in an unexpected state: {', '.join(d['state'] for d in devices)}. "
+                "Ensure USB Debugging is enabled and the cable supports data transfer."
+            ),
+        }
+        logger.warning("[USB] No ready devices. error_code=%s, devices=%s", error_code, devices)
+        return {
+            "success": False,
+            "error_code": error_code,
+            "port": target_port,
+            "adb_path": adb_bin,
+            "command": f"adb reverse tcp:{target_port} tcp:{target_port}",
+            "devices": devices,
+            "device_count": len(devices),
+            "error": error_messages.get(error_code, "Unknown ADB error."),
+        }
+
+    # Pick the first ready device; if multiple, log the rest
+    target_device = ready_devices[0]
+    target_serial = target_device["serial"]
+    if len(ready_devices) > 1:
+        others = [d["serial"] for d in ready_devices[1:]]
+        logger.info("[USB] Multiple ready devices — using %s, ignoring: %s", target_serial, others)
+
+    # ── Stage 5: Establish reverse tunnel on target device ───────────────────
+    cmd = [adb_bin, "-s", target_serial, "reverse", f"tcp:{target_port}", f"tcp:{target_port}"]
+    try:
+        proc_rev = subprocess.run(cmd, capture_output=True, text=True, timeout=8)
+        if proc_rev.returncode != 0:
+            raw_err = proc_rev.stderr.strip() or proc_rev.stdout.strip() or f"exit code {proc_rev.returncode}"
+            logger.warning("[USB] adb reverse failed for %s: %s", target_serial, raw_err)
+            # Re-check for unauthorized after the reverse attempt (race: user just tapped Allow)
+            if "unauthorized" in raw_err.lower():
+                return {
+                    "success": False,
+                    "error_code": "unauthorized",
+                    "port": target_port,
+                    "adb_path": adb_bin,
+                    "command": " ".join(cmd),
+                    "device_serial": target_serial,
+                    "device_model": target_device["model"],
+                    "devices": devices,
+                    "device_count": len(devices),
+                    "error": "Tap 'Allow USB Debugging' on your phone, then retry.",
+                }
+            return {
+                "success": False,
+                "error_code": "reverse_failed",
+                "port": target_port,
+                "adb_path": adb_bin,
+                "command": " ".join(cmd),
+                "device_serial": target_serial,
+                "device_model": target_device["model"],
+                "devices": devices,
+                "device_count": len(devices),
+                "error": raw_err,
+            }
+    except subprocess.TimeoutExpired:
+        logger.warning("[USB] adb reverse timed out for %s", target_serial)
+        return {
+            "success": False,
+            "error_code": "timeout",
+            "port": target_port,
+            "adb_path": adb_bin,
+            "command": " ".join(cmd),
+            "device_serial": target_serial,
+            "device_model": target_device["model"],
+            "devices": devices,
+            "device_count": len(devices),
+            "error": "ADB reverse command timed out (8s). Unplug and replug the USB cable, then retry.",
+        }
+    except Exception as exc:
+        logger.warning("[USB] adb reverse exception for %s: %s", target_serial, exc)
+        return {
+            "success": False,
+            "error_code": "reverse_failed",
+            "port": target_port,
+            "adb_path": adb_bin,
+            "command": " ".join(cmd),
+            "device_serial": target_serial,
+            "device_model": target_device["model"],
+            "devices": devices,
+            "device_count": len(devices),
+            "error": str(exc),
+        }
+
+    # ── Stage 6: Verify tunnel via reverse --list ────────────────────────────
+    tunnel_verified = False
+    active_reverses: List[str] = []
+    try:
+        proc_list = subprocess.run(
+            [adb_bin, "-s", target_serial, "reverse", "--list"],
+            capture_output=True, text=True, timeout=5,
+        )
+        active_reverses = [ln.strip() for ln in proc_list.stdout.splitlines() if ln.strip()]
+        tunnel_entry = f"tcp:{target_port}"
+        tunnel_verified = any(tunnel_entry in entry for entry in active_reverses)
+    except Exception:
+        pass
+
+    logger.info(
+        "[USB] Tunnel established: device=%s model=%s port=%s verified=%s",
+        target_serial, target_device["model"], target_port, tunnel_verified,
+    )
+
+    return {
+        "success": True,
+        "error_code": "ok",
+        "port": target_port,
+        "adb_path": adb_bin,
+        "command": f"adb -s {target_serial} reverse tcp:{target_port} tcp:{target_port}",
+        "message": (
+            f"USB reverse tunnel active on port {target_port}. "
+            f"Device '{target_device['model']}' ({target_serial}) connected. "
+            f"Android app → http://127.0.0.1:{target_port}"
+        ),
+        "device_serial": target_serial,
+        "device_model": target_device["model"],
+        "tunnel_verified": tunnel_verified,
+        "devices": devices,
+        "device_count": len(devices),
+        "devices_found": len(ready_devices),
+        "active_reverses": active_reverses,
+    }
+
+
+@router.get("/usb-status", summary="Lightweight ADB USB Device & Tunnel Status Poll")
+async def get_usb_status():
+    """
+    Lightweight read-only status check — safe to call every 3 seconds.
+    Queries ADB for connected devices and active reverse tunnels without
+    modifying any state. Used by the frontend auto-poll for live USB indicator.
+    """
+    from app.core.config import settings
+
+    target_port = getattr(settings, "PORT", 8000)
+    adb_bin = _find_adb_binary()
+
+    if not adb_bin:
+        return {
+            "adb_found": False,
+            "devices": [],
+            "device_count": 0,
+            "ready_count": 0,
+            "tunnel_active": False,
+            "tunnel_port": target_port,
+            "error_code": "adb_not_found",
+        }
+
+    devices = _parse_adb_devices(adb_bin)
+    ready_devices = [d for d in devices if d["state"] == "device"]
+    unauthorized_devices = [d for d in devices if d["state"] == "unauthorized"]
+
+    # Check active reverse tunnels
+    tunnel_active = False
+    active_reverses: List[str] = []
+    if ready_devices:
+        try:
+            target_serial = ready_devices[0]["serial"]
+            proc = subprocess.run(
+                [adb_bin, "-s", target_serial, "reverse", "--list"],
+                capture_output=True, text=True, timeout=5,
+            )
+            active_reverses = [ln.strip() for ln in proc.stdout.splitlines() if ln.strip()]
+            tunnel_entry = f"tcp:{target_port}"
+            tunnel_active = any(tunnel_entry in entry for entry in active_reverses)
+        except Exception:
+            pass
+
+    error_code = "ok"
+    if not devices:
+        error_code = "no_devices"
+    elif not ready_devices and unauthorized_devices:
+        error_code = "unauthorized"
+    elif not ready_devices:
+        error_code = "offline"
+
+    return {
+        "adb_found": True,
+        "devices": devices,
+        "device_count": len(devices),
+        "ready_count": len(ready_devices),
+        "unauthorized_count": len(unauthorized_devices),
+        "tunnel_active": tunnel_active,
+        "tunnel_port": target_port,
+        "active_reverses": active_reverses,
+        "error_code": error_code,
+        "primary_device": ready_devices[0] if ready_devices else (
+            unauthorized_devices[0] if unauthorized_devices else None
+        ),
+    }
+

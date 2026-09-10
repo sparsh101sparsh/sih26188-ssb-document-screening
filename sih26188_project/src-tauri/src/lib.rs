@@ -39,11 +39,23 @@ fn spawn_backend_process() -> bool {
 }
 
 fn setup_adb_reverse() {
-    let _ = Command::new("adb")
-        .args(&["reverse", "tcp:8000", "tcp:8000"])
-        .stdout(Stdio::null())
-        .stderr(Stdio::null())
-        .spawn();
+    let adb_candidates = [
+        "/opt/homebrew/bin/adb",
+        "/usr/local/bin/adb",
+        "/usr/bin/adb",
+        "adb",
+    ];
+    for &candidate in &adb_candidates {
+        if let Ok(mut child) = Command::new(candidate)
+            .args(&["reverse", "tcp:8000", "tcp:8000"])
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .spawn()
+        {
+            let _ = child.wait();
+            break;
+        }
+    }
 }
 
 #[tauri::command]
@@ -69,6 +81,28 @@ fn start_backend() -> Result<String, String> {
 }
 
 #[tauri::command]
+fn trigger_adb_reverse() -> Result<String, String> {
+    let adb_candidates = [
+        "/opt/homebrew/bin/adb",
+        "/usr/local/bin/adb",
+        "/usr/bin/adb",
+        "adb",
+    ];
+    for &candidate in &adb_candidates {
+        if let Ok(mut child) = Command::new(candidate)
+            .args(&["reverse", "tcp:8000", "tcp:8000"])
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .spawn()
+        {
+            let _ = child.wait();
+            return Ok("USB reverse tunnel established via adb reverse tcp:8000 tcp:8000".to_string());
+        }
+    }
+    Err("Could not find or execute adb executable on system".to_string())
+}
+
+#[tauri::command]
 fn get_api_url() -> String {
     "http://localhost:8000".to_string()
 }
@@ -77,7 +111,7 @@ pub fn run() {
     // Backend process is not spawned automatically at startup,
     // allowing on-demand launch from the UI via the start_backend command.
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![get_api_url, start_backend])
+        .invoke_handler(tauri::generate_handler![get_api_url, start_backend, trigger_adb_reverse])
         .run(tauri::generate_context!())
         .expect("error while running SSB Screening app");
 }

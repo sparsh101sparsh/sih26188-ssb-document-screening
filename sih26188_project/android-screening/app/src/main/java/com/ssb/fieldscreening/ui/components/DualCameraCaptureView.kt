@@ -740,7 +740,7 @@ fun CameraXCaptureContainer(
                             .clip(RoundedCornerShape(10.dp))
                             .background(badgeBg)
                             .border(1.dp, badgeBorder, RoundedCornerShape(10.dp))
-                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
@@ -753,10 +753,42 @@ fun CameraXCaptureContainer(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = statusText,
-                            fontSize = 12.sp,
+                            fontSize = 11.5.sp,
                             fontWeight = FontWeight.Bold,
-                            color = textColor
+                            color = textColor,
+                            maxLines = 1
                         )
+                    }
+
+                    // If Document was captured and Face has not yet been captured, show a helpful switch button
+                    if (activeTarget == CameraTarget.DOCUMENT_REAR && capturedLiveFaceBytes == null) {
+                        Button(
+                            onClick = { activeTarget = CameraTarget.TRAVELER_FRONT },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(46.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = SsbColors.SurfaceRaised,
+                                contentColor = SsbColors.AccentInk
+                            ),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, SsbColors.Accent.copy(alpha = 0.4f)),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Default.Face,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "Add Traveler Face Photo (Optional)",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1
+                                )
+                            }
+                        }
                     }
 
                     // Full-Bleed Primary Inspection Button
@@ -765,24 +797,24 @@ fun CameraXCaptureContainer(
                         enabled = !isInspecting,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(54.dp)
+                            .height(50.dp)
                             .testTag("evaluate_screen_btn"),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = SsbColors.Accent,
                             contentColor = Color.White
                         ),
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(10.dp)
                     ) {
                         if (isInspecting) {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(20.dp),
+                                modifier = Modifier.size(18.dp),
                                 color = Color.White,
-                                strokeWidth = 2.5.dp
+                                strokeWidth = 2.dp
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = progressText.ifBlank { "Screening Document..." },
-                                fontSize = 13.sp,
+                                fontSize = 12.5.sp,
                                 fontWeight = FontWeight.Bold
                             )
                         } else {
@@ -790,14 +822,14 @@ fun CameraXCaptureContainer(
                                 Icon(
                                     imageVector = Icons.Default.PlayArrow,
                                     contentDescription = null,
-                                    modifier = Modifier.size(22.dp)
+                                    modifier = Modifier.size(20.dp)
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "Run document screening",
+                                    text = "Run Document Screening",
                                     fontSize = 13.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    letterSpacing = 0.1.sp
+                                    fontWeight = FontWeight.Bold,
+                                    letterSpacing = 0.2.sp
                                 )
                             }
                         }

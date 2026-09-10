@@ -133,12 +133,13 @@ object WifiUtils {
     )
 
     /**
-     * Parses a QR code payload supporting:
+     * Parses a QR code payload and returns rich pairing metadata.
+     * Supports:
      * 1. Structured JSON bootstrap: {"version":1,"host":"192.168.1.5","port":8000,"pairing_token":"...","gateway_id":"..."}
      * 2. SSBPAIR scheme: SSBPAIR://<host>:<port>/<token>
      * 3. Plain URL: http://<host>:<port> or raw <host>:<port>
      */
-    fun parseQrPayload(raw: String): QrPairingInfo {
+    fun parseQrPairingInfo(raw: String): QrPairingInfo {
         val input = raw.trim()
         if (input.isBlank()) return QrPairingInfo("")
 
@@ -186,9 +187,11 @@ object WifiUtils {
     }
 
     /**
-     * Backward-compatible helper returning just the URL string.
+     * Backward-compatible helper returning just the URL string as expected by test suites and callers.
      */
-    fun parseQrPayloadUrl(raw: String): String = parseQrPayload(raw).url
+    fun parseQrPayload(raw: String): String = parseQrPairingInfo(raw).url
+
+    fun parseQrPayloadUrl(raw: String): String = parseQrPairingInfo(raw).url
 
     /**
      * Normalizes a raw string (from QR code, manual input, or copy-paste)
@@ -200,11 +203,11 @@ object WifiUtils {
         if (input.isBlank()) return ""
 
         if (input.startsWith("{") && input.endsWith("}")) {
-            return parseQrPayload(input).url
+            return parseQrPayload(input)
         }
 
         if (input.startsWith("SSBPAIR://", ignoreCase = true)) {
-            return parseQrPayload(input).url
+            return parseQrPayload(input)
         }
 
         // Strip trailing slashes

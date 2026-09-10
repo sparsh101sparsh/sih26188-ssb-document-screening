@@ -364,6 +364,11 @@ class SsbRepository(private val outboxDao: OutboxDao) {
             outboxDao.updateSyncStatus(record.sessionId, "FAILED")
             return@withContext false
         }
+        if (record.documentImageBlob.size < 100) {
+            Log.w("[SsbRepository]", "Record ${record.sessionId} has corrupt empty payload (${record.documentImageBlob.size}B), marked FAILED")
+            outboxDao.updateSyncStatus(record.sessionId, "FAILED")
+            return@withContext false
+        }
         val url = customBaseUrl?.takeIf { it.isNotBlank() } ?: mode.endpoint
         if (url.isBlank() || mode == ConnectivityMode.OFFLINE_OUTBOX) {
             return@withContext false

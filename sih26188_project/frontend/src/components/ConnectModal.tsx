@@ -35,10 +35,15 @@ import {
   pingGateway,
   simulateCompanionUpload,
   clearCompanionCapture,
+  triggerUsbConnect,
+  getUsbStatus,
+  UsbConnectResponse,
+  UsbStatusResponse,
   CompanionInfoResponse,
   API_BASE_URL,
 } from '../services/api';
 import { ConnectedClient, PairingQrResponse } from '../types/api';
+
 
 import { QRCodeSVG } from 'qrcode.react';
 import QRCode from 'qrcode';
@@ -131,8 +136,18 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
   } | null>(null);
   const [manualAppliedNotice, setManualAppliedNotice] = useState<string | null>(null);
 
+  // USB Auto-Connect state
+  const [isUsbConnecting, setIsUsbConnecting] = useState(false);
+  const [usbConnectResult, setUsbConnectResult] = useState<UsbConnectResponse | null>(null);
+  // Live USB status poll (updated every 3s when tethering tab is active)
+  const [usbStatus, setUsbStatus] = useState<UsbStatusResponse | null>(null);
+  const usbPollRef = useRef<number | null>(null);
+  // Track whether the tunnel was previously active for auto-reconnect
+  const tunnelWasActiveRef = useRef(false);
+
   const pollTimerRef = useRef<number | null>(null);
   const isMountedRef = useRef(true);
+
 
   const fetchStatus = useCallback(async () => {
     try {
@@ -225,6 +240,103 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
       setSimulationStatus(`Purge failed: ${err.message || 'Unknown'}`);
     }
   };
+
+  /** Maps backend error_code to a user-friendly message + emoji hint */
+  const usbErrorMessage = (res: UsbConnectResponse): string => {
+    switch (res.error_code) {
+      case 'no_devices':
+        return '🔌 No USB device found. Plug in your Android phone via USB cable.';
+      case 'unauthorized':
+        return '📱 USB Debugging not authorized. Check your phone screen and tap "Allow USB Debugging".';
+      case 'offline':
+        return '🔄 Device found but not responding. Try unplugging and replugging the USB cable.';
+      case 'adb_not_found':
+        return '🛠 ADB not installed. Run: brew install android-platform-tools';
+      case 'timeout':
+        return '⏱ ADB timed out. Unplug and replug USB, then retry.';
+      case 'reverse_failed':
+        return `⚠ ADB reverse failed: ${res.error || 'Unknown error'}`;
+      default:
+        return res.error || 'Failed to establish ADB reverse tunnel.';
+    }
+  };
+
+  const handleUsbConnect = async () => {
+    setIsUsbConnecting(true);
+    setUsbConnectResult(null);
+    try {
+      const portNum = parseInt(manualPort.trim() || '8000', 10) || 8000;
+      const res = await triggerUsbConnect(portNum);
+      if (isMountedRef.current) {
+        setUsbConnectResult(res);
+        if (res.success) {
+          tunnelWasActiveRef.current = true;
+          // Refresh companion device list to reflect new USB connection
+          await fetchStatus();
+        }
+      }
+    } catch (err: any) {
+      if (isMountedRef.current) {
+        setUsbConnectResult({
+          success: false,
+          port: 8000,
+          adb_path: 'adb',
+          command: 'adb reverse tcp:8000 tcp:8000',
+          error_code: 'reverse_failed',
+          error: err.message || 'Failed to establish ADB reverse tunnel',
+        });
+      }
+    } finally {
+      if (isMountedRef.current) {
+        setIsUsbConnecting(false);
+      }
+    }
+  };
+
+  // USB status auto-poll: starts when tethering tab is active, stops otherwise
+  useEffect(() => {
+    if (activeTab !== 'tethering' || !isOpen) {
+      if (usbPollRef.current) {
+        clearInterval(usbPollRef.current);
+        usbPollRef.current = null;
+      }
+      return;
+    }
+
+    const pollUsbStatus = async () => {
+      if (!isMountedRef.current) return;
+      try {
+        const status = await getUsbStatus();
+        if (!isMountedRef.current) return;
+        setUsbStatus(status);
+
+        // Auto-reconnect: if tunnel was previously active and now dropped, retry once silently
+        if (tunnelWasActiveRef.current && !status.tunnel_active && status.ready_count > 0 && !isUsbConnecting) {
+          tunnelWasActiveRef.current = false;
+          handleUsbConnect();
+        }
+        // Track tunnel state transitions
+        if (status.tunnel_active) {
+          tunnelWasActiveRef.current = true;
+        }
+      } catch {
+        // ignore poll errors
+      }
+    };
+
+    // Poll immediately on tab activation, then every 3 seconds
+    pollUsbStatus();
+    usbPollRef.current = window.setInterval(pollUsbStatus, 3000);
+
+    return () => {
+      if (usbPollRef.current) {
+        clearInterval(usbPollRef.current);
+        usbPollRef.current = null;
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, isOpen]);
+
 
   const handleTestPing = async () => {
     const targetIp = manualIp.trim() || 'localhost';
@@ -458,7 +570,31 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
           >
             <Usb className="w-4 h-4" />
             <span>USB / Emulator</span>
+            {/* Live USB status dot */}
+            {usbStatus && (
+              <span
+                title={
+                  usbStatus.tunnel_active
+                    ? 'Tunnel active'
+                    : usbStatus.error_code === 'unauthorized'
+                    ? 'Tap Allow on phone'
+                    : usbStatus.ready_count > 0
+                    ? 'Device connected'
+                    : 'No device'
+                }
+                className={`w-2 h-2 rounded-full shrink-0 ${
+                  usbStatus.tunnel_active
+                    ? 'bg-emerald-500 animate-pulse'
+                    : usbStatus.error_code === 'unauthorized'
+                    ? 'bg-amber-400'
+                    : usbStatus.ready_count > 0
+                    ? 'bg-sky-400'
+                    : 'bg-slate-300'
+                }`}
+              />
+            )}
           </button>
+
         </div>
 
         {/* ================================================================= */}
@@ -1017,20 +1153,221 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
 
           {/* TAB 3: USB / EMULATOR TETHERING */}
           {activeTab === 'tethering' && (
-            <div className="space-y-3">
-              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                USB Cable & Emulator Connection Modes
-              </span>
+            <div className="space-y-4">
+
+              {/* Live ADB Status Bar — shown only when poll has data */}
+              {usbStatus && (
+                <div className={`flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-semibold ${
+                  usbStatus.tunnel_active
+                    ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
+                    : usbStatus.error_code === 'unauthorized'
+                    ? 'bg-amber-50 border-amber-300 text-amber-900'
+                    : usbStatus.ready_count > 0
+                    ? 'bg-sky-50 border-sky-200 text-sky-900'
+                    : 'bg-slate-50 border-slate-200 text-slate-500'
+                }`}>
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${
+                      usbStatus.tunnel_active ? 'bg-emerald-500 animate-pulse'
+                      : usbStatus.error_code === 'unauthorized' ? 'bg-amber-400'
+                      : usbStatus.ready_count > 0 ? 'bg-sky-400'
+                      : 'bg-slate-300'
+                    }`} />
+                    <span>
+                      {usbStatus.tunnel_active
+                        ? `Tunnel active · ${usbStatus.primary_device?.model || 'Android Device'}`
+                        : usbStatus.error_code === 'unauthorized'
+                        ? `📱 Tap "Allow USB Debugging" on ${usbStatus.primary_device?.model || 'your phone'}`
+                        : usbStatus.ready_count > 0
+                        ? `Device ready · ${usbStatus.primary_device?.model || 'Android Device'} — click Connect`
+                        : usbStatus.error_code === 'offline'
+                        ? '⚠ Device offline — replug USB cable'
+                        : usbStatus.adb_found
+                        ? '🔌 No USB device detected'
+                        : '🛠 ADB not found — install Android Platform Tools'}
+                    </span>
+                  </div>
+                  {usbStatus.tunnel_active && (
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-600/10 border border-emerald-300 text-emerald-800">
+                      PORT {usbStatus.tunnel_port}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                    <Usb className="w-4 h-4 text-indigo-600" />
+                    <span>USB Cable &amp; Emulator Direct Tethering</span>
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    1-click ADB reverse tunnel. Works with physical USB or Android Studio Emulator.
+                  </p>
+                </div>
+
+                {/* 1-Click Connect Button */}
+                <button
+                  type="button"
+                  onClick={handleUsbConnect}
+                  disabled={isUsbConnecting}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all shadow-md hover:shadow-indigo-500/20 disabled:opacity-50 cursor-pointer"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isUsbConnecting ? 'animate-spin' : ''}`} />
+                  <span>{isUsbConnecting ? 'Connecting...' : 'Connect USB / Emulator'}</span>
+                </button>
+              </div>
+
+              {/* USB Connection Feedback Banner */}
+              {usbConnectResult && (
+                <div
+                  className={`p-3 rounded-xl border text-xs flex flex-col gap-1.5 ${
+                    usbConnectResult.success
+                      ? usbConnectResult.tunnel_verified === false
+                        ? 'bg-amber-50 border-amber-300 text-amber-950' // success but unverified = amber
+                        : 'bg-emerald-50 border-emerald-300 text-emerald-950'
+                      : 'bg-red-50 border-red-300 text-red-950'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 font-bold">
+                      {usbConnectResult.success ? (
+                        usbConnectResult.tunnel_verified === false ? (
+                          <AlertCircle className="w-4 h-4 text-amber-500" />
+                        ) : (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        )
+                      ) : (
+                        <AlertTriangle className="w-4 h-4 text-red-600" />
+                      )}
+                      <span>
+                        {usbConnectResult.success
+                          ? usbConnectResult.tunnel_verified === false
+                            ? '⚠ Tunnel established (unverified)'
+                            : `✓ USB Tunnel Active · ${usbConnectResult.device_model || 'Device'}`
+                          : '✗ USB Connection Failed'}
+                      </span>
+                    </div>
+                    <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-black/10">
+                      PORT {usbConnectResult.port}
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] opacity-90">
+                    {usbConnectResult.success
+                      ? usbConnectResult.tunnel_verified === false
+                        ? 'Tunnel set up but could not be verified via ADB. Ensure the backend (port 8000) is running.'
+                        : usbConnectResult.message
+                      : usbErrorMessage(usbConnectResult)}
+                  </p>
+
+                  {/* Device serial tag on success */}
+                  {usbConnectResult.success && usbConnectResult.device_serial && (
+                    <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-white border border-emerald-300 text-emerald-800 w-fit">
+                      📱 {usbConnectResult.device_serial}
+                    </span>
+                  )}
+
+                  {/* Retry hint for specific error codes */}
+                  {!usbConnectResult.success && usbConnectResult.error_code === 'unauthorized' && (
+                    <button
+                      type="button"
+                      onClick={handleUsbConnect}
+                      disabled={isUsbConnecting}
+                      className="mt-1 text-[11px] font-bold text-red-700 underline underline-offset-2 cursor-pointer self-start"
+                    >
+                      ↺ Retry after tapping Allow
+                    </button>
+                  )}
+                  {!usbConnectResult.success && (usbConnectResult.error_code === 'no_devices' || usbConnectResult.error_code === 'offline') && (
+                    <button
+                      type="button"
+                      onClick={handleUsbConnect}
+                      disabled={isUsbConnecting}
+                      className="mt-1 text-[11px] font-bold text-red-700 underline underline-offset-2 cursor-pointer self-start"
+                    >
+                      ↺ Retry after plugging cable
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* Live Connected Devices Banner if USB heartbeat detected */}
+              {companionData?.devices &&
+                companionData.devices.some((d) => d.connection_type === 'usb' && d.status === 'ONLINE') && (
+                  <div className="p-3 bg-emerald-500/10 border border-emerald-400 rounded-xl text-emerald-900 text-xs flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                      <span className="font-bold">
+                        Android Phone Online via USB Cable:
+                      </span>
+                      <span className="font-mono text-[11px]">
+                        {companionData.devices.find((d) => d.connection_type === 'usb')?.device_name || 'Infinix / Pixel'}
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+                      SYNCED
+                    </span>
+                  </div>
+                )}
+
+
 
               <div className="grid grid-cols-1 gap-2.5">
-                <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                {/* USB ADB Card */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs hover:border-indigo-300 transition-colors">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500">
-                      <Cpu className="w-4 h-4 text-indigo-600" />
+                    <div className="p-2 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-600 shrink-0">
+                      <Usb className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <span className="font-semibold text-slate-800 block truncate">Android Emulator</span>
-                      <code className="text-[11px] font-mono text-slate-500 truncate block">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-slate-800">Physical Phone via USB Cable</span>
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 font-bold">
+                          Recommended
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 mt-0.5">
+                        High-speed air-gapped data channel. Plug in phone and click <strong>Connect USB / Emulator</strong> above.
+                      </p>
+                      <code className="text-[10.5px] font-mono text-indigo-900 bg-indigo-50/70 px-2 py-0.5 rounded border border-indigo-100 block mt-1.5 w-fit">
+                        {adbCmd}
+                      </code>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+                    <button
+                      type="button"
+                      onClick={handleUsbConnect}
+                      disabled={isUsbConnecting}
+                      className="px-3 py-1.5 text-xs font-bold rounded-lg bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 hover:border-indigo-600 transition-all cursor-pointer shadow-2xs flex items-center gap-1.5"
+                    >
+                      <Zap className="w-3.5 h-3.5" />
+                      <span>Connect Now</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(adbCmd, 'adb')}
+                      className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer"
+                      title="Copy ADB Command"
+                    >
+                      {copiedKey === 'adb' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Emulator Card */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs hover:border-slate-300 transition-colors">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-2 rounded-lg bg-slate-100 border border-slate-200 text-slate-600 shrink-0">
+                      <Cpu className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-bold text-slate-800">Android Studio Emulator</span>
+                      <p className="text-[11px] text-slate-500 mt-0.5">
+                        In the Android Emulator app settings, use the special QEMU host loopback URL:
+                      </p>
+                      <code className="text-[10.5px] font-mono text-slate-700 bg-white px-2 py-0.5 rounded border border-slate-200 block mt-1.5 w-fit">
                         {emulatorUrl}
                       </code>
                     </div>
@@ -1038,30 +1375,10 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({
                   <button
                     type="button"
                     onClick={() => handleCopy(emulatorUrl, 'emu')}
-                    className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer"
+                    className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer self-end sm:self-center"
+                    title="Copy Emulator URL"
                   >
                     {copiedKey === 'emu' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500">
-                      <Usb className="w-4 h-4 text-indigo-600" />
-                    </div>
-                    <div className="min-w-0">
-                      <span className="font-semibold text-slate-800 block truncate">USB Cable (ADB Reverse)</span>
-                      <code className="text-[11px] font-mono text-slate-500 truncate block">
-                        {adbCmd}
-                      </code>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(adbCmd, 'adb')}
-                    className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg bg-white border border-slate-200 shadow-2xs transition-colors shrink-0 cursor-pointer"
-                  >
-                    {copiedKey === 'adb' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
               </div>

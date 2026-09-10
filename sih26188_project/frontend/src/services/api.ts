@@ -246,6 +246,122 @@ export async function simulateCompanionUpload(
   return res.json();
 }
 
+export interface UsbConnectResponse {
+  success: boolean;
+  port: number;
+  adb_path: string | null;
+  command: string;
+  message?: string;
+  error?: string;
+  /** Structured error code for UI-friendly messaging */
+  error_code?: 'ok' | 'no_devices' | 'unauthorized' | 'offline' | 'adb_not_found' | 'timeout' | 'reverse_failed' | 'tunnel_fail' | 'unknown_state';
+  /** Serial number of the targeted ADB device */
+  device_serial?: string;
+  /** Model name of the targeted ADB device */
+  device_model?: string;
+  /** Whether tunnel was confirmed via adb reverse --list */
+  tunnel_verified?: boolean;
+  /** Number of devices in 'device' (ready) state */
+  devices_found?: number;
+  devices?: Array<{
+    serial: string;
+    state: string;
+    model: string;
+  }>;
+  device_count?: number;
+  active_reverses?: string[];
+}
+
+export interface UsbStatusResponse {
+  adb_found: boolean;
+  devices: Array<{ serial: string; state: string; model: string }>;
+  device_count: number;
+  ready_count: number;
+  unauthorized_count?: number;
+  tunnel_active: boolean;
+  tunnel_port: number;
+  active_reverses?: string[];
+  error_code: 'ok' | 'no_devices' | 'unauthorized' | 'offline' | 'adb_not_found';
+  primary_device?: { serial: string; state: string; model: string } | null;
+}
+
+
+/**
+ * Trigger ADB reverse USB tunnel for connected Android physical phone or emulator
+ */
+export async function triggerUsbConnect(port = 8000): Promise<UsbConnectResponse> {
+  // First attempt via Backend HTTP API
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/companion/usb-connect?port=${port}`, {
+      method: 'POST',
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
+        return data;
+      }
+    }
+  } catch {
+    // Continue to Tauri desktop fallback
+  }
+
+  // Fallback: If running inside Tauri native runtime, call Rust command directly
+  if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
+    try {
+      const { invoke } = await import('@tauri-apps/api/core');
+      const msg = await invoke<string>('trigger_adb_reverse');
+      return {
+        success: true,
+        port,
+        adb_path: 'adb (Tauri)',
+        command: `adb reverse tcp:${port} tcp:${port}`,
+        message: msg || `USB reverse tunnel active on port ${port}`,
+      };
+    } catch (tauriErr: any) {
+      console.warn('Tauri trigger_adb_reverse error:', tauriErr);
+    }
+  }
+
+  // Final fetch attempt to surface descriptive error
+  const res = await fetch(`${API_BASE_URL}/api/v1/companion/usb-connect?port=${port}`, {
+    method: 'POST',
+  });
+  if (!res.ok) {
+    let errDetail = `HTTP ${res.status}`;
+    try {
+      const errJson = await res.json();
+      if (errJson.detail) errDetail = errJson.detail;
+    } catch {}
+    throw new Error(errDetail);
+  }
+  return res.json();
+}
+
+/**
+ * Lightweight USB status poll — safe to call every 3 seconds.
+ * Returns ADB device list, tunnel status, and error_code without modifying state.
+ */
+export async function getUsbStatus(): Promise<UsbStatusResponse> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/companion/usb-status`);
+    if (res.ok) {
+      return res.json();
+    }
+  } catch {
+    // Fallback to disconnected state
+  }
+  return {
+    adb_found: false,
+    devices: [],
+    device_count: 0,
+    ready_count: 0,
+    tunnel_active: false,
+    tunnel_port: 8000,
+    error_code: 'adb_not_found',
+    primary_device: null,
+  };
+}
+
 export interface CompanionCaptureState {
   has_capture: boolean;
   sequence_id: number;
@@ -253,6 +369,7 @@ export interface CompanionCaptureState {
   device_id: string;
   checkpoint_id: string;
   image_data?: string | null;
+  image_url?: string | null;
   filename?: string | null;
   timestamp?: number;
 }

@@ -11,7 +11,7 @@ import { AskSSBMascot } from './components/AskSSBMascot';
 import { OfflineWarningBanner } from './components/OfflineWarningBanner';
 import { SettingsHubModal, SettingsTab } from './components/SettingsHubModal';
 import { ConnectModal } from './components/ConnectModal';
-import { CompanionGalleryModal } from './components/CompanionGalleryModal';
+import { CompanionGalleryModal, resolveCaptureFileAndDataUrl } from './components/CompanionGalleryModal';
 import { ScreenReaderEngine } from './components/ScreenReaderEngine';
 import { StampIntroScreen } from './components/StampIntroScreen';
 
@@ -320,27 +320,31 @@ export function App() {
               );
 
               const mode = latest.capture_type || 'document';
-              const b64 = latest.image_data || latest.image_base64 || '';
-              const dataUrl = b64.startsWith('data:') ? b64 : `data:image/jpeg;base64,${b64}`;
-              const file = base64ToFile(dataUrl, latest.filename || `companion_${mode}_${latest.sequence_id}.jpg`);
+              const resolved = await resolveCaptureFileAndDataUrl(
+                latest,
+                latest.filename || `companion_${mode}_${latest.sequence_id}.jpg`
+              );
 
-              if (mode === 'document') {
-                setDocumentFile(file);
-                setDocumentPreviewUrl(dataUrl);
-                setDocFromCompanion(true);
-                setCompanionNotification(`📸 Received Live Document #${latest.sequence_id} from Field Officer (${latest.device_id || 'Terminal'})`);
-              } else {
-                setLivePhotoFile(file);
-                setLivePhotoPreviewUrl(dataUrl);
-                setPhotoFromCompanion(true);
-                setCompanionNotification(`👤 Received Live Facial Capture #${latest.sequence_id} from Field Officer (${latest.device_id || 'Terminal'})`);
+              if (resolved) {
+                const { file, dataUrl } = resolved;
+                if (mode === 'document') {
+                  setDocumentFile(file);
+                  setDocumentPreviewUrl(dataUrl);
+                  setDocFromCompanion(true);
+                  setCompanionNotification(`📸 Received Live Document #${latest.sequence_id} from Field Officer (${latest.device_id || 'Terminal'})`);
+                } else {
+                  setLivePhotoFile(file);
+                  setLivePhotoPreviewUrl(dataUrl);
+                  setPhotoFromCompanion(true);
+                  setCompanionNotification(`👤 Received Live Facial Capture #${latest.sequence_id} from Field Officer (${latest.device_id || 'Terminal'})`);
+                }
+
+                playNotificationChime();
+
+                setTimeout(() => {
+                  if (isMounted) setCompanionNotification(null);
+                }, 7000);
               }
-
-              playNotificationChime();
-
-              setTimeout(() => {
-                if (isMounted) setCompanionNotification(null);
-              }, 7000);
             }
           }
         }

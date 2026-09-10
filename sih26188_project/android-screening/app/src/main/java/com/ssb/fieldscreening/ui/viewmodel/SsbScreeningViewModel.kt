@@ -132,7 +132,13 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                         autoConnectOnLaunch()
                     }
                     override fun onLost(network: Network) {
-                        Log.d("[SsbViewModel]", "Wi-Fi network lost, setting OFFLINE_OUTBOX")
+                        Log.d("[SsbViewModel]", "Wi-Fi network lost")
+                        // Do not drop connection to OFFLINE_OUTBOX if currently connected via USB reverse tether
+                        if (_uiState.value.connectivityMode == ConnectivityMode.USB_TETHERED ||
+                            _uiState.value.customGatewayUrl.contains("127.0.0.1")) {
+                            Log.d("[SsbViewModel]", "Active mode is USB_TETHERED, preserving loopback connection despite Wi-Fi drop")
+                            return
+                        }
                         viewModelScope.launch(Dispatchers.Main) {
                             _uiState.update {
                                 it.copy(
@@ -169,6 +175,17 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
     private fun autoConnectOnLaunch() {
         viewModelScope.launch(Dispatchers.IO) {
             val app = getApplication<Application>()
+
+            // Priority 0: Check if USB reverse tunnel is active on http://127.0.0.1:8000
+            val (usbOk, _) = WifiUtils.testGateway("http://127.0.0.1:8000", 600L)
+            if (usbOk) {
+                Log.i("[SsbViewModel]", "USB reverse tunnel active on 127.0.0.1:8000, auto-connecting via USB_TETHERED")
+                withContext(Dispatchers.Main) {
+                    setConnectivityMode(ConnectivityMode.USB_TETHERED)
+                }
+                return@launch
+            }
+
             val savedUrl = WifiUtils.getLastConnectedGateway(app)
             if (!savedUrl.isNullOrBlank()) {
                 Log.d("[SsbViewModel]", "Verifying saved gateway URL on launch: $savedUrl (1500ms timeout)")
@@ -221,10 +238,16 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         val app = getApplication<Application>()
         WifiUtils.saveLastConnectedGateway(app, normalized)
 
+        val targetMode = if (normalized.contains("127.0.0.1")) {
+            ConnectivityMode.USB_TETHERED
+        } else {
+            ConnectivityMode.AIR_GAPPED_WIFI
+        }
+
         _uiState.update {
             it.copy(
                 customGatewayUrl = normalized,
-                connectivityMode = ConnectivityMode.AIR_GAPPED_WIFI
+                connectivityMode = targetMode
             )
         }
 
@@ -350,14 +373,26 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun setConnectivityMode(mode: ConnectivityMode) {
-        _uiState.update {
-            if (mode == ConnectivityMode.OFFLINE_OUTBOX) {
+        val app = getApplication<Application>()
+        if (mode == ConnectivityMode.USB_TETHERED) {
+            val endpoint = mode.endpoint.ifBlank { "http://127.0.0.1:8000" }
+            WifiUtils.saveLastConnectedGateway(app, endpoint)
+            _uiState.update {
+                it.copy(
+                    connectivityMode = mode,
+                    customGatewayUrl = endpoint
+                )
+            }
+        } else if (mode == ConnectivityMode.OFFLINE_OUTBOX) {
+            _uiState.update {
                 it.copy(
                     connectivityMode = mode,
                     gatewayHealth = null,
                     gatewayLatencyMs = 0L
                 )
-            } else {
+            }
+        } else {
+            _uiState.update {
                 it.copy(
                     connectivityMode = mode
                 )
@@ -421,6 +456,7 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         healthPollingJob?.cancel()
         healthPollingJob = viewModelScope.launch(Dispatchers.IO) {
             var heartbeatCounter = 0
+            var wasConnected = false
             while (isActive) {
                 val currentState = _uiState.value
                 if (currentState.connectivityMode != ConnectivityMode.OFFLINE_OUTBOX && currentState.customGatewayUrl.isNotBlank()) {
@@ -429,11 +465,18 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                         currentState.customGatewayUrl
                     )
                     if (health != null && latency > 0) {
+                        val transitionedToOnline = !wasConnected
+                        wasConnected = true
                         _uiState.update {
                             it.copy(
                                 gatewayHealth = health,
                                 gatewayLatencyMs = latency
                             )
+                        }
+                        if (transitionedToOnline) {
+                            withContext(Dispatchers.Main) {
+                                syncPendingOutbox()
+                            }
                         }
                         // Send heartbeat every 2nd iteration (~6s)
                         heartbeatCounter++
@@ -453,6 +496,7 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                             )
                         }
                     } else {
+                        wasConnected = false
                         _uiState.update {
                             it.copy(
                                 gatewayHealth = null,
@@ -461,6 +505,7 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
                         }
                     }
                 } else {
+                    wasConnected = false
                     _uiState.update {
                         it.copy(
                             gatewayHealth = null,
@@ -516,14 +561,28 @@ class SsbScreeningViewModel(application: Application) : AndroidViewModel(applica
         val normalized = WifiUtils.normalizeGatewayUrl(url)
         if (normalized.isNotBlank()) {
             WifiUtils.saveLastConnectedGateway(getApplication<Application>(), normalized)
-        }
-        _uiState.update {
-            it.copy(
-                customGatewayUrl = normalized,
-                gatewayHealth = null,
-                gatewayLatencyMs = 0L,
-                connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
-            )
+            val targetMode = if (normalized.contains("127.0.0.1")) {
+                ConnectivityMode.USB_TETHERED
+            } else {
+                ConnectivityMode.AIR_GAPPED_WIFI
+            }
+            _uiState.update {
+                it.copy(
+                    customGatewayUrl = normalized,
+                    connectivityMode = targetMode
+                )
+            }
+            checkGatewayHealth()
+            startHealthPolling()
+        } else {
+            _uiState.update {
+                it.copy(
+                    customGatewayUrl = "",
+                    gatewayHealth = null,
+                    gatewayLatencyMs = 0L,
+                    connectivityMode = ConnectivityMode.OFFLINE_OUTBOX
+                )
+            }
         }
     }
 

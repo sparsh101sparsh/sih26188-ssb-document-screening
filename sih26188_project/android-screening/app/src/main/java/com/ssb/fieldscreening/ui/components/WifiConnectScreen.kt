@@ -156,7 +156,7 @@ fun WifiConnectScreen(
             QrScannerView(
                 onQrCodeDetected = { qrPayload ->
                     isScanningQr = false
-                    val parsed = WifiUtils.parseQrPayload(qrPayload)
+                    val parsed = WifiUtils.parseQrPairingInfo(qrPayload)
                     testAndConnect(parsed.url)
                 },
                 onClose = {
@@ -343,10 +343,10 @@ fun WifiConnectScreen(
                     }
 
                     Text(
-                        text = "On your laptop → Open the SSB Web App → Click 'Connect Wi-Fi' button → A QR code will appear on the laptop screen → Point this phone's camera at it.",
-                        fontSize = 11.sp,
+                        text = "1. Open SSB Web App on laptop\n2. Click 'Connect Wi-Fi'\n3. Point this phone at the QR code",
+                        fontSize = 11.5.sp,
                         color = SsbColors.TextSecondary,
-                        lineHeight = 15.sp
+                        lineHeight = 16.sp
                     )
 
                     Button(
@@ -418,7 +418,7 @@ fun WifiConnectScreen(
                                     urlInput = found
                                     testAndConnect(found)
                                 } else {
-                                    errorMessage = "No laptop found on Wi-Fi. Make sure:\n1. Your laptop runs the SSB Web App\n2. Both devices are on the same Wi-Fi\n3. Try scanning the QR code: open the SSB Web App on your laptop → tap 'Connect Wi-Fi' → scan the QR code shown on your laptop screen with this phone."
+                                    errorMessage = "No laptop found on Wi-Fi. Make sure:\n1. Your laptop runs the SSB Web App\n2. Both devices are on the same Wi-Fi\n3. Try scanning QR code: in laptop Web App click 'Connect Wi-Fi' and scan with phone."
                                 }
                             }
                         },

@@ -22,6 +22,7 @@ import {
   deleteCompanionGalleryItem,
   clearCompanionCapture,
   simulateCompanionUpload,
+  API_BASE_URL,
 } from '../services/api';
 
 export interface CompanionGalleryModalProps {
@@ -42,6 +43,52 @@ function base64ToFile(dataUrl: string, filename: string): File {
     u8arr[n] = bstr.charCodeAt(n);
   }
   return new File([u8arr], filename, { type: mime });
+}
+
+export function resolveImageUrl(item?: CompanionCaptureState | null): string | null {
+  if (!item) return null;
+  if (item.image_data && item.image_data.trim().length > 0) {
+    return item.image_data;
+  }
+  if (item.image_url && item.image_url.trim().length > 0) {
+    if (item.image_url.startsWith('http://') || item.image_url.startsWith('https://')) {
+      return item.image_url;
+    }
+    return `${API_BASE_URL.replace(/\/+$/, '')}/${item.image_url.replace(/^\/+/, '')}`;
+  }
+  return null;
+}
+
+export async function resolveCaptureFileAndDataUrl(
+  item: CompanionCaptureState,
+  defaultFilename: string
+): Promise<{ file: File; dataUrl: string } | null> {
+  const resolvedUrl = resolveImageUrl(item);
+  if (!resolvedUrl) return null;
+
+  if (resolvedUrl.startsWith('data:')) {
+    const file = base64ToFile(resolvedUrl, item.filename || defaultFilename);
+    return { file, dataUrl: resolvedUrl };
+  }
+
+  try {
+    const res = await fetch(resolvedUrl);
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    const file = new File([blob], item.filename || defaultFilename, {
+      type: blob.type || 'image/jpeg',
+    });
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+    return { file, dataUrl };
+  } catch (err) {
+    console.warn('Failed to fetch capture image blob:', err);
+    return null;
+  }
 }
 
 export const CompanionGalleryModal: React.FC<CompanionGalleryModalProps> = ({
@@ -89,18 +136,24 @@ export const CompanionGalleryModal: React.FC<CompanionGalleryModalProps> = ({
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleUseAsDocument = (item: CompanionCaptureState) => {
-    if (!item.image_data) return;
-    const file = base64ToFile(item.image_data, item.filename || `companion_doc_${item.sequence_id}.jpg`);
-    onSelectDocument(file, item.image_data);
+  const handleUseAsDocument = async (item: CompanionCaptureState) => {
+    const res = await resolveCaptureFileAndDataUrl(item, `companion_doc_${item.sequence_id}.jpg`);
+    if (!res) {
+      showToast('Error loading capture image.');
+      return;
+    }
+    onSelectDocument(res.file, res.dataUrl);
     showToast(`Loaded Sequence #${item.sequence_id} into Primary Document Bay`);
     onClose();
   };
 
-  const handleUseAsLivePhoto = (item: CompanionCaptureState) => {
-    if (!item.image_data) return;
-    const file = base64ToFile(item.image_data, item.filename || `companion_face_${item.sequence_id}.jpg`);
-    onSelectLivePhoto(file, item.image_data);
+  const handleUseAsLivePhoto = async (item: CompanionCaptureState) => {
+    const res = await resolveCaptureFileAndDataUrl(item, `companion_face_${item.sequence_id}.jpg`);
+    if (!res) {
+      showToast('Error loading capture image.');
+      return;
+    }
+    onSelectLivePhoto(res.file, res.dataUrl);
     showToast(`Loaded Sequence #${item.sequence_id} into Biometric Portrait Bay`);
     onClose();
   };
@@ -327,9 +380,9 @@ export const CompanionGalleryModal: React.FC<CompanionGalleryModalProps> = ({
                   >
                     {/* Top image thumbnail */}
                     <div className="relative h-44 bg-slate-950 flex items-center justify-center overflow-hidden">
-                      {item.image_data ? (
+                      {resolveImageUrl(item) ? (
                         <img
-                          src={item.image_data}
+                          src={resolveImageUrl(item)!}
                           alt={item.filename || 'Capture'}
                           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                         />
@@ -450,7 +503,7 @@ export const CompanionGalleryModal: React.FC<CompanionGalleryModalProps> = ({
 
               <div className="h-[60vh] max-h-[500px] flex items-center justify-center bg-black rounded-xl overflow-hidden">
                 <img
-                  src={selectedPreview.image_data || ''}
+                  src={resolveImageUrl(selectedPreview) || ''}
                   alt="Enlarged capture"
                   className="max-h-full max-w-full object-contain"
                 />

@@ -15,16 +15,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Cable
 import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -50,7 +53,8 @@ fun WifiStatusBanner(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val isConnected = connectivityMode == ConnectivityMode.AIR_GAPPED_WIFI && latencyMs > 0
+    val isUsb = connectivityMode == ConnectivityMode.USB_TETHERED || gatewayUrl.contains("127.0.0.1")
+    val isConnected = (connectivityMode == ConnectivityMode.AIR_GAPPED_WIFI || connectivityMode == ConnectivityMode.USB_TETHERED) && latencyMs > 0
     val isOffline = connectivityMode == ConnectivityMode.OFFLINE_OUTBOX
 
     val infiniteTransition = rememberInfiniteTransition(label = "wifipulse")
@@ -99,7 +103,10 @@ fun WifiStatusBanner(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.weight(1f, fill = false),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 // Status dot
                 Box(
                     modifier = Modifier
@@ -109,37 +116,44 @@ fun WifiStatusBanner(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Icon(
-                    imageVector = if (isConnected) Icons.Default.Wifi else Icons.Default.WifiOff,
+                    imageVector = when {
+                        isConnected && isUsb -> Icons.Default.Cable
+                        isConnected -> Icons.Default.Wifi
+                        else -> Icons.Default.WifiOff
+                    },
                     contentDescription = null,
                     tint = textColor,
-                    modifier = Modifier.size(15.dp)
+                    modifier = Modifier.size(16.dp)
                 )
-                Spacer(modifier = Modifier.width(6.dp))
-                Column {
+                Spacer(modifier = Modifier.width(8.dp))
+                Column(modifier = Modifier.weight(1f, fill = false)) {
                     Text(
                         text = when {
+                            isConnected && isUsb -> "Connected via USB Cable"
                             isConnected -> "Connected to Laptop Web App"
                             isOffline -> "Offline Mode — Tap to Pair"
-                            else -> "Not Connected — Tap to Pair via QR / Wi-Fi"
+                            else -> "Not Connected — Tap to Pair via USB / Wi-Fi"
                         },
-                        fontSize = 11.5.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         color = textColor,
                         maxLines = 1
                     )
+                    Spacer(modifier = Modifier.height(2.dp))
                     if (isConnected) {
                         val cleanUrl = gatewayUrl.removePrefix("http://")
+                        val linkType = if (isUsb) "USB Reverse Tether" else "Air-Gapped Wi-Fi"
                         Text(
-                            text = "$cleanUrl  •  ${latencyMs}ms latency",
-                            fontSize = 9.5.sp,
+                            text = "$linkType • $cleanUrl • ${latencyMs}ms",
+                            fontSize = 10.sp,
                             fontFamily = FontFamily.Monospace,
                             color = textColor.copy(alpha = 0.85f),
                             maxLines = 1
                         )
                     } else {
                         Text(
-                            text = "Tap to scan QR code on laptop screen",
-                            fontSize = 9.5.sp,
+                            text = "Tap to connect via USB or scan QR code",
+                            fontSize = 10.sp,
                             color = textColor.copy(alpha = 0.80f),
                             maxLines = 1
                         )
@@ -147,28 +161,36 @@ fun WifiStatusBanner(
                 }
             }
 
+            Spacer(modifier = Modifier.width(8.dp))
+
             // Quick Action Tag
-            Box(
+            Surface(
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
-                    .background(textColor.copy(alpha = 0.15f))
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                    .clickable(onClick = onClick),
+                color = textColor.copy(alpha = 0.15f),
+                shape = RoundedCornerShape(6.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     if (!isConnected) {
                         Icon(
                             imageVector = Icons.Default.QrCodeScanner,
                             contentDescription = null,
                             tint = textColor,
-                            modifier = Modifier.size(11.dp)
+                            modifier = Modifier.size(12.dp)
                         )
-                        Spacer(modifier = Modifier.width(3.dp))
+                        Spacer(modifier = Modifier.width(4.dp))
                     }
                     Text(
                         text = if (isConnected) "Change" else "Pair QR",
-                        fontSize = 9.5.sp,
+                        fontSize = 10.5.sp,
                         fontWeight = FontWeight.Bold,
-                        color = textColor
+                        color = textColor,
+                        maxLines = 1,
+                        softWrap = false
                     )
                 }
             }
