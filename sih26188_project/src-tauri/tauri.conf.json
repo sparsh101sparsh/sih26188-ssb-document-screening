@@ -12,12 +12,13 @@
     "windows": [
       {
         "title": "SSB Document Screening — SIH26188",
-        "width": 1400,
-        "height": 900,
-        "minWidth": 1100,
-        "minHeight": 700,
+        "width": 1360,
+        "height": 880,
+        "minWidth": 980,
+        "minHeight": 650,
         "resizable": true,
         "center": true
+
       }
     ],
     "security": {

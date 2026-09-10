@@ -67,20 +67,21 @@ export const IngestionPanel: React.FC<IngestionPanelProps> = ({
   return (
     <div className="bg-white rounded-2xl border border-slate-200/70 shadow-xs overflow-hidden mb-6">
       {/* 1. Header: Sleek Section Bar */}
-      <div className="bg-white border-b border-slate-100 px-5 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center">
+      <div className="bg-white border-b border-slate-100 px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0">
             <Scan className="w-4 h-4" />
           </div>
-          <div>
-            <h3 className="font-serif font-black text-slate-900 text-xs sm:text-sm tracking-wide">
+          <div className="min-w-0">
+            <h3 className="font-serif font-black text-slate-900 text-xs sm:text-sm tracking-wide truncate">
               PRIMARY SCREENING & INGESTION DECK
             </h3>
-            <p className="text-slate-400 text-[10.5px] font-medium">
+            <p className="text-slate-400 text-[10.5px] font-medium truncate">
               Dual-Channel Optical Document OCR & 1:1 Live Biometric Stream Ingestion
             </p>
           </div>
         </div>
+
 
         <div className="flex items-center gap-2 shrink-0 text-xs">
           {isCompanionConnected ? (
