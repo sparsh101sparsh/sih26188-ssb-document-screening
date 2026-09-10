@@ -408,12 +408,13 @@ export function App() {
 
       <div
         id="main-content"
-        className={`min-h-screen bg-[#F8FAFC] font-sans text-slate-800 antialiased transition-all duration-1000 ease-out flex flex-col ${
+        className={`min-h-screen bg-[#F8FAFC] font-sans text-slate-800 antialiased transition-all duration-1000 ease-out flex flex-col overflow-x-hidden w-full ${
           showIntro && !introFadingOut
             ? 'opacity-0 pointer-events-none transform translate-y-5 scale-[0.96]'
             : 'opacity-100 pointer-events-auto transform translate-y-0 scale-100'
         }`}
       >
+
         {/* 1. Top Accessibility Strip (UIDAI Standard) */}
         <GovTopBar
           onOpenSecurityProtocols={() => { setSettingsHubTab('security'); setIsSettingsHubOpen(true); }}

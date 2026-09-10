@@ -76,6 +76,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     background-color: #F8FAFC;
+    overflow-x: hidden;
   }
 
   body {
@@ -85,7 +86,9 @@
     letter-spacing: -0.01em;
     line-height: 1.5;
     min-height: 100vh;
+    overflow-x: hidden;
   }
+
 
   /* Defense Terminal Clean Scrollbars */
   ::-webkit-scrollbar {
